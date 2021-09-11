@@ -54,8 +54,7 @@ in stdenv.mkDerivation (rec {
   buildInputs = [ libxml2 libffi ]
     ++ optional enablePFM libpfm; # exegesis
 
-  propagatedBuildInputs = optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ ncurses ]
-    ++ [ zlib ];
+  propagatedBuildInputs = [ ncurses zlib ];
 
   patches = [
     ./gnu-install-dirs.patch

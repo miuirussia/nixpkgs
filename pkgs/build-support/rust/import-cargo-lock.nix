@@ -12,15 +12,14 @@ let
   # Parse a git source into different components.
   parseGit = src:
     let
-      parts = builtins.match ''git\+([^?]+)(\?(rev|tag|branch)=(.*))?#(.*)'' src;
-      type = builtins.elemAt parts 2; # rev, tag or branch
-      value = builtins.elemAt parts 3;
+      parts = builtins.match ''git\+([^?]+)(\?rev=(.*))?#(.*)?'' src;
+      rev = builtins.elemAt parts 2;
     in
       if parts == null then null
       else {
         url = builtins.elemAt parts 0;
-        sha = builtins.elemAt parts 4;
-      } // lib.optionalAttrs (type != null) { inherit type value; };
+        sha = builtins.elemAt parts 3;
+      } // lib.optionalAttrs (rev != null) { inherit rev; };
 
   packages = (builtins.fromTOML (builtins.readFile lockFile)).package;
 
@@ -138,7 +137,7 @@ let
         cat > $out/.cargo-config <<EOF
         [source."${gitParts.url}"]
         git = "${gitParts.url}"
-        ${lib.optionalString (gitParts ? type) "${gitParts.type} = \"${gitParts.value}\""}
+        ${lib.optionalString (gitParts ? rev) "rev = \"${gitParts.rev}\""}
         replace-with = "vendored-sources"
         EOF
       ''

@@ -5,13 +5,13 @@
 
 buildPythonPackage rec {
   pname = "skytemple-ssb-debugger";
-  version = "1.3.0";
+  version = "1.2.5";
 
   src = fetchFromGitHub {
     owner = "SkyTemple";
     repo = pname;
     rev = version;
-    sha256 = "12v0071125m8xjcp2hxm9qvs0qw4hdhkx8r3gbl0plm22vl3fk0d";
+    sha256 = "0jkx75z8j03jfr9kzd40ip0fy24sfc7f2x430mf48xin272mc87q";
   };
 
   buildInputs = [ gobject-introspection gtk3 gtksourceview3 ];

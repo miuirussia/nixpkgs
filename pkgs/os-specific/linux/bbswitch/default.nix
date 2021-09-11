@@ -36,8 +36,6 @@ stdenv.mkDerivation {
       --replace "/lib/modules" "${kernel.dev}/lib/modules"
   '';
 
-  makeFlags = kernel.makeFlags;
-
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/misc
     cp bbswitch.ko $out/lib/modules/${kernel.modDirVersion}/misc

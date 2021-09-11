@@ -1,8 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{ lib, fetchFromGitHub, pythonPackages }:
 
-python3Packages.buildPythonApplication rec {
-  pname = "zk-shell";
+pythonPackages.buildPythonApplication rec {
   version = "1.0.0";
+  name = "zk-shell-" + version;
 
   src = fetchFromGitHub {
     owner = "rgs1";
@@ -11,23 +11,18 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0zisvvlclsf4sdh7dpqcl1149xbxw6pi1aqcwjbqblgf8m4nm0c7";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    ansi
-    kazoo
-    nose
-    six
-    tabulate
-    twitter
-  ];
+  propagatedBuildInputs = (with pythonPackages; [
+    ansi kazoo nose six tabulate twitter
+  ]);
 
-  # requires a running zookeeper, don't know how to fix that for the moment
+  #requires a running zookeeper, don't know how to fix that for the moment
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "A powerful & scriptable shell for Apache ZooKeeper";
     homepage = "https://github.com/rgs1/zk_shell";
-    license = licenses.asl20;
-    maintainers = [ maintainers.mahe ];
-    platforms = platforms.all;
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.mahe ];
+    platforms = lib.platforms.all;
   };
 }
