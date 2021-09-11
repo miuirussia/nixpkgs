@@ -1,0 +1,40 @@
+name: Merge upstream branches
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 * * 6'
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: nixpkgs-final
+          fetch-depth: 0
+      - uses: actions/checkout@v2
+        with:
+          path: nixpkgs-original
+          repository: NixOS/nixpkgs
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          persist-credentials: true
+      - name: Merge upstream
+        run: |
+          cd ./nixpkgs-original
+          git apply ../nixpkgs-final/patches/*.patch || true
+          cd ..
+          rsync -avu --delete ./nixpkgs-original/doc/ ./nixpkgs-final/doc
+          rsync -avu --delete ./nixpkgs-original/lib/ ./nixpkgs-final/lib
+          rsync -avu --delete ./nixpkgs-original/maintainers/ ./nixpkgs-final/maintainers
+          rsync -avu --delete ./nixpkgs-original/nixos/ ./nixpkgs-final/nixos
+          rsync -avu --delete ./nixpkgs-original/pkgs/ ./nixpkgs-final/pkgs
+          cp -f ./nixpkgs-original/{.editorconfig,.gitattributes,.gitignore,.version,CONTRIBUTING.md,COPYING,README.md,default.nix,flake.nix} ./nixpkgs-final
+      - name: Push changes
+        run: |
+          cd ./nixpkgs-final
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          git add .
+          git commit -m "Automatic merge from NixOS/nixpkgs"
+          git push origin nixpkgs-unstable
