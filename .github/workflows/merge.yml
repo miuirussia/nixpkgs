@@ -15,6 +15,7 @@ jobs:
         with:
           path: nixpkgs-original
           repository: NixOS/nixpkgs
+          ref: nixpkgs-unstable
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           persist-credentials: true
       - name: Merge upstream
