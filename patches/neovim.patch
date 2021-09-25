@@ -1,0 +1,29 @@
+diff --git a/pkgs/applications/editors/neovim/ruby_provider/Gemfile.lock b/pkgs/applications/editors/neovim/ruby_provider/Gemfile.lock
+index 7a1975c3..353deae8 100644
+--- a/pkgs/applications/editors/neovim/ruby_provider/Gemfile.lock
++++ b/pkgs/applications/editors/neovim/ruby_provider/Gemfile.lock
+@@ -3,7 +3,7 @@ GEM
+   specs:
+     msgpack (1.4.2)
+     multi_json (1.15.0)
+-    neovim (0.8.1)
++    neovim (0.9.0)
+       msgpack (~> 1.1)
+       multi_json (~> 1.0)
+ 
+diff --git a/pkgs/applications/editors/neovim/ruby_provider/gemset.nix b/pkgs/applications/editors/neovim/ruby_provider/gemset.nix
+index 60dcc8ba..ce7c81a3 100644
+--- a/pkgs/applications/editors/neovim/ruby_provider/gemset.nix
++++ b/pkgs/applications/editors/neovim/ruby_provider/gemset.nix
+@@ -25,9 +25,9 @@
+     platforms = [];
+     source = {
+       remotes = ["https://rubygems.org"];
+-      sha256 = "0lfrbi4r6lagn2q92lyivk2w22i2spw0jbdzxxlcfj2zhv2wnvvi";
++      sha256 = "sha256-hRI43XGHGeqxMvpFjp0o79GGReiLXTkhwh5LYq6AQL4=";
+       type = "gem";
+     };
+-    version = "0.8.1";
++    version = "0.9.0";
+   };
+ }
