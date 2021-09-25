@@ -1,0 +1,21 @@
+diff --git a/pkgs/tools/package-management/nix/default.nix b/pkgs/tools/package-management/nix/default.nix
+index 61c6ab3e..80c11901 100644
+--- a/pkgs/tools/package-management/nix/default.nix
++++ b/pkgs/tools/package-management/nix/default.nix
+@@ -234,13 +234,13 @@ in rec {
+   nixUnstable = lib.lowPrio (callPackage common rec {
+     pname = "nix";
+     version = "2.4${suffix}";
+-    suffix = "pre20210908_${lib.substring 0 7 src.rev}";
++    suffix = "pre20210924_${lib.substring 0 7 src.rev}";
+ 
+     src = fetchFromGitHub {
+       owner = "NixOS";
+       repo = "nix";
+-      rev = "3c56f62093601143838af923195f630d8ffae2d4";
+-      sha256 = "sha256-pjdzLOEt8i1NQe4drLpp8+LrRd2MgsISSQEsMebz2kc=";
++      rev = "a0bb5c4130268edbd368a4a07d4a30f1064e9c86";
++      sha256 = "sha256-jd3MRDYlVRkgdCjohD5wFf/2lF+/z3jhoPRW5nPwqCg=";
+     };
+ 
+     boehmgc = boehmgc_nixUnstable;
