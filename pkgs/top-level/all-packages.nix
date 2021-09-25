@@ -141,6 +141,8 @@ with pkgs;
     autoconf = autoconf269;
   };
 
+  autorestic = callPackage ../tools/backup/autorestic { };
+
   autoPatchelfHook = makeSetupHook { name = "auto-patchelf-hook"; }
     ../build-support/setup-hooks/auto-patchelf.sh;
 
@@ -960,6 +962,8 @@ with pkgs;
     inherit (lxqt) qtermwidget;
   };
 
+  darktile = callPackage ../applications/terminal-emulators/darktile { };
+
   eterm = callPackage ../applications/terminal-emulators/eterm { };
 
   evilvte = callPackage ../applications/terminal-emulators/evilvte (config.evilvte or {});
@@ -1093,6 +1097,10 @@ with pkgs;
   amazon-ecs-cli = callPackage ../tools/virtualization/amazon-ecs-cli { };
 
   amber = callPackage ../tools/text/amber {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
+
+  amber-secret = callPackage ../tools/security/amber {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
@@ -2771,6 +2779,8 @@ with pkgs;
 
   firestarter = callPackage ../applications/misc/firestarter { };
 
+  fits-cloudctl = callPackage ../tools/admin/fits-cloudctl { };
+
   frangipanni = callPackage ../tools/text/frangipanni { };
 
   fselect = callPackage ../tools/misc/fselect { };
@@ -2986,6 +2996,8 @@ with pkgs;
   ink = callPackage ../tools/misc/ink { };
 
   inklecate = callPackage ../development/compilers/inklecate {};
+
+  intensity-normalization = with python3Packages; toPythonApplication intensity-normalization;
 
   interactsh = callPackage ../tools/misc/interactsh { };
 
@@ -4713,6 +4725,8 @@ with pkgs;
   enblend-enfuse = callPackage ../tools/graphics/enblend-enfuse { };
 
   endlessh = callPackage ../servers/endlessh { };
+
+  ericw-tools = callPackage ../applications/misc/ericw-tools { };
 
   cryfs = callPackage ../tools/filesystems/cryfs { };
 
@@ -7049,6 +7063,8 @@ with pkgs;
 
   ltris = callPackage ../games/ltris { };
 
+  lunatic = callPackage ../development/interpreters/lunatic { };
+
   lv = callPackage ../tools/text/lv { };
 
   lxc = callPackage ../os-specific/linux/lxc {
@@ -8013,6 +8029,8 @@ with pkgs;
 
   pamtester = callPackage ../tools/security/pamtester { };
 
+  pantheon-tweaks = callPackage ../applications/system/pantheon-tweaks { };
+
   paperless-ng = callPackage ../applications/office/paperless-ng { };
 
   paperwork = callPackage ../applications/office/paperwork/paperwork-gtk.nix { };
@@ -8348,6 +8366,8 @@ with pkgs;
   proxmark3-rrg = libsForQt5.callPackage ../tools/security/proxmark3/proxmark3-rrg.nix { };
 
   proxychains = callPackage ../tools/networking/proxychains { };
+
+  proxychains-ng = callPackage ../tools/networking/proxychains-ng { };
 
   proxify = callPackage ../tools/networking/proxify { };
 
@@ -9711,6 +9731,10 @@ with pkgs;
   trash-cli = callPackage ../tools/misc/trash-cli { };
 
   trebleshot = libsForQt5.callPackage ../applications/networking/trebleshot { };
+
+  trenchbroom = libsForQt5.callPackage ../applications/misc/trenchbroom {
+    inherit (xorg) libXxf86vm;
+  };
 
   trickle = callPackage ../tools/networking/trickle {};
 
@@ -12349,6 +12373,7 @@ with pkgs;
   cargo-kcov = callPackage ../tools/package-management/cargo-kcov { };
   cargo-graph = callPackage ../tools/package-management/cargo-graph { };
   cargo-license = callPackage ../tools/package-management/cargo-license { };
+  cargo-llvm-lines = callPackage ../development/tools/rust/cargo-llvm-lines { };
   cargo-outdated = callPackage ../tools/package-management/cargo-outdated {};
   cargo-release = callPackage ../tools/package-management/cargo-release {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -12376,6 +12401,10 @@ with pkgs;
   cargo-deny = callPackage ../development/tools/rust/cargo-deny {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+  cargo-dephell = callPackage ../development/tools/rust/cargo-dephell {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
+  cargo-diet = callPackage ../development/tools/rust/cargo-diet { };
   cargo-embed = callPackage ../development/tools/rust/cargo-embed {
     inherit (darwin.apple_sdk.frameworks) AppKit;
   };
@@ -12410,8 +12439,12 @@ with pkgs;
   };
   cargo-readme = callPackage ../development/tools/rust/cargo-readme {};
   cargo-sort = callPackage ../development/tools/rust/cargo-sort { };
+  cargo-spellcheck = callPackage ../development/tools/rust/cargo-spellcheck { };
   cargo-sweep = callPackage ../development/tools/rust/cargo-sweep { };
   cargo-sync-readme = callPackage ../development/tools/rust/cargo-sync-readme {};
+  cargo-tally = callPackage ../development/tools/rust/cargo-tally {
+    inherit (darwin.apple_sdk.frameworks) DiskArbitration Foundation IOKit;
+  };
   cargo-udeps = callPackage ../development/tools/rust/cargo-udeps {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security SystemConfiguration;
   };
@@ -13047,7 +13080,7 @@ with pkgs;
   pipewire = callPackage ../development/libraries/pipewire {};
   pipewire_0_2 = callPackage ../development/libraries/pipewire/0.2.nix {};
 
-  pyradio = callPackage ../applications/radio/pyradio {};
+  pyradio = callPackage ../applications/audio/pyradio {};
 
   pyrex = pyrex095;
 
@@ -13132,7 +13165,10 @@ with pkgs;
 
   self = pkgsi686Linux.callPackage ../development/interpreters/self { };
 
-  spark = callPackage ../applications/networking/cluster/spark { };
+  inherit (callPackages ../applications/networking/cluster/spark { hadoop = hadoop_3_1; })
+    spark3
+    spark2;
+  spark = spark3;
 
   sparkleshare = callPackage ../applications/version-management/sparkleshare { };
 
@@ -19514,6 +19550,8 @@ with pkgs;
 
   yubikey-agent = callPackage ../tools/security/yubikey-agent { };
 
+  yubikey-touch-detector = callPackage ../tools/security/yubikey-touch-detector { };
+
   zchunk = callPackage ../development/libraries/zchunk { };
 
   zeitgeist = callPackage ../development/libraries/zeitgeist { };
@@ -19572,6 +19610,10 @@ with pkgs;
     inherit (haskellPackages) Agda;
   };
   agda = agdaPackages.agda;
+
+  ### DEVELOPMENT / LIBRARIES / BASH
+
+  bash-preexec = callPackage ../development/libraries/bash/bash-preexec { };
 
   ### DEVELOPMENT / LIBRARIES / JAVA
 
@@ -19870,11 +19912,11 @@ with pkgs;
   cassandra = cassandra_3_11;
 
   apache-jena = callPackage ../servers/nosql/apache-jena/binary.nix {
-    java = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    java = jre;
   };
 
   apache-jena-fuseki = callPackage ../servers/nosql/apache-jena/fuseki-binary.nix {
-    java = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    java = jre;
   };
 
   apcupsd = callPackage ../servers/apcupsd { };
@@ -20132,9 +20174,11 @@ with pkgs;
 
   leafnode = callPackage ../servers/news/leafnode { };
 
-  lemmy = callPackage ../servers/web-apps/lemmy {
+  lemmy-server = callPackage ../servers/web-apps/lemmy/server.nix {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+
+  lemmy-ui = callPackage ../servers/web-apps/lemmy/ui.nix { };
 
   lighttpd = callPackage ../servers/http/lighttpd { };
 
@@ -21791,6 +21835,8 @@ with pkgs;
   rfkill_udev = callPackage ../os-specific/linux/rfkill/udev.nix { };
 
   riscv-pk = callPackage ../misc/riscv-pk { };
+
+  ristate = callPackage ../tools/misc/ristate { };
 
   roccat-tools = callPackage ../os-specific/linux/roccat-tools { };
 
@@ -23498,6 +23544,8 @@ with pkgs;
 
   cipher = callPackage ../applications/misc/cipher { };
 
+  clapper = callPackage ../applications/video/clapper { };
+
   claws-mail-gtk2 = callPackage ../applications/networking/mailreaders/claws-mail {
     inherit (xorg) libSM;
     useGtk3 = false;
@@ -24311,7 +24359,9 @@ with pkgs;
 
   fbida = callPackage ../applications/graphics/fbida { };
 
-  fclones = callPackage ../tools/misc/fclones { };
+  fclones = callPackage ../tools/misc/fclones {
+    inherit (darwin.apple_sdk.frameworks) AppKit;
+  };
 
   fcp = callPackage ../tools/misc/fcp { };
 
@@ -24551,7 +24601,7 @@ with pkgs;
   gitolite = callPackage ../applications/version-management/gitolite { };
 
   gitoxide = callPackage ../applications/version-management/gitoxide {
-    inherit (darwin.apple_sdk.frameworks) Security;
+    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
 
   inherit (gnome) gitg;
@@ -27009,7 +27059,7 @@ with pkgs;
 
   rsclock = callPackage ../applications/misc/rsclock { };
 
-  rstudio = libsForQt514.callPackage ../applications/editors/rstudio {
+  rstudio = libsForQt5.callPackage ../applications/editors/rstudio {
     boost = boost166;
     llvmPackages = llvmPackages_7;
     jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
@@ -29662,6 +29712,8 @@ with pkgs;
   steam-tui = callPackage ../games/steam-tui { };
 
   steamcmd = steamPackages.steamcmd;
+
+  steam-acf = callPackage ../tools/games/steam-acf { };
 
   protontricks = python3Packages.callPackage ../tools/package-management/protontricks {
     winetricks = winetricks.override {

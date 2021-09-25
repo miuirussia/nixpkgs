@@ -12,6 +12,7 @@
 , rtmpSupport ? true
 , phantomjsSupport ? false
 , hlsEncryptedSupport ? true
+, withAlias ? false # Provides bin/youtube-dl for backcompat
 }:
 
 buildPythonPackage rec {
@@ -26,12 +27,6 @@ buildPythonPackage rec {
     version = builtins.replaceStrings [ ".0" ] [ "." ] version;
     sha256 = "sha256-yn53zbBVuiaD31sIB6qxweEgy+AsjzXZ0yk9lNva6mM=";
   };
-
-  # build_lazy_extractors assumes this directory exists but it is not present in
-  # the PyPI package
-  postPatch = ''
-    mkdir -p ytdlp_plugins/extractor
-  '';
 
   propagatedBuildInputs = [ websockets mutagen ]
     ++ lib.optional hlsEncryptedSupport pycryptodome;
@@ -55,6 +50,10 @@ buildPythonPackage rec {
 
   # Requires network
   doCheck = false;
+
+  postInstall = lib.optionalString withAlias ''
+      ln -s "$out/bin/yt-dlp" "$out/bin/youtube-dl"
+  '';
 
   meta = with lib; {
     homepage = "https://github.com/yt-dlp/yt-dlp/";
