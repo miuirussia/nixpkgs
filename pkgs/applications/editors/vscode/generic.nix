@@ -112,6 +112,7 @@ let
     '';
 
     # See https://github.com/NixOS/nixpkgs/issues/49643#issuecomment-873853897
+    # linux only because of https://github.com/NixOS/nixpkgs/issues/138729
     postPatch = lib.optionalString stdenv.isLinux ''
       # this is a fix for "save as root" functionality
       packed="resources/app/node_modules.asar"
