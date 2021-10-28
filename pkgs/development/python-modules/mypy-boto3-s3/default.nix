@@ -8,23 +8,27 @@
 
 buildPythonPackage rec {
   pname = "mypy-boto3-s3";
-  version = "1.18.53";
+  version = "1.19.2";
+
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "4579f837aa87b439014c8aa40ff0cf2510a6d01dcb370179a19c5c45c8aecb9c";
+    sha256 = "sha256-wRJ5pY3zrWDEAm30xvBfiMpCxQKHWgcEemNiQ+v0+9o=";
   };
 
   propagatedBuildInputs = [
     boto3
-  ] ++ lib.optionals (pythonOlder "3.8") [
+  ] ++ lib.optionals (pythonOlder "3.9") [
     typing-extensions
   ];
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "mypy_boto3_s3" ];
+
+  pythonImportsCheck = [
+    "mypy_boto3_s3"
+  ];
 
   meta = with lib; {
     description = "Type annotations for boto3";
