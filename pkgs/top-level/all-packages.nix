@@ -3410,7 +3410,9 @@ with pkgs;
 
   pn = callPackage ../tools/text/pn { };
 
-  pocket-casts = callPackage ../applications/audio/pocket-casts { };
+  pocket-casts = callPackage ../applications/audio/pocket-casts {
+    electron = electron_12;
+  };
 
   poweralertd = callPackage ../tools/misc/poweralertd { };
 
@@ -5846,7 +5848,9 @@ with pkgs;
 
   govc = callPackage ../tools/virtualization/govc { };
 
-  goverlay = callPackage ../tools/graphics/goverlay { };
+  goverlay = callPackage ../tools/graphics/goverlay {
+    inherit (qt5) wrapQtAppsHook;
+  };
 
   gpart = callPackage ../tools/filesystems/gpart { };
 
@@ -6401,6 +6405,11 @@ with pkgs;
 
   intermodal = callPackage ../tools/misc/intermodal { };
 
+  invidious = callPackage ../servers/invidious {
+    # needs a specific version of lsquic
+    lsquic = callPackage ../servers/invidious/lsquic.nix { };
+  };
+
   invoice2data  = callPackage ../tools/text/invoice2data  { };
 
   inxi = callPackage ../tools/system/inxi { };
@@ -6665,7 +6674,7 @@ with pkgs;
   keyfuzz = callPackage ../tools/inputmethods/keyfuzz { };
 
   keyscope = callPackage ../tools/security/keyscope {
-    inherit (darwin.apple_sdk.frameworks) Security;
+    inherit (darwin.apple_sdk.frameworks) DiskArbitration Foundation IOKit Security;
   };
 
   keystore-explorer = callPackage ../applications/misc/keystore-explorer {
@@ -8499,7 +8508,9 @@ with pkgs;
 
   pinnwand = callPackage ../servers/pinnwand { };
 
-  piping-server-rust = callPackage ../servers/piping-server-rust { };
+  piping-server-rust = callPackage ../servers/piping-server-rust {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   pirate-get = callPackage ../tools/networking/pirate-get { };
 
@@ -12218,6 +12229,7 @@ with pkgs;
       inherit (darwin.apple_sdk.frameworks) Foundation;
     });
   graalvm11-ce = graalvmCEPackages.graalvm11-ce;
+  graalvm17-ce = graalvmCEPackages.graalvm17-ce;
 
   inherit (callPackages ../development/compilers/graalvm/enterprise-edition.nix { })
     graalvm8-ee
@@ -13496,6 +13508,7 @@ with pkgs;
   pipenv = callPackage ../development/tools/pipenv {};
 
   pipewire = callPackage ../development/libraries/pipewire {};
+  pipewire-media-session = callPackage ../development/libraries/pipewire/media-session.nix {};
   pipewire_0_2 = callPackage ../development/libraries/pipewire/0.2.nix {};
 
   pyradio = callPackage ../applications/audio/pyradio {};
@@ -15183,6 +15196,8 @@ with pkgs;
 
   sselp = callPackage ../tools/X11/sselp{ };
 
+  statix = callPackage ../tools/nix/statix { };
+
   stm32cubemx = callPackage ../development/embedded/stm32/stm32cubemx { };
 
   stm32flash = callPackage ../development/embedded/stm32/stm32flash { };
@@ -16794,10 +16809,6 @@ with pkgs;
   hunspellDicts = recurseIntoAttrs (callPackages ../development/libraries/hunspell/dictionaries.nix {});
 
   hunspellWithDicts = dicts: callPackage ../development/libraries/hunspell/wrapper.nix { inherit dicts; };
-
-  hunter = callPackage ../applications/misc/hunter {
-    inherit (darwin.apple_sdk.frameworks) CoreServices IOKit Security;
-  };
 
   hwloc = callPackage ../development/libraries/hwloc {};
 
@@ -19862,6 +19873,8 @@ with pkgs;
                                           CoreText IOSurface ImageIO OpenGL GLUT;
   };
 
+  vtk_8_withQt5 = vtk_8.override { enableQt = true; };
+
   vtk_9 = libsForQt515.callPackage ../development/libraries/vtk/9.x.nix {
     inherit (darwin) libobjc;
     inherit (darwin.apple_sdk.libs) xpc;
@@ -19870,8 +19883,10 @@ with pkgs;
                                           CoreText IOSurface ImageIO OpenGL GLUT;
   };
 
+  vtk_9_withQt5 = vtk_9.override { enableQt = true; };
+
   vtk = vtk_8;
-  vtkWithQt5 = vtk.override { enableQt = true; };
+  vtkWithQt5 = vtk_8_withQt5;
 
   vulkan-extension-layer = callPackage ../tools/graphics/vulkan-extension-layer { };
   vulkan-headers = callPackage ../development/libraries/vulkan-headers { };
@@ -20694,7 +20709,9 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  lemmy-ui = callPackage ../servers/web-apps/lemmy/ui.nix { };
+  lemmy-ui = callPackage ../servers/web-apps/lemmy/ui.nix {
+    nodejs = nodejs-14_x;
+  };
 
   lighttpd = callPackage ../servers/http/lighttpd { };
 
@@ -21745,6 +21762,8 @@ with pkgs;
 
   ebtables = callPackage ../os-specific/linux/ebtables { };
 
+  error-inject = callPackages ../os-specific/linux/error-inject { };
+
   extrace = callPackage ../os-specific/linux/extrace { };
 
   facetimehd-firmware = callPackage ../os-specific/linux/firmware/facetimehd-firmware { };
@@ -22137,6 +22156,8 @@ with pkgs;
   musl-fts = callPackage ../os-specific/linux/musl-fts { };
   musl-obstack = callPackage ../os-specific/linux/musl-obstack { };
 
+  nsh = callPackage ../shells/nsh { };
+
   nushell = callPackage ../shells/nushell {
     inherit (darwin.apple_sdk.frameworks) AppKit Security;
   };
@@ -22377,6 +22398,8 @@ with pkgs;
   radeontools = callPackage ../os-specific/linux/radeontools { };
 
   radeontop = callPackage ../os-specific/linux/radeontop { };
+
+  rasdaemon = callPackage ../os-specific/linux/rasdaemon { };
 
   raspberrypifw = callPackage ../os-specific/linux/firmware/raspberrypi {};
   raspberrypiWirelessFirmware = callPackage ../os-specific/linux/firmware/raspberrypi-wireless { };
@@ -24534,6 +24557,10 @@ with pkgs;
 
   enhanced-ctorrent = callPackage ../applications/networking/enhanced-ctorrent { };
 
+  entangle = callPackage ../applications/video/entangle {
+    inherit (gst_all_1) gstreamer gst-plugins-base;
+  };
+
   eolie = callPackage ../applications/networking/browsers/eolie { };
 
   epdfview = callPackage ../applications/misc/epdfview { };
@@ -26300,7 +26327,9 @@ with pkgs;
 
   lscolors = callPackage ../applications/misc/lscolors { };
 
-  lucky-commit = callPackage ../applications/version-management/git-and-tools/lucky-commit { };
+  lucky-commit = callPackage ../applications/version-management/git-and-tools/lucky-commit {
+    inherit (darwin.apple_sdk.frameworks) OpenCL;
+  };
 
   luddite = with python3Packages; toPythonApplication luddite;
 
@@ -31863,6 +31892,8 @@ with pkgs;
   cups-pk-helper = callPackage ../misc/cups/cups-pk-helper.nix { };
 
   cups-kyocera = callPackage ../misc/cups/drivers/kyocera {};
+
+  cups-kyocera-ecosys-m2x35-40-p2x35-40dnw = callPackage ../misc/cups/drivers/kyocera-ecosys-m2x35-40-p2x35-40dnw {};
 
   cups-kyocera-ecosys-m552x-p502x = callPackage ../misc/cups/drivers/kyocera-ecosys-m552x-p502x {};
 
