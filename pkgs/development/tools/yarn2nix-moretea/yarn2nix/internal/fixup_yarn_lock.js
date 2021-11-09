@@ -34,16 +34,7 @@ readFile
 
       result.push(`  resolved "${fileName}#${shaOrRev}"`)
     } else {
-      const arr2 = line.match(/^ {2}resolved "(.+)\/([^\/"]+)"$/)
-      if (arr2 !== null) {
-        const [_, url, shaOrRev] = arr2
-
-        const fileName = urlToName(url + '/' + shaOrRev)
-
-        result.push(`  resolved "${fileName}"`)
-      } else {
-        result.push(line)
-      }
+      result.push(line)
     }
   })
   .on('close', () => {
