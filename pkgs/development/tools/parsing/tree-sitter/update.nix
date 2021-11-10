@@ -261,7 +261,7 @@ let
     mkdir -p "$outputDir"
     ${foreachSh allGrammars
       ({name, orga, repo}: ''${updateGrammar { inherit orga repo; }} > $outputDir/${name}.json'')}
-    ( echo "{"
+    ( echo "{ lib }: {"
       ${foreachSh allGrammars
         ({name, ...}: ''
            # indentation hack
