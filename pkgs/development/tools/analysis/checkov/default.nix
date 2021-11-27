@@ -56,13 +56,13 @@ with py.pkgs;
 
 buildPythonApplication rec {
   pname = "checkov";
-  version = "2.0.566";
+  version = "2.0.603";
 
   src = fetchFromGitHub {
     owner = "bridgecrewio";
     repo = pname;
     rev = version;
-    sha256 = "sha256-Eah4dK23jdHK7s0VF8FLd6KJzHP5YpdLGcM7IXgB880=";
+    sha256 = "sha256-EJ0i3HOCurjCQEdZBzELBCcIS7sT71vEBjjdNpCmt00=";
   };
 
   nativeBuildInputs = with py.pkgs; [
@@ -70,6 +70,9 @@ buildPythonApplication rec {
   ];
 
   propagatedBuildInputs = with py.pkgs; [
+    aiodns
+    aiohttp
+    aiomultiprocess
     bc-python-hcl2
     boto3
     cachetools
@@ -98,7 +101,11 @@ buildPythonApplication rec {
   ];
 
   checkInputs = with py.pkgs; [
+    aioresponses
     jsonschema
+    mock
+    pytest-asyncio
+    pytest-mock
     pytest-xdist
     pytestCheckHook
   ];
@@ -115,6 +122,8 @@ buildPythonApplication rec {
     # https://github.com/bridgecrewio/checkov/blob/f03a4204d291cf47e3753a02a9b8c8d805bbd1be/.github/workflows/build.yml
     "integration_tests/"
     "tests/terraform/"
+    # Performance tests have no value for us
+    "performance_tests/test_checkov_performance.py"
   ];
 
   pythonImportsCheck = [
@@ -129,6 +138,6 @@ buildPythonApplication rec {
       Kubernetes, Serverless framework and other infrastructure-as-code-languages.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ anhdle14 ];
+    maintainers = with maintainers; [ anhdle14 fab ];
   };
 }
