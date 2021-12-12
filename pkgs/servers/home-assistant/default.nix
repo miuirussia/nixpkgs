@@ -21,6 +21,10 @@
 
 let
   defaultOverrides = [
+    # Remove with Home Assistant 2021.12
+    (mkOverride "aiohue" "2.6.3" "sha256-zpwkDKPrE5TFZQO0A1ifTQ7n+TRFpXi3jai3h5plyGM=")
+    (mkOverride "PyChromecast" "9.4.0" "sha256-Y8PLrjxZHml7BmklEJ/VXGqkRyneAy+QVA5rusPeBHQ=")
+
     # aiounify 29 breaks integration tests
     (self: super: {
       aiounifi = super.aiounifi.overridePythonAttrs (oldAttrs: rec {
@@ -179,10 +183,13 @@ in with py.pkgs; buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace setup.py \
+      --replace "async_timeout==3.0.1" "async_timeout" \
+      --replace "awesomeversion==21.10.1" "awesomeversion" \
+      --replace "aiohttp==3.7.4.post0" "aiohttp" \
       --replace "bcrypt==3.1.7" "bcrypt" \
       --replace "pip>=8.0.3,<20.3" "pip" \
       --replace "pyyaml==6.0" "pyyaml" \
-      --replace "yarl==1.6.3" "yarl==1.7.0"
+      --replace "yarl==1.6.3" "yarl"
     substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
   '';
 
@@ -537,6 +544,7 @@ in with py.pkgs; buildPythonApplication rec {
     "namecheapdns"
     "neato"
     "ness_alarm"
+    "nest"
     "netatmo"
     "nexia"
     "nightscout"
@@ -881,7 +889,7 @@ in with py.pkgs; buildPythonApplication rec {
   '';
 
   passthru = {
-    inherit availableComponents;
+    inherit availableComponents extraComponents;
     python = py;
     tests = {
       inherit (nixosTests) home-assistant;

@@ -77,6 +77,7 @@ let
 
     unitConfig = {
       ConditionPathExists = "!/var/lib/acme/.minica/key.pem";
+      StartLimitIntervalSec = 0;
     };
 
     serviceConfig = commonServiceConfig // {
@@ -235,6 +236,7 @@ let
 
       unitConfig = {
         ConditionPathExists = "!/var/lib/acme/${cert}/key.pem";
+        StartLimitIntervalSec = 0;
       };
 
       serviceConfig = commonServiceConfig // {
@@ -323,7 +325,8 @@ let
 
       # Working directory will be /tmp
       script = ''
-        set -euxo pipefail
+        ${optionalString data.enableDebugLogs "set -x"}
+        set -euo pipefail
 
         # This reimplements the expiration date check, but without querying
         # the acme server first. By doing this offline, we avoid errors
@@ -435,6 +438,8 @@ let
         visible = false;
         default = "_mkMergedOptionModule";
       };
+
+      enableDebugLogs = mkEnableOption "debug logging for this certificate" // { default = cfg.enableDebugLogs; };
 
       webroot = mkOption {
         type = types.nullOr types.str;
@@ -613,6 +618,8 @@ in {
 
   options = {
     security.acme = {
+
+      enableDebugLogs = mkEnableOption "debug logging for all certificates by default" // { default = true; };
 
       validMinDays = mkOption {
         type = types.int;
