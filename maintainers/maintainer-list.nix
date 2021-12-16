@@ -357,10 +357,10 @@
     name = "AmirHossein Roozbahani";
   };
   ahuzik = {
-    email = "ales.guzik@gmail.com";
-    github = "alesguzik";
+    email = "ah1990au@gmail.com";
+    github = "alesya-h";
     githubId = 209175;
-    name = "Ales Huzik";
+    name = "Alesya Huzik";
   };
   aij = {
     email = "aij+git@mrph.org";
@@ -9043,6 +9043,12 @@
     github = "pawelpacana";
     githubId = 116740;
     name = "Paweł Pacana";
+  };
+  pb- = {
+    email = "pbaecher@gmail.com";
+    github = "pb-";
+    githubId = 84886;
+    name = "Paul Baecher";
   };
   pbogdan = {
     email = "ppbogdan@gmail.com";
