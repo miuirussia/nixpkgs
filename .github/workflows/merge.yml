@@ -8,7 +8,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           path: nixpkgs-final
-          fetch-depth: 0
       - uses: actions/checkout@v2
         with:
           path: nixpkgs-original
@@ -28,9 +27,9 @@ jobs:
             trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= s3.kdevlab.com:PhuKrzVfCsS0T1R4FnslJy2qUBul9oQ2CTSO/fg/llM= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
       - name: Merge upstream
         run: |
-          cd ./nixpkgs-original
-          git apply ../nixpkgs-final/patches/*.patch || true
-          cd ..
+          pushd ./nixpkgs-original
+          git apply ../nixpkgs-final/patches/*.patch
+          popd
           rsync -avu --delete ./nixpkgs-original/doc/ ./nixpkgs-final/doc
           rsync -avu --delete ./nixpkgs-original/lib/ ./nixpkgs-final/lib
           rsync -avu --delete ./nixpkgs-original/maintainers/ ./nixpkgs-final/maintainers

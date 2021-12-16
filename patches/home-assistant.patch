@@ -1,0 +1,155 @@
+From b6fac27fd26c8444c0588e5c2850bf060a0f7ba6 Mon Sep 17 00:00:00 2001
+From: Martin Weinelt <hexa@darmstadt.ccc.de>
+Date: Wed, 15 Dec 2021 17:21:49 +0100
+Subject: [PATCH 1/4] python3Packages.aiohue: 3.0.3 -> 3.0.5
+
+---
+ pkgs/development/python-modules/aiohue/default.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/development/python-modules/aiohue/default.nix b/pkgs/development/python-modules/aiohue/default.nix
+index a4c6536308b94..b0f748e77d60b 100644
+--- a/pkgs/development/python-modules/aiohue/default.nix
++++ b/pkgs/development/python-modules/aiohue/default.nix
+@@ -6,11 +6,11 @@
+ 
+ buildPythonPackage rec {
+   pname = "aiohue";
+-  version = "3.0.3";
++  version = "3.0.5";
+ 
+   src = fetchPypi {
+     inherit pname version;
+-    sha256 = "sha256-ajDwA8zFBQdFeI3oUBBWQZA13PNust21BWxrsB7PcTQ=";
++    sha256 = "sha256-qOtfr6rrV+E/vdY3AprJ5G7p+VzYDVk1aq9/F0O0mLE=";
+   };
+ 
+   propagatedBuildInputs = [
+
+From fa3b9378300e87ed841cd379aa760e3d8b1dd995 Mon Sep 17 00:00:00 2001
+From: Martin Weinelt <hexa@darmstadt.ccc.de>
+Date: Wed, 15 Dec 2021 17:22:18 +0100
+Subject: [PATCH 2/4] python3Packages.google-nest-sdm: 0.4.6 -> 0.4.8
+
+---
+ pkgs/development/python-modules/google-nest-sdm/default.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/development/python-modules/google-nest-sdm/default.nix b/pkgs/development/python-modules/google-nest-sdm/default.nix
+index c9812875278bf..a4520a6847d22 100644
+--- a/pkgs/development/python-modules/google-nest-sdm/default.nix
++++ b/pkgs/development/python-modules/google-nest-sdm/default.nix
+@@ -13,7 +13,7 @@
+ 
+ buildPythonPackage rec {
+   pname = "google-nest-sdm";
+-  version = "0.4.6";
++  version = "0.4.8";
+   format = "setuptools";
+ 
+   disabled = pythonOlder "3.8";
+@@ -22,7 +22,7 @@ buildPythonPackage rec {
+     owner = "allenporter";
+     repo = "python-google-nest-sdm";
+     rev = version;
+-    sha256 = "sha256-oMYCBmqDTPcGHwP3LFYX3CdbHw2hg41EQQv8iiv+ljE=";
++    sha256 = "sha256-HHjCML/55jthqZ5WjNNsldr+8nul8bd8N9aNAoe/iBw=";
+   };
+ 
+   propagatedBuildInputs = [
+
+From f08e50d54a07df888d3acf219c910472d4e328fa Mon Sep 17 00:00:00 2001
+From: Martin Weinelt <hexa@darmstadt.ccc.de>
+Date: Wed, 15 Dec 2021 17:22:35 +0100
+Subject: [PATCH 3/4] python3Packages.pysmappee: 0.2.27 -> 0.2.29
+
+---
+ pkgs/development/python-modules/pysmappee/default.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/development/python-modules/pysmappee/default.nix b/pkgs/development/python-modules/pysmappee/default.nix
+index 028d591ac9245..c2322819ae459 100644
+--- a/pkgs/development/python-modules/pysmappee/default.nix
++++ b/pkgs/development/python-modules/pysmappee/default.nix
+@@ -12,14 +12,14 @@
+ 
+ buildPythonPackage rec {
+   pname = "pysmappee";
+-  version = "0.2.27";
++  version = "0.2.29";
+   disabled = pythonOlder "3.7";
+ 
+   src = fetchFromGitHub {
+     owner = "smappee";
+     repo = pname;
+     rev = version;
+-    sha256 = "sha256-CzdkeC53ye+IMeGUiD1mK84h2ruC1/ZpjlDjuWMVoyQ=";
++    sha256 = "sha256-Ffi55FZsZUKDcS4qV46NpRK3VP6axzrL2BO+hYW7J9E=";
+   };
+ 
+   propagatedBuildInputs = [
+
+From 1b49fdf58022ed6f0e6777c0a1583b6a279d9c99 Mon Sep 17 00:00:00 2001
+From: Martin Weinelt <hexa@darmstadt.ccc.de>
+Date: Wed, 15 Dec 2021 18:33:15 +0100
+Subject: [PATCH 4/4] home-assistant: 2021.12.1 -> 2021.12.2
+
+---
+ pkgs/servers/home-assistant/component-packages.nix | 2 +-
+ pkgs/servers/home-assistant/default.nix            | 4 ++--
+ pkgs/servers/home-assistant/frontend.nix           | 4 ++--
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/pkgs/servers/home-assistant/component-packages.nix b/pkgs/servers/home-assistant/component-packages.nix
+index b990786091a51..ca59eed348bd5 100644
+--- a/pkgs/servers/home-assistant/component-packages.nix
++++ b/pkgs/servers/home-assistant/component-packages.nix
+@@ -2,7 +2,7 @@
+ # Do not edit!
+ 
+ {
+-  version = "2021.12.1";
++  version = "2021.12.2";
+   components = {
+     "abode" = ps: with ps; [ abodepy ];
+     "accuweather" = ps: with ps; [ accuweather ];
+diff --git a/pkgs/servers/home-assistant/default.nix b/pkgs/servers/home-assistant/default.nix
+index 8c3ac00f8933d..4c34e5a7fc493 100644
+--- a/pkgs/servers/home-assistant/default.nix
++++ b/pkgs/servers/home-assistant/default.nix
+@@ -252,7 +252,7 @@ let
+   extraBuildInputs = extraPackages py.pkgs;
+ 
+   # Don't forget to run parse-requirements.py after updating
+-  hassVersion = "2021.12.1";
++  hassVersion = "2021.12.2";
+ 
+ in with py.pkgs; buildPythonApplication rec {
+   pname = "homeassistant";
+@@ -269,7 +269,7 @@ in with py.pkgs; buildPythonApplication rec {
+     owner = "home-assistant";
+     repo = "core";
+     rev = version;
+-    hash = "sha256:11qlalfzykbq5ydn2cagkqcbvdjkmjcdpp6lgiys9lyrw1rxycnb";
++    hash = "sha256:0rb6kwvrjq258qv8xh4qbpw3n91bb263dcqp3f1dg45n8mbcdr60";
+   };
+ 
+   # leave this in, so users don't have to constantly update their downstream patch handling
+diff --git a/pkgs/servers/home-assistant/frontend.nix b/pkgs/servers/home-assistant/frontend.nix
+index f5e2d3ceb619f..b7090d01fc36c 100644
+--- a/pkgs/servers/home-assistant/frontend.nix
++++ b/pkgs/servers/home-assistant/frontend.nix
+@@ -4,11 +4,11 @@ buildPythonPackage rec {
+   # the frontend version corresponding to a specific home-assistant version can be found here
+   # https://github.com/home-assistant/home-assistant/blob/master/homeassistant/components/frontend/manifest.json
+   pname = "home-assistant-frontend";
+-  version = "20211212.0";
++  version = "20211215.0";
+ 
+   src = fetchPypi {
+     inherit pname version;
+-    sha256 = "sha256-cYh8xBUS8rb2koNAq8JwWtrOHSF1jC5v0lq+W1SwiXI=";
++    sha256 = "sha256-G2w+L+tQi47JOygYZ1+VtC96FBPet5klkW0LUeaxWBY=";
+   };
+ 
+   # there is nothing to strip in this package
