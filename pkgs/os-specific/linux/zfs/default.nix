@@ -46,7 +46,7 @@ let
       name = "zfs-${configFile}-${version}${optionalString buildKernel "-${kernel.version}"}";
 
       src = fetchFromGitHub {
-        owner = "zfsonlinux";
+        owner = "openzfs";
         repo = "zfs";
         inherit rev sha256;
       };
@@ -219,9 +219,9 @@ in {
     latestCompatibleLinuxPackages = linuxPackages_5_15;
 
     # this package should point to the latest release.
-    version = "2.1.1";
+    version = "2.1.2";
 
-    sha256 = "sha256-UUuJa5w/GsEvsgH/BnXFsP/dsOt9wwmPqKzDxLPrhiY=";
+    sha256 = "sha256-7oSFZlmjCr+egImIVf429GrFOKn3L3r4SMnK3LHHmL8=";
   };
 
   zfsUnstable = common {
@@ -233,10 +233,10 @@ in {
     # IMPORTANT: Always use a tagged release candidate or commits from the
     # zfs-<version>-staging branch, because this is tested by the OpenZFS
     # maintainers.
-    version = "2.1.1";
+    version = "2.1.2";
     # rev = "0000000000000000000000000000000000000000";
 
-    sha256 = "sha256-UUuJa5w/GsEvsgH/BnXFsP/dsOt9wwmPqKzDxLPrhiY=";
+    sha256 = "sha256-7oSFZlmjCr+egImIVf429GrFOKn3L3r4SMnK3LHHmL8=";
 
     isUnstable = true;
   };
