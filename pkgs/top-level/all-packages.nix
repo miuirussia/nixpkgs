@@ -3427,6 +3427,8 @@ with pkgs;
 
   moonraker = callPackage ../servers/moonraker { };
 
+  morsel = callPackage ../tools/text/morsel {};
+
   mousetweaks = callPackage ../applications/accessibility/mousetweaks {
     inherit (xorg) libX11 libXtst libXfixes;
   };
@@ -5423,6 +5425,8 @@ with pkgs;
   ferdi = callPackage ../applications/networking/instant-messengers/ferdi {
     mkFranzDerivation = callPackage ../applications/networking/instant-messengers/franz/generic.nix { };
   };
+
+  fq = callPackage ../development/tools/fq { };
 
   franz = callPackage ../applications/networking/instant-messengers/franz {
     mkFranzDerivation = callPackage ../applications/networking/instant-messengers/franz/generic.nix { };
@@ -9770,6 +9774,8 @@ with pkgs;
 
   stm32loader = with python3Packages; toPythonApplication stm32loader;
 
+  stremio = qt5.callPackage ../applications/video/stremio { };
+
   stubby = callPackage ../tools/networking/stubby { };
 
   sunwait = callPackage ../applications/misc/sunwait { };
@@ -12821,9 +12827,7 @@ with pkgs;
 
   rgxg = callPackage ../tools/text/rgxg { };
 
-  rocclr = callPackage ../development/libraries/rocclr {
-    inherit (llvmPackages_rocm) clang;
-  };
+  rocclr = callPackage ../development/libraries/rocclr { };
 
   hip = callPackage ../development/compilers/hip {
     inherit (llvmPackages_rocm) clang clang-unwrapped compiler-rt lld llvm;
@@ -13652,7 +13656,7 @@ with pkgs;
   python3Packages = python3.pkgs;
 
   pythonInterpreters = callPackage ./../development/interpreters/python { };
-  inherit (pythonInterpreters) python27 python37 python38 python39 python310 python3Minimal pypy27 pypy38 rustpython;
+  inherit (pythonInterpreters) python27 python37 python38 python39 python310 python3Minimal pypy27 pypy38 pypy37 rustpython;
 
   # Python package sets.
   python27Packages = python27.pkgs;
@@ -13664,6 +13668,8 @@ with pkgs;
   pypy2Packages = pypy2.pkgs;
   pypy27Packages = pypy27.pkgs;
   pypy3Packages = pypy3.pkgs;
+  pypy37Packages = pypy37.pkgs;
+  pypy38Packages = pypy38.pkgs;
 
   py3c = callPackage ../development/libraries/py3c { };
 
@@ -26430,6 +26436,8 @@ with pkgs;
 
   kbibtex = libsForQt5.callPackage ../applications/office/kbibtex { };
 
+  kbst = callPackage ../applications/networking/cluster/kbst { };
+
   kaidan = libsForQt5.callPackage ../applications/networking/instant-messengers/kaidan { };
 
   kde-gruvbox = callPackage ../data/themes/kde-gruvbox { };
@@ -27562,7 +27570,9 @@ with pkgs;
 
   notmuch-addrlookup = callPackage ../applications/networking/mailreaders/notmuch-addrlookup { };
 
-  nova-filters =  callPackage ../applications/audio/nova-filters { };
+  nova-filters =  callPackage ../applications/audio/nova-filters {
+    boost = boost172;
+  };
 
   nvi = callPackage ../applications/editors/nvi { };
 
@@ -32600,6 +32610,8 @@ with pkgs;
   epkowa = callPackage ../misc/drivers/epkowa { };
 
   utsushi = callPackage ../misc/drivers/utsushi { };
+
+  utsushi-networkscan = callPackage ../misc/drivers/utsushi/networkscan.nix { };
 
   idsk = callPackage ../tools/filesystems/idsk { };
 
