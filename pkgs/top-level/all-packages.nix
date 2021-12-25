@@ -186,6 +186,8 @@ with pkgs;
 
   antsimulator = callPackage ../games/antsimulator { };
 
+  aocd = with pythonPackages; toPythonApplication aocd;
+
   astrolog = callPackage ../applications/science/astronomy/astrolog { };
 
   atkinson-hyperlegible = callPackage ../data/fonts/atkinson-hyperlegible { };
@@ -1819,6 +1821,8 @@ with pkgs;
 
   gucci = callPackage ../tools/text/gucci { };
 
+  guglielmo = libsForQt5.callPackage ../applications/radio/guglielmo { };
+
   grc = python3Packages.callPackage ../tools/misc/grc { };
 
   green-pdfviewer = callPackage ../applications/misc/green-pdfviewer {
@@ -3410,6 +3414,8 @@ with pkgs;
   mkspiffs-presets = recurseIntoAttrs (callPackages ../tools/filesystems/mkspiffs/presets.nix { });
 
   mlarchive2maildir = callPackage ../applications/networking/mailreaders/mlarchive2maildir { };
+
+  mmctl = callPackage ../tools/misc/mmctl { };
 
   molly-brown = callPackage ../servers/gemini/molly-brown { };
 
@@ -11173,6 +11179,8 @@ with pkgs;
 
   yank = callPackage ../tools/misc/yank { };
 
+  yamlfix = with python3Packages; toPythonApplication yamlfix;
+
   yamllint = with python3Packages; toPythonApplication yamllint;
 
   yaml-merge = callPackage ../tools/text/yaml-merge { };
@@ -11606,6 +11614,8 @@ with pkgs;
   chez = callPackage ../development/compilers/chez {
     inherit (darwin) cctools;
   };
+
+  chez-racket = callPackage ../development/compilers/chez-racket {};
 
   chez-srfi = callPackage ../development/chez-modules/chez-srfi { };
 
@@ -13073,7 +13083,8 @@ with pkgs;
   sbcl_2_1_2 = callPackage ../development/compilers/sbcl/2.1.2.nix {};
   sbcl_2_1_9 = callPackage ../development/compilers/sbcl/2.1.9.nix {};
   sbcl_2_1_10 = callPackage ../development/compilers/sbcl/2.1.10.nix {};
-  sbcl = sbcl_2_1_9;
+  sbcl_2_1_11 = callPackage ../development/compilers/sbcl/2.1.11.nix {};
+  sbcl = sbcl_2_1_11;
 
   roswell = callPackage ../development/tools/roswell { };
 
@@ -15098,6 +15109,8 @@ with pkgs;
   omake = callPackage ../development/tools/ocaml/omake { };
 
   omniorb = callPackage ../development/tools/omniorb { };
+
+  openai = with python3Packages; toPythonApplication openai;
 
   opengrok = callPackage ../development/tools/misc/opengrok { };
 
@@ -19689,7 +19702,7 @@ with pkgs;
 
   simp_le = callPackage ../tools/admin/simp_le { };
 
-  simpleitk = callPackage ../development/libraries/simpleitk { };
+  simpleitk = callPackage ../development/libraries/simpleitk { lua = lua5_3; };
 
   sfml = callPackage ../development/libraries/sfml {
     inherit (darwin.apple_sdk.frameworks) IOKit Foundation AppKit OpenAL;
@@ -21169,6 +21182,7 @@ with pkgs;
 
   nginxMainline = callPackage ../servers/http/nginx/mainline.nix {
     zlib = zlib-ng.override { withZlibCompat = true; };
+    withKTLS = true;
     withPerl = false;
     # We don't use `with` statement here on purpose!
     # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
@@ -24280,7 +24294,7 @@ with pkgs;
 
   milkytracker = callPackage ../applications/audio/milkytracker { };
 
-  ptcollab = libsForQt5.callPackage ../applications/audio/ptcollab { };
+  ptcollab = libsForQt515.callPackage ../applications/audio/ptcollab { };
 
   schismtracker = callPackage ../applications/audio/schismtracker { };
 
@@ -26516,7 +26530,6 @@ with pkgs;
   krane = callPackage ../applications/networking/cluster/krane { };
 
   krita = libsForQt5.callPackage ../applications/graphics/krita { };
-  krita-beta = libsForQt5.callPackage ../applications/graphics/krita/beta.nix { };
 
   krusader = libsForQt5.callPackage ../applications/misc/krusader { };
 
