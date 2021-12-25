@@ -1,270 +1,124 @@
-From 33016c88710b47658eafe249ac1930b5a114051b Mon Sep 17 00:00:00 2001
+From 5e2884794cdc26626723a45bc7a22c3a69d0520d Mon Sep 17 00:00:00 2001
 From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:24:17 +0100
-Subject: [PATCH 01/12] python3Packages.aiohue: 3.0.5 -> 3.0.7
+Date: Fri, 24 Dec 2021 01:12:26 +0100
+Subject: [PATCH 1/6] python3Packages.aiohue: 3.0.7 -> 3.0.10
 
 ---
- pkgs/development/python-modules/aiohue/default.nix | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ pkgs/development/python-modules/aiohue/default.nix | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/pkgs/development/python-modules/aiohue/default.nix b/pkgs/development/python-modules/aiohue/default.nix
-index b0f748e77d60b..6b791b32e724a 100644
+index 6b791b32e724a..fd15d3aa8f80b 100644
 --- a/pkgs/development/python-modules/aiohue/default.nix
 +++ b/pkgs/development/python-modules/aiohue/default.nix
-@@ -6,11 +6,11 @@
+@@ -2,19 +2,21 @@
+ , buildPythonPackage
+ , fetchPypi
+ , aiohttp
++, asyncio-throttle
+ }:
  
  buildPythonPackage rec {
    pname = "aiohue";
--  version = "3.0.5";
-+  version = "3.0.7";
+-  version = "3.0.7";
++  version = "3.0.10";
  
    src = fetchPypi {
      inherit pname version;
--    sha256 = "sha256-qOtfr6rrV+E/vdY3AprJ5G7p+VzYDVk1aq9/F0O0mLE=";
-+    sha256 = "sha256-Q01giQZytOQ+Ko7kvL0OfdDPysfvtKhW7fYmHmAv5Go=";
+-    sha256 = "sha256-Q01giQZytOQ+Ko7kvL0OfdDPysfvtKhW7fYmHmAv5Go=";
++    sha256 = "sha256-LwtE9F5ic0aZ9/q3dSWn20O27yW/QD/Yi1NPdFmiP10=";
    };
  
    propagatedBuildInputs = [
+     aiohttp
++    asyncio-throttle
+   ];
+ 
+   pythonImportsCheck = [
 
-From 7bdfb7f84c7f16b4aa8e542ec2d5abc62f9aa254 Mon Sep 17 00:00:00 2001
+From 0879f11d899488e42552066f67d5a4d7769b53fd Mon Sep 17 00:00:00 2001
 From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:25:02 +0100
-Subject: [PATCH 02/12] python3Packages.python-didl-lite: 1.3.1 -> 1.3.2
+Date: Fri, 24 Dec 2021 01:14:00 +0100
+Subject: [PATCH 2/6] python3Packages.aiopvpc: 2.2.4 -> 3.0.0
 
 ---
- pkgs/development/python-modules/python-didl-lite/default.nix | 4 ++--
+ pkgs/development/python-modules/aiopvpc/default.nix | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/pkgs/development/python-modules/python-didl-lite/default.nix b/pkgs/development/python-modules/python-didl-lite/default.nix
-index a564968f49248..f58da984f8c9d 100644
---- a/pkgs/development/python-modules/python-didl-lite/default.nix
-+++ b/pkgs/development/python-modules/python-didl-lite/default.nix
-@@ -8,14 +8,14 @@
+diff --git a/pkgs/development/python-modules/aiopvpc/default.nix b/pkgs/development/python-modules/aiopvpc/default.nix
+index b3f24e6051a4f..ae069ae182664 100644
+--- a/pkgs/development/python-modules/aiopvpc/default.nix
++++ b/pkgs/development/python-modules/aiopvpc/default.nix
+@@ -15,7 +15,7 @@
  
  buildPythonPackage rec {
-   pname = "python-didl-lite";
--  version = "1.3.1";
-+  version = "1.3.2";
-   disabled = pythonOlder "3.5.3";
- 
-   src = fetchFromGitHub {
-     owner = "StevenLooman";
-     repo = pname;
-     rev = version;
--    sha256 = "sha256-qOhpS53isHP0IuM0E0oh2pm2naQjVU6MPHVUcI3vKo8=";
-+    sha256 = "sha256-laKmWGDEzlBVJCUSKxekjPEXVlAz4MIzM7dNJfta/ek=";
-   };
- 
-   propagatedBuildInputs = [
-
-From ee239845b128d68648894d7fc2bba2e97df1f339 Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:25:26 +0100
-Subject: [PATCH 03/12] python3Packages.async-upnp-client: 0.22.12 -> 0.23.1
-
----
- pkgs/development/python-modules/async-upnp-client/default.nix | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/pkgs/development/python-modules/async-upnp-client/default.nix b/pkgs/development/python-modules/async-upnp-client/default.nix
-index 3b7634b181e45..3f09521e34f22 100644
---- a/pkgs/development/python-modules/async-upnp-client/default.nix
-+++ b/pkgs/development/python-modules/async-upnp-client/default.nix
-@@ -14,14 +14,14 @@
- 
- buildPythonPackage rec {
-   pname = "async-upnp-client";
--  version = "0.22.12";
-+  version = "0.23.1";
-   disabled = pythonOlder "3.6";
- 
-   src = fetchFromGitHub {
-     owner = "StevenLooman";
-     repo = "async_upnp_client";
-     rev = version;
--    sha256 = "sha256-fp7I0G6gljkTZ2slQJ8R9AJ9VKQOQi2cLiZ63seUajs=";
-+    sha256 = "sha256-m8oTqGbsJ99ImtnSlL4LX1qR0bUhGtVPPWmjsZfV6sE=";
-   };
- 
-   propagatedBuildInputs = [
-
-From 624fd5a9d4ef04d278bc031c2634d99884fdf1c3 Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:25:41 +0100
-Subject: [PATCH 04/12] python3Packages.nexia: 0.9.11 -> 0.9.12
-
----
- pkgs/development/python-modules/nexia/default.nix | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/pkgs/development/python-modules/nexia/default.nix b/pkgs/development/python-modules/nexia/default.nix
-index 22dbea2cd5170..5bb8b15f68349 100644
---- a/pkgs/development/python-modules/nexia/default.nix
-+++ b/pkgs/development/python-modules/nexia/default.nix
-@@ -9,14 +9,14 @@
- 
- buildPythonPackage rec {
-   pname = "nexia";
--  version = "0.9.11";
-+  version = "0.9.12";
-   disabled = pythonOlder "3.5";
- 
-   src = fetchFromGitHub {
-     owner = "bdraco";
-     repo = pname;
-     rev = version;
--    sha256 = "0ql08nfvh6rjhjdh78gzih7az95m0fc9wxc22yqmlc9grifnp9i5";
-+    sha256 = "sha256-YZHAWRTYquUm3Ymi/3mSQqxYZuoxsH5Q/LZOPDftEzU=";
-   };
- 
-   propagatedBuildInputs = [
-
-From e9b6f32a3aee2ad9997ce23181004c42a1df79ee Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:26:02 +0100
-Subject: [PATCH 05/12] python3Packages.google-nest-sdm: 0.4.8 -> 0.4.9
-
----
- pkgs/development/python-modules/google-nest-sdm/default.nix | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/pkgs/development/python-modules/google-nest-sdm/default.nix b/pkgs/development/python-modules/google-nest-sdm/default.nix
-index a4520a6847d22..4a35812a19da0 100644
---- a/pkgs/development/python-modules/google-nest-sdm/default.nix
-+++ b/pkgs/development/python-modules/google-nest-sdm/default.nix
-@@ -13,7 +13,7 @@
- 
- buildPythonPackage rec {
-   pname = "google-nest-sdm";
--  version = "0.4.8";
-+  version = "0.4.9";
-   format = "setuptools";
+   pname = "aiopvpc";
+-  version = "2.2.4";
++  version = "3.0.0";
+   format = "pyproject";
  
    disabled = pythonOlder "3.8";
-@@ -22,7 +22,7 @@ buildPythonPackage rec {
-     owner = "allenporter";
-     repo = "python-google-nest-sdm";
-     rev = version;
--    sha256 = "sha256-HHjCML/55jthqZ5WjNNsldr+8nul8bd8N9aNAoe/iBw=";
-+    sha256 = "sha256-Y0p1Hu3hcJQzbHmwMaIC8l5W4GXuuX8LBLCOvQ1N0So=";
-   };
- 
-   propagatedBuildInputs = [
-
-From 2116bddf0a71547c2ce10b4a25dc7e0988d45703 Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:27:58 +0100
-Subject: [PATCH 06/12] python3Packages.pydexcom: 0.2.1 -> 0.2.2
-
----
- pkgs/development/python-modules/pydexcom/default.nix | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/pkgs/development/python-modules/pydexcom/default.nix b/pkgs/development/python-modules/pydexcom/default.nix
-index 3f6983d7fd9bc..c2f8953bbced4 100644
---- a/pkgs/development/python-modules/pydexcom/default.nix
-+++ b/pkgs/development/python-modules/pydexcom/default.nix
-@@ -6,13 +6,13 @@
- 
- buildPythonPackage rec {
-   pname = "pydexcom";
--  version = "0.2.1";
-+  version = "0.2.2";
- 
-   src = fetchFromGitHub {
-     owner = "gagebenne";
+@@ -24,7 +24,7 @@ buildPythonPackage rec {
+     owner = "azogue";
      repo = pname;
-     rev = version;
--    sha256 = "sha256-fC8K2NHCFcqzmsH02XPAGZtUTTXWyr0p4524UVv6yU4=";
-+    sha256 = "sha256-8PE+MFQkuwYey82jNSRjMaK8kAhYSBbjqnsbGJHGW9I=";
+     rev = "v${version}";
+-    sha256 = "sha256-39cGDbaBS5we+WbqvABe6tKwTmbgd+NYLssKQCOuBsc=";
++    sha256 = "sha256-eTCQddoZIaCs7iKGNBC8aSq6ek4vwYXgIXx35UlME/k=";
    };
  
-   propagatedBuildInputs = [ requests ];
+   nativeBuildInputs = [
 
-From 50979af76f25868539053b79ed0378de45d7c2e2 Mon Sep 17 00:00:00 2001
+From dd914062c09d18e767e6cf0ebf2fd77bfbd3df36 Mon Sep 17 00:00:00 2001
 From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:28:45 +0100
-Subject: [PATCH 07/12] python3Packages.pywemo: 0.6.8 -> 0.7.0
+Date: Fri, 24 Dec 2021 01:49:05 +0100
+Subject: [PATCH 3/6] python3Packages.pytile: 2021.10.0 -> 2021.12.0
 
 ---
- pkgs/development/python-modules/pywemo/default.nix | 4 ++--
+ pkgs/development/python-modules/pytile/default.nix | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/pkgs/development/python-modules/pywemo/default.nix b/pkgs/development/python-modules/pywemo/default.nix
-index c26e01d20eda5..1e2f8db96cd82 100644
---- a/pkgs/development/python-modules/pywemo/default.nix
-+++ b/pkgs/development/python-modules/pywemo/default.nix
+diff --git a/pkgs/development/python-modules/pytile/default.nix b/pkgs/development/python-modules/pytile/default.nix
+index 4806fa0b55e28..1673688657cc0 100644
+--- a/pkgs/development/python-modules/pytile/default.nix
++++ b/pkgs/development/python-modules/pytile/default.nix
 @@ -13,7 +13,7 @@
  
  buildPythonPackage rec {
-   pname = "pywemo";
--  version = "0.6.8";
-+  version = "0.7.0";
+   pname = "pytile";
+-  version = "2021.10.0";
++  version = "2021.12.0";
    format = "pyproject";
  
    disabled = pythonOlder "3.7";
 @@ -22,7 +22,7 @@ buildPythonPackage rec {
-     owner = pname;
-     repo = pname;
-     rev = version;
--    sha256 = "sha256-4EvS1f9l1HXf+b/t4NavIxUsBkFomEqZgpumM+O8RZg=";
-+    sha256 = "sha256-NwhKrk5cQT7kk4VCr0BMQz0yTP/vuBA6MjTRuk2LM5Y=";
-   };
- 
-   nativeBuildInputs = [
-
-From 224071ecae1fea9f1158d16b1ec9ec5533342fc6 Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:29:22 +0100
-Subject: [PATCH 08/12] python3Packages.simplisafe-python: 2021.12.1 ->
- 2021.12.2
-
----
- pkgs/development/python-modules/simplisafe-python/default.nix | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/pkgs/development/python-modules/simplisafe-python/default.nix b/pkgs/development/python-modules/simplisafe-python/default.nix
-index bd9c06cf119d0..bbfd95cd9212d 100644
---- a/pkgs/development/python-modules/simplisafe-python/default.nix
-+++ b/pkgs/development/python-modules/simplisafe-python/default.nix
-@@ -19,7 +19,7 @@
- 
- buildPythonPackage rec {
-   pname = "simplisafe-python";
--  version = "2021.12.1";
-+  version = "2021.12.2";
-   format = "pyproject";
- 
-   disabled = pythonOlder "3.8";
-@@ -28,7 +28,7 @@ buildPythonPackage rec {
      owner = "bachya";
      repo = pname;
      rev = version;
--    sha256 = "sha256-HWOQAcjsW7iE/AuqOQvdZkubpg53AktReNJxbxHdMFs=";
-+    sha256 = "sha256-XVSoPPBdjSQBYrUs0AFGsGFRrQOWbPzlB2mmEBSbFI4=";
+-    sha256 = "sha256-9FbcGhRmXULJgfJOmy6mhiZwQUDNmvxZI/WxjJIbnc8=";
++    sha256 = "sha256-a76Qzk8ZsoV6HUOcDjMdnFVZJu/iKFbShoC9OZ0caDc=";
    };
  
    nativeBuildInputs = [
 
-From 47c602d2112c5a51716718bd1f67d28d503c209a Mon Sep 17 00:00:00 2001
+From 3c34d662ac0a93e4c5689ec4367aa1393d2bf952 Mon Sep 17 00:00:00 2001
 From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:29:51 +0100
-Subject: [PATCH 09/12] python3Packages.xknx: 0.18.13 -> 0.18.14
+Date: Fri, 24 Dec 2021 01:49:28 +0100
+Subject: [PATCH 4/6] python3Packages.xknx: 0.18.14 -> 0.18.15
 
 ---
  pkgs/development/python-modules/xknx/default.nix | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/pkgs/development/python-modules/xknx/default.nix b/pkgs/development/python-modules/xknx/default.nix
-index d7cf63f003d06..f86abba711c70 100644
+index f86abba711c70..781f59fa3cf74 100644
 --- a/pkgs/development/python-modules/xknx/default.nix
 +++ b/pkgs/development/python-modules/xknx/default.nix
 @@ -11,7 +11,7 @@
  
  buildPythonPackage rec {
    pname = "xknx";
--  version = "0.18.13";
-+  version = "0.18.14";
+-  version = "0.18.14";
++  version = "0.18.15";
    format = "setuptools";
  
    disabled = pythonOlder "3.8";
@@ -272,46 +126,63 @@ index d7cf63f003d06..f86abba711c70 100644
      owner = "XKNX";
      repo = pname;
      rev = version;
--    sha256 = "sha256-GZ5FRPQn69+/Fnx10VKWSIAaVXCcVyfvQVH1JaMGRC0=";
-+    sha256 = "sha256-PWBUG9sa9530cfXqpJ+0UVxOx+FxNfz4ZLazpUILvww=";
+-    sha256 = "sha256-PWBUG9sa9530cfXqpJ+0UVxOx+FxNfz4ZLazpUILvww=";
++    sha256 = "sha256-k/fLUuBjXScTvlvoBLZIVPEqNGIPI04FBeTBadp5uiY=";
    };
  
    propagatedBuildInputs = [
 
-From c12155fe2dd1d04a106eccc69222665153788b07 Mon Sep 17 00:00:00 2001
+From 308bc63c20e2d5317e866c18d55bbe7783bf1394 Mon Sep 17 00:00:00 2001
 From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:46:22 +0100
-Subject: [PATCH 10/12] home-assistant: 2021.12.2 -> 2021.12.4
+Date: Fri, 24 Dec 2021 02:14:23 +0100
+Subject: [PATCH 5/6] home-assistant: 2021.12.4 -> 2021.12.5
 
 ---
- pkgs/servers/home-assistant/component-packages.nix | 2 +-
+ pkgs/servers/home-assistant/component-packages.nix | 6 +++---
  pkgs/servers/home-assistant/default.nix            | 4 ++--
- pkgs/servers/home-assistant/frontend.nix           | 4 ++--
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/pkgs/servers/home-assistant/component-packages.nix b/pkgs/servers/home-assistant/component-packages.nix
-index 4ac35577682a6..419447a32bada 100644
+index 419447a32bada..a903f7a333f8c 100644
 --- a/pkgs/servers/home-assistant/component-packages.nix
 +++ b/pkgs/servers/home-assistant/component-packages.nix
 @@ -2,7 +2,7 @@
  # Do not edit!
  
  {
--  version = "2021.12.2";
-+  version = "2021.12.4";
+-  version = "2021.12.4";
++  version = "2021.12.5";
    components = {
      "abode" = ps: with ps; [ abodepy ];
      "accuweather" = ps: with ps; [ accuweather ];
+@@ -180,7 +180,7 @@
+     "devolo_home_network" = ps: with ps; [ devolo-plc-api ];
+     "dexcom" = ps: with ps; [ pydexcom ];
+     "dhcp" = ps: with ps; [ aiodiscover scapy ];
+-    "dht" = ps: with ps; [ ]; # missing inputs: adafruit-circuitpython-dht
++    "dht" = ps: with ps; [ ]; # missing inputs: RPi.GPIO adafruit-circuitpython-dht
+     "dialogflow" = ps: with ps; [ aiohttp-cors ];
+     "digital_ocean" = ps: with ps; [ digital-ocean ];
+     "digitalloggers" = ps: with ps; [ ]; # missing inputs: dlipower
+@@ -706,7 +706,7 @@
+     "remote" = ps: with ps; [ ];
+     "remote_rpi_gpio" = ps: with ps; [ ]; # missing inputs: gpiozero
+     "renault" = ps: with ps; [ renault-api ];
+-    "repetier" = ps: with ps; [ ]; # missing inputs: pyrepetier
++    "repetier" = ps: with ps; [ ]; # missing inputs: pyrepetierng
+     "rest" = ps: with ps; [ jsonpath xmltodict ];
+     "rest_command" = ps: with ps; [ ];
+     "rflink" = ps: with ps; [ rflink ];
 diff --git a/pkgs/servers/home-assistant/default.nix b/pkgs/servers/home-assistant/default.nix
-index 4c34e5a7fc493..b747e65779c8f 100644
+index 5e5026901b083..3701caea50878 100644
 --- a/pkgs/servers/home-assistant/default.nix
 +++ b/pkgs/servers/home-assistant/default.nix
 @@ -252,7 +252,7 @@ let
    extraBuildInputs = extraPackages py.pkgs;
  
    # Don't forget to run parse-requirements.py after updating
--  hassVersion = "2021.12.2";
-+  hassVersion = "2021.12.4";
+-  hassVersion = "2021.12.4";
++  hassVersion = "2021.12.5";
  
  in with py.pkgs; buildPythonApplication rec {
    pname = "homeassistant";
@@ -319,83 +190,42 @@ index 4c34e5a7fc493..b747e65779c8f 100644
      owner = "home-assistant";
      repo = "core";
      rev = version;
--    hash = "sha256:0rb6kwvrjq258qv8xh4qbpw3n91bb263dcqp3f1dg45n8mbcdr60";
-+    hash = "sha256:NZPv6Zyy9brdArRsyGA6EMkYEY1wCf6osjek4lEsr1c=";
+-    hash = "sha256:NZPv6Zyy9brdArRsyGA6EMkYEY1wCf6osjek4lEsr1c=";
++    hash = "sha256:116qklmzvqh3hn3i6i7lvsnqydd2qclk612rwlxs3v56kzpks62n";
    };
  
    # leave this in, so users don't have to constantly update their downstream patch handling
-diff --git a/pkgs/servers/home-assistant/frontend.nix b/pkgs/servers/home-assistant/frontend.nix
-index b7090d01fc36c..62d2cc10a07aa 100644
---- a/pkgs/servers/home-assistant/frontend.nix
-+++ b/pkgs/servers/home-assistant/frontend.nix
-@@ -4,11 +4,11 @@ buildPythonPackage rec {
-   # the frontend version corresponding to a specific home-assistant version can be found here
-   # https://github.com/home-assistant/home-assistant/blob/master/homeassistant/components/frontend/manifest.json
-   pname = "home-assistant-frontend";
--  version = "20211215.0";
-+  version = "20211220.0";
- 
-   src = fetchPypi {
-     inherit pname version;
--    sha256 = "sha256-G2w+L+tQi47JOygYZ1+VtC96FBPet5klkW0LUeaxWBY=";
-+    sha256 = "sha256-qhuTvHN0kjdPIIyfrtj+col1Ba3WSnypqVxGfia4dW4=";
-   };
- 
-   # there is nothing to strip in this package
 
-From c3231eddb5afa91de197f62f4adda1da4cf3c21d Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:47:08 +0100
-Subject: [PATCH 11/12] home-assistant: disable nest tests
+From 44a97867600d7148298e363f34cfcaee9ba486c4 Mon Sep 17 00:00:00 2001
+From: Fabian Affolter <mail@fabian-affolter.ch>
+Date: Fri, 24 Dec 2021 23:49:19 +0100
+Subject: [PATCH 6/6] home-assistant: override yalexs
 
-The library has an unfree license, this breaks CI builds.
 ---
- pkgs/servers/home-assistant/default.nix | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ pkgs/servers/home-assistant/default.nix | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/pkgs/servers/home-assistant/default.nix b/pkgs/servers/home-assistant/default.nix
-index b747e65779c8f..5e5026901b083 100644
+index 3701caea50878..8f309f9b6c4f0 100644
 --- a/pkgs/servers/home-assistant/default.nix
 +++ b/pkgs/servers/home-assistant/default.nix
-@@ -646,7 +646,8 @@ in with py.pkgs; buildPythonApplication rec {
-     "namecheapdns"
-     "neato"
-     "ness_alarm"
--    "nest"
-+    # python-nest has an unfree license, this prevents builds through ofborg
-+    # "nest"
-     "netatmo"
-     "nexia"
-     "nightscout"
-
-From f09b94b3273181d0c7c583f9dcbbdcc43eeb0040 Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Tue, 21 Dec 2021 13:55:49 +0100
-Subject: [PATCH 12/12] python3Packages.voluptuous-serialize: 2.4.0 -> 2.5.0
-
----
- .../python-modules/voluptuous-serialize/default.nix           | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/pkgs/development/python-modules/voluptuous-serialize/default.nix b/pkgs/development/python-modules/voluptuous-serialize/default.nix
-index 4c31b5f758a49..97cd40fbc6940 100644
---- a/pkgs/development/python-modules/voluptuous-serialize/default.nix
-+++ b/pkgs/development/python-modules/voluptuous-serialize/default.nix
-@@ -8,7 +8,7 @@
+@@ -219,6 +219,19 @@ let
+       });
+     })
  
- buildPythonPackage rec  {
-   pname = "voluptuous-serialize";
--  version = "2.4.0";
-+  version = "2.5.0";
- 
-   disabled = !isPy3k;
- 
-@@ -16,7 +16,7 @@ buildPythonPackage rec  {
-     owner = "home-assistant-libs";
-     repo = pname;
-     rev = version;
--    sha256 = "1km2y1xaagkdvsy3bmi1sc040x5yyfdw6llmwdv9z8nz67m9v1ya";
-+    sha256 = "sha256-8rWMz8tBanxHdU/F4HhBxxz3ltqbdRoP4JED2dmZfTk=";
-   };
- 
-   propagatedBuildInputs = [ voluptuous ];
++    # Remove with 2021.12.6 as the requirement will be 1.1.16 (at least)
++    (self: super: {
++      yalexs = super.yalexs.overridePythonAttrs (oldAttrs: rec {
++        version = "1.1.13";
++        src = fetchFromGitHub {
++          owner = "bdraco";
++          repo = "yalexs";
++          rev = "v${version}";
++          sha256 = "sha256-lnx8+VyDyO7Wg+QW+CC0FUg77Ndfjar6PLsDYwEpaCQ=";
++        };
++      });
++    })
++
+     # home-assistant-frontend does not exist in python3.pkgs
+     (self: super: {
+       home-assistant-frontend = self.callPackage ./frontend.nix { };
