@@ -1,14 +1,241 @@
-From 5e2884794cdc26626723a45bc7a22c3a69d0520d Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Fri, 24 Dec 2021 01:12:26 +0100
-Subject: [PATCH 1/6] python3Packages.aiohue: 3.0.7 -> 3.0.10
-
----
- pkgs/development/python-modules/aiohue/default.nix | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
+diff --git a/patches/home-assistant.patch b/patches/home-assistant.patch
+index 6f7981fb..e69de29b 100644
+--- a/patches/home-assistant.patch
++++ b/patches/home-assistant.patch
+@@ -1,231 +0,0 @@
+-From 5e2884794cdc26626723a45bc7a22c3a69d0520d Mon Sep 17 00:00:00 2001
+-From: Martin Weinelt <hexa@darmstadt.ccc.de>
+-Date: Fri, 24 Dec 2021 01:12:26 +0100
+-Subject: [PATCH 1/6] python3Packages.aiohue: 3.0.7 -> 3.0.10
+-
+----
+- pkgs/development/python-modules/aiohue/default.nix | 6 ++++--
+- 1 file changed, 4 insertions(+), 2 deletions(-)
+-
+-diff --git a/pkgs/development/python-modules/aiohue/default.nix b/pkgs/development/python-modules/aiohue/default.nix
+-index 6b791b32e724a..fd15d3aa8f80b 100644
+---- a/pkgs/development/python-modules/aiohue/default.nix
+-+++ b/pkgs/development/python-modules/aiohue/default.nix
+-@@ -2,19 +2,21 @@
+- , buildPythonPackage
+- , fetchPypi
+- , aiohttp
+-+, asyncio-throttle
+- }:
+- 
+- buildPythonPackage rec {
+-   pname = "aiohue";
+--  version = "3.0.7";
+-+  version = "3.0.10";
+- 
+-   src = fetchPypi {
+-     inherit pname version;
+--    sha256 = "sha256-Q01giQZytOQ+Ko7kvL0OfdDPysfvtKhW7fYmHmAv5Go=";
+-+    sha256 = "sha256-LwtE9F5ic0aZ9/q3dSWn20O27yW/QD/Yi1NPdFmiP10=";
+-   };
+- 
+-   propagatedBuildInputs = [
+-     aiohttp
+-+    asyncio-throttle
+-   ];
+- 
+-   pythonImportsCheck = [
+-
+-From 0879f11d899488e42552066f67d5a4d7769b53fd Mon Sep 17 00:00:00 2001
+-From: Martin Weinelt <hexa@darmstadt.ccc.de>
+-Date: Fri, 24 Dec 2021 01:14:00 +0100
+-Subject: [PATCH 2/6] python3Packages.aiopvpc: 2.2.4 -> 3.0.0
+-
+----
+- pkgs/development/python-modules/aiopvpc/default.nix | 4 ++--
+- 1 file changed, 2 insertions(+), 2 deletions(-)
+-
+-diff --git a/pkgs/development/python-modules/aiopvpc/default.nix b/pkgs/development/python-modules/aiopvpc/default.nix
+-index b3f24e6051a4f..ae069ae182664 100644
+---- a/pkgs/development/python-modules/aiopvpc/default.nix
+-+++ b/pkgs/development/python-modules/aiopvpc/default.nix
+-@@ -15,7 +15,7 @@
+- 
+- buildPythonPackage rec {
+-   pname = "aiopvpc";
+--  version = "2.2.4";
+-+  version = "3.0.0";
+-   format = "pyproject";
+- 
+-   disabled = pythonOlder "3.8";
+-@@ -24,7 +24,7 @@ buildPythonPackage rec {
+-     owner = "azogue";
+-     repo = pname;
+-     rev = "v${version}";
+--    sha256 = "sha256-39cGDbaBS5we+WbqvABe6tKwTmbgd+NYLssKQCOuBsc=";
+-+    sha256 = "sha256-eTCQddoZIaCs7iKGNBC8aSq6ek4vwYXgIXx35UlME/k=";
+-   };
+- 
+-   nativeBuildInputs = [
+-
+-From dd914062c09d18e767e6cf0ebf2fd77bfbd3df36 Mon Sep 17 00:00:00 2001
+-From: Martin Weinelt <hexa@darmstadt.ccc.de>
+-Date: Fri, 24 Dec 2021 01:49:05 +0100
+-Subject: [PATCH 3/6] python3Packages.pytile: 2021.10.0 -> 2021.12.0
+-
+----
+- pkgs/development/python-modules/pytile/default.nix | 4 ++--
+- 1 file changed, 2 insertions(+), 2 deletions(-)
+-
+-diff --git a/pkgs/development/python-modules/pytile/default.nix b/pkgs/development/python-modules/pytile/default.nix
+-index 4806fa0b55e28..1673688657cc0 100644
+---- a/pkgs/development/python-modules/pytile/default.nix
+-+++ b/pkgs/development/python-modules/pytile/default.nix
+-@@ -13,7 +13,7 @@
+- 
+- buildPythonPackage rec {
+-   pname = "pytile";
+--  version = "2021.10.0";
+-+  version = "2021.12.0";
+-   format = "pyproject";
+- 
+-   disabled = pythonOlder "3.7";
+-@@ -22,7 +22,7 @@ buildPythonPackage rec {
+-     owner = "bachya";
+-     repo = pname;
+-     rev = version;
+--    sha256 = "sha256-9FbcGhRmXULJgfJOmy6mhiZwQUDNmvxZI/WxjJIbnc8=";
+-+    sha256 = "sha256-a76Qzk8ZsoV6HUOcDjMdnFVZJu/iKFbShoC9OZ0caDc=";
+-   };
+- 
+-   nativeBuildInputs = [
+-
+-From 3c34d662ac0a93e4c5689ec4367aa1393d2bf952 Mon Sep 17 00:00:00 2001
+-From: Martin Weinelt <hexa@darmstadt.ccc.de>
+-Date: Fri, 24 Dec 2021 01:49:28 +0100
+-Subject: [PATCH 4/6] python3Packages.xknx: 0.18.14 -> 0.18.15
+-
+----
+- pkgs/development/python-modules/xknx/default.nix | 4 ++--
+- 1 file changed, 2 insertions(+), 2 deletions(-)
+-
+-diff --git a/pkgs/development/python-modules/xknx/default.nix b/pkgs/development/python-modules/xknx/default.nix
+-index f86abba711c70..781f59fa3cf74 100644
+---- a/pkgs/development/python-modules/xknx/default.nix
+-+++ b/pkgs/development/python-modules/xknx/default.nix
+-@@ -11,7 +11,7 @@
+- 
+- buildPythonPackage rec {
+-   pname = "xknx";
+--  version = "0.18.14";
+-+  version = "0.18.15";
+-   format = "setuptools";
+- 
+-   disabled = pythonOlder "3.8";
+-@@ -20,7 +20,7 @@ buildPythonPackage rec {
+-     owner = "XKNX";
+-     repo = pname;
+-     rev = version;
+--    sha256 = "sha256-PWBUG9sa9530cfXqpJ+0UVxOx+FxNfz4ZLazpUILvww=";
+-+    sha256 = "sha256-k/fLUuBjXScTvlvoBLZIVPEqNGIPI04FBeTBadp5uiY=";
+-   };
+- 
+-   propagatedBuildInputs = [
+-
+-From 308bc63c20e2d5317e866c18d55bbe7783bf1394 Mon Sep 17 00:00:00 2001
+-From: Martin Weinelt <hexa@darmstadt.ccc.de>
+-Date: Fri, 24 Dec 2021 02:14:23 +0100
+-Subject: [PATCH 5/6] home-assistant: 2021.12.4 -> 2021.12.5
+-
+----
+- pkgs/servers/home-assistant/component-packages.nix | 6 +++---
+- pkgs/servers/home-assistant/default.nix            | 4 ++--
+- 2 files changed, 5 insertions(+), 5 deletions(-)
+-
+-diff --git a/pkgs/servers/home-assistant/component-packages.nix b/pkgs/servers/home-assistant/component-packages.nix
+-index 419447a32bada..a903f7a333f8c 100644
+---- a/pkgs/servers/home-assistant/component-packages.nix
+-+++ b/pkgs/servers/home-assistant/component-packages.nix
+-@@ -2,7 +2,7 @@
+- # Do not edit!
+- 
+- {
+--  version = "2021.12.4";
+-+  version = "2021.12.5";
+-   components = {
+-     "abode" = ps: with ps; [ abodepy ];
+-     "accuweather" = ps: with ps; [ accuweather ];
+-@@ -180,7 +180,7 @@
+-     "devolo_home_network" = ps: with ps; [ devolo-plc-api ];
+-     "dexcom" = ps: with ps; [ pydexcom ];
+-     "dhcp" = ps: with ps; [ aiodiscover scapy ];
+--    "dht" = ps: with ps; [ ]; # missing inputs: adafruit-circuitpython-dht
+-+    "dht" = ps: with ps; [ ]; # missing inputs: RPi.GPIO adafruit-circuitpython-dht
+-     "dialogflow" = ps: with ps; [ aiohttp-cors ];
+-     "digital_ocean" = ps: with ps; [ digital-ocean ];
+-     "digitalloggers" = ps: with ps; [ ]; # missing inputs: dlipower
+-@@ -706,7 +706,7 @@
+-     "remote" = ps: with ps; [ ];
+-     "remote_rpi_gpio" = ps: with ps; [ ]; # missing inputs: gpiozero
+-     "renault" = ps: with ps; [ renault-api ];
+--    "repetier" = ps: with ps; [ ]; # missing inputs: pyrepetier
+-+    "repetier" = ps: with ps; [ ]; # missing inputs: pyrepetierng
+-     "rest" = ps: with ps; [ jsonpath xmltodict ];
+-     "rest_command" = ps: with ps; [ ];
+-     "rflink" = ps: with ps; [ rflink ];
+-diff --git a/pkgs/servers/home-assistant/default.nix b/pkgs/servers/home-assistant/default.nix
+-index 5e5026901b083..3701caea50878 100644
+---- a/pkgs/servers/home-assistant/default.nix
+-+++ b/pkgs/servers/home-assistant/default.nix
+-@@ -252,7 +252,7 @@ let
+-   extraBuildInputs = extraPackages py.pkgs;
+- 
+-   # Don't forget to run parse-requirements.py after updating
+--  hassVersion = "2021.12.4";
+-+  hassVersion = "2021.12.5";
+- 
+- in with py.pkgs; buildPythonApplication rec {
+-   pname = "homeassistant";
+-@@ -269,7 +269,7 @@ in with py.pkgs; buildPythonApplication rec {
+-     owner = "home-assistant";
+-     repo = "core";
+-     rev = version;
+--    hash = "sha256:NZPv6Zyy9brdArRsyGA6EMkYEY1wCf6osjek4lEsr1c=";
+-+    hash = "sha256:116qklmzvqh3hn3i6i7lvsnqydd2qclk612rwlxs3v56kzpks62n";
+-   };
+- 
+-   # leave this in, so users don't have to constantly update their downstream patch handling
+-
+-From 44a97867600d7148298e363f34cfcaee9ba486c4 Mon Sep 17 00:00:00 2001
+-From: Fabian Affolter <mail@fabian-affolter.ch>
+-Date: Fri, 24 Dec 2021 23:49:19 +0100
+-Subject: [PATCH 6/6] home-assistant: override yalexs
+-
+----
+- pkgs/servers/home-assistant/default.nix | 13 +++++++++++++
+- 1 file changed, 13 insertions(+)
+-
+-diff --git a/pkgs/servers/home-assistant/default.nix b/pkgs/servers/home-assistant/default.nix
+-index 3701caea50878..8f309f9b6c4f0 100644
+---- a/pkgs/servers/home-assistant/default.nix
+-+++ b/pkgs/servers/home-assistant/default.nix
+-@@ -219,6 +219,19 @@ let
+-       });
+-     })
+- 
+-+    # Remove with 2021.12.6 as the requirement will be 1.1.16 (at least)
+-+    (self: super: {
+-+      yalexs = super.yalexs.overridePythonAttrs (oldAttrs: rec {
+-+        version = "1.1.13";
+-+        src = fetchFromGitHub {
+-+          owner = "bdraco";
+-+          repo = "yalexs";
+-+          rev = "v${version}";
+-+          sha256 = "sha256-lnx8+VyDyO7Wg+QW+CC0FUg77Ndfjar6PLsDYwEpaCQ=";
+-+        };
+-+      });
+-+    })
+-+
+-     # home-assistant-frontend does not exist in python3.pkgs
+-     (self: super: {
+-       home-assistant-frontend = self.callPackage ./frontend.nix { };
 diff --git a/pkgs/development/python-modules/aiohue/default.nix b/pkgs/development/python-modules/aiohue/default.nix
-index 6b791b32e724a..fd15d3aa8f80b 100644
+index 6b791b32..fd15d3aa 100644
 --- a/pkgs/development/python-modules/aiohue/default.nix
 +++ b/pkgs/development/python-modules/aiohue/default.nix
 @@ -2,19 +2,21 @@
@@ -35,18 +262,8 @@ index 6b791b32e724a..fd15d3aa8f80b 100644
    ];
  
    pythonImportsCheck = [
-
-From 0879f11d899488e42552066f67d5a4d7769b53fd Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Fri, 24 Dec 2021 01:14:00 +0100
-Subject: [PATCH 2/6] python3Packages.aiopvpc: 2.2.4 -> 3.0.0
-
----
- pkgs/development/python-modules/aiopvpc/default.nix | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
 diff --git a/pkgs/development/python-modules/aiopvpc/default.nix b/pkgs/development/python-modules/aiopvpc/default.nix
-index b3f24e6051a4f..ae069ae182664 100644
+index b3f24e60..ae069ae1 100644
 --- a/pkgs/development/python-modules/aiopvpc/default.nix
 +++ b/pkgs/development/python-modules/aiopvpc/default.nix
 @@ -15,7 +15,7 @@
@@ -67,18 +284,8 @@ index b3f24e6051a4f..ae069ae182664 100644
    };
  
    nativeBuildInputs = [
-
-From dd914062c09d18e767e6cf0ebf2fd77bfbd3df36 Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Fri, 24 Dec 2021 01:49:05 +0100
-Subject: [PATCH 3/6] python3Packages.pytile: 2021.10.0 -> 2021.12.0
-
----
- pkgs/development/python-modules/pytile/default.nix | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
 diff --git a/pkgs/development/python-modules/pytile/default.nix b/pkgs/development/python-modules/pytile/default.nix
-index 4806fa0b55e28..1673688657cc0 100644
+index 4806fa0b..16736886 100644
 --- a/pkgs/development/python-modules/pytile/default.nix
 +++ b/pkgs/development/python-modules/pytile/default.nix
 @@ -13,7 +13,7 @@
@@ -99,18 +306,8 @@ index 4806fa0b55e28..1673688657cc0 100644
    };
  
    nativeBuildInputs = [
-
-From 3c34d662ac0a93e4c5689ec4367aa1393d2bf952 Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Fri, 24 Dec 2021 01:49:28 +0100
-Subject: [PATCH 4/6] python3Packages.xknx: 0.18.14 -> 0.18.15
-
----
- pkgs/development/python-modules/xknx/default.nix | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
 diff --git a/pkgs/development/python-modules/xknx/default.nix b/pkgs/development/python-modules/xknx/default.nix
-index f86abba711c70..781f59fa3cf74 100644
+index f86abba7..781f59fa 100644
 --- a/pkgs/development/python-modules/xknx/default.nix
 +++ b/pkgs/development/python-modules/xknx/default.nix
 @@ -11,7 +11,7 @@
@@ -131,19 +328,8 @@ index f86abba711c70..781f59fa3cf74 100644
    };
  
    propagatedBuildInputs = [
-
-From 308bc63c20e2d5317e866c18d55bbe7783bf1394 Mon Sep 17 00:00:00 2001
-From: Martin Weinelt <hexa@darmstadt.ccc.de>
-Date: Fri, 24 Dec 2021 02:14:23 +0100
-Subject: [PATCH 5/6] home-assistant: 2021.12.4 -> 2021.12.5
-
----
- pkgs/servers/home-assistant/component-packages.nix | 6 +++---
- pkgs/servers/home-assistant/default.nix            | 4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
-
 diff --git a/pkgs/servers/home-assistant/component-packages.nix b/pkgs/servers/home-assistant/component-packages.nix
-index 419447a32bada..a903f7a333f8c 100644
+index 419447a3..454b5488 100644
 --- a/pkgs/servers/home-assistant/component-packages.nix
 +++ b/pkgs/servers/home-assistant/component-packages.nix
 @@ -2,7 +2,7 @@
@@ -151,7 +337,7 @@ index 419447a32bada..a903f7a333f8c 100644
  
  {
 -  version = "2021.12.4";
-+  version = "2021.12.5";
++  version = "2021.12.7";
    components = {
      "abode" = ps: with ps; [ abodepy ];
      "accuweather" = ps: with ps; [ accuweather ];
@@ -174,42 +360,10 @@ index 419447a32bada..a903f7a333f8c 100644
      "rest_command" = ps: with ps; [ ];
      "rflink" = ps: with ps; [ rflink ];
 diff --git a/pkgs/servers/home-assistant/default.nix b/pkgs/servers/home-assistant/default.nix
-index 5e5026901b083..3701caea50878 100644
+index 5e502690..d2aed4a2 100644
 --- a/pkgs/servers/home-assistant/default.nix
 +++ b/pkgs/servers/home-assistant/default.nix
-@@ -252,7 +252,7 @@ let
-   extraBuildInputs = extraPackages py.pkgs;
- 
-   # Don't forget to run parse-requirements.py after updating
--  hassVersion = "2021.12.4";
-+  hassVersion = "2021.12.5";
- 
- in with py.pkgs; buildPythonApplication rec {
-   pname = "homeassistant";
-@@ -269,7 +269,7 @@ in with py.pkgs; buildPythonApplication rec {
-     owner = "home-assistant";
-     repo = "core";
-     rev = version;
--    hash = "sha256:NZPv6Zyy9brdArRsyGA6EMkYEY1wCf6osjek4lEsr1c=";
-+    hash = "sha256:116qklmzvqh3hn3i6i7lvsnqydd2qclk612rwlxs3v56kzpks62n";
-   };
- 
-   # leave this in, so users don't have to constantly update their downstream patch handling
-
-From 44a97867600d7148298e363f34cfcaee9ba486c4 Mon Sep 17 00:00:00 2001
-From: Fabian Affolter <mail@fabian-affolter.ch>
-Date: Fri, 24 Dec 2021 23:49:19 +0100
-Subject: [PATCH 6/6] home-assistant: override yalexs
-
----
- pkgs/servers/home-assistant/default.nix | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/pkgs/servers/home-assistant/default.nix b/pkgs/servers/home-assistant/default.nix
-index 3701caea50878..8f309f9b6c4f0 100644
---- a/pkgs/servers/home-assistant/default.nix
-+++ b/pkgs/servers/home-assistant/default.nix
-@@ -219,6 +219,19 @@ let
+@@ -219,6 +219,32 @@ let
        });
      })
  
@@ -226,6 +380,63 @@ index 3701caea50878..8f309f9b6c4f0 100644
 +      });
 +    })
 +
++    # Remove with 2021.12.6 as the requirement will be 1.1.16 (at least)
++    (self: super: {
++      yalexs = super.yalexs.overridePythonAttrs (oldAttrs: rec {
++        version = "1.1.13";
++        src = fetchFromGitHub {
++          owner = "bdraco";
++          repo = "yalexs";
++          rev = "v${version}";
++          sha256 = "sha256-lnx8+VyDyO7Wg+QW+CC0FUg77Ndfjar6PLsDYwEpaCQ=";
++        };
++      });
++    })
++
      # home-assistant-frontend does not exist in python3.pkgs
      (self: super: {
        home-assistant-frontend = self.callPackage ./frontend.nix { };
+@@ -252,7 +278,7 @@ let
+   extraBuildInputs = extraPackages py.pkgs;
+ 
+   # Don't forget to run parse-requirements.py after updating
+-  hassVersion = "2021.12.4";
++  hassVersion = "2021.12.7";
+ 
+ in with py.pkgs; buildPythonApplication rec {
+   pname = "homeassistant";
+@@ -269,7 +295,7 @@ in with py.pkgs; buildPythonApplication rec {
+     owner = "home-assistant";
+     repo = "core";
+     rev = version;
+-    hash = "sha256:NZPv6Zyy9brdArRsyGA6EMkYEY1wCf6osjek4lEsr1c=";
++    hash = "sha256:0jcnk43wm3xwvsfyvbswq681v2c3xmki1bakn0l12j6paida784y";
+   };
+ 
+   # leave this in, so users don't have to constantly update their downstream patch handling
+@@ -307,6 +333,7 @@ in with py.pkgs; buildPythonApplication rec {
+     ciso8601
+     cryptography
+     httpx
++    ifaddr
+     jinja2
+     pip
+     pyjwt
+diff --git a/pkgs/servers/home-assistant/frontend.nix b/pkgs/servers/home-assistant/frontend.nix
+index 62d2cc10..a3ca2c07 100644
+--- a/pkgs/servers/home-assistant/frontend.nix
++++ b/pkgs/servers/home-assistant/frontend.nix
+@@ -4,11 +4,11 @@ buildPythonPackage rec {
+   # the frontend version corresponding to a specific home-assistant version can be found here
+   # https://github.com/home-assistant/home-assistant/blob/master/homeassistant/components/frontend/manifest.json
+   pname = "home-assistant-frontend";
+-  version = "20211220.0";
++  version = "20211229.0";
+ 
+   src = fetchPypi {
+     inherit pname version;
+-    sha256 = "sha256-qhuTvHN0kjdPIIyfrtj+col1Ba3WSnypqVxGfia4dW4=";
++    sha256 = "sha256-2hACC2542jz1DID7nV28keVVDDBOLW1QDYTLM4S1ZJ0=";
+   };
+ 
+   # there is nothing to strip in this package
