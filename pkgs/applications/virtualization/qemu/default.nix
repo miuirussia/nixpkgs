@@ -1,7 +1,7 @@
-{ lib, stdenv, fetchurl, fetchpatch, python, zlib, pkg-config, glib
+{ lib, stdenv, fetchurl, fetchpatch, python3, python3Packages, zlib, pkg-config, glib, buildPackages
 , perl, pixman, vde2, alsa-lib, texinfo, flex
 , bison, lzo, snappy, libaio, libtasn1, gnutls, nettle, curl, ninja, meson, sigtool
-, makeWrapper, autoPatchelfHook, runtimeShell
+, makeWrapper, runtimeShell
 , attr, libcap, libcap_ng
 , CoreServices, Cocoa, Hypervisor, rez, setfile
 , numaSupport ? stdenv.isLinux && !stdenv.isAarch32, numactl
@@ -51,9 +51,10 @@ stdenv.mkDerivation rec {
     sha256 = "15iw7982g6vc4jy1l9kk1z9sl5bm1bdbwr74y7nvwjs1nffhig7f";
   };
 
-  nativeBuildInputs = [ makeWrapper python python.pkgs.sphinx python.pkgs.sphinx_rtd_theme pkg-config flex bison meson ninja ]
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
+
+  nativeBuildInputs = [ makeWrapper pkg-config flex bison meson ninja perl python3 python3Packages.sphinx python3Packages.sphinx_rtd_theme ]
     ++ lib.optionals gtkSupport [ wrapGAppsHook ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
     ++ lib.optionals stdenv.isDarwin [ sigtool ];
 
   buildInputs = [ zlib glib perl pixman
@@ -85,6 +86,8 @@ stdenv.mkDerivation rec {
   dontUseMesonConfigure = true; # meson's configurePhase isn't compatible with qemu build
 
   outputs = [ "out" "ga" ];
+  # On aarch64-linux we would shoot over the Hydra's 2G output limit.
+  separateDebugInfo = !(stdenv.isAarch64 && stdenv.isLinux);
 
   patches = [
     ./fix-qemu-ga.patch
@@ -180,6 +183,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--audio-drv-list=${audio}"
+    "--disable-strip" # We'll strip ourselves after separating debug info.
     "--enable-docs"
     "--enable-tools"
     "--enable-guest-agent"
@@ -188,6 +192,8 @@ stdenv.mkDerivation rec {
     # Always use our Meson, not the bundled version, which doesn't
     # have our patches and will be subtly broken because of that.
     "--meson=meson"
+    "--cross-prefix=${stdenv.cc.targetPrefix}"
+    "--cpu=${stdenv.hostPlatform.uname.processor}"
   ] ++ lib.optional numaSupport "--enable-numa"
     ++ lib.optional seccompSupport "--enable-seccomp"
     ++ lib.optional smartcardSupport "--enable-smartcard"
