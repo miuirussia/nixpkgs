@@ -5619,7 +5619,7 @@ with pkgs;
 
   gexiv2 = callPackage ../development/libraries/gexiv2 { };
 
-  gftp = callPackage ../applications/networking/gftp {
+  gftp = callPackage ../applications/networking/ftp/gftp {
     gtk = gtk2;
   };
 
@@ -13578,6 +13578,8 @@ with pkgs;
 
   ngn-k = callPackage ../development/interpreters/ngn-k { };
 
+  obb = callPackage ../development/interpreters/clojure/obb.nix { };
+
   octave = callPackage ../development/interpreters/octave {
     python = python3;
     mkDerivation = stdenv.mkDerivation;
@@ -20886,6 +20888,8 @@ with pkgs;
     erlang = erlangR22;
   };
 
+  dcnnt = python3Packages.callPackage ../servers/dcnnt { };
+
   dendrite = callPackage ../servers/dendrite { };
 
   dex-oidc = callPackage ../servers/dex { };
@@ -26139,8 +26143,6 @@ with pkgs;
 
   smooth = callPackage ../development/libraries/smooth { };
 
-  smos = callPackage ../applications/misc/smos { };
-
   spectrwm = callPackage ../applications/window-managers/spectrwm { };
 
   spot = callPackage ../applications/audio/spot { };
@@ -26448,6 +26450,8 @@ with pkgs;
 
   jackmix = libsForQt5.callPackage ../applications/audio/jackmix { };
   jackmix_jack1 = jackmix.override { jack = jack1; };
+
+  jaeles = callPackage ../tools/security/jaeles { };
 
   jalv = callPackage ../applications/audio/jalv { };
 
@@ -27964,9 +27968,7 @@ with pkgs;
 
   pinpoint = callPackage ../applications/office/pinpoint { };
 
-  pinta = callPackage ../applications/graphics/pinta {
-    gtksharp = gtk-sharp-2_0;
-  };
+  pinta = callPackage ../applications/graphics/pinta { };
 
   pistol = callPackage ../tools/misc/pistol { };
 
