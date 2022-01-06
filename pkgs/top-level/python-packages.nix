@@ -2327,6 +2327,8 @@ in {
 
   dmenu-python = callPackage ../development/python-modules/dmenu { };
 
+  dm-haiku = callPackage ../development/python-modules/dm-haiku { };
+
   dm-sonnet = callPackage ../development/python-modules/dm-sonnet { };
 
   dm-tree = callPackage ../development/python-modules/dm-tree { };
@@ -5597,6 +5599,8 @@ in {
   opsdroid_get_image_size = callPackage ../development/python-modules/opsdroid_get_image_size { };
 
   opt-einsum = callPackage ../development/python-modules/opt-einsum { };
+
+  optax = callPackage ../development/python-modules/optax { };
 
   optuna = callPackage ../development/python-modules/optuna { };
 
