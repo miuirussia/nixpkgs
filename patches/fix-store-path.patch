@@ -1,0 +1,35 @@
+From 893ffee2866dbf9f2aa6e3128368e0cd5729e4b9 Mon Sep 17 00:00:00 2001
+From: kraem <ebrin.ronnie@protonmail.com>
+Date: Wed, 5 Jan 2022 12:36:54 +0100
+Subject: [PATCH] Revert "nixos/documentation: avoid copying nixpkgs subpaths"
+
+builtins.storePath is not allowed in pure evaluation mode
+
+This reverts commit 1511e72b75b49cdeeee68def0c203f997d01bafa.
+---
+ nixos/modules/misc/documentation.nix | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/nixos/modules/misc/documentation.nix b/nixos/modules/misc/documentation.nix
+index 70152c5d66248..7d8fc08b60e3b 100644
+--- a/nixos/modules/misc/documentation.nix
++++ b/nixos/modules/misc/documentation.nix
+@@ -67,15 +67,11 @@ let
+               (t == "directory" -> baseNameOf n != "tests")
+               && (t == "file" -> hasSuffix ".nix" n)
+             );
+-        pull = dir:
+-          if isStorePath pkgs.path
+-          then "${builtins.storePath pkgs.path}/${dir}"
+-          else filter "${toString pkgs.path}/${dir}";
+       in
+         pkgs.runCommand "lazy-options.json" {
+-          libPath = pull "lib";
+-          pkgsLibPath = pull "pkgs/pkgs-lib";
+-          nixosPath = pull "nixos";
++          libPath = filter "${toString pkgs.path}/lib";
++          pkgsLibPath = filter "${toString pkgs.path}/pkgs/pkgs-lib";
++          nixosPath = filter "${toString pkgs.path}/nixos";
+           modules = map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'') docModules.lazy;
+         } ''
+           export NIX_STORE_DIR=$TMPDIR/store
