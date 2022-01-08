@@ -1572,8 +1572,6 @@ with pkgs;
   buildbot-full = with python3Packages; toPythonApplication buildbot-full;
   buildbot-worker = with python3Packages; toPythonApplication buildbot-worker;
 
-  bunny = callPackage ../tools/package-management/bunny { };
-
   bunyan-rs = callPackage ../development/tools/bunyan-rs { };
 
   callaudiod = callPackage ../applications/audio/callaudiod { };
@@ -1953,10 +1951,6 @@ with pkgs;
 
   kwakd = callPackage ../servers/kwakd { };
 
-  chunkwm = callPackage ../os-specific/darwin/chunkwm {
-    inherit (darwin.apple_sdk.frameworks) Carbon Cocoa ScriptingBridge;
-  };
-
   kwm = callPackage ../os-specific/darwin/kwm { };
 
   khd = callPackage ../os-specific/darwin/khd {
@@ -2134,8 +2128,6 @@ with pkgs;
   badvpn = callPackage ../tools/networking/badvpn {};
 
   barcode = callPackage ../tools/graphics/barcode {};
-
-  bashburn = callPackage ../tools/cd-dvd/bashburn { };
 
   bashmount = callPackage ../tools/filesystems/bashmount {};
 
@@ -2335,8 +2327,6 @@ with pkgs;
   breakpointHook = assert stdenv.isLinux;
     makeSetupHook { } ../build-support/setup-hooks/breakpoint-hook.sh;
 
-  bsod = callPackage ../misc/emulators/bsod { };
-
   py65 = python3Packages.callPackage ../misc/emulators/py65 { };
 
   simh = callPackage ../misc/emulators/simh { };
@@ -2371,8 +2361,6 @@ with pkgs;
     # Choices: [ tmux screen ];
     textual-window-manager = tmux;
   };
-
-  bypass403 = callPackage ../tools/security/bypass403 { };
 
   bsh = fetchurl {
     url = "http://www.beanshell.org/bsh-2.0b5.jar";
@@ -4182,8 +4170,6 @@ with pkgs;
   colormake = callPackage ../development/tools/build-managers/colormake { };
 
   cpuminer = callPackage ../tools/misc/cpuminer { };
-
-  cpuminer-multi = callPackage ../tools/misc/cpuminer-multi { };
 
   crabz = callPackage ../tools/compression/crabz {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
@@ -8353,9 +8339,6 @@ with pkgs;
   openapi-generator-cli = callPackage ../tools/networking/openapi-generator-cli { jre = pkgs.jre_headless; };
   openapi-generator-cli-unstable = callPackage ../tools/networking/openapi-generator-cli/unstable.nix { jre = pkgs.jre_headless; };
 
-  openbazaar = callPackage ../applications/networking/openbazaar { };
-  openbazaar-client = callPackage ../applications/networking/openbazaar/client.nix { };
-
   openboard = libsForQt5.callPackage ../applications/graphics/openboard { };
 
   opencc = callPackage ../tools/text/opencc { };
@@ -8532,7 +8515,9 @@ with pkgs;
 
   ovh-ttyrec = callPackage ../tools/misc/ovh-ttyrec { };
 
-  ovito = libsForQt5.callPackage ../applications/graphics/ovito { };
+  ovito = libsForQt5.callPackage ../applications/graphics/ovito {
+    inherit (darwin.apple_sdk.frameworks) VideoDecodeAcceleration;
+  };
 
   owncloud-client = libsForQt5.callPackage ../applications/networking/owncloud-client { };
 
@@ -9094,7 +9079,9 @@ with pkgs;
 
   qprint = callPackage ../tools/text/qprint { };
 
-  qscintilla = callPackage ../development/libraries/qscintilla { };
+  qscintilla = libsForQt5.callPackage ../development/libraries/qscintilla { };
+
+  qscintilla-qt4 = callPackage ../development/libraries/qscintilla-qt4 { };
 
   qshowdiff = callPackage ../tools/text/qshowdiff { };
 
@@ -11597,8 +11584,6 @@ with pkgs;
     tex = texlive.combined.scheme-medium;
   };
 
-  asn1c = callPackage ../development/compilers/asn1c { };
-
   aspectj = callPackage ../development/compilers/aspectj { };
 
   atasm = callPackage ../development/compilers/atasm { };
@@ -12407,6 +12392,10 @@ with pkgs;
   idris = idrisPackages.with-packages [ idrisPackages.base ] ;
 
   idris2 = callPackage ../development/compilers/idris2 { };
+
+  inherit (callPackage ../development/tools/database/indradb { })
+    indradb-server
+    indradb-client;
 
   intel-graphics-compiler = callPackage ../development/compilers/intel-graphics-compiler { };
 
@@ -14231,8 +14220,6 @@ with pkgs;
       else
         stdenv;
   };
-
-  bin_replace_string = callPackage ../development/tools/misc/bin_replace_string { };
 
   bingrep = callPackage ../development/tools/analysis/bingrep { };
 
@@ -25032,6 +25019,8 @@ with pkgs;
 
   elvis = callPackage ../applications/editors/elvis { };
 
+  em = callPackage ../applications/editors/em { };
+
   emacs = emacs27;
   emacs-nox = emacs27-nox;
 
@@ -27085,6 +27074,8 @@ with pkgs;
 
   minicom = callPackage ../tools/misc/minicom { };
 
+  minigalaxy = callPackage ../applications/misc/minigalaxy { };
+
   minimodem = callPackage ../applications/radio/minimodem { };
 
   minidjvu = callPackage ../applications/graphics/minidjvu { };
@@ -28104,6 +28095,8 @@ with pkgs;
   };
 
   qemu-utils = callPackage ../applications/virtualization/qemu/utils.nix {};
+
+  wrapQemuBinfmtP = callPackage ../applications/virtualization/qemu/binfmt-p-wrapper.nix { };
 
   qgis-unwrapped = libsForQt5.callPackage ../applications/gis/qgis/unwrapped.nix {
     withGrass = false;
@@ -30348,8 +30341,6 @@ with pkgs;
   };
 
   crack_attack = callPackage ../games/crack-attack { };
-
-  crafty = callPackage ../games/crafty { };
 
   crawlTiles = callPackage ../games/crawl {
     tileMode = true;
