@@ -147,6 +147,8 @@ with pkgs;
     { name = "auto-patchelf-hook"; deps = [ bintools ]; }
     ../build-support/setup-hooks/auto-patchelf.sh;
 
+  appflowy = callPackage ../applications/office/appflowy { };
+
   appimageTools = callPackage ../build-support/appimage {
     buildFHSUserEnv = buildFHSUserEnvBubblewrap;
   };
@@ -2547,6 +2549,8 @@ with pkgs;
   colpack = callPackage ../applications/science/math/colpack { };
 
   cz-cli = callPackage ../applications/version-management/cz-cli {};
+
+  comma = callPackage ../tools/package-management/comma { };
 
   common-licenses = callPackage ../data/misc/common-licenses {};
 
@@ -13761,6 +13765,7 @@ with pkgs;
   pipewire = callPackage ../development/libraries/pipewire {};
   pipewire-media-session = callPackage ../development/libraries/pipewire/media-session.nix {};
   pipewire_0_2 = callPackage ../development/libraries/pipewire/0.2.nix {};
+  wireplumber = callPackage ../development/libraries/pipewire/wireplumber.nix {};
 
   pyradio = callPackage ../applications/audio/pyradio {};
 
@@ -20935,7 +20940,8 @@ with pkgs;
     gn = gn1924;
   };
 
-  etcd = callPackage ../servers/etcd { };
+  etcd = etcd_3_3;
+  etcd_3_3 = callPackage ../servers/etcd/3.3.nix { };
   etcd_3_4 = callPackage ../servers/etcd/3.4.nix { };
 
   ejabberd = callPackage ../servers/xmpp/ejabberd { };
@@ -23044,6 +23050,7 @@ with pkgs;
     ubootQemuAarch64
     ubootQemuArm
     ubootQemuRiscv64Smode
+    ubootQemuX86
     ubootRaspberryPi
     ubootRaspberryPi2
     ubootRaspberryPi3_32bit
@@ -23445,6 +23452,8 @@ with pkgs;
   gnome-icon-theme = callPackage ../data/icons/gnome-icon-theme { };
 
   go-font = callPackage ../data/fonts/go-font { };
+
+  graphite-gtk-theme = callPackage ../data/themes/graphite { };
 
   greybird = callPackage ../data/themes/greybird { };
 
