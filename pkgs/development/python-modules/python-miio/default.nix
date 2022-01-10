@@ -24,21 +24,18 @@
 
 buildPythonPackage rec {
   pname = "python-miio";
-  version = "0.5.9.2";
-  disabled = pythonOlder "3.6";
+  version = "0.5.9.1";
+  disabled = pythonOlder "3.6.5";
   format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-AFwarRhFknfwTSvSDGoWE+/mv1KUD2XnWK/xCBqrN4o=";
+    sha256 = "sha256-fWLN1mGSoB+H6YSwTYpx1fuXfkrHBgdRkhzDLbmMBcg=";
   };
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace 'click = ">=7"' 'click = "*"' \
-      --replace 'croniter = ">=1"' 'croniter = "*"' \
-      --replace 'cryptography = ">=35"' 'cryptography = "*"' \
-      --replace 'defusedxml = "^0"' 'defusedxml = "*"'
+      --replace 'defusedxml = "^0"' 'defusedxml = "*"' \
   '';
 
   nativeBuildInputs = [
