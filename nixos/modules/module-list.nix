@@ -53,6 +53,7 @@
   ./hardware/flirc.nix
   ./hardware/gpgsmartcards.nix
   ./hardware/i2c.nix
+  ./hardware/hackrf.nix
   ./hardware/sensor/hddtemp.nix
   ./hardware/sensor/iio.nix
   ./hardware/keyboard/teck.nix
@@ -197,6 +198,7 @@
   ./programs/ssmtp.nix
   ./programs/sysdig.nix
   ./programs/systemtap.nix
+  ./programs/starship.nix
   ./programs/steam.nix
   ./programs/sway.nix
   ./programs/system-config-printer.nix
@@ -226,7 +228,7 @@
   ./programs/zsh/zsh-autosuggestions.nix
   ./programs/zsh/zsh-syntax-highlighting.nix
   ./rename.nix
-  ./security/acme.nix
+  ./security/acme
   ./security/apparmor.nix
   ./security/audit.nix
   ./security/auditd.nix
@@ -745,6 +747,7 @@
   ./services/networking/flannel.nix
   ./services/networking/freenet.nix
   ./services/networking/freeradius.nix
+  ./services/networking/frr.nix
   ./services/networking/gateone.nix
   ./services/networking/gdomap.nix
   ./services/networking/ghostunnel.nix
@@ -891,6 +894,7 @@
   ./services/networking/tcpcrypt.nix
   ./services/networking/teamspeak3.nix
   ./services/networking/tedicross.nix
+  ./services/networking/teleport.nix
   ./services/networking/thelounge.nix
   ./services/networking/tinc.nix
   ./services/networking/tinydns.nix
@@ -991,6 +995,7 @@
   ./services/web-apps/bookstack.nix
   ./services/web-apps/calibre-web.nix
   ./services/web-apps/code-server.nix
+  ./services/web-apps/baget.nix
   ./services/web-apps/convos.nix
   ./services/web-apps/cryptpad.nix
   ./services/web-apps/dex.nix
@@ -1029,6 +1034,7 @@
   ./services/web-apps/plausible.nix
   ./services/web-apps/pgpkeyserver-lite.nix
   ./services/web-apps/powerdns-admin.nix
+  ./services/web-apps/prosody-filer.nix
   ./services/web-apps/matomo.nix
   ./services/web-apps/openwebrx.nix
   ./services/web-apps/restya-board.nix

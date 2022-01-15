@@ -1011,6 +1011,8 @@ with pkgs;
 
   godspeed = callPackage ../tools/networking/godspeed { };
 
+  fwbuilder = libsForQt5.callPackage ../tools/security/fwbuilder { };
+
   ksnip = libsForQt5.callPackage ../tools/misc/ksnip { };
 
   linux-router = callPackage ../tools/networking/linux-router { };
@@ -2075,7 +2077,7 @@ with pkgs;
 
   avro-c = callPackage ../development/libraries/avro-c { };
 
-  avro-cpp = callPackage ../development/libraries/avro-c++ { boost = boost160; };
+  avro-cpp = callPackage ../development/libraries/avro-c++ { };
 
   aws = callPackage ../tools/virtualization/aws { };
 
@@ -2125,6 +2127,8 @@ with pkgs;
   badchars = python3Packages.callPackage ../tools/security/badchars { };
 
   badvpn = callPackage ../tools/networking/badvpn {};
+
+  baget = callPackage ../servers/web-apps/baget { };
 
   barcode = callPackage ../tools/graphics/barcode {};
 
@@ -4702,8 +4706,6 @@ with pkgs;
 
   docbook2mdoc = callPackage ../tools/misc/docbook2mdoc { };
 
-  docbookrx = callPackage ../tools/typesetting/docbookrx { };
-
   docear = callPackage ../applications/office/docear { };
 
   dockbarx = callPackage ../applications/misc/dockbarx { };
@@ -5319,6 +5321,8 @@ with pkgs;
 
   flvstreamer = callPackage ../tools/networking/flvstreamer { };
 
+  frr = callPackage ../servers/frr { };
+
   hmetis = pkgsi686Linux.callPackage ../applications/science/math/hmetis { };
 
   libbsd = callPackage ../development/libraries/libbsd { };
@@ -5332,6 +5336,8 @@ with pkgs;
   };
 
   fabric-installer = callPackage ../tools/games/minecraft/fabric-installer { };
+
+  faraday-agent-dispatcher = callPackage ../tools/security/faraday-agent-dispatcher { };
 
   faraday-cli = callPackage ../tools/security/faraday-cli { };
 
@@ -5590,6 +5596,8 @@ with pkgs;
   gfs2-utils = callPackage ../tools/filesystems/gfs2-utils { };
 
   gfbgraph = callPackage ../development/libraries/gfbgraph { };
+
+  gfold = callPackage ../applications/version-management/git-and-tools/gfold { };
 
   ggobi = callPackage ../tools/graphics/ggobi { };
 
@@ -6338,7 +6346,9 @@ with pkgs;
 
   heimdall-gui = heimdall.override { enableGUI = true; };
 
-  headscale = callPackage ../servers/headscale { };
+  headscale = callPackage ../servers/headscale {
+    buildGoModule = buildGo117Module;
+  };
 
   heisenbridge = callPackage ../servers/heisenbridge { };
 
@@ -6594,7 +6604,9 @@ with pkgs;
 
   ipfs = callPackage ../applications/networking/ipfs { };
   ipfs-migrator = callPackage ../applications/networking/ipfs-migrator { };
-  ipfs-cluster = callPackage ../applications/networking/ipfs-cluster { };
+  ipfs-cluster = callPackage ../applications/networking/ipfs-cluster {
+    buildGoModule = buildGo116Module;
+  };
 
   ipget = callPackage ../applications/networking/ipget { };
 
@@ -7949,6 +7961,8 @@ with pkgs;
 
   netboot = callPackage ../tools/networking/netboot {};
 
+  netbootxyz-efi = callPackage ../tools/misc/netbootxyz-efi { };
+
   netcat = libressl.nc;
 
   netcat-gnu = callPackage ../tools/networking/netcat { };
@@ -8697,6 +8711,8 @@ with pkgs;
 
   phodav = callPackage ../tools/networking/phodav { };
 
+  photon-rss = callPackage ../applications/networking/feedreaders/photon { };
+
   pim6sd = callPackage ../servers/pim6sd { };
 
   phosh = callPackage ../applications/window-managers/phosh { };
@@ -8717,6 +8733,8 @@ with pkgs;
   pingtcp = callPackage ../tools/networking/pingtcp { };
 
   pinnwand = callPackage ../servers/pinnwand { };
+
+  pinsel = callPackage ../tools/misc/pinsel { };
 
   piping-server-rust = callPackage ../servers/piping-server-rust {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
@@ -9038,6 +9056,8 @@ with pkgs;
 
   qmk = callPackage ../tools/misc/qmk { };
 
+  qodem = callPackage ../tools/networking/qodem { };
+
   qosmic = libsForQt5.callPackage ../applications/graphics/qosmic { };
 
   qownnotes = libsForQt514.callPackage ../applications/office/qownnotes { };
@@ -9107,6 +9127,8 @@ with pkgs;
   rarian = callPackage ../development/libraries/rarian { };
 
   ratools = callPackage ../tools/networking/ratools { };
+
+  ratt = callPackage ../applications/misc/ratt { };
 
   rc = callPackage ../shells/rc { };
 
@@ -9697,6 +9719,11 @@ with pkgs;
 
   spicy = callPackage ../development/tools/spicy { };
 
+  spire = callPackage ../tools/security/spire { };
+  # to match naming of other package repositories
+  spire-agent = spire.agent;
+  spire-server = spire.server;
+
   spoof-mac = python3Packages.callPackage ../tools/networking/spoof-mac { };
 
   ssh-askpass-fullscreen = callPackage ../tools/networking/ssh-askpass-fullscreen { };
@@ -10073,7 +10100,9 @@ with pkgs;
     pythonPackages = python3Packages;
   };
 
-  telepresence2 = callPackage ../tools/networking/telepresence2 { };
+  telepresence2 = callPackage ../tools/networking/telepresence2 {
+    buildGoModule = buildGo116Module;
+  };
 
   teler = callPackage ../tools/security/teler { };
 
@@ -14652,6 +14681,19 @@ with pkgs;
 
   eweb = callPackage ../development/tools/literate-programming/eweb { };
 
+  funnelweb = callPackage ../development/tools/literate-programming/funnelweb { };
+
+  Literate = callPackage ../development/tools/literate-programming/Literate { };
+
+  md-tangle = callPackage ../development/tools/literate-programming/md-tangle { };
+
+  # NOTE: Override and set useIcon = false to use Awk instead of Icon.
+  noweb = callPackage ../development/tools/literate-programming/noweb { };
+
+  nuweb = callPackage ../development/tools/literate-programming/nuweb {
+    tex = texlive.combined.scheme-medium;
+  };
+
   eztrace = callPackage ../development/tools/profiling/EZTrace { };
 
   faas-cli = callPackage ../development/tools/faas-cli { };
@@ -14699,8 +14741,6 @@ with pkgs;
   };
 
   fundoc = callPackage ../development/tools/fundoc { };
-
-  funnelweb = callPackage ../development/tools/literate-programming/funnelweb { };
 
   gede = libsForQt5.callPackage ../development/tools/misc/gede { };
 
@@ -14879,6 +14919,8 @@ with pkgs;
 
   jam = callPackage ../development/tools/build-managers/jam { };
 
+  ftjam = callPackage ../development/tools/build-managers/jam/ftjam.nix { };
+
   javacc = callPackage ../development/tools/parsing/javacc {
     jdk = jdk8;
   };
@@ -14970,8 +15012,6 @@ with pkgs;
   lazygit = callPackage ../development/tools/lazygit { };
 
   laminar = callPackage ../development/tools/continuous-integration/laminar { };
-
-  Literate = callPackage ../development/tools/literate-programming/Literate {};
 
   lcov = callPackage ../development/tools/analysis/lcov { };
 
@@ -15104,11 +15144,6 @@ with pkgs;
   nwjs_0_12 = callPackage ../development/tools/node-webkit/nw12.nix {
     gconf = gnome2.GConf;
   };
-
-  # NOTE: Override and set useIcon = false to use Awk instead of Icon.
-  noweb = callPackage ../development/tools/literate-programming/noweb { };
-
-  nuweb = callPackage ../development/tools/literate-programming/nuweb { tex = texlive.combined.scheme-medium; };
 
   nrfutil = callPackage ../development/tools/misc/nrfutil { };
 
@@ -16602,10 +16637,10 @@ with pkgs;
   glew110 = callPackage ../development/libraries/glew/1.10.nix {
     inherit (darwin.apple_sdk.frameworks) AGL OpenGL;
   };
-  glew-egl = glew.overrideAttrs (oldAttrs: {
-    pname = "glew-egl";
-    makeFlags = oldAttrs.makeFlags ++ [ "SYSTEM=linux-egl" ];
-  });
+  glew-egl = callPackage ../development/libraries/glew {
+    inherit (darwin.apple_sdk.frameworks) OpenGL;
+    enableEGL = true;
+  };
 
   glfw = glfw3;
   glfw-wayland = glfw.override {
@@ -18149,6 +18184,8 @@ with pkgs;
 
   libmad = callPackage ../development/libraries/libmad { };
 
+  llama = callPackage ../applications/misc/llama { };
+
   malcontent = callPackage ../development/libraries/malcontent { };
 
   malcontent-ui = callPackage ../development/libraries/malcontent/ui.nix { };
@@ -18660,7 +18697,9 @@ with pkgs;
 
   libxmp = callPackage ../development/libraries/libxmp { };
 
-  libxslt = callPackage ../development/libraries/libxslt { };
+  libxslt = callPackage ../development/libraries/libxslt {
+    python = python3;
+  };
 
   libxsmm = callPackage ../development/libraries/libxsmm { };
 
@@ -18675,6 +18714,8 @@ with pkgs;
   libyamlcpp = callPackage ../development/libraries/libyaml-cpp { };
 
   libyamlcpp_0_3 = callPackage ../development/libraries/libyaml-cpp/0.3.0.nix { };
+
+  libyang = callPackage ../development/libraries/libyang { };
 
   libcyaml = callPackage ../development/libraries/libcyaml { };
 
@@ -19970,7 +20011,7 @@ with pkgs;
 
   subdl = callPackage ../applications/video/subdl { };
 
-  subtitleeditor = callPackage ../applications/video/subtitleeditor { enchant = enchant1; };
+  subtitleeditor = callPackage ../applications/video/subtitleeditor { };
 
   suil = callPackage ../development/libraries/audio/suil { };
 
@@ -20927,6 +20968,8 @@ with pkgs;
     withExtraLibs = [];
   };
 
+  prosody-filer = callPackage ../servers/xmpp/prosody-filer { };
+
   biboumi = callPackage ../servers/xmpp/biboumi { };
 
   elasticmq-server-bin = callPackage ../servers/elasticmq-server-bin {
@@ -21195,7 +21238,9 @@ with pkgs;
 
   unit = callPackage ../servers/http/unit { };
 
-  ncdns = callPackage ../servers/dns/ncdns { };
+  ncdns = callPackage ../servers/dns/ncdns {
+    buildGoModule = buildGo116Module;
+  };
 
   nginx = nginxStable;
 
@@ -26480,19 +26525,6 @@ with pkgs;
 
   jwm-settings-manager = callPackage ../applications/window-managers/jwm/jwm-settings-manager.nix { };
 
-  k3d = callPackage ../applications/graphics/k3d {
-    inherit (gnome2) gtkglext;
-    stdenv = gcc6Stdenv;
-    boost = boost155.override {
-      enablePython = true;
-      python = python2;
-      stdenv = gcc6Stdenv;
-      buildPackages = buildPackages // {
-        stdenv = gcc6Stdenv;
-      };
-    };
-  };
-
   k3s = callPackage ../applications/networking/cluster/k3s {};
 
   kconf = callPackage ../applications/networking/cluster/kconf { };
@@ -26702,6 +26734,8 @@ with pkgs;
   helm-docs = callPackage ../applications/networking/cluster/helm-docs { };
 
   kubetail = callPackage ../applications/networking/cluster/kubetail { } ;
+
+  kup = libsForQt5.callPackage ../applications/misc/kup { };
 
   kupfer = callPackage ../applications/misc/kupfer { };
 
@@ -28849,7 +28883,9 @@ with pkgs;
 
   tenacity = callPackage ../applications/audio/tenacity { wxGTK = wxGTK31-gtk3; };
 
-  tendermint = callPackage ../tools/networking/tendermint { };
+  tendermint = callPackage ../tools/networking/tendermint {
+    buildGoModule = buildGo116Module;
+  };
 
   termdbms = callPackage ../development/tools/database/termdbms { };
 
@@ -30144,6 +30180,10 @@ with pkgs;
 
   sumokoin = callPackage ../applications/blockchains/sumokoin { boost = boost165; };
 
+  solana-testnet = callPackage ../applications/blockchains/solana {
+    inherit (darwin.apple_sdk.frameworks) IOKit Security AppKit;
+  };
+
   tessera = callPackage ../applications/blockchains/tessera { };
 
   vertcoin  = libsForQt514.callPackage ../applications/blockchains/vertcoin {
@@ -30168,8 +30208,6 @@ with pkgs;
   lightwalletd = callPackage ../applications/blockchains/lightwalletd { };
 
   openethereum = callPackage ../applications/blockchains/openethereum { };
-
-  parity-ui = callPackage ../applications/blockchains/parity-ui { };
 
   polkadot = callPackage ../applications/blockchains/polkadot { };
 
@@ -30225,6 +30263,8 @@ with pkgs;
   augustus = callPackage ../games/augustus { };
 
   ballerburg = callPackage ../games/ballerburg { } ;
+
+  blockattack = callPackage ../games/blockattack { } ;
 
   colobot = callPackage ../games/colobot {};
 
@@ -31143,6 +31183,8 @@ with pkgs;
   taisei = callPackage ../games/taisei { };
 
   tcl2048 = callPackage ../games/tcl2048 { };
+
+  the-legend-of-edgar = callPackage ../games/the-legend-of-edgar { };
 
   the-powder-toy = callPackage ../games/the-powder-toy {
     lua = lua5_1;
@@ -33927,9 +33969,7 @@ with pkgs;
     python = python3;
   };
 
-  higan = callPackage ../misc/emulators/higan {
-    inherit (darwin.apple_sdk.frameworks) Carbon Cocoa OpenGL OpenAL;
-  };
+  higan = callPackage ../misc/emulators/higan { };
 
   bsnes-hd = callPackage ../misc/emulators/bsnes-hd {
     inherit (gnome2) gtksourceview;
@@ -34313,4 +34353,10 @@ with pkgs;
   };
 
   zthrottle = callPackage ../tools/misc/zthrottle { };
+
+  honeymarker = callPackage ../servers/tracing/honeycomb/honeymarker { };
+
+  honeytail = callPackage ../servers/tracing/honeycomb/honeytail { };
+
+  honeyvent = callPackage ../servers/tracing/honeycomb/honeyvent { };
 }
