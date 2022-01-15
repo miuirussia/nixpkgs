@@ -193,6 +193,9 @@ let
     # Pinned due to API changes in 0.1.0
     (mkOverride "poolsense" "0.0.8" "09y4fq0gdvgkfsykpxnvmfv92dpbknnq5v82spz43ak6hjnhgcyp")
 
+    # Requirements for recorder not found: ['sqlalchemy==1.4.27'].
+    (mkOverride "sqlalchemy" "1.4.27" "031jbd0svrvwr3n52iibp9mkwsj9wicnck45yd26da5kmsfkas6p")
+
     # Pinned due to API changes in 0.4.0
     (self: super: {
       vilfo-api-client = super.vilfo-api-client.overridePythonAttrs (oldAttrs: rec {
@@ -219,16 +222,30 @@ let
       });
     })
 
-    # Remove with 2021.12.6 as the requirement will be 1.1.16 (at least)
+    # Remove as soon the dependency is updated and pytest-httpx > 0.15
     (self: super: {
-      yalexs = super.yalexs.overridePythonAttrs (oldAttrs: rec {
-        version = "1.1.13";
+      luftdaten = super.luftdaten.overridePythonAttrs (oldAttrs: rec {
+        version = "0.7.1";
         src = fetchFromGitHub {
-          owner = "bdraco";
-          repo = "yalexs";
-          rev = "v${version}";
-          sha256 = "sha256-lnx8+VyDyO7Wg+QW+CC0FUg77Ndfjar6PLsDYwEpaCQ=";
+          owner = "home-assistant-ecosystem";
+          repo = "python-luftdaten";
+          rev = version;
+          sha256 = "sha256-76Y5TJet0WtzYXuK8Og0rmpsUIlXK7b37oesh+MliU8=";
         };
+      });
+    })
+
+    # Remove as soon the dependency is updated and pytest-httpx > 0.15
+    (self: super: {
+      pyrmvtransport = super.pyrmvtransport.overridePythonAttrs (oldAttrs: rec {
+        version = "0.3.3";
+        src = fetchFromGitHub {
+          owner = "cgtobi";
+          repo = "pyrmvtransport";
+          rev = "v${version}";
+          sha256 = "sha256-nFxGEyO+wyRzPayjjv8WNIJ+XIWbVn0dyyjQKHiyr40=";
+        };
+        doCheck = false;
       });
     })
 
@@ -265,7 +282,7 @@ let
   extraBuildInputs = extraPackages py.pkgs;
 
   # Don't forget to run parse-requirements.py after updating
-  hassVersion = "2021.12.8";
+  hassVersion = "2021.12.9";
 
 in with py.pkgs; buildPythonApplication rec {
   pname = "homeassistant";
@@ -282,7 +299,7 @@ in with py.pkgs; buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     rev = version;
-    hash = "sha256:HxSEXaqNHh2hSr1fmu3xpC212PXhzvnD4CwR1Ulw9ok=";
+    hash = "sha256:17lh16c9kklx4q416ns12qjh1hc0g79y56kdkj1pvybblg0a07lm";
   };
 
   # leave this in, so users don't have to constantly update their downstream patch handling
@@ -986,6 +1003,9 @@ in with py.pkgs; buildPythonApplication rec {
     # august/test_lock.py: AssertionError: assert 'unlocked' == 'locked' / assert 'off' == 'on'
     "test_lock_update_via_pubnub"
     "test_door_sense_update_via_pubnub"
+    # Tests are flaky
+    "test_config_platform_valid"
+    "test_hls_stream"
   ];
 
   preCheck = ''

@@ -1,0 +1,193 @@
+diff --git a/pkgs/development/python-modules/aioharmony/default.nix b/pkgs/development/python-modules/aioharmony/default.nix
+index fea1956e..6e77c558 100644
+--- a/pkgs/development/python-modules/aioharmony/default.nix
++++ b/pkgs/development/python-modules/aioharmony/default.nix
+@@ -9,13 +9,13 @@
+ 
+ buildPythonPackage rec {
+   pname = "aioharmony";
+-  version = "0.2.8";
++  version = "0.2.9";
+ 
+   disabled = pythonOlder "3.6";
+ 
+   src = fetchPypi {
+     inherit pname version;
+-    sha256 = "0adf08955810a227db489556dc3ca808e4f825a00183f613797856114c2a2a47";
++    sha256 = "sha256-T30pLzPWD+5pb0ShkpNdiBFO45RdiMYgCOSg8rx+t+Y=";
+   };
+ 
+   propagatedBuildInputs = [
+diff --git a/pkgs/development/python-modules/hass-nabucasa/default.nix b/pkgs/development/python-modules/hass-nabucasa/default.nix
+index 48788537..d1228fc0 100644
+--- a/pkgs/development/python-modules/hass-nabucasa/default.nix
++++ b/pkgs/development/python-modules/hass-nabucasa/default.nix
+@@ -15,13 +15,13 @@
+ 
+ buildPythonPackage rec {
+   pname = "hass-nabucasa";
+-  version = "0.50.0";
++  version = "0.51.0";
+ 
+   src = fetchFromGitHub {
+     owner = "nabucasa";
+     repo = pname;
+     rev = version;
+-    sha256 = "sha256-0E8eiHzqbxHbtAd97MbvFMRDWTu25E9x/44oNGC4mUM=";
++    sha256 = "sha256-qN7AXs4hJpuP+GaxjOPR2CqKMYyDJxTrCuE5HreZnhU=";
+   };
+ 
+   postPatch = ''
+diff --git a/pkgs/development/python-modules/pycognito/default.nix b/pkgs/development/python-modules/pycognito/default.nix
+index 797da433..37545323 100644
+--- a/pkgs/development/python-modules/pycognito/default.nix
++++ b/pkgs/development/python-modules/pycognito/default.nix
+@@ -12,14 +12,14 @@
+ 
+ buildPythonPackage rec {
+   pname = "pycognito";
+-  version = "2021.03.1";
++  version = "2022.01.0";
+   disabled = isPy27;
+ 
+   src = fetchFromGitHub {
+     owner = "pvizeli";
+     repo = pname;
+     rev = version;
+-    sha256 = "sha256-V3R6i1/FZrjcfRqJhczjURr/+x++iCvZ3aCK9wdEL1A=";
++    sha256 = "sha256-mmlw3irMC0SFjfEinXHyoPNfTvCcO02zGyqQLj9STSY=";
+   };
+ 
+   propagatedBuildInputs = [
+diff --git a/pkgs/development/python-modules/yalexs/default.nix b/pkgs/development/python-modules/yalexs/default.nix
+index 9b9ef513..057e2bdb 100644
+--- a/pkgs/development/python-modules/yalexs/default.nix
++++ b/pkgs/development/python-modules/yalexs/default.nix
+@@ -16,7 +16,7 @@
+ 
+ buildPythonPackage rec {
+   pname = "yalexs";
+-  version = "1.1.15";
++  version = "1.1.17";
+   format = "setuptools";
+ 
+   disabled = pythonOlder "3.6";
+@@ -25,7 +25,7 @@ buildPythonPackage rec {
+     owner = "bdraco";
+     repo = pname;
+     rev = "v${version}";
+-    sha256 = "sha256-EK9jmbU3A2rNx/H8WOsZiGA7tqzg/XJkW/DV5s+2Y3U=";
++    sha256 = "sha256-kCLL+0ZiraTW7swgdfS9vkLcr/s6lTccFQbC02rdNDY=";
+   };
+ 
+   propagatedBuildInputs = [
+diff --git a/pkgs/servers/home-assistant/component-packages.nix b/pkgs/servers/home-assistant/component-packages.nix
+index 59939f41..1a24fc75 100644
+--- a/pkgs/servers/home-assistant/component-packages.nix
++++ b/pkgs/servers/home-assistant/component-packages.nix
+@@ -2,7 +2,7 @@
+ # Do not edit!
+ 
+ {
+-  version = "2021.12.8";
++  version = "2021.12.9";
+   components = {
+     "abode" = ps: with ps; [ abodepy ];
+     "accuweather" = ps: with ps; [ accuweather ];
+diff --git a/pkgs/servers/home-assistant/default.nix b/pkgs/servers/home-assistant/default.nix
+index f175802a..cdae29cf 100644
+--- a/pkgs/servers/home-assistant/default.nix
++++ b/pkgs/servers/home-assistant/default.nix
+@@ -193,6 +193,9 @@ let
+     # Pinned due to API changes in 0.1.0
+     (mkOverride "poolsense" "0.0.8" "09y4fq0gdvgkfsykpxnvmfv92dpbknnq5v82spz43ak6hjnhgcyp")
+ 
++    # Requirements for recorder not found: ['sqlalchemy==1.4.27'].
++    (mkOverride "sqlalchemy" "1.4.27" "031jbd0svrvwr3n52iibp9mkwsj9wicnck45yd26da5kmsfkas6p")
++
+     # Pinned due to API changes in 0.4.0
+     (self: super: {
+       vilfo-api-client = super.vilfo-api-client.overridePythonAttrs (oldAttrs: rec {
+@@ -219,16 +222,30 @@ let
+       });
+     })
+ 
+-    # Remove with 2021.12.6 as the requirement will be 1.1.16 (at least)
++    # Remove as soon the dependency is updated and pytest-httpx > 0.15
++    (self: super: {
++      luftdaten = super.luftdaten.overridePythonAttrs (oldAttrs: rec {
++        version = "0.7.1";
++        src = fetchFromGitHub {
++          owner = "home-assistant-ecosystem";
++          repo = "python-luftdaten";
++          rev = version;
++          sha256 = "sha256-76Y5TJet0WtzYXuK8Og0rmpsUIlXK7b37oesh+MliU8=";
++        };
++      });
++    })
++
++    # Remove as soon the dependency is updated and pytest-httpx > 0.15
+     (self: super: {
+-      yalexs = super.yalexs.overridePythonAttrs (oldAttrs: rec {
+-        version = "1.1.13";
++      pyrmvtransport = super.pyrmvtransport.overridePythonAttrs (oldAttrs: rec {
++        version = "0.3.3";
+         src = fetchFromGitHub {
+-          owner = "bdraco";
+-          repo = "yalexs";
++          owner = "cgtobi";
++          repo = "pyrmvtransport";
+           rev = "v${version}";
+-          sha256 = "sha256-lnx8+VyDyO7Wg+QW+CC0FUg77Ndfjar6PLsDYwEpaCQ=";
++          sha256 = "sha256-nFxGEyO+wyRzPayjjv8WNIJ+XIWbVn0dyyjQKHiyr40=";
+         };
++        doCheck = false;
+       });
+     })
+ 
+@@ -265,7 +282,7 @@ let
+   extraBuildInputs = extraPackages py.pkgs;
+ 
+   # Don't forget to run parse-requirements.py after updating
+-  hassVersion = "2021.12.8";
++  hassVersion = "2021.12.9";
+ 
+ in with py.pkgs; buildPythonApplication rec {
+   pname = "homeassistant";
+@@ -282,7 +299,7 @@ in with py.pkgs; buildPythonApplication rec {
+     owner = "home-assistant";
+     repo = "core";
+     rev = version;
+-    hash = "sha256:HxSEXaqNHh2hSr1fmu3xpC212PXhzvnD4CwR1Ulw9ok=";
++    hash = "sha256:17lh16c9kklx4q416ns12qjh1hc0g79y56kdkj1pvybblg0a07lm";
+   };
+ 
+   # leave this in, so users don't have to constantly update their downstream patch handling
+@@ -986,6 +1003,9 @@ in with py.pkgs; buildPythonApplication rec {
+     # august/test_lock.py: AssertionError: assert 'unlocked' == 'locked' / assert 'off' == 'on'
+     "test_lock_update_via_pubnub"
+     "test_door_sense_update_via_pubnub"
++    # Tests are flaky
++    "test_config_platform_valid"
++    "test_hls_stream"
+   ];
+ 
+   preCheck = ''
+diff --git a/pkgs/servers/home-assistant/frontend.nix b/pkgs/servers/home-assistant/frontend.nix
+index a3ca2c07..cdb60172 100644
+--- a/pkgs/servers/home-assistant/frontend.nix
++++ b/pkgs/servers/home-assistant/frontend.nix
+@@ -4,11 +4,11 @@ buildPythonPackage rec {
+   # the frontend version corresponding to a specific home-assistant version can be found here
+   # https://github.com/home-assistant/home-assistant/blob/master/homeassistant/components/frontend/manifest.json
+   pname = "home-assistant-frontend";
+-  version = "20211229.0";
++  version = "20211229.1";
+ 
+   src = fetchPypi {
+     inherit pname version;
+-    sha256 = "sha256-2hACC2542jz1DID7nV28keVVDDBOLW1QDYTLM4S1ZJ0=";
++    sha256 = "sha256-glVjJ9iOmhAIGD65PHQu9l7Wc/lr5XRya2mi20/UVgs=";
+   };
+ 
+   # there is nothing to strip in this package
