@@ -9,13 +9,13 @@
 
 buildPythonPackage rec {
   pname = "aioharmony";
-  version = "0.2.9";
+  version = "0.2.8";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-T30pLzPWD+5pb0ShkpNdiBFO45RdiMYgCOSg8rx+t+Y=";
+    sha256 = "0adf08955810a227db489556dc3ca808e4f825a00183f613797856114c2a2a47";
   };
 
   propagatedBuildInputs = [

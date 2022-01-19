@@ -12,14 +12,14 @@
 
 buildPythonPackage rec {
   pname = "pycognito";
-  version = "2022.01.0";
+  version = "2021.03.1";
   disabled = isPy27;
 
   src = fetchFromGitHub {
     owner = "pvizeli";
     repo = pname;
     rev = version;
-    sha256 = "sha256-mmlw3irMC0SFjfEinXHyoPNfTvCcO02zGyqQLj9STSY=";
+    sha256 = "sha256-V3R6i1/FZrjcfRqJhczjURr/+x++iCvZ3aCK9wdEL1A=";
   };
 
   propagatedBuildInputs = [
