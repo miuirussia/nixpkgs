@@ -6677,6 +6677,8 @@ in {
 
   pydrive = callPackage ../development/python-modules/pydrive { };
 
+  pydrive2 = callPackage ../development/python-modules/pydrive2 { };
+
   pydroid-ipcam = callPackage ../development/python-modules/pydroid-ipcam  { };
 
   pydsdl = callPackage ../development/python-modules/pydsdl { };
@@ -8949,6 +8951,8 @@ in {
   sievelib = callPackage ../development/python-modules/sievelib { };
 
   signedjson = callPackage ../development/python-modules/signedjson { };
+
+  sigrok = callPackage ../development/python-modules/sigrok { };
 
   sigtools = callPackage ../development/python-modules/sigtools { };
 
