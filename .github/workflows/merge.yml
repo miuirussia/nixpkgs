@@ -30,7 +30,7 @@ jobs:
       - name: Merge upstream
         run: |
           pushd ./nixpkgs-original
-          git apply ../nixpkgs-final/patches/*.patch
+          git apply -v ../nixpkgs-final/patches/*.patch
           popd
           rsync -avu --delete ./nixpkgs-original/doc/ ./nixpkgs-final/doc
           rsync -avu --delete ./nixpkgs-original/lib/ ./nixpkgs-final/lib
