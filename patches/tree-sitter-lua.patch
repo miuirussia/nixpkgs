@@ -20,3 +20,16 @@ index 3e385e6ab20d8..1e5c53f478443 100644
        repo = "tree-sitter-lua";
      };
      "tree-sitter-fennel" = {
+diff --git a/pkgs/development/tools/parsing/tree-sitter/update.nix b/pkgs/development/tools/parsing/tree-sitter/update.nix
+index 1e5c53f47..07b357e02 100644
+--- a/pkgs/development/tools/parsing/tree-sitter/update.nix
++++ b/pkgs/development/tools/parsing/tree-sitter/update.nix
+@@ -117,7 +117,7 @@ let
+       repo = "tree-sitter-make";
+     };
+     "tree-sitter-markdown" = {
+-      orga = "ikatyang";
++      orga = "MDeiml";
+       repo = "tree-sitter-markdown";
+     };
+     "tree-sitter-rst" = {
