@@ -323,6 +323,8 @@ with pkgs;
 
   evans = callPackage ../development/tools/evans { };
 
+  firefly-desktop = callPackage ../applications/misc/firefly-desktop { };
+
   frugal = callPackage ../development/tools/frugal { };
 
   glade = callPackage ../development/tools/glade { };
@@ -532,6 +534,8 @@ with pkgs;
   tapview = callPackage ../development/tools/tapview { };
 
   run = callPackage ../development/tools/run { };
+
+  mblock-mlink = callPackage ../development/tools/mblock-mlink { };
 
   mod = callPackage ../development/tools/mod { };
 
@@ -1157,6 +1161,8 @@ with pkgs;
   lukesmithxyz-st = callPackage ../applications/terminal-emulators/st/lukesmithxyz-st { };
   mcaimi-st = callPackage ../applications/terminal-emulators/st/mcaimi-st.nix { };
   siduck76-st = callPackage ../applications/terminal-emulators/st/siduck76-st.nix { };
+
+  snowflake = callPackage ../tools/networking/snowflake { };
 
   stupidterm = callPackage ../applications/terminal-emulators/stupidterm {
     gtk = gtk3;
@@ -7572,6 +7578,8 @@ with pkgs;
 
   lzop = callPackage ../tools/compression/lzop { };
 
+  lzwolf = callPackage ../games/lzwolf { };
+
   macchanger = callPackage ../os-specific/linux/macchanger { };
 
   macchina = callPackage ../tools/misc/macchina {
@@ -8386,6 +8394,8 @@ with pkgs;
   openrussian-cli = callPackage ../misc/openrussian-cli {
     luaPackages = lua53Packages;
   };
+
+  opensbi = callPackage ../misc/opensbi { };
 
   opensc = callPackage ../tools/security/opensc {
     inherit (darwin.apple_sdk.frameworks) Carbon PCSC;
@@ -9504,6 +9514,8 @@ with pkgs;
 
   sdate = callPackage ../tools/misc/sdate { };
 
+  sdat2img = callPackage ../tools/filesystems/sdat2img { };
+
   sdcv = callPackage ../applications/misc/sdcv { };
 
   sdl-jstest = callPackage ../tools/misc/sdl-jstest { };
@@ -10199,6 +10211,8 @@ with pkgs;
   threema-desktop = callPackage ../applications/networking/instant-messengers/threema-desktop { };
 
   tidy-viewer = callPackage ../tools/text/tidy-viewer { };
+
+  tile38 = callPackage ../servers/tile38 { };
 
   tiled = libsForQt5.callPackage ../applications/editors/tiled { };
 
@@ -17261,6 +17275,8 @@ with pkgs;
 
   indicator-application-gtk2 = callPackage ../development/libraries/indicator-application/gtk2.nix { };
   indicator-application-gtk3 = callPackage ../development/libraries/indicator-application/gtk3.nix { };
+
+  indicator-sound-switcher = callPackage ../applications/audio/indicator-sound-switcher { };
 
   indilib = callPackage ../development/libraries/science/astronomy/indilib { };
   indi-full = callPackage ../development/libraries/science/astronomy/indilib/indi-full.nix { };
@@ -26697,6 +26713,7 @@ with pkgs;
   kubeval-schema = callPackage ../applications/networking/cluster/kubeval/schema.nix { };
 
   kubernetes = callPackage ../applications/networking/cluster/kubernetes { };
+  kubectl = callPackage ../applications/networking/cluster/kubernetes/kubectl.nix { };
 
   kubeseal = callPackage ../applications/networking/cluster/kubeseal { };
 
@@ -26705,8 +26722,6 @@ with pkgs;
   kubeconform = callPackage ../applications/networking/cluster/kubeconform { };
 
   kubecolor = callPackage ../applications/networking/cluster/kubecolor { };
-
-  kubectl = callPackage ../applications/networking/cluster/kubectl { };
 
   kubebuilder = callPackage ../applications/networking/cluster/kubebuilder { };
 
@@ -29411,8 +29426,6 @@ with pkgs;
     libcaca = null;
   };
 
-  vlc_qt5 = vlc;
-
   libvlc = vlc.override {
     withQt5 = false;
     qtbase = null;
@@ -30181,6 +30194,17 @@ with pkgs;
   go-ethereum = callPackage ../applications/blockchains/go-ethereum {
     inherit (darwin) libobjc;
     inherit (darwin.apple_sdk.frameworks) IOKit;
+  };
+
+  groestlcoin  = libsForQt5.callPackage ../applications/blockchains/groestlcoin {
+    boost = boost17x;
+    withGui = true;
+    inherit (darwin) autoSignDarwinBinariesHook;
+  };
+
+  groestlcoind = callPackage ../applications/blockchains/groestlcoin {
+    boost = boost17x;
+    inherit (darwin) autoSignDarwinBinariesHook;
   };
 
   ledger_agent = with python3Packages; toPythonApplication ledger_agent;
@@ -31251,6 +31275,8 @@ with pkgs;
   };
 
   synthv1 = libsForQt5.callPackage ../applications/audio/synthv1 { };
+
+  snis = callPackage ../games/snis { };
 
   system-syzygy = callPackage ../games/system-syzygy { };
 
