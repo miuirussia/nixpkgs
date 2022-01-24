@@ -1,0 +1,22 @@
+From b6683cf8ee55000dd7a6497ea5e51a02bf333fcf Mon Sep 17 00:00:00 2001
+From: Kirill Kuznetsov <kirill.desirehd@gmail.com>
+Date: Mon, 24 Jan 2022 14:26:43 +0300
+Subject: [PATCH] Use tree-sitter-lua from MunifTanjim
+
+---
+ pkgs/development/tools/parsing/tree-sitter/update.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/development/tools/parsing/tree-sitter/update.nix b/pkgs/development/tools/parsing/tree-sitter/update.nix
+index 3e385e6ab20d8..1e5c53f478443 100644
+--- a/pkgs/development/tools/parsing/tree-sitter/update.nix
++++ b/pkgs/development/tools/parsing/tree-sitter/update.nix
+@@ -105,7 +105,7 @@ let
+       repo = "tree-sitter-latex";
+     };
+     "tree-sitter-lua" = {
+-      orga = "nvim-treesitter";
++      orga = "MunifTanjim";
+       repo = "tree-sitter-lua";
+     };
+     "tree-sitter-fennel" = {
