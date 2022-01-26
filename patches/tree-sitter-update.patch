@@ -1,0 +1,21 @@
+diff --git a/pkgs/development/tools/parsing/tree-sitter/update.nix b/pkgs/development/tools/parsing/tree-sitter/update.nix
+index 325258655..59828cb9a 100644
+--- a/pkgs/development/tools/parsing/tree-sitter/update.nix
++++ b/pkgs/development/tools/parsing/tree-sitter/update.nix
+@@ -4,6 +4,7 @@
+ , lib
+ , curl
+ , jq
++, coreutils
+ , xe
+ , src
+ }:
+@@ -377,7 +378,7 @@ let
+     if [[ "$(printf "%s" "$res" | ${jq}/bin/jq '.message?')" =~ "rate limit" ]]; then
+       echo "rate limited" >&2
+     fi
+-    release=$(printf "%s" "$res" | ${jq}/bin/jq '.tag_name')
++    release=$(printf "%s" "$res" | ${jq}/bin/jq '.tag_name' | ${coreutils}/bin/tr -d '"')
+     # github sometimes returns an empty list even tough there are releases
+     if [ "$release" = "null" ]; then
+       echo "uh-oh, latest for ${orga + "/" + repo} is not there, using HEAD" >&2
