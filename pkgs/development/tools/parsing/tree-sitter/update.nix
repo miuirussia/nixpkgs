@@ -31,7 +31,6 @@ let
     "tree-sitter-scala"
     "tree-sitter-ocaml"
     "tree-sitter-julia"
-    "tree-sitter-agda"
     "tree-sitter-fluent"
     "tree-sitter-html"
     "tree-sitter-haskell"
@@ -49,6 +48,8 @@ let
   ignoredTreeSitterOrgRepos = [
     "tree-sitter"
     "tree-sitter-cli"
+    # not maintained
+    "tree-sitter-agda"
     # this is the haskell language bindings, tree-sitter-haskell is the grammar
     "haskell-tree-sitter"
     # this is the ruby language bindings, tree-sitter-ruby is the grammar
@@ -105,7 +106,7 @@ let
       repo = "tree-sitter-latex";
     };
     "tree-sitter-lua" = {
-      orga = "nvim-treesitter";
+      orga = "MunifTanjim";
       repo = "tree-sitter-lua";
     };
     "tree-sitter-fennel" = {
@@ -117,7 +118,7 @@ let
       repo = "tree-sitter-make";
     };
     "tree-sitter-markdown" = {
-      orga = "ikatyang";
+      orga = "MDeiml";
       repo = "tree-sitter-markdown";
     };
     "tree-sitter-rst" = {
