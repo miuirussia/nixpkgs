@@ -1,3 +1,24 @@
+diff --git a/pkgs/development/tools/parsing/tree-sitter/default.nix b/pkgs/development/tools/parsing/tree-sitter/default.nix
+index 79dd9a6b5..485488066 100644
+--- a/pkgs/development/tools/parsing/tree-sitter/default.nix
++++ b/pkgs/development/tools/parsing/tree-sitter/default.nix
+@@ -9,6 +9,7 @@
+ , formats
+ , rustPlatform
+ , jq
++, coreutils
+ , nix-prefetch-git
+ , xe
+ , curl
+@@ -42,7 +43,7 @@ let
+   };
+ 
+   update-all-grammars = import ./update.nix {
+-    inherit writeShellScript nix-prefetch-git curl jq xe src formats lib;
++    inherit writeShellScript nix-prefetch-git coreutils curl jq xe src formats lib;
+   };
+ 
+   fetchGrammar = (v: fetchgit { inherit (v) url rev sha256 fetchSubmodules; });
 diff --git a/pkgs/development/tools/parsing/tree-sitter/update.nix b/pkgs/development/tools/parsing/tree-sitter/update.nix
 index 325258655..59828cb9a 100644
 --- a/pkgs/development/tools/parsing/tree-sitter/update.nix
