@@ -32,6 +32,7 @@ let
     "tree-sitter-scala"
     "tree-sitter-ocaml"
     "tree-sitter-julia"
+    "tree-sitter-agda"
     "tree-sitter-fluent"
     "tree-sitter-html"
     "tree-sitter-haskell"
@@ -49,8 +50,6 @@ let
   ignoredTreeSitterOrgRepos = [
     "tree-sitter"
     "tree-sitter-cli"
-    # not maintained
-    "tree-sitter-agda"
     # this is the haskell language bindings, tree-sitter-haskell is the grammar
     "haskell-tree-sitter"
     # this is the ruby language bindings, tree-sitter-ruby is the grammar

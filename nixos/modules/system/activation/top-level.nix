@@ -55,8 +55,8 @@ let
       substituteInPlace $out/dry-activate --subst-var out
       chmod u+x $out/activate $out/dry-activate
       unset activationScript dryActivationScript
-      ${pkgs.stdenv.shell} -n $out/activate
-      ${pkgs.stdenv.shell} -n $out/dry-activate
+      ${pkgs.stdenv.shellDryRun} $out/activate
+      ${pkgs.stdenv.shellDryRun} $out/dry-activate
 
       cp ${config.system.build.bootStage2} $out/init
       substituteInPlace $out/init --subst-var-by systemConfig $out
@@ -117,7 +117,7 @@ let
     configurationName = config.boot.loader.grub.configurationName;
 
     # Needed by switch-to-configuration.
-    perl = pkgs.perl.withPackages (p: with p; [ FileSlurp NetDBus XMLParser XMLTwig ]);
+    perl = pkgs.perl.withPackages (p: with p; [ FileSlurp NetDBus XMLParser XMLTwig ConfigIniFiles ]);
   };
 
   # Handle assertions and warnings
@@ -156,7 +156,7 @@ in
 
     specialisation = mkOption {
       default = {};
-      example = lib.literalExpression "{ fewJobsManyCores.configuration = { nix.buildCores = 0; nix.maxJobs = 1; }; }";
+      example = lib.literalExpression "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }";
       description = ''
         Additional configurations to build. If
         <literal>inheritParentConfig</literal> is true, the system
