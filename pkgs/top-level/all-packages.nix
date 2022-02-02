@@ -200,6 +200,8 @@ with pkgs;
 
   fission = callPackage ../development/tools/fission { };
 
+  appthreat-depscan = callPackage ../development/tools/appthreat-depscan { };
+
   authy = callPackage ../applications/misc/authy { };
 
   avro-tools = callPackage ../development/tools/avro-tools { };
@@ -1083,6 +1085,8 @@ with pkgs;
 
   archi = callPackage ../tools/misc/archi { };
 
+  breitbandmessung = callPackage ../applications/networking/breitbandmessung { };
+
   contour = libsForQt5.callPackage ../applications/terminal-emulators/contour { };
 
   cool-retro-term = libsForQt5.callPackage ../applications/terminal-emulators/cool-retro-term { };
@@ -1762,7 +1766,7 @@ with pkgs;
   genymotion = callPackage ../development/mobile/genymotion { };
 
   galene = callPackage ../servers/web-apps/galene {
-    buildGoModule = buildGo115Module;
+    buildGoModule = buildGo117Module;
   };
 
   gamecube-tools = callPackage ../development/tools/gamecube-tools { };
@@ -2975,6 +2979,8 @@ with pkgs;
   ejson = callPackage ../development/tools/ejson {};
 
   eternal-terminal = callPackage ../tools/networking/eternal-terminal {};
+
+  extrude = callPackage ../tools/security/extrude { };
 
   f3 = callPackage ../tools/filesystems/f3 { };
 
@@ -5900,6 +5906,8 @@ with pkgs;
 
   gnirehtet = callPackage ../tools/networking/gnirehtet { };
 
+  gnome-2048 = callPackage ../desktops/gnome/games/gnome-2048 { };
+
   gnome-builder = callPackage ../applications/editors/gnome-builder { };
 
   gnome-feeds = callPackage ../applications/networking/feedreaders/gnome-feeds {};
@@ -8081,11 +8089,6 @@ with pkgs;
   # with different versions we pin Go for all versions.
   # Upstream partially documents used Go versions here
   # https://github.com/hashicorp/nomad/blob/master/contributing/golang.md
-  nomad_1_0 = callPackage ../applications/networking/cluster/nomad/1.0.nix {
-    buildGoPackage = buildGo115Package;
-    inherit (linuxPackages) nvidia_x11;
-    nvidiaGpuSupport = config.cudaSupport or false;
-  };
   nomad_1_1 = callPackage ../applications/networking/cluster/nomad/1.1.nix {
     buildGoModule = buildGo116Module;
     inherit (linuxPackages) nvidia_x11;
@@ -14444,6 +14447,8 @@ with pkgs;
 
   cfr = callPackage ../development/tools/java/cfr { };
 
+  cfripper = callPackage ../tools/security/cfripper { };
+
   checkra1n = callPackage ../development/mobile/checkra1n { };
 
   checkstyle = callPackage ../development/tools/analysis/checkstyle { };
@@ -19855,6 +19860,8 @@ with pkgs;
 
   skaffold = callPackage ../development/tools/skaffold { };
 
+  skjold = callPackage ../development/tools/skjold { };
+
   skalibs = skawarePackages.skalibs;
   skalibs_2_10 = skawarePackages.skalibs_2_10;
 
@@ -20220,7 +20227,7 @@ with pkgs;
   triehash = callPackage ../tools/misc/triehash { };
 
   trillian = callPackage ../tools/misc/trillian {
-    buildGoModule = buildGo115Module;
+    buildGoModule = buildGo117Module;
   };
 
   twolame = callPackage ../development/libraries/twolame { };
@@ -21095,6 +21102,12 @@ with pkgs;
   grafana-loki = callPackage ../servers/monitoring/loki {
     buildGoModule = buildGo116Module;
   };
+
+  promtail = grafana-loki.overrideAttrs (o: {
+    pname = "promtail";
+    subPackages = ["clients/cmd/promtail"];
+    CGO_ENABLED = 1;
+  });
 
   grafana_reporter = callPackage ../servers/monitoring/grafana-reporter { };
 
@@ -22605,6 +22618,8 @@ with pkgs;
   lm_sensors = callPackage ../os-specific/linux/lm-sensors { };
 
   lockdep = callPackage ../os-specific/linux/lockdep { };
+
+  lsirec = callPackage ../os-specific/linux/lsirec { };
 
   lsiutil = callPackage ../os-specific/linux/lsiutil { };
 
@@ -26526,9 +26541,6 @@ with pkgs;
 
   imgp = python3Packages.callPackage ../applications/graphics/imgp { };
 
-  # Impressive, formerly known as "KeyJNote".
-  impressive = callPackage ../applications/office/impressive { };
-
   index-fm = libsForQt5.callPackage ../applications/misc/index-fm { };
 
   inkcut = libsForQt5.callPackage ../applications/misc/inkcut { };
@@ -26769,7 +26781,7 @@ with pkgs;
   kubebuilder = callPackage ../applications/networking/cluster/kubebuilder { };
 
   kuttl = callPackage ../applications/networking/cluster/kuttl {
-    buildGoModule = buildGo115Module;
+    buildGoModule = buildGo117Module;
   };
 
   kubectl-doctor = callPackage ../applications/networking/cluster/kubectl-doctor { };
@@ -33130,11 +33142,11 @@ with pkgs;
 
   neo = callPackage ../applications/misc/neo { };
 
-  nixVersions = callPackage ../tools/package-management/nix {
+  nixVersions = recurseIntoAttrs (callPackage ../tools/package-management/nix {
     storeDir = config.nix.storeDir or "/nix/store";
     stateDir = config.nix.stateDir or "/nix/var";
     inherit (darwin.apple_sdk.frameworks) Security;
-  };
+  });
 
   nix = nixVersions.stable;
 
