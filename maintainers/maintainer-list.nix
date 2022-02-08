@@ -513,12 +513,6 @@
     githubId = 38869148;
     name = "Alex Eyre";
   };
-  algorith = {
-    email = "dries_van_daele@telenet.be";
-    github = "DriesVanDaele";
-    githubId = 1141488;
-    name = "Dries Van Daele";
-  };
   alibabzo = {
     email = "alistair.bill@gmail.com";
     github = "alibabzo";
@@ -2308,6 +2302,13 @@
     github = "codyopel";
     githubId = 5561189;
     name = "Cody Opel";
+  };
+  Cogitri = {
+    email = "oss@cogitri.dev";
+    github = "Cogitri";
+    githubId = 8766773;
+    matrix = "@cogitri:cogitri.dev";
+    name = "Rasmus Thomsen";
   };
   cohei = {
     email = "a.d.xvii.kal.mai@gmail.com";
@@ -6535,6 +6536,12 @@
     github = "kquick";
     githubId = 787421;
     name = "Kevin Quick";
+  };
+  kradalby = {
+    name = "Kristoffer Dalby";
+    email = "kristoffer@dalby.cc";
+    github = "kradalby";
+    githubId = 98431;
   };
   kraem = {
     email = "me@kraem.xyz";
@@ -11564,6 +11571,13 @@
     githubId = 2666479;
     name = "Y Nguyen";
   };
+  superherointj = {
+    name = "Sérgio G.";
+    email = "5861043+superherointj@users.noreply.github.com";
+    matrix = "@superherointj:matrix.org";
+    github = "superherointj";
+    githubId = 5861043;
+  };
   SuperSandro2000 = {
     email = "sandro.jaeckel@gmail.com";
     matrix = "@sandro:supersandro.de";
@@ -11803,6 +11817,13 @@
     github = "tbenst";
     githubId = 863327;
     name = "Tyler Benster";
+  };
+  tboerger = {
+    email = "thomas@webhippie.de";
+    matrix = "@tboerger:matrix.org";
+    github = "tboerger";
+    githubId = 156964;
+    name = "Thomas Boerger";
   };
   tcbravo = {
     email = "tomas.bravo@protonmail.ch";
@@ -12163,6 +12184,7 @@
   };
   toastal = {
     email = "toastal+nix@posteo.net";
+    matrix = "@toastal:matrix.org";
     github = "toastal";
     githubId = 561087;
     name = "toastal";
@@ -13612,10 +13634,10 @@
     github = "nagisa";
     githubId = 679122;
   };
-  yevhenshymotiuk = {
+  yshym = {
     name = "Yevhen Shymotiuk";
-    email = "yevhenshymotiuk@gmail.com";
-    github = "yevhenshymotiuk";
+    email = "yshym@pm.me";
+    github = "yshym";
     githubId = 44244245;
   };
   hmenke = {

@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "subarulink";
-  version = "0.4.0";
+  version = "0.4.2";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -21,7 +21,7 @@ buildPythonPackage rec {
     owner = "G-Two";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0mn3am1np653a3mq8rjly482a9x2rp6ss9zx997b6adk5vm3zasc";
+    sha256 = "sha256-EI7m2SFa1eAtncMA0g1OmXumzub4UvE6ssGfUGtLO2Q=";
   };
 
   propagatedBuildInputs = [
