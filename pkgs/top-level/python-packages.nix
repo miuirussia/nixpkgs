@@ -392,6 +392,8 @@ in {
 
   aiorun = callPackage ../development/python-modules/aiorun { };
 
+  aiosenseme = callPackage ../development/python-modules/aiosenseme { };
+
   aiosenz = callPackage ../development/python-modules/aiosenz { };
 
   aioserial = callPackage ../development/python-modules/aioserial { };
@@ -691,8 +693,6 @@ in {
   asyncio-dgram = callPackage ../development/python-modules/asyncio-dgram { };
 
   asyncio-mqtt = callPackage ../development/python-modules/asyncio_mqtt { };
-
-  asyncio-nats-client = callPackage ../development/python-modules/asyncio-nats-client { };
 
   asyncio-rlock = callPackage ../development/python-modules/asyncio-rlock { };
 
@@ -2194,9 +2194,10 @@ in {
 
   # Current LTS
   django_2 = callPackage ../development/python-modules/django/2.nix { };
+  django_3 = callPackage ../development/python-modules/django/3.nix { };
 
   # Current latest
-  django_3 = callPackage ../development/python-modules/django/3.nix { };
+  django_4 = callPackage ../development/python-modules/django/4.nix { };
 
   django-allauth = callPackage ../development/python-modules/django-allauth { };
 
@@ -3133,7 +3134,7 @@ in {
 
   garminconnect-aio = callPackage ../development/python-modules/garminconnect-aio { };
 
-  garminconnect-ha = callPackage ../development/python-modules/garminconnect-ha { };
+  garminconnect = callPackage ../development/python-modules/garminconnect { };
 
   gast = callPackage ../development/python-modules/gast { };
 
@@ -5319,6 +5320,8 @@ in {
 
   nassl = callPackage ../development/python-modules/nassl { };
 
+  nats-py = callPackage ../development/python-modules/nats-py { };
+
   nats-python = callPackage ../development/python-modules/nats-python { };
 
   natsort = callPackage ../development/python-modules/natsort { };
@@ -6103,6 +6106,8 @@ in {
   pyheos = callPackage ../development/python-modules/pyheos { };
 
   pyhiveapi = callPackage ../development/python-modules/pyhiveapi { };
+
+  pyhumps = callPackage ../development/python-modules/pyhumps { };
 
   pyisy = callPackage ../development/python-modules/pyisy { };
 
@@ -7965,6 +7970,8 @@ in {
   python-hpilo = callPackage ../development/python-modules/python-hpilo { };
 
   python-http-client = callPackage ../development/python-modules/python-http-client { };
+
+  python-i18n = callPackage ../development/python-modules/python-i18n { };
 
   pythonix = callPackage ../development/python-modules/pythonix {
     nix = pkgs.nixVersions.nix_2_3;
@@ -10373,6 +10380,8 @@ in {
   warlock = callPackage ../development/python-modules/warlock { };
 
   warrant = callPackage ../development/python-modules/warrant { };
+
+  warrant-lite = callPackage ../development/python-modules/warrant-lite { };
 
   waqiasync = callPackage ../development/python-modules/waqiasync { };
 
