@@ -835,7 +835,7 @@
     "statistics" = ps: with ps; [ sqlalchemy ];
     "statsd" = ps: with ps; [ statsd ];
     "steam_online" = ps: with ps; [ ]; # missing inputs: steamodd
-    "steamist" = ps: with ps; [ aiohttp-cors ifaddr ]; # missing inputs: aiosteamist discovery30303
+    "steamist" = ps: with ps; [ aiohttp-cors aiosteamist discovery30303 ifaddr ];
     "stiebel_eltron" = ps: with ps; [ pymodbus ]; # missing inputs: pystiebeleltron
     "stookalert" = ps: with ps; [ ]; # missing inputs: stookalert
     "stream" = ps: with ps; [ pyturbojpeg aiohttp-cors av ];
@@ -1507,6 +1507,7 @@
     "startca"
     "statistics"
     "statsd"
+    "steamist"
     "stream"
     "stt"
     "subaru"

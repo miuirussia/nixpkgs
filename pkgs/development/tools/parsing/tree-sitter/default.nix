@@ -9,7 +9,6 @@
 , formats
 , rustPlatform
 , jq
-, coreutils
 , nix-prefetch-git
 , xe
 , curl
@@ -43,7 +42,7 @@ let
   };
 
   update-all-grammars = import ./update.nix {
-    inherit writeShellScript nix-prefetch-git coreutils curl jq xe src formats lib;
+    inherit writeShellScript nix-prefetch-git curl jq xe src formats lib;
   };
 
   fetchGrammar = (v: fetchgit { inherit (v) url rev sha256 fetchSubmodules; });
