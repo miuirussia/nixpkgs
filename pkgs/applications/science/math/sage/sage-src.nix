@@ -114,18 +114,36 @@ stdenv.mkDerivation rec {
     # strictly necessary, but keeps us from littering in the user's HOME.
     ./patches/sympow-cache.patch
 
+    # Upstream will wait until Sage 9.7 to upgrade to linbox 1.7 because it
+    # does not support gcc 6. We can upgrade earlier.
+    # https://trac.sagemath.org/ticket/32959
+    ./patches/linbox-1.7-upgrade.patch
+
+    # To emit better tracebacks, IPython 8 parses Python files using the ast
+    # module (via the stack_data package). Since Cython is a superset of Python,
+    # this results in no Cython code being printed in tracebacks. Fixing this
+    # properly is tracked in https://github.com/alexmojaki/stack_data/issues/21,
+    # but for now we just disable the corresponding test. An alternative would
+    # be to revert IPython's IPython/core/ultratb.py, but this would need to be
+    # Sage-specific (since it would worsen tracebacks for pure Python code).
+    # Sage tracks this at https://trac.sagemath.org/ticket/33170
+    ./patches/no-cython-sources-in-tracebacks-on-ipython8.patch
+
     # https://trac.sagemath.org/ticket/32968
     (fetchSageDiff {
-      base = "9.5.beta8";
+      base = "9.5";
       name = "sphinx-4.3-update.patch";
       rev = "fc84f82f52b6f05f512cb359ec7c100f93cf8841";
       sha256 = "sha256-bBbfdcnw/9LUOlY8rHJRbFJEdMXK4shosqTNaobTS1Q=";
     })
 
-    # Upstream has not upgraded to linbox 1.7 yet because it conflicts with
-    # pre-4.2.1p3 versions of Singular, but we don't have this problem.
-    # https://trac.sagemath.org/ticket/32959
-    ./patches/linbox-1.7-upgrade.patch
+    # https://trac.sagemath.org/ticket/33189
+    (fetchSageDiff {
+      base = "9.5";
+      name = "arb-2.22-update.patch";
+      rev = "53532ddd4e2dc92469c1590ebf0c40f8f69bf579";
+      sha256 = "sha256-6SoSBvIlqvNwZV3jTB6uPdUtaWIOeNmddi2poK/WvGs=";
+    })
   ];
 
   patches = nixPatches ++ bugfixPatches ++ packageUpgradePatches;

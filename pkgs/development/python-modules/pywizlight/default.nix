@@ -10,7 +10,7 @@
 
 buildPythonPackage rec {
   pname = "pywizlight";
-  version = "0.5.3";
+  version = "0.5.8";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -19,7 +19,7 @@ buildPythonPackage rec {
     owner = "sbidy";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-CbbnCNHmc2yoKX8hDUCD8gIvDX5HNL3HYKpbJjLgQwk=";
+    sha256 = "sha256-8VDneIfZ2o96fOdSRxDbbGg6rEsqdNTyfT7amnEYvBI=";
   };
 
   propagatedBuildInputs = [
