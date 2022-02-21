@@ -39,6 +39,7 @@ jobs:
           rsync -avu --delete ./nixpkgs-original/pkgs/ ./nixpkgs-final/pkgs
           cp -f ./nixpkgs-original/{.editorconfig,.gitattributes,.gitignore,.version,CONTRIBUTING.md,COPYING,README.md,default.nix,flake.nix} ./nixpkgs-final
           $(nix-build ./nixpkgs-final -A pkgs.tree-sitter.passthru.updater.update-all-grammars)
+          (cd ./nixpkgs-final/pkgs/desktops/gnome/extensions && ./update-extensions.py)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push changes
