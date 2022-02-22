@@ -879,6 +879,8 @@ with pkgs;
 
   _9pfs = callPackage ../tools/filesystems/9pfs { };
 
+  aardvark-dns = callPackage ../tools/networking/aardvark-dns { };
+
   a2ps = callPackage ../tools/text/a2ps { };
 
   abcm2ps = callPackage ../tools/audio/abcm2ps { };
@@ -1070,6 +1072,8 @@ with pkgs;
 
   tauon = callPackage ../applications/audio/tauon { };
 
+  termusic = callPackage ../applications/audio/termusic { };
+
   tfk8s = callPackage ../tools/misc/tfk8s { };
 
   tnat64 = callPackage ../tools/networking/tnat64 { };
@@ -1086,6 +1090,8 @@ with pkgs;
     wine = wineWowPackages.staging;
     use64 = true;
   };
+
+  writedisk = callPackage ../tools/misc/writedisk { };
 
   xcd = callPackage ../tools/misc/xcd { };
 
@@ -1532,15 +1538,15 @@ with pkgs;
 
   amule = callPackage ../tools/networking/p2p/amule { };
 
-  amuleDaemon = appendToName "daemon" (amule.override {
+  amule-daemon = amule.override {
     monolithic = false;
     enableDaemon = true;
-  });
+  };
 
-  amuleGui = appendToName "gui" (amule.override {
+  amule-gui = amule.override {
     monolithic = false;
     client = true;
-  });
+  };
 
   antennas = nodePackages.antennas;
 
@@ -1879,6 +1885,10 @@ with pkgs;
   };
 
   gremlin-console = callPackage ../applications/misc/gremlin-console {
+    openjdk = openjdk11;
+  };
+
+  gremlin-server = callPackage ../applications/misc/gremlin-server {
     openjdk = openjdk11;
   };
 
@@ -3760,6 +3770,8 @@ with pkgs;
 
   syscall_limiter = callPackage ../os-specific/linux/syscall_limiter {};
 
+  skeema = callPackage ../tools/system/skeema {};
+
   syslogng = callPackage ../tools/system/syslog-ng { };
 
   syslogng_incubator = callPackage ../tools/system/syslog-ng-incubator { };
@@ -3876,20 +3888,20 @@ with pkgs;
     enableStandardFeatures = false;
   };
 
-  asciidoc-full = appendToName "full" (asciidoc.override {
+  asciidoc-full = asciidoc.override {
     inherit (python3.pkgs) pygments;
     texlive = texlive.combine { inherit (texlive) scheme-minimal dvipng; };
     w3m = w3m-batch;
     enableStandardFeatures = true;
-  });
+  };
 
-  asciidoc-full-with-plugins = appendToName "full-with-plugins" (asciidoc.override {
+  asciidoc-full-with-plugins = asciidoc.override {
     inherit (python3.pkgs) pygments;
     texlive = texlive.combine { inherit (texlive) scheme-minimal dvipng; };
     w3m = w3m-batch;
     enableStandardFeatures = true;
     enableExtraPlugins = true;
-  });
+  };
 
   asciidoctor = callPackage ../tools/typesetting/asciidoctor { };
 
@@ -6424,24 +6436,13 @@ with pkgs;
 
   hdf5_1_10 = callPackage ../tools/misc/hdf5/1.10.nix { };
 
-  hdf5-mpi = appendToName "mpi" (hdf5.override {
-    mpiSupport = true;
-  });
+  hdf5-mpi = hdf5.override { mpiSupport = true; };
 
-  hdf5-cpp = appendToName "cpp" (hdf5.override {
-    cppSupport = true;
-  });
+  hdf5-cpp = hdf5.override { cppSupport = true; };
 
-  hdf5-fortran = appendToName "fortran" (hdf5.override {
-    fortranSupport = true;
-  });
+  hdf5-fortran = hdf5.override { fortranSupport = true; };
 
-  hdf5-threadsafe = appendToName "threadsafe" (hdf5.overrideAttrs (oldAttrs: {
-      # Threadsafe hdf5
-      # However, hdf5 hl (High Level) library is not considered stable
-      # with thread safety and should be disabled.
-      configureFlags = oldAttrs.configureFlags ++ ["--enable-threadsafe" "--disable-hl" ];
-  }));
+  hdf5-threadsafe = hdf5.override { threadsafe = true; };
 
   hdf5-blosc = callPackage ../development/libraries/hdf5-blosc { };
 
@@ -6628,10 +6629,6 @@ with pkgs;
 
   ike-scan = callPackage ../tools/security/ike-scan { };
 
-  imapproxy = callPackage ../tools/networking/imapproxy {
-    openssl = openssl_1_0_2;
-  };
-
   imapsync = callPackage ../tools/networking/imapsync { };
 
   imgur-screenshot = callPackage ../tools/graphics/imgur-screenshot { };
@@ -6700,6 +6697,8 @@ with pkgs;
   ior = callPackage ../tools/system/ior { };
 
   iouyap = callPackage ../tools/networking/iouyap { };
+
+  ioztat = callPackage ../tools/filesystems/ioztat { };
 
   ip2location = callPackage ../tools/networking/ip2location { };
 
@@ -7074,6 +7073,8 @@ with pkgs;
   libcpuid = callPackage ../tools/misc/libcpuid { };
 
   libcsptr = callPackage ../development/libraries/libcsptr { };
+
+  libgovirt = callPackage ../applications/virtualization/libgovirt { };
 
   libscrypt = callPackage ../development/libraries/libscrypt { };
 
@@ -8060,6 +8061,8 @@ with pkgs;
   nestopia = callPackage ../applications/emulators/nestopia { };
 
   netatalk = callPackage ../tools/filesystems/netatalk { };
+
+  netavark = callPackage ../tools/networking/netavark { };
 
   netcdf = callPackage ../development/libraries/netcdf {
     hdf5 = hdf5.override { usev110Api = true; };
@@ -9593,8 +9596,6 @@ with pkgs;
 
   sasview = libsForQt5.callPackage ../applications/science/misc/sasview {};
 
-  scallion = callPackage ../tools/security/scallion { };
-
   scanbd = callPackage ../tools/graphics/scanbd { };
 
   scdoc = callPackage ../tools/typesetting/scdoc { };
@@ -10529,6 +10530,8 @@ with pkgs;
   tryton = callPackage ../applications/office/tryton { };
 
   trytond = with python3Packages; toPythonApplication trytond;
+
+  tuntox = callPackage ../tools/networking/tuntox { };
 
   omapd = callPackage ../tools/security/omapd { };
 
@@ -15349,8 +15352,6 @@ with pkgs;
 
   pgcli = pkgs.python3Packages.pgcli;
 
-  phantomjs = callPackage ../development/tools/phantomjs { };
-
   phantomjs2 = libsForQt514.callPackage ../development/tools/phantomjs2 { };
 
   picotool = callPackage ../development/tools/picotool { };
@@ -19711,10 +19712,6 @@ with pkgs;
   readline = readline6;
   readline6 = readline63;
 
-  readline5 = callPackage ../development/libraries/readline/5.x.nix { };
-
-  readline62 = callPackage ../development/libraries/readline/6.2.nix { };
-
   readline63 = callPackage ../development/libraries/readline/6.3.nix { };
 
   readline70 = callPackage ../development/libraries/readline/7.0.nix { };
@@ -21354,6 +21351,15 @@ with pkgs;
   };
 
   myserver = callPackage ../servers/http/myserver { };
+
+  napalm = with python3Packages; toPythonApplication (
+    napalm.overridePythonAttrs (attrs: {
+      # add community frontends that depend on the napalm python package
+      propagatedBuildInputs = attrs.propagatedBuildInputs ++ [
+        napalm-hp-procurve
+      ];
+    })
+  );
 
   nas = callPackage ../servers/nas { };
 
@@ -23431,6 +23437,8 @@ with pkgs;
 
   comic-relief = callPackage ../data/fonts/comic-relief {};
 
+  comixcursors = callPackage ../data/icons/comixcursors {};
+
   coreclr = callPackage ../development/compilers/coreclr { };
 
   corefonts = callPackage ../data/fonts/corefonts { };
@@ -24463,6 +24471,8 @@ with pkgs;
   argo = callPackage ../applications/networking/cluster/argo { };
 
   argocd = callPackage ../applications/networking/cluster/argocd { };
+
+  argo-rollouts = callPackage ../applications/networking/cluster/argo-rollouts { };
 
   ario = callPackage ../applications/audio/ario { };
 
@@ -25499,6 +25509,8 @@ with pkgs;
   ghostwriter = libsForQt5.callPackage ../applications/editors/ghostwriter { };
 
   gitweb = callPackage ../applications/version-management/git-and-tools/gitweb { };
+
+  globe-cli = callPackage ../applications/misc/globe-cli { };
 
   gnss-sdr = callPackage ../applications/radio/gnss-sdr { };
 
@@ -27885,7 +27897,9 @@ with pkgs;
 
   oberon-risc-emu = callPackage ../applications/emulators/oberon-risc-emu { };
 
-  obs-studio = libsForQt5.callPackage ../applications/video/obs-studio {};
+  obs-studio = libsForQt5.callPackage ../applications/video/obs-studio {
+    ffmpeg_4 = ffmpeg-full;
+  };
   obs-studio-plugins = recurseIntoAttrs (callPackage ../applications/video/obs-studio/plugins {});
   wrapOBS = callPackage ../applications/video/obs-studio/wrapper.nix {};
 
@@ -31872,6 +31886,8 @@ with pkgs;
   exonerate = callPackage ../applications/science/biology/exonerate { };
 
   fastp = callPackage ../applications/science/biology/fastp { };
+
+  febio-studio = libsForQt5.callPackage ../applications/science/biology/febio-studio { };
 
   hisat2 = callPackage ../applications/science/biology/hisat2 { };
 
