@@ -100,7 +100,7 @@ let
   # CUDA-related packages that are compatible with the currently packaged version
   # of TensorFlow, used to keep these versions in sync in related packages like `jaxlib`.
   tensorflow_compat_cudatoolkit = pkgs.cudatoolkit_11_2;
-  tensorflow_compat_cudnn = pkgs.cudnn_cudatoolkit_11_2;
+  tensorflow_compat_cudnn = pkgs.cudnn_8_1_cudatoolkit_11_2;
   tensorflow_compat_nccl = pkgs.nccl_cudatoolkit_11;
 
 in {
@@ -663,6 +663,8 @@ in {
   aspy-yaml = callPackage ../development/python-modules/aspy.yaml { };
 
   assertpy = callPackage ../development/python-modules/assertpy { };
+
+  asterisk-mbox = callPackage ../development/python-modules/asterisk-mbox { };
 
   asteval = callPackage ../development/python-modules/asteval { };
 
@@ -1278,6 +1280,8 @@ in {
 
   blurhash = callPackage ../development/python-modules/blurhash { };
 
+  bme280spi = callPackage ../development/python-modules/bme280spi { };
+
   bme680 = callPackage ../development/python-modules/bme680 { };
 
   bokeh = callPackage ../development/python-modules/bokeh { };
@@ -1592,6 +1596,8 @@ in {
   chiavdf = callPackage ../development/python-modules/chiavdf { };
 
   chirpstack-api = callPackage ../development/python-modules/chirpstack-api { };
+
+  chispa = callPackage ../development/python-modules/chispa { };
 
   ci-info = callPackage ../development/python-modules/ci-info { };
 
@@ -1929,7 +1935,7 @@ in {
 
   cupy = callPackage ../development/python-modules/cupy {
     cudatoolkit = pkgs.cudatoolkit_11;
-    cudnn = pkgs.cudnn_cudatoolkit_11;
+    cudnn = pkgs.cudnn_8_1_cudatoolkit_11;
     nccl = pkgs.nccl_cudatoolkit_11;
     cutensor = pkgs.cutensor_cudatoolkit_11;
   };
@@ -2486,6 +2492,8 @@ in {
 
   dyn = callPackage ../development/python-modules/dyn { };
 
+  dynalite-devices = callPackage ../development/python-modules/dynalite-devices { };
+
   dynd = callPackage ../development/python-modules/dynd { };
 
   easydict = callPackage ../development/python-modules/easydict { };
@@ -2820,6 +2828,8 @@ in {
   fenics = callPackage ../development/libraries/science/math/fenics {
     hdf5 = pkgs.hdf5_1_10;
   };
+
+  ffcv = callPackage ../development/python-modules/ffcv { };
 
   ffmpeg-python = callPackage ../development/python-modules/ffmpeg-python { };
 
@@ -3171,6 +3181,8 @@ in {
 
   gdown = callPackage ../development/python-modules/gdown { };
 
+  gdtoolkit = callPackage ../development/python-modules/gdtoolkit { };
+
   ge25519 = callPackage ../development/python-modules/ge25519 { };
 
   geant4 = toPythonModule (pkgs.geant4.override {
@@ -3189,6 +3201,8 @@ in {
   genanki = callPackage ../development/python-modules/genanki { };
 
   generic = callPackage ../development/python-modules/generic { };
+
+  geniushub-client = callPackage ../development/python-modules/geniushub-client { };
 
   genome-collector = callPackage ../development/python-modules/genome-collector { };
 
@@ -3869,6 +3883,8 @@ in {
   i2c-tools = callPackage ../development/python-modules/i2c-tools {
     inherit (pkgs) i2c-tools;
   };
+
+  i2csense = callPackage ../development/python-modules/i2csense { };
 
   i3ipc = callPackage ../development/python-modules/i3ipc { };
 
@@ -5645,6 +5661,8 @@ in {
 
   onnx = callPackage ../development/python-modules/onnx { };
 
+  onvif-zeep-async = callPackage ../development/python-modules/onvif-zeep-async { };
+
   oocsi = callPackage ../development/python-modules/oocsi { };
 
   open-garage = callPackage ../development/python-modules/open-garage { };
@@ -6082,6 +6100,8 @@ in {
 
   pipdate = callPackage ../development/python-modules/pipdate { };
 
+  pipenv-poetry-migrate = callPackage ../development/python-modules/pipenv-poetry-migrate { };
+
   pip-tools = callPackage ../development/python-modules/pip-tools { };
 
   pipx = callPackage ../development/python-modules/pipx { };
@@ -6148,6 +6168,8 @@ in {
   pynws = callPackage ../development/python-modules/pynws { };
 
   pynx584 = callPackage ../development/python-modules/pynx584 { };
+
+  pyoverkiz = callPackage ../development/python-modules/pyoverkiz { };
 
   pyownet = callPackage ../development/python-modules/pyownet { };
 
@@ -6910,7 +6932,9 @@ in {
 
   pygetwindow = callPackage ../development/python-modules/pygetwindow { };
 
-  pygit2 = callPackage ../development/python-modules/pygit2 { };
+  pygit2 = callPackage ../development/python-modules/pygit2 {
+    libgit2 = pkgs.libgit2_1_3_0;
+  };
 
   PyGithub = callPackage ../development/python-modules/pyGithub { };
 
@@ -8225,6 +8249,8 @@ in {
 
   pytorch-metric-learning = callPackage ../development/python-modules/pytorch-metric-learning { };
 
+  pytorch-pfn-extras = callPackage ../development/python-modules/pytorch-pfn-extras { };
+
   pytorchWithCuda = self.pytorch.override {
     cudaSupport = true;
   };
@@ -9349,6 +9375,8 @@ in {
   sphinxcontrib-plantuml = callPackage ../development/python-modules/sphinxcontrib-plantuml {
     inherit (pkgs) plantuml;
   };
+
+  sphinxcontrib-programoutput = callPackage ../development/python-modules/sphinxcontrib-programoutput { };
 
   sphinxcontrib-qthelp = callPackage ../development/python-modules/sphinxcontrib-qthelp { };
 
@@ -10564,6 +10592,8 @@ in {
   wrf-python = callPackage ../development/python-modules/wrf-python { };
 
   ws4py = callPackage ../development/python-modules/ws4py { };
+
+  wsdiscovery = callPackage ../development/python-modules/wsdiscovery { };
 
   wsgi-intercept = callPackage ../development/python-modules/wsgi-intercept { };
 
