@@ -50,6 +50,18 @@
           granular distinction between reloads and restarts.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://kops.sigs.k8s.io"><literal>kops</literal></link>
+          defaults to 1.22.4, which will enable
+          <link xlink:href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html">Instance
+          Metadata Service Version 2</link> and require tokens on new
+          clusters with Kubernetes 1.22. This will increase security by
+          default, but may break some types of workloads. See the
+          <link xlink:href="https://kops.sigs.k8s.io/releases/1.22-notes/">release
+          notes</link> for details.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-22.05-new-services">
@@ -551,6 +563,13 @@
       <listitem>
         <para>
           <literal>tilp2</literal> was removed together with its module
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The F-PROT antivirus (<literal>fprot</literal> package) and
+          its service module were removed because it reached
+          <link xlink:href="https://kb.cyren.com/av-support/index.php?/Knowledgebase/Article/View/434/0/end-of-sale--end-of-life-for-f-prot-and-csam">end-of-life</link>.
         </para>
       </listitem>
       <listitem>

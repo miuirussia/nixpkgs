@@ -464,6 +464,8 @@ with pkgs;
 
   buildDotnetModule = callPackage ../build-support/dotnet/build-dotnet-module { };
   nuget-to-nix = callPackage ../build-support/dotnet/nuget-to-nix { };
+  mkNugetSource = callPackage ../build-support/dotnet/make-nuget-source { };
+  mkNugetDeps = callPackage ../build-support/dotnet/make-nuget-deps { };
 
   dotnetenv = callPackage ../build-support/dotnet/dotnetenv {
     dotnetfx = dotnetfx40;
@@ -543,6 +545,10 @@ with pkgs;
   global-platform-pro = callPackage ../development/tools/global-platform-pro { };
 
   graph-easy = callPackage ../tools/graphics/graph-easy { };
+
+  opendrop = python3Packages.callPackage ../tools/networking/opendrop { };
+
+  owl = callPackage ../tools/networking/owl { };
 
   packer = callPackage ../development/tools/packer { };
 
@@ -825,8 +831,9 @@ with pkgs;
 
   writeDarwinBundle = callPackage ../build-support/make-darwin-bundle/write-darwin-bundle.nix { };
 
-  desktopToDarwinBundle = makeSetupHook { deps = [ writeDarwinBundle imagemagick ]; }
-    ../build-support/setup-hooks/desktop-to-darwin-bundle.sh;
+  desktopToDarwinBundle = makeSetupHook {
+    deps = [ writeDarwinBundle librsvg imagemagick python3Packages.icnsutil ];
+  } ../build-support/setup-hooks/desktop-to-darwin-bundle.sh;
 
   keepBuildTree = makeSetupHook { } ../build-support/setup-hooks/keep-build-tree.sh;
 
@@ -3667,6 +3674,8 @@ with pkgs;
 
   precice = callPackage ../development/libraries/precice { };
 
+  precice-config-visualizer = callPackage ../tools/misc/precice-config-visualizer { };
+
   pueue = callPackage ../applications/misc/pueue {
     inherit (darwin.apple_sdk.frameworks) SystemConfiguration;
   };
@@ -4213,6 +4222,8 @@ with pkgs;
   colord = callPackage ../tools/misc/colord { };
 
   colord-gtk = callPackage ../tools/misc/colord-gtk { };
+
+  colord-gtk4 = colord-gtk.override { withGtk4 = true; };
 
   colordiff = callPackage ../tools/text/colordiff { };
 
@@ -5543,8 +5554,6 @@ with pkgs;
   fping = callPackage ../tools/networking/fping {};
 
   fpm = callPackage ../tools/package-management/fpm { };
-
-  fprot = callPackage ../tools/security/fprot { };
 
   fprintd = callPackage ../tools/security/fprintd { };
 
@@ -8159,6 +8168,8 @@ with pkgs;
 
   libnma = callPackage ../tools/networking/networkmanager/libnma { };
 
+  libnma-gtk4 = libnma.override { withGtk4 = true; };
+
   networkmanager_dmenu = callPackage ../tools/networking/networkmanager/dmenu  { };
 
   nm-tray = libsForQt5.callPackage ../tools/networking/networkmanager/tray.nix { };
@@ -8975,10 +8986,7 @@ with pkgs;
 
   podiff = callPackage ../tools/text/podiff { };
 
-  podman = if stdenv.isDarwin then
-    callPackage ../applications/virtualization/podman { }
-  else
-    callPackage ../applications/virtualization/podman/wrapper.nix { };
+  podman = callPackage ../applications/virtualization/podman/wrapper.nix { };
   podman-unwrapped = callPackage ../applications/virtualization/podman { };
 
   podman-compose = python3Packages.callPackage ../applications/virtualization/podman-compose {};
@@ -12674,10 +12682,9 @@ with pkgs;
   jdkdistro = oraclejdk8distro;
 
   oraclejdk8distro = installjdk: pluginSupport:
-    (if pluginSupport then appendToName "with-plugin" else x: x)
-      (callPackage ../development/compilers/oraclejdk/jdk8-linux.nix {
-        inherit installjdk pluginSupport;
-      });
+    (callPackage ../development/compilers/oraclejdk/jdk8-linux.nix {
+      inherit installjdk pluginSupport;
+    });
 
   oraclejdk11 = callPackage ../development/compilers/oraclejdk/jdk11-linux.nix { };
 
@@ -16551,6 +16558,8 @@ with pkgs;
 
   fcl = callPackage ../development/libraries/fcl { };
 
+  febio = callPackage ../development/libraries/febio { };
+
   ffcast = callPackage ../tools/X11/ffcast { };
 
   fflas-ffpack = callPackage ../development/libraries/fflas-ffpack { };
@@ -17970,6 +17979,8 @@ with pkgs;
   libgnome-keyring = callPackage ../development/libraries/libgnome-keyring { };
   libgnome-keyring3 = gnome.libgnome-keyring;
 
+  libgnome-games-support = callPackage ../development/libraries/libgnome-games-support { };
+
   libgnomekbd = callPackage ../development/libraries/libgnomekbd { };
 
   libglvnd = callPackage ../development/libraries/libglvnd { };
@@ -18558,6 +18569,8 @@ with pkgs;
   libpst = callPackage ../development/libraries/libpst { };
 
   libptytty = callPackage ../development/libraries/libptytty { };
+
+  libpulsar = callPackage ../development/libraries/libpulsar { };
 
   libpwquality = callPackage ../development/libraries/libpwquality { };
 
@@ -19648,12 +19661,12 @@ with pkgs;
 
   qmake4Hook = qmake48Hook;
 
-  qt48Full = appendToName "full" (qt48.override {
+  qt48Full = qt48.override {
     docs = true;
     demos = true;
     examples = true;
     developerBuild = true;
-  });
+  };
 
   qt512 = recurseIntoAttrs (makeOverridable
     (import ../development/libraries/qt-5/5.12) {
@@ -21484,6 +21497,7 @@ with pkgs;
 
   openresty = callPackage ../servers/http/openresty {
     withPerl = false;
+    modules = [];
   };
 
   opensmtpd = callPackage ../servers/mail/opensmtpd { };
@@ -25292,12 +25306,12 @@ with pkgs;
     inherit (darwin) sigtool;
   };
 
-  emacs27-nox = lowPrio (appendToName "nox" (emacs27.override {
+  emacs27-nox = lowPrio (emacs27.override {
     withX = false;
     withNS = false;
     withGTK2 = false;
     withGTK3 = false;
-  }));
+  });
 
   emacsMacport = callPackage ../applications/editors/emacs/macport.nix {
     inherit (darwin.apple_sdk.frameworks)
@@ -31112,7 +31126,7 @@ with pkgs;
 
   inherit (callPackages ../games/minetest {
     inherit (darwin) libiconv;
-    inherit (darwin.apple_sdk.frameworks) OpenGL OpenAL Carbon Cocoa;
+    inherit (darwin.apple_sdk.frameworks) OpenGL OpenAL Carbon Cocoa Kernel;
   })
     minetestclient_5 minetestserver_5;
 
@@ -31431,9 +31445,6 @@ with pkgs;
   steam = steamPackages.steam-fhsenv;
 
   steam-run = steam.run;
-  steam-run-native = (steam.override {
-    nativeOnly = true;
-  }).run;
 
   steam-tui = callPackage ../games/steam-tui { };
 
@@ -32100,6 +32111,8 @@ with pkgs;
 
   blas-reference = callPackage ../development/libraries/science/math/blas { };
 
+  bonmin = callPackage ../development/libraries/science/math/bonmin { };
+
   brial = callPackage ../development/libraries/science/math/brial { };
 
   clblas = callPackage ../development/libraries/science/math/clblas {
@@ -32279,6 +32292,7 @@ with pkgs;
     singlePrec = true;
     enableMpi = true;
     enableCuda = true;
+    cudatoolkit = cudatoolkit_11;
     fftw = fftwSinglePrec;
   });
 
@@ -33011,6 +33025,8 @@ with pkgs;
 
   dell-530cdn = callPackage ../misc/drivers/dell-530cdn {};
 
+  dockutil = callPackage ../os-specific/darwin/dockutil { };
+
   dosbox = callPackage ../applications/emulators/dosbox { };
 
   dosbox-staging = callPackage ../applications/emulators/dosbox-staging { };
@@ -33291,7 +33307,7 @@ with pkgs;
 
   nixops = callPackage ../tools/package-management/nixops { };
 
-  nixopsUnstable = lowPrio (callPackage ../applications/networking/cluster/nixops { });
+  nixops_unstable = lowPrio (callPackage ../applications/networking/cluster/nixops { });
 
   nixops-dns = callPackage ../tools/package-management/nixops/nixops-dns.nix { };
 
@@ -34179,6 +34195,8 @@ with pkgs;
   xosd = callPackage ../misc/xosd { };
 
   xosview2 = callPackage ../tools/X11/xosview2 { };
+
+  xow_dongle-firmware = callPackage ../os-specific/linux/firmware/xow_dongle-firmware { };
 
   xpad = callPackage ../applications/misc/xpad { };
 
