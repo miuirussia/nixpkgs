@@ -466,6 +466,8 @@ in {
 
   allpairspy = callPackage ../development/python-modules/allpairspy { };
 
+  allure-behave = callPackage ../development/python-modules/allure-behave { };
+
   allure-python-commons = callPackage ../development/python-modules/allure-python-commons { };
 
   allure-python-commons-test = callPackage ../development/python-modules/allure-python-commons-test { };
@@ -1608,6 +1610,8 @@ in {
   chirpstack-api = callPackage ../development/python-modules/chirpstack-api { };
 
   chispa = callPackage ../development/python-modules/chispa { };
+
+  chromaprint = callPackage ../development/python-modules/chromaprint { };
 
   ci-info = callPackage ../development/python-modules/ci-info { };
 
@@ -4077,6 +4081,8 @@ in {
   intreehooks = callPackage ../development/python-modules/intreehooks { };
 
   invoke = callPackage ../development/python-modules/invoke { };
+
+  iodata = callPackage ../development/python-modules/iodata { };
 
   iocapture = callPackage ../development/python-modules/iocapture { };
 
@@ -7642,6 +7648,14 @@ in {
   };
 
   pysideTools = callPackage ../development/python-modules/pyside/tools.nix { };
+
+  pysigma = callPackage ../development/python-modules/pysigma { };
+
+  pysigma-backend-splunk = callPackage ../development/python-modules/pysigma-backend-splunk { };
+
+  pysigma-pipeline-crowdstrike = callPackage ../development/python-modules/pysigma-pipeline-crowdstrike { };
+
+  pysigma-pipeline-sysmon = callPackage ../development/python-modules/pysigma-pipeline-sysmon { };
 
   pysignalclirestapi = callPackage ../development/python-modules/pysignalclirestapi { };
 
