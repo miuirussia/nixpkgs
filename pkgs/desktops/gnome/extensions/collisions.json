@@ -137,5 +137,11 @@
       "floatingDock@sun.wxg@gmail.com",
       "floating-dock@nandoferreira_prof@hotmail.com"
     ]
+  },
+  "42": {
+    "workspace-indicator": [
+      "workspace-indicator@gnome-shell-extensions.gcampax.github.com",
+      "horizontal-workspace-indicator@tty2.io"
+    ]
   }
 }
