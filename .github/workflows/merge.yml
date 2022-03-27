@@ -40,7 +40,6 @@ jobs:
           cp -f ./nixpkgs-original/{.editorconfig,.gitattributes,.gitignore,.version,CONTRIBUTING.md,COPYING,README.md,default.nix,flake.nix} ./nixpkgs-final
           $(nix-build ./nixpkgs-final -A pkgs.tree-sitter.passthru.updater.update-all-grammars)
           (cd ./nixpkgs-final/pkgs/desktops/gnome/extensions && ./update-extensions.py)
-          (cd ./nixpkgs-final/pkgs/applications/networking/browsers/chromium && ./update.py)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push changes
