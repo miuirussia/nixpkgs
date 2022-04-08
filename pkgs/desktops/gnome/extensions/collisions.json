@@ -154,6 +154,10 @@
     "lock-keys": [
       "lockkeys@vaina.lt",
       "lockkeys@fawtytoo"
+    ],
+    "wireguard-indicator": [
+      "wireguard-indicator@gregos.me",
+      "wireguard-indicator@atareao.es"
     ]
   }
 }
