@@ -3,17 +3,16 @@
 
 buildPythonPackage rec {
   pname = "nilearn";
-  version = "0.9.0";
+  version = "0.8.1";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-+cjjCt71FImRCux3JLVpneF4Qn065jhz2tmyPdMh/nY=";
+    sha256 = "a0489940855130f35bbc4cac0750479a6f82025215ea7b1d778faca064219298";
   };
 
   checkInputs = [ pytestCheckHook ];
   disabledTests = [ "test_clean_confounds" ];  # https://github.com/nilearn/nilearn/issues/2608
-  # do subset of tests which don't fetch resources
-  pytestFlagsArray = [ "nilearn/connectome/tests" ];
+  pytestFlagsArray = [ "nilearn" ];
 
   propagatedBuildInputs = [
     joblib

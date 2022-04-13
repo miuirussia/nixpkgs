@@ -1,30 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitHub
+{ lib, stdenv, fetchFromGitHub, sqlite, readline, asciidoc, SDL, SDL_gfx }:
 
-, asciidoc
-, pkg-config
-, inetutils
+let
+  makeSDLFlags = map (p: "-I${lib.getDev p}/include/SDL");
 
-, sqlite
-, readline
-, SDL
-, SDL_gfx
-}:
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "jimtcl";
-  version = "0.81";
+  version = "0.79";
 
   src = fetchFromGitHub {
     owner = "msteveb";
     repo = "jimtcl";
     rev = version;
-    sha256 = "sha256-OpM9y7fQ+18qxl3/5wUCrNA9qiCdA0vTHqLYSw2lvJs=";
+    sha256 = "1k88hz0v3bi19xdvlp0i9nsx38imzwpjh632w7326zwbv2wldf0h";
   };
 
   nativeBuildInputs = [
-    pkg-config
     asciidoc
   ];
 
@@ -45,6 +35,8 @@ stdenv.mkDerivation rec {
     "--ipv6"
   ];
 
+  NIX_CFLAGS_COMPILE = toString (makeSDLFlags [ SDL SDL_gfx ]);
+
   enableParallelBuilding = true;
 
   doCheck = true;
@@ -52,9 +44,6 @@ stdenv.mkDerivation rec {
     # test exec2-3.2 fails depending on platform or sandboxing (?)
     rm tests/exec2.test
   '';
-
-  # test posix-1.6 needs the "hostname" command
-  checkInputs = [ inetutils ];
 
   postInstall = ''
     ln -sr $out/lib/libjim.so.${version} $out/lib/libjim.so
@@ -65,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "http://jim.tcl.tk/";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ dbohdan fgaz vrthra ];
+    maintainers = with lib.maintainers; [ dbohdan vrthra ];
   };
 }

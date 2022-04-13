@@ -5,7 +5,7 @@
 }:
 
 mkDerivation {
-  pname = "solid";
+  name = "solid";
   nativeBuildInputs = [ bison extra-cmake-modules flex media-player-info ];
   buildInputs = [ qtdeclarative qttools ];
   propagatedBuildInputs = [ qtbase ];

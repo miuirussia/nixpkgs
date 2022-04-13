@@ -25,6 +25,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
+    pyserial
     pyserial-asyncio
     zigpy
   ];
@@ -33,12 +34,6 @@ buildPythonPackage rec {
     asynctest
     pytest-asyncio
     pytestCheckHook
-  ];
-
-  disabledTests = [
-    "test_incoming_msg"
-    "test_incoming_msg2"
-    "test_deser"
   ];
 
   meta = with lib; {

@@ -48,6 +48,5 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl21;
     maintainers = with maintainers; [ mvs ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin;  # see https://github.com/NixOS/nixpkgs/issues/165422
   };
 }

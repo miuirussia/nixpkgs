@@ -20,7 +20,7 @@ let
           maintainers = [ primeos blitz ];
         };
 
-        nodes.machine = { lib, ... }: {
+        machine = { lib, ... }: {
           networking.hostName = hostName;
           networking.domain = domain;
 

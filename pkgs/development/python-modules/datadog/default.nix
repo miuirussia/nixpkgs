@@ -2,7 +2,6 @@
 , buildPythonPackage
 , fetchPypi
 , pythonOlder
-, hatchling
 , decorator
 , requests
 , typing ? null
@@ -18,21 +17,16 @@
 
 buildPythonPackage rec {
   pname = "datadog";
-  version = "0.44.0";
-  format = "pyproject";
+  version = "0.43.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-BxFw8MfvIlEdv3+b12xL5QDuLT1SBykApch7VJXSxzM=";
+    sha256 = "1f2123083d9e1add6f238c62714b76ac2fc134d7d1c435cd82b976487b191b96";
   };
 
   postPatch = ''
     find . -name '*.pyc' -exec rm {} \;
   '';
-
-  nativeBuildInputs = [
-    hatchling
-  ];
 
   propagatedBuildInputs = [ decorator requests ]
     ++ lib.optional (pythonOlder "3.5") typing

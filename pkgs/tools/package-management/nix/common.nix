@@ -53,8 +53,8 @@ in
 , confDir
 , stateDir
 , storeDir
-}: let
-self = stdenv.mkDerivation {
+}:
+stdenv.mkDerivation {
   pname = "nix";
 
   version = "${version}${suffix}";
@@ -201,7 +201,7 @@ self = stdenv.mkDerivation {
     '';
     homepage = "https://nixos.org/";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ eelco lovesegfault artturin ];
+    maintainers = with maintainers; [ eelco lovesegfault ];
     platforms = platforms.unix;
     outputsToInstall = [ "out" ] ++ optional enableDocumentation "man";
   };
@@ -209,7 +209,6 @@ self = stdenv.mkDerivation {
   passthru = {
     inherit aws-sdk-cpp boehmgc;
 
-    perl-bindings = perl.pkgs.toPerlModule (callPackage ./nix-perl.nix { nix = self; });
+    perl-bindings = perl.pkgs.toPerlModule (callPackage ./nix-perl.nix { inherit src version;  });
   };
-};
-in self
+}

@@ -2,7 +2,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
   name = "starship";
   meta.maintainers = pkgs.starship.meta.maintainers;
 
-  nodes.machine = {
+  machine = {
     programs = {
       fish.enable = true;
       zsh.enable = true;

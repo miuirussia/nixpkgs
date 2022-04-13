@@ -9,26 +9,20 @@ with lib;
 let
   cfg = config.services.kea;
 
-  xor = x: y: (!x && y) || (x && !y);
   format = pkgs.formats.json {};
 
-  chooseNotNull = x: y: if x != null then x else y;
-
-  ctrlAgentConfig = chooseNotNull cfg.ctrl-agent.configFile (format.generate "kea-ctrl-agent.conf" {
+  ctrlAgentConfig = format.generate "kea-ctrl-agent.conf" {
     Control-agent = cfg.ctrl-agent.settings;
-  });
-
-  dhcp4Config = chooseNotNull cfg.dhcp4.configFile (format.generate "kea-dhcp4.conf" {
+  };
+  dhcp4Config = format.generate "kea-dhcp4.conf" {
     Dhcp4 = cfg.dhcp4.settings;
-  });
-
-  dhcp6Config = chooseNotNull cfg.dhcp6.configFile (format.generate "kea-dhcp6.conf" {
+  };
+  dhcp6Config = format.generate "kea-dhcp6.conf" {
     Dhcp6 = cfg.dhcp6.settings;
-  });
-
-  dhcpDdnsConfig = chooseNotNull cfg.dhcp-ddns.configFile (format.generate "kea-dhcp-ddns.conf" {
+  };
+  dhcpDdnsConfig = format.generate "kea-dhcp-ddns.conf" {
     DhcpDdns = cfg.dhcp-ddns.settings;
-  });
+  };
 
   package = pkgs.kea;
 in
@@ -48,17 +42,6 @@ in
             default = [];
             description = ''
               List of additonal arguments to pass to the daemon.
-            '';
-          };
-
-          configFile = mkOption {
-            type = nullOr path;
-            default = null;
-            description = ''
-              Kea Control Agent configuration as a path, see <link xlink:href="https://kea.readthedocs.io/en/kea-${package.version}/arm/agent.html"/>.
-
-              Takes preference over <link linkend="opt-services.kea.ctrl-agent.settings">settings</link>.
-              Most users should prefer using <link linkend="opt-services.kea.ctrl-agent.settings">settings</link> instead.
             '';
           };
 
@@ -87,17 +70,6 @@ in
             default = [];
             description = ''
               List of additonal arguments to pass to the daemon.
-            '';
-          };
-
-          configFile = mkOption {
-            type = nullOr path;
-            default = null;
-            description = ''
-              Kea DHCP4 configuration as a path, see <link xlink:href="https://kea.readthedocs.io/en/kea-${package.version}/arm/dhcp4-srv.html"/>.
-
-              Takes preference over <link linkend="opt-services.kea.dhcp4.settings">settings</link>.
-              Most users should prefer using <link linkend="opt-services.kea.dhcp4.settings">settings</link> instead.
             '';
           };
 
@@ -147,17 +119,6 @@ in
             default = [];
             description = ''
               List of additonal arguments to pass to the daemon.
-            '';
-          };
-
-          configFile = mkOption {
-            type = nullOr path;
-            default = null;
-            description = ''
-              Kea DHCP6 configuration as a path, see <link xlink:href="https://kea.readthedocs.io/en/kea-${package.version}/arm/dhcp6-srv.html"/>.
-
-              Takes preference over <link linkend="opt-services.kea.dhcp6.settings">settings</link>.
-              Most users should prefer using <link linkend="opt-services.kea.dhcp6.settings">settings</link> instead.
             '';
           };
 
@@ -211,17 +172,6 @@ in
             '';
           };
 
-          configFile = mkOption {
-            type = nullOr path;
-            default = null;
-            description = ''
-              Kea DHCP-DDNS configuration as a path, see <link xlink:href="https://kea.readthedocs.io/en/kea-${package.version}/arm/ddns.html"/>.
-
-              Takes preference over <link linkend="opt-services.kea.dhcp-ddns.settings">settings</link>.
-              Most users should prefer using <link linkend="opt-services.kea.dhcp-ddns.settings">settings</link> instead.
-            '';
-          };
-
           settings = mkOption {
             type = format.type;
             default = null;
@@ -264,10 +214,6 @@ in
   }
 
   (mkIf cfg.ctrl-agent.enable {
-    assertions = [{
-        assertion = xor (cfg.ctrl-agent.settings == null) (cfg.ctrl-agent.configFile == null);
-        message = "Either services.kea.ctrl-agent.settings or services.kea.ctrl-agent.configFile must be set to a non-null value.";
-    }];
 
     environment.etc."kea/ctrl-agent.conf".source = ctrlAgentConfig;
 
@@ -306,10 +252,6 @@ in
   })
 
   (mkIf cfg.dhcp4.enable {
-    assertions = [{
-        assertion = xor (cfg.dhcp4.settings == null) (cfg.dhcp4.configFile == null);
-        message = "Either services.kea.dhcp4.settings or services.kea.dhcp4.configFile must be set to a non-null value.";
-    }];
 
     environment.etc."kea/dhcp4-server.conf".source = dhcp4Config;
 
@@ -353,10 +295,6 @@ in
   })
 
   (mkIf cfg.dhcp6.enable {
-    assertions = [{
-        assertion = xor (cfg.dhcp6.settings == null) (cfg.dhcp6.configFile == null);
-        message = "Either services.kea.dhcp6.settings or services.kea.dhcp6.configFile must be set to a non-null value.";
-    }];
 
     environment.etc."kea/dhcp6-server.conf".source = dhcp6Config;
 
@@ -398,10 +336,6 @@ in
   })
 
   (mkIf cfg.dhcp-ddns.enable {
-    assertions = [{
-        assertion = xor (cfg.dhcp-ddns.settings == null) (cfg.dhcp-ddns.configFile == null);
-        message = "Either services.kea.dhcp-ddns.settings or services.kea.dhcp-ddns.configFile must be set to a non-null value.";
-    }];
 
     environment.etc."kea/dhcp-ddns.conf".source = dhcpDdnsConfig;
 

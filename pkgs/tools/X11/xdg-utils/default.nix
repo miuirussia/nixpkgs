@@ -1,7 +1,9 @@
-{ lib, stdenv, fetchFromGitLab, fetchFromGitHub
+{ lib, stdenv, fetchgit, fetchFromGitHub
 , file, libxslt, docbook_xml_dtd_412, docbook_xsl, xmlto
 , w3m, gnugrep, gnused, coreutils, xset, perlPackages
-, mimiSupport ? false, gawk }:
+, mimiSupport ? false, gawk ? null }:
+
+assert mimiSupport -> gawk != null;
 
 let
   # A much better xdg-open
@@ -22,10 +24,8 @@ stdenv.mkDerivation rec {
   pname = "xdg-utils";
   version = "unstable-2020-10-21";
 
-  src = fetchFromGitLab {
-    domain = "gitlab.freedesktop.org";
-    owner = "xdg";
-    repo = "xdg-utils";
+  src = fetchgit {
+    url = "https://gitlab.freedesktop.org/xdg/${pname}.git";
     rev = "d11b33ec7f24cfb1546f6b459611d440013bdc72";
     sha256 = "sha256-8PtXfI8hRneEpnUvIV3M+6ACjlkx0w/NEiJFdGbbHnQ=";
   };

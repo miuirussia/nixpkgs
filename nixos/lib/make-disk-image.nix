@@ -170,7 +170,6 @@ let format' = format; in let
       config.system.build.nixos-install
       config.system.build.nixos-enter
       nix
-      systemdMinimal
     ] ++ stdenv.initialPath);
 
   # I'm preserving the line below because I'm going to search for it across nixpkgs to consolidate

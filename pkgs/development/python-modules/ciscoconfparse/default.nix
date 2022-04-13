@@ -33,7 +33,6 @@ buildPythonPackage rec {
     passlib
     dnspython
     loguru
-    toml
   ];
 
   checkInputs = [

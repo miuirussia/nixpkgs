@@ -5,7 +5,7 @@
 }:
 
 mkDerivation {
-  pname = "kcompletion";
+  name = "kcompletion";
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [ kconfig kwidgetsaddons qttools ];
   propagatedBuildInputs = [ qtbase ];

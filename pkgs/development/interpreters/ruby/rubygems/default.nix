@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl }:
 
 stdenv.mkDerivation rec {
-  pname = "rubygems";
+  name = "rubygems";
   version = "3.2.26";
 
   src = fetchurl {

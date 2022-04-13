@@ -1,6 +1,6 @@
 import ../make-test-python.nix ({pkgs, ...}: {
   name = "kerberos_server-mit";
-  nodes.machine = { config, libs, pkgs, ...}:
+  machine = { config, libs, pkgs, ...}:
   { services.kerberos_server =
     { enable = true;
       realms = {

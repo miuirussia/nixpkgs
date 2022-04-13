@@ -1,23 +1,22 @@
 { stdenv, coreutils, lib, installShellFiles, zlib, autoPatchelfHook, fetchurl }:
 
 let
-  version = "0.1.3";
+  version = "0.1.2";
   assets = {
     x86_64-darwin = {
       asset = "scala-cli-x86_64-apple-darwin.gz";
-      sha256 = "UlDF2Eaaet62zZV0z6XOZvg/YeB//AXPDni8h3Wc6rw=";
+      sha256 = "10453af2kz10k9vmcgdwpk10z36cnblnj6l09wkqngxwx9vxbf9q";
     };
     x86_64-linux = {
       asset = "scala-cli-x86_64-pc-linux.gz";
-      sha256 = "086fi7ma4j9xy6gs0k7i06ql8ranjkjlrir2860q74kinfisk79a";
+      sha256 = "0720c4s717hcssp4b3x295rhgac4ifjr95zn45bm1n70jr3xqzyj";
     };
   };
 in
 stdenv.mkDerivation {
   pname = "scala-cli";
   inherit version;
-  nativeBuildInputs = [ installShellFiles ]
-    ++ lib.optional stdenv.isLinux autoPatchelfHook;
+  nativeBuildInputs = [ autoPatchelfHook installShellFiles ];
   buildInputs = [ coreutils zlib stdenv.cc.cc ];
   src =
     let
@@ -43,9 +42,9 @@ stdenv.mkDerivation {
   # We need to call autopatchelf before generating completions
   dontAutoPatchelf = true;
 
-  postFixup = lib.optionalString stdenv.isLinux ''
+  postFixup = ''
     autoPatchelf $out
-  '' + ''
+
     # hack to ensure the completion function looks right
     # as $0 is used to generate the compdef directive
     PATH="$out/bin:$PATH"

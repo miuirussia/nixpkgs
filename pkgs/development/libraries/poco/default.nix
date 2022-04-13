@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [ unixODBC libmysqlclient ];
-  propagatedBuildInputs = [ zlib pcre expat sqlite openssl ];
+  buildInputs = [ openssl unixODBC libmysqlclient ];
+  propagatedBuildInputs = [ zlib pcre expat sqlite ];
 
   outputs = [ "out" "dev" ];
 

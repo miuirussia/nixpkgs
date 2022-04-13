@@ -24,7 +24,7 @@ in {
   name = "hockeypuck";
   meta.maintainers = with lib.maintainers; [ etu ];
 
-  nodes.machine = { ... }: {
+  machine = { ... }: {
     # Used for test
     environment.systemPackages = [ pkgs.gnupg ];
 

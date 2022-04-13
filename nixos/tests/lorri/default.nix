@@ -1,5 +1,5 @@
 import ../make-test-python.nix {
-  nodes.machine = { pkgs, ... }: {
+  machine = { pkgs, ... }: {
     imports = [ ../../modules/profiles/minimal.nix ];
     environment.systemPackages = [ pkgs.lorri ];
   };

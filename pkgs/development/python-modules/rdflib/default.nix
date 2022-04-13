@@ -2,23 +2,16 @@
 , stdenv
 , buildPythonPackage
 , fetchFromGitHub
-, pythonOlder
-
-# propagates
-, isodate
-, pyparsing
-
-# propagates <3.8
-, importlib-metadata
-
-# extras: networkx
-, networkx
-
-# extras: html
 , html5lib
-
-# tests
+, isodate
+, networkx
+, nose
+, pyparsing
+, tabulate
+, pandas
 , pytestCheckHook
+, pythonOlder
+, SPARQLWrapper
 }:
 
 buildPythonPackage rec {
@@ -39,37 +32,34 @@ buildPythonPackage rec {
     isodate
     html5lib
     pyparsing
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
+    SPARQLWrapper
   ];
 
-  passthru.extra-requires = {
-    html = [
-      html5lib
-    ];
-    networkx = [
-      networkx
-    ];
-  };
-
   checkInputs = [
+    networkx
+    pandas
+    nose
+    tabulate
     pytestCheckHook
-  ]
-  ++ passthru.extra-requires.networkx
-  ++ passthru.extra-requires.html;
+  ];
 
   pytestFlagsArray = [
     # requires network access
-    "--deselect=rdflib/__init__.py::rdflib"
-    "--deselect=test/jsonld/test_onedotone.py::test_suite"
+    "--deselect rdflib/__init__.py::rdflib"
+    "--deselect test/jsonld/test_onedotone.py::test_suite"
   ];
 
   disabledTests = [
     # Requires network access
+    "api_key"
+    "BerkeleyDBTestCase"
+    "test_bad_password"
     "test_service"
     "testGuessFormatForParse"
   ] ++ lib.optional stdenv.isDarwin [
     # Require loopback network access
+    "test_sparqlstore"
+    "test_sparqlupdatestore_mock"
     "TestGraphHTTP"
   ];
 

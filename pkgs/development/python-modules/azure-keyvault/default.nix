@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
+{ lib, buildPythonPackage, isPy27, fetchPypi
 , azure-keyvault-certificates
 , azure-keyvault-keys
 , azure-keyvault-secrets
@@ -9,15 +6,13 @@
 
 buildPythonPackage rec {
   pname = "azure-keyvault";
-  version = "4.2.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.6";
+  version = "4.1.0";
+  disabled = isPy27;
 
   src = fetchPypi {
     inherit pname version;
     extension = "zip";
-    hash = "sha256-cxrdEIo+KatP1QGjxHclbChsNNCZazg/tqOUVGKTN2E=";
+    sha256 = "69002a546921a8290eb54d9a3805cfc515c321bc1d4c0bfcfb463620245eca40";
   };
 
   propagatedBuildInputs = [

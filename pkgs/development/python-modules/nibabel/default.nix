@@ -3,7 +3,7 @@
 , fetchPypi
 , isPy27
 , packaging
-, pytestCheckHook
+, pytest
 , nose
 , numpy
 , h5py
@@ -23,14 +23,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy scipy h5py packaging pydicom ];
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ nose pytest ];
 
-  disabledTests = [
-    # https://github.com/nipy/nibabel/issues/951
-    "test_filenames"
-  ];
+  checkPhase = ''
+    pytest
+  '';
 
   meta = with lib; {
     homepage = "https://nipy.org/nibabel";

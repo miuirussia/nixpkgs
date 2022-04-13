@@ -14,7 +14,6 @@
 , glib
 , gtk3
 , gnome
-, gnome-desktop
 , gcr
 , pam
 , systemd
@@ -31,7 +30,7 @@
 
 stdenv.mkDerivation rec {
   pname = "phosh";
-  version = "0.16.0";
+  version = "0.15.0";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     repo = pname;
     rev = "v${version}";
     fetchSubmodules = true; # including gvc and libcall-ui which are designated as subprojects
-    sha256 = "sha256-nxQYVWUXT1fNgOTRB3iWCLWYI/STk8vtguTbPPNTHdg=";
+    sha256 = "sha256-ZEfYjgSaj4vVdfgdIcg0PWwlFX90PIm5wvdn9P/8tvo=";
   };
 
   nativeBuildInputs = [
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     networkmanager
     polkit
     gnome.gnome-control-center
-    gnome-desktop
+    gnome.gnome-desktop
     gnome.gnome-session
     gtk3
     pam
@@ -109,6 +108,8 @@ stdenv.mkDerivation rec {
   postFixup = ''
     mkdir -p $out/share/wayland-sessions
     ln -s $out/share/applications/sm.puri.Phosh.desktop $out/share/wayland-sessions/
+    # The OSK0.desktop points to a dummy stub that's not needed
+    rm $out/share/applications/sm.puri.OSK0.desktop
   '';
 
   passthru = {

@@ -1,28 +1,15 @@
-{ lib
-, fetchFromGitHub
-, python3
-, python3Packages
-, mypy
-, glib
-, pango
-, pkg-config
-, libinput
-, libxkbcommon
-, wayland
-, wlroots
-, xcbutilcursor
-}:
+{ lib, fetchFromGitHub, python3, python3Packages, mypy, glib, pango, pkg-config, xcbutilcursor }:
 
 let
   unwrapped = python3Packages.buildPythonPackage rec {
     pname = "qtile";
-    version = "0.21.0";
+    version = "0.20.0";
 
     src = fetchFromGitHub {
       owner = "qtile";
       repo = "qtile";
       rev = "v${version}";
-      sha256 = "3QCI1TZIh1LcWuklVQkqgR1MQphi6CzZKc1UZcytV0k=";
+      sha256 = "TRmul3t//izJRdViTvxFz29JZeGYsWc7WsJjagQ35nw=";
     };
 
     patches = [
@@ -59,13 +46,6 @@ let
       pywayland
       pywlroots
       xkbcommon
-    ];
-
-    buildInputs = [
-      libinput
-      wayland
-      wlroots
-      libxkbcommon
     ];
 
     # for `qtile check`, needs `stubtest` and `mypy` commands

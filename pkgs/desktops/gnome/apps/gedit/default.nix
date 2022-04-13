@@ -5,7 +5,6 @@
 , python3
 , pkg-config
 , gtk3
-, gtk-mac-integration
 , glib
 , adwaita-icon-theme
 , libpeas
@@ -25,11 +24,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gedit";
-  version = "42.0";
+  version = "41.0";
 
   src = fetchurl {
     url = "mirror://gnome/sources/gedit/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "qHmR9Clh609qvNuqu3hHYMI66u765jY9PiGmHpxFhDc=";
+    sha256 = "epsYsViAjRiSmJFl83BsTxooKXkHmrdFinnTwkrU3rU=";
   };
 
   patches = [
@@ -60,8 +59,6 @@ stdenv.mkDerivation rec {
     gtksourceview4
     libpeas
     libsoup
-  ] ++ lib.optionals stdenv.isDarwin [
-    gtk-mac-integration
   ];
 
   postPatch = ''

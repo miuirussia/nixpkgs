@@ -7,7 +7,7 @@
 }:
 
 mkDerivation {
-  pname = "kwallet";
+  name = "kwallet";
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
     kconfig kconfigwidgets kcoreaddons kdbusaddons ki18n kiconthemes

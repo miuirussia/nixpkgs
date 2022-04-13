@@ -5,7 +5,7 @@
 }:
 
 mkDerivation {
-  pname = "knotifyconfig";
+  name = "knotifyconfig";
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [ kcompletion kconfig ki18n kio phonon ];
   propagatedBuildInputs = [ qtbase ];

@@ -111,13 +111,6 @@ in
         description = "Whether to run squid web proxy.";
       };
 
-      package = mkOption {
-        default = pkgs.squid;
-        defaultText = literalExpression "pkgs.squid";
-        type = types.package;
-        description = "Squid package to use.";
-      };
-
       proxyAddress = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -164,21 +157,17 @@ in
     users.groups.squid = {};
 
     systemd.services.squid = {
-      description = "Squid caching proxy";
-      documentation = [ "man:squid(8)" ];
+      description = "Squid caching web proxy";
       after = [ "network.target" "nss-lookup.target" ];
       wantedBy = [ "multi-user.target"];
       preStart = ''
         mkdir -p "/var/log/squid"
         chown squid:squid "/var/log/squid"
-        ${cfg.package}/bin/squid --foreground -z -f ${squidConfig}
       '';
       serviceConfig = {
+        Type="forking";
         PIDFile="/run/squid.pid";
-        ExecStart  = "${cfg.package}/bin/squid --foreground -YCs -f ${squidConfig}";
-        ExecReload="kill -HUP $MAINPID";
-        KillMode="mixed";
-        NotifyAccess="all";
+        ExecStart  = "${pkgs.squid}/bin/squid -YCs -f ${squidConfig}";
       };
     };
 

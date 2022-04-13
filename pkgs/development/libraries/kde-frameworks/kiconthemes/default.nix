@@ -6,7 +6,7 @@
 }:
 
 mkDerivation {
-  pname = "kiconthemes";
+  name = "kiconthemes";
   patches = [
     ./default-theme-breeze.patch
   ];

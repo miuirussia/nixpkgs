@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ... } : {
     maintainers = [ evils ];
   };
 
-  nodes.machine = { ... }: {
+  machine = { ... }: {
     imports = [ ../modules/profiles/minimal.nix ];
     hardware.fancontrol.enable = true;
     hardware.fancontrol.config = ''

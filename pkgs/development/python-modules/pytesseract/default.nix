@@ -1,9 +1,8 @@
-{ buildPythonPackage, fetchPypi, lib, packaging, pillow, tesseract, substituteAll }:
+{ buildPythonPackage, fetchPypi, lib, pillow, tesseract, substituteAll, packaging }:
 
 buildPythonPackage rec {
   pname = "pytesseract";
   version = "0.3.9";
-  format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
@@ -17,14 +16,8 @@ buildPythonPackage rec {
     })
   ];
 
-  buildInputs = [
-    tesseract
-  ];
-
-  propagatedBuildInputs = [
-    packaging
-    pillow
-  ];
+  buildInputs = [ tesseract ];
+  propagatedBuildInputs = [ pillow packaging ];
 
   # the package doesn't have any tests.
   doCheck = false;

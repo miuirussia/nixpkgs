@@ -1,31 +1,24 @@
-{ stdenv, lib, fetchpatch, fetchFromGitHub, makeWrapper, writeText, runtimeShell, jdk11, perl, gradle_6, which }:
+{ stdenv, lib, fetchpatch, fetchFromGitHub, makeWrapper, writeText, runtimeShell, jdk11, perl, gradle_5, which }:
 
 let
   pname = "freeplane";
-  version = "1.9.14";
-
-  src_sha256 = "UiXtGJs+hibB63BaDDLXgjt3INBs+NfMsKcX2Q/kxKw=";
-  deps_outputHash = "tHhRaMIQK8ERuzm+qB9tRe2XSesL0bN3rComB9/qWgg=";
-  emoji_outputHash = "w96or4lpKCRK8A5HaB4Eakr7oVSiQALJ9tCJvKZaM34=";
-
-  jdk = jdk11;
-  gradle = gradle_6;
+  version = "1.9.5";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "release-${version}";
-    sha256 = src_sha256;
+    sha256 = "qfhhmF3mePxcL4U8izkEmWaiaOLi4slsaymVnDoO3sY=";
   };
 
   deps = stdenv.mkDerivation {
     name = "${pname}-deps";
     inherit src;
 
-    nativeBuildInputs = [ jdk perl gradle ];
+    nativeBuildInputs = [ jdk11 perl gradle_5 ];
 
     buildPhase = ''
-      GRADLE_USER_HOME=$PWD gradle -Dorg.gradle.java.home=${jdk} --no-daemon jar
+      GRADLE_USER_HOME=$PWD gradle -Dorg.gradle.java.home=${jdk11} --no-daemon jar
     '';
 
     # Mavenize dependency paths
@@ -38,7 +31,7 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = deps_outputHash;
+    outputHash = "xphTzaSXTGpP7vI/t4oIiv1ZpbekG2dFRzyl3ub6qnA=";
   };
 
   # Point to our local deps repo
@@ -67,14 +60,16 @@ let
     }
   '';
 
+  # downloaded from unicode.org and twemoji.maxcdn.com by code in freeplane/emoji.gradle
+  # the below hash is for versions of freeplane that use twemoji 12.1.4, and emoji 12.1
   emoji = stdenv.mkDerivation rec {
     name = "${pname}-emoji";
     inherit src;
 
-    nativeBuildInputs = [ jdk gradle ];
+    nativeBuildInputs = [ jdk11 gradle_5 ];
 
     buildPhase = ''
-      GRADLE_USER_HOME=$PWD gradle -Dorg.gradle.java.home=${jdk} --no-daemon --offline --init-script ${gradleInit} :freeplane:downloadEmoji
+      GRADLE_USER_HOME=$PWD gradle -Dorg.gradle.java.home=${jdk11} --no-daemon --offline --init-script ${gradleInit} emojiGraphicsClasses emojiListClasses
     '';
 
     installPhase = ''
@@ -85,19 +80,19 @@ let
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = emoji_outputHash;
+    outputHash = "0zikbakbr2fhyv4h4h52ajhznjka0hg6hiqfy1528a39i6psipn3";
   };
 
 in stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [ makeWrapper jdk gradle ];
+  nativeBuildInputs = [ makeWrapper jdk11 gradle_5 ];
 
   buildPhase = ''
     mkdir -p -- ./freeplane/build/emoji/{txt,resources/images}
     cp ${emoji}/emoji/txt/emojilist.txt ./freeplane/build/emoji/txt/emojilist.txt
     cp -r ${emoji}/resources/images/emoji ./freeplane/build/emoji/resources/images/emoji
-    GRADLE_USER_HOME=$PWD gradle -Dorg.gradle.java.home=${jdk} --no-daemon --offline --init-script ${gradleInit} -x test -x :freeplane:downloadEmoji build
+    GRADLE_USER_HOME=$PWD gradle -Dorg.gradle.java.home=${jdk11} --no-daemon --offline --init-script ${gradleInit} -x test -x :freeplane:downloadEmoji build
   '';
 
   installPhase = ''
@@ -107,8 +102,8 @@ in stdenv.mkDerivation rec {
     cp -a ./BIN/. $out/share/${pname}
     makeWrapper $out/share/${pname}/${pname}.sh $out/bin/${pname} \
       --set FREEPLANE_BASE_DIR $out/share/${pname} \
-      --set JAVA_HOME ${jdk} \
-      --prefix PATH : ${lib.makeBinPath [ jdk which ]}
+      --set JAVA_HOME ${jdk11} \
+      --prefix PATH : ${lib.makeBinPath [ jdk11 which ]}
     runHook postInstall
   '';
 

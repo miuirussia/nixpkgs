@@ -101,7 +101,6 @@ in stdenv.mkDerivation rec {
         mkdir -p $out/share/polkit-1/actions
         substitute com.1password.1Password.policy.tpl $out/share/polkit-1/actions/com.1password.1Password.policy --replace "\''${POLICY_OWNERS}" "${policyOwners}"
         '') + ''
-
       # Icons
       cp -a resources/icons $out/share
 

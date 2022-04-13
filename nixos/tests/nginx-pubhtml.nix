@@ -1,7 +1,7 @@
 import ./make-test-python.nix {
   name = "nginx-pubhtml";
 
-  nodes.machine = { pkgs, ... }: {
+  machine = { pkgs, ... }: {
     systemd.services.nginx.serviceConfig.ProtectHome = "read-only";
     services.nginx.enable = true;
     services.nginx.virtualHosts.localhost = {

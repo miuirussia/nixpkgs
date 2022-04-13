@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
     maintainers = with lib.maintainers; [ nh2 ];
   };
 
-  nodes.machine = { pkgs, ... }: {
+  machine = { pkgs, ... }: {
 
     environment.systemPackages = with pkgs; [
       glxinfo

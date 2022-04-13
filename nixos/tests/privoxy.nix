@@ -33,7 +33,7 @@ in
     maintainers = [ rnhmjoj ];
   };
 
-  nodes.machine = { ... }: {
+  machine = { ... }: {
     services.nginx.enable = true;
     services.nginx.virtualHosts."example.com" = {
       addSSL = true;

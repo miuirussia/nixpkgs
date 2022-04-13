@@ -22,19 +22,15 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    pyserial
-  ];
-
-  passthru.extras-require.GATTTOOL = [
     pexpect
+    pyserial
   ];
 
   checkInputs = [
     mock
     nose
     pytestCheckHook
-  ]
-  ++ passthru.extras-require.GATTTOOL;
+  ];
 
   postPatch = ''
     # Not support for Python < 3.4

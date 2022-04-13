@@ -1,14 +1,14 @@
 { lib, fetchFromGitHub, buildDunePackage, menhir }:
 
 buildDunePackage rec {
-  version = "0.4.0";
+  version = "0.3.1";
   pname = "psmt2-frontend";
 
   src = fetchFromGitHub {
     owner = "ACoquereau";
     repo = pname;
     rev = version;
-    sha256 = "sha256-cYY9x7QZjH7pdJyHMqfMXgHZ3/zJLp/6ntY6OSIo6Vs=";
+    sha256 = "038jrfsq09nhnzpjiishg4adk09w3aw1bpczgbj66lqqilkd6gci";
   };
 
   useDune2 = true;

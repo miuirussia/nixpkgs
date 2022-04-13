@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     maintainers = [ ma27 ];
   };
 
-  nodes.machine = { pkgs, ... }: {
+  machine = { pkgs, ... }: {
     services.grocy = {
       enable = true;
       hostName = "localhost";

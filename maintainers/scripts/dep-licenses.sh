@@ -9,7 +9,7 @@ tmp=$(mktemp --tmpdir -d nixpkgs-dep-license.XXXXXX)
 exitHandler() {
     exitCode=$?
     rm -rf "$tmp"
-    return $exitCode
+    exit $exitCode
 }
 
 trap "exitHandler" EXIT

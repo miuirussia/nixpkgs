@@ -70,9 +70,6 @@ buildPythonPackage rec {
     "test_parameterized_types_round_trip"
     "test_structs"
     "test_table_snapshots"
-    "test__initiate_resumable_upload"
-    "test__initiate_resumable_upload_mtls"
-    "test__initiate_resumable_upload_with_retry"
   ];
 
   pythonImportsCheck = [

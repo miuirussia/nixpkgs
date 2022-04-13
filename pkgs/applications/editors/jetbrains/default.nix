@@ -49,7 +49,7 @@ let
       dontAutoPatchelf = true;
       postFixup = (attrs.postFixup or "") + optionalString (stdenv.isLinux) ''
         (
-          cd $out/clion
+          cd $out/clion-${version}
           # bundled cmake does not find libc
           rm -rf bin/cmake/linux
           ln -s ${cmake} bin/cmake/linux

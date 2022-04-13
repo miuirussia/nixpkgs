@@ -31,9 +31,6 @@ rec {
   */
 
 
-  inherit (import ./formats/java-properties/default.nix { inherit lib pkgs; })
-    javaProperties;
-
   json = {}: {
 
     type = with lib.types; let

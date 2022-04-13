@@ -8,11 +8,14 @@
 , autoreconfHook
 , autoconf-archive
 , nlohmann_json
+
+, version
+, src
 }:
 
 stdenv.mkDerivation {
   pname = "nix-perl";
-  inherit (nix) version src;
+  inherit version src;
 
   postUnpack = "sourceRoot=$sourceRoot/perl";
 

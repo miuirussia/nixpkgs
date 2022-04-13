@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "pytorch-pfn-extras";
-  version = "0.5.7";
+  version = "0.5.6";
 
   src = fetchFromGitHub {
     owner = "pfnet";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-gB575ZKXZRAy5K5CkBtfG6KG1yQ9WDREIobsy43CEOc=";
+    sha256 = "1ch4vhz3zjanj5advqsj51yy7idrp8yvydvcg4ymwa3wsfjrx58g";
   };
 
   propagatedBuildInputs = [ numpy pytorch typing-extensions ];

@@ -41,10 +41,6 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = {
-    networkManagerPlugin = "VPN/nm-l2tp-service.name";
-  };
-
   meta = with lib; {
     description = "L2TP plugin for NetworkManager";
     inherit (networkmanager.meta) platforms;

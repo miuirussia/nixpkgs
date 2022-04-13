@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "0kpdp6v8m8j0r7ppyy067shr0lfgrlh0dwb7ccws76d389vizwhb";
   };
 
-  nativeBuildInputs = [ pkg-config autoconf automake ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [
     SDL2 libGLU libGL openal luajit libdevil freetype physfs libmodplug mpg123
-    libvorbis libogg libtheora which libtool
+    libvorbis libogg libtheora autoconf which libtool automake
   ];
 
   preConfigure = "$shell ./platform/unix/automagic";

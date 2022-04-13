@@ -11,6 +11,7 @@
 , libuuid
 , dotnetbuildhelpers
 , dotnetCorePackages
+, coreclr
 , openssl
 }:
 

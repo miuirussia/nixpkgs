@@ -205,7 +205,7 @@
 
     yampa = callPackage ./yampa.nix {};
 
-  } // builtins_ // pkgs.lib.optionalAttrs config.allowAliases {
+  } // builtins_ // pkgs.lib.optionalAttrs (config.allowAliases or true) {
     # removed packages
     protobuf = throw "idrisPackages.protobuf has been removed: abandoned by upstream"; # Added 2022-02-06
   };

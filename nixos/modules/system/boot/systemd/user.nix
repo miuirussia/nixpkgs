@@ -12,6 +12,10 @@ let
     (systemdUtils.lib)
     makeUnit
     generateUnits
+    makeJobScript
+    unitConfig
+    serviceConfig
+    commonUnitText
     targetToUnit
     serviceToUnit
     socketToUnit
@@ -53,42 +57,48 @@ in {
     systemd.user.units = mkOption {
       description = "Definition of systemd per-user units.";
       default = {};
-      type = systemdUtils.types.units;
+      type = with types; attrsOf (submodule (
+        { name, config, ... }:
+        { options = concreteUnitOptions;
+          config = {
+            unit = mkDefault (makeUnit name config);
+          };
+        }));
     };
 
     systemd.user.paths = mkOption {
       default = {};
-      type = systemdUtils.types.paths;
+      type = with types; attrsOf (submodule [ { options = pathOptions; } unitConfig ]);
       description = "Definition of systemd per-user path units.";
     };
 
     systemd.user.services = mkOption {
       default = {};
-      type = systemdUtils.types.services;
+      type = with types; attrsOf (submodule [ { options = serviceOptions; } unitConfig serviceConfig ] );
       description = "Definition of systemd per-user service units.";
     };
 
     systemd.user.slices = mkOption {
       default = {};
-      type = systemdUtils.types.slices;
+      type = with types; attrsOf (submodule [ { options = sliceOptions; } unitConfig ] );
       description = "Definition of systemd per-user slice units.";
     };
 
     systemd.user.sockets = mkOption {
       default = {};
-      type = systemdUtils.types.sockets;
+      type = with types; attrsOf (submodule [ { options = socketOptions; } unitConfig ] );
       description = "Definition of systemd per-user socket units.";
     };
 
     systemd.user.targets = mkOption {
       default = {};
-      type = systemdUtils.types.targets;
+      type = with types; attrsOf (submodule [ { options = targetOptions; } unitConfig] );
       description = "Definition of systemd per-user target units.";
     };
 
     systemd.user.timers = mkOption {
       default = {};
-      type = systemdUtils.types.timers;
+      type = with types; attrsOf (submodule [ { options = timerOptions; } unitConfig ] );
       description = "Definition of systemd per-user timer units.";
     };
 
@@ -109,12 +119,7 @@ in {
     ];
 
     environment.etc = {
-      "systemd/user".source = generateUnits {
-        type = "user";
-        inherit (cfg) units;
-        upstreamUnits = upstreamUserUnits;
-        upstreamWants = [];
-      };
+      "systemd/user".source = generateUnits "user" cfg.units upstreamUserUnits [];
 
       "systemd/user.conf".text = ''
         [Manager]

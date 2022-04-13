@@ -190,8 +190,6 @@
 
   perl-completion = callPackage ./perl-completion { };
 
-  control-lock = callPackage ./control-lock { };
-
   plz = callPackage ./plz { };
 
   pod-mode = callPackage ./pod-mode { };

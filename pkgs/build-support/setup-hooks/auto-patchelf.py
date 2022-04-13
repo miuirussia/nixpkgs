@@ -1,21 +1,23 @@
 #!/usr/bin/env python3
 
+from collections import defaultdict
+from contextlib import contextmanager
+from dataclasses import dataclass
+from elftools.common.exceptions import ELFError # type: ignore
+from elftools.elf.dynamic import DynamicSection # type: ignore
+from elftools.elf.elffile import ELFFile # type: ignore
+from elftools.elf.enums import ENUM_E_TYPE, ENUM_EI_OSABI # type: ignore
+from itertools import chain
+from pathlib import Path, PurePath
+
+from typing import Tuple, Optional, Iterator, List, DefaultDict, Set
+
 import argparse
 import os
 import pprint
 import subprocess
 import sys
-from collections import defaultdict
-from contextlib import contextmanager
-from dataclasses import dataclass
-from itertools import chain
-from pathlib import Path, PurePath
-from typing import DefaultDict, Iterator, List, Optional, Set, Tuple
 
-from elftools.common.exceptions import ELFError  # type: ignore
-from elftools.elf.dynamic import DynamicSection  # type: ignore
-from elftools.elf.elffile import ELFFile  # type: ignore
-from elftools.elf.enums import ENUM_E_TYPE, ENUM_EI_OSABI  # type: ignore
 
 
 @contextmanager
@@ -244,7 +246,7 @@ def auto_patchelf(
         lib_dirs: List[Path],
         runtime_deps: List[Path],
         recursive: bool =True,
-        ignore_missing: List[str] = []) -> None:
+        ignore_missing: bool =False) -> None:
 
     if not paths_to_patch:
         sys.exit("No paths to patch, stopping.")
@@ -262,19 +264,12 @@ def auto_patchelf(
     missing = [dep for dep in dependencies if not dep.found]
 
     # Print a summary of the missing dependencies at the end
-    print(f"auto-patchelf: {len(missing)} dependencies could not be satisfied")
-    failure = False
     for dep in missing:
-        if dep.name.name in ignore_missing or "*" in ignore_missing:
-            print(f"warn: auto-patchelf ignoring missing {dep.name} wanted by {dep.file}")
-        else:
-            print(f"error: auto-patchelf could not satisfy dependency {dep.name} wanted by {dep.file}")
-            failure = True
+        print(f"auto-patchelf could not satisfy dependency {dep.name} wanted by {dep.file}")
 
-    if failure:
+    if missing and not ignore_missing:
         sys.exit('auto-patchelf failed to find all the required dependencies.\n'
-                 'Add the missing dependencies to --libs or use '
-                 '`--ignore-missing="foo.so.1 bar.so etc.so"`.')
+                 'Add the missing dependencies to --libs or use --ignore-missing.')
 
 
 def main() -> None:
@@ -285,8 +280,7 @@ def main() -> None:
                     'libraries in the provided paths.')
     parser.add_argument(
         "--ignore-missing",
-        nargs="*",
-        type=str,
+        action="store_true",
         help="Do not fail when some dependencies are not found.")
     parser.add_argument(
         "--no-recurse",

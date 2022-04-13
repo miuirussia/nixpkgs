@@ -26,12 +26,8 @@ let this = stdenv.mkDerivation rec {
   dontStrip         = true;
   dontPatchShebangs = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
-
   buildInputs = [
-    jre
+    makeWrapper jre
   ];
 
   installPhase = ''

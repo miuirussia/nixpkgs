@@ -7,7 +7,7 @@
 }:
 
 mkDerivation {
-  pname = "knotifications";
+  name = "knotifications";
   nativeBuildInputs = [ extra-cmake-modules qttools ];
   buildInputs = [
     kcodecs kconfig kcoreaddons kwindowsystem libdbusmenu phonon qtx11extras

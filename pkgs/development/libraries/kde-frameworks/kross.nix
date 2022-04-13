@@ -4,7 +4,7 @@
 }:
 
 mkDerivation {
-  pname = "kross";
+  name = "kross";
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [ kcompletion kcoreaddons kxmlgui ];
   propagatedBuildInputs = [

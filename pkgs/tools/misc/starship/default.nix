@@ -2,30 +2,30 @@
 , stdenv
 , fetchFromGitHub
 , rustPlatform
+, pkg-config
+, openssl
 , installShellFiles
 , libiconv
-, libgit2
-, pkg-config
 , nixosTests
 , Security
 , Foundation
-, Cocoa
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "starship";
-  version = "1.5.4";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "starship";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-nLzqfSRmA+D310MDvX+g8nNsoaiSixG+j+g87CPzYMs=";
+    sha256 = "sha256-mqUE4JzNBhvtDpT2LM23eHX8q93wtPqA+/zr/PxEDiE=";
   };
 
-  nativeBuildInputs = [ installShellFiles pkg-config ];
+  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
 
-  buildInputs = [ libgit2 ] ++ lib.optionals stdenv.isDarwin [ libiconv Security Foundation Cocoa ];
+  buildInputs = lib.optionals stdenv.isLinux [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv Security Foundation ];
 
   postInstall = ''
     for shell in bash fish zsh; do
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     done
   '';
 
-  cargoSha256 = "sha256-FXzAvO11NIr6dxF2OeV5XJWHG2kgZiASuBnoC6mSps8=";
+  cargoSha256 = "sha256-hQNDiayVT4UgbxcxdXssi/evPvwgyvG/UOFyEHj7jpo=";
 
   preCheck = ''
     HOME=$TMPDIR

@@ -5,7 +5,7 @@
 }:
 
 mkDerivation {
-  pname = "kdav";
+  name = "kdav";
   meta = {
     license = with lib.licenses; [ gpl2 lgpl21 fdl12 ];
   };

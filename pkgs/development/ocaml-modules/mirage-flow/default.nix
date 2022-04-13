@@ -2,14 +2,14 @@
 
 buildDunePackage rec {
   pname = "mirage-flow";
-  version = "3.0.0";
+  version = "2.0.1";
 
   useDune2 = true;
   minimumOCamlVersion = "4.05";
 
   src = fetchurl {
     url = "https://github.com/mirage/mirage-flow/releases/download/v${version}/mirage-flow-v${version}.tbz";
-    sha256 = "sha256-1wvabIXsJ0e+2IvE2V8mnSgQUDuSkT8IB75SkWlhOPw=";
+    sha256 = "13v05x34six0z6bc2is8qhvbxk4knxh80ardi5x4rl738vlq3mn9";
   };
 
   propagatedBuildInputs = [ cstruct fmt ocaml_lwt ];

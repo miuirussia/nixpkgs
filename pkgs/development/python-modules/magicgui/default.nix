@@ -9,29 +9,20 @@
 , pyside2
 , psygnal
 , docstring-parser
-, napari # a reverse-dependency, for tests
 }: buildPythonPackage rec {
   pname = "magicgui";
-  version = "0.3.7";
-
-  format = "pyproject";
-
+  version = "0.3.0";
   src = fetchFromGitHub {
     owner = "napari";
     repo = "magicgui";
     rev = "v${version}";
-    sha256 = "sha256-LYXNNr5lS3ibQk2NIopZkB8kzC7j3yY8moGMk0Gr+hU=";
+    sha256 = "sha256-DvL1szk2RoCrpisjp0BVNL6qFZtYc2oYDenX59Cxbug=";
   };
-
-  SETUPTOOLS_SCM_PRETEND_VERSION = version;
-
   nativeBuildInputs = [ setuptools-scm ];
   propagatedBuildInputs = [ typing-extensions qtpy pyside2 psygnal docstring-parser ];
   checkInputs = [ pytestCheckHook pytest-mypy-plugins ];
-
   doCheck = false; # Reports "Fatal Python error"
-
-  passthru.tests = { inherit napari; };
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   meta = with lib; {
     description = "Build GUIs from python functions, using magic.  (napari/magicgui)";

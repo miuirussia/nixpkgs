@@ -5,7 +5,7 @@ import ./make-test-python.nix (
       maintainers = with maintainers; [ jojosch ];
     };
 
-    nodes.machine = { pkgs, lib, ... }: {
+    machine = { pkgs, lib, ... }: {
       services.bind = {
         enable = true;
         extraOptions = "empty-zones-enable no;";

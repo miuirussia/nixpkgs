@@ -6,12 +6,12 @@
 , bundix
 , coreutils
 , diffutils
-, nix-prefetch-git
+, nix-prefetch-github
 , gnused
 , jq
 }:
 let
-  binPath = lib.makeBinPath [ yarn2nix bundix coreutils diffutils nix-prefetch-git gnused jq ];
+  binPath = lib.makeBinPath [ yarn2nix bundix coreutils diffutils nix-prefetch-github gnused jq ];
 in
 runCommand "mastodon-update-script"
 {

@@ -192,6 +192,7 @@ in {
         log_dir = "/var/log/mailman";
         lock_dir = "$var_dir/lock";
         etc_dir = "/etc";
+        ext_dir = "$etc_dir/mailman.d";
         pid_file = "/run/mailman/master.pid";
       };
 
@@ -224,14 +225,7 @@ in {
               See <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>.
             '';
           };
-    in [
-      { assertion = cfg.webHosts != [];
-        message = ''
-          services.mailman.serve.enable requires there to be at least one entry
-          in services.mailman.webHosts.
-        '';
-      }
-    ] ++ (lib.optionals cfg.enablePostfix [
+    in (lib.optionals cfg.enablePostfix [
       { assertion = postfix.enable;
         message = ''
           Mailman's default NixOS configuration requires Postfix to be enabled.
@@ -281,14 +275,15 @@ in {
           globals().update(json.load(f))
     '';
 
-    services.nginx = mkIf (cfg.serve.enable && cfg.webHosts != []) {
+    services.nginx = mkIf cfg.serve.enable {
       enable = mkDefault true;
-      virtualHosts = lib.genAttrs cfg.webHosts (webHost: {
+      virtualHosts."${lib.head cfg.webHosts}" = {
+        serverAliases = cfg.webHosts;
         locations = {
           "/".extraConfig = "uwsgi_pass unix:/run/mailman-web.socket;";
           "/static/".alias = webSettings.STATIC_ROOT + "/";
         };
-      });
+      };
     };
 
     environment.systemPackages = [ (pkgs.buildEnv {

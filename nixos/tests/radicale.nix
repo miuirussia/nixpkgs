@@ -11,7 +11,7 @@ in {
   name = "radicale3";
   meta.maintainers = with lib.maintainers; [ dotlambda ];
 
-  nodes.machine = { pkgs, ... }: {
+  machine = { pkgs, ... }: {
     services.radicale = {
       enable = true;
       settings = {

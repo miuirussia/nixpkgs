@@ -99,7 +99,6 @@ in
       ristretto
       xfce4-appfinder
       xfce4-notifyd
-      xfce4-screensaver
       xfce4-screenshooter
       xfce4-session
       xfce4-settings
@@ -169,6 +168,5 @@ in
       xfce4-notifyd
     ];
 
-    security.pam.services.xfce4-screensaver.unixAuth = true;
   };
 }

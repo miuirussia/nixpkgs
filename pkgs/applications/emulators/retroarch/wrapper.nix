@@ -8,7 +8,8 @@ stdenv.mkDerivation {
 
   buildCommand = ''
     mkdir -p $out/lib
-    for coreDir in $cores; do
+    for coreDir in $cores
+    do
       ln -s $coreDir/* $out/lib/.
     done
 
@@ -28,14 +29,9 @@ stdenv.mkDerivation {
 
   meta = with retroarch.meta; {
     inherit changelog description homepage license maintainers platforms;
-    longDescription = ''
-      RetroArch is the reference frontend for the libretro API.
-
-      The following cores are included:
-      ${lib.concatStringsSep "\n" (map (x: "  - ${x.name}") cores)}
-    '';
-    # FIXME: exits with error on macOS:
-    # No Info.plist file in application bundle or no NSPrincipalClass in the Info.plist file, exiting
-    broken = stdenv.isDarwin;
+    longDescription =
+      "RetroArch is the reference frontend for the libretro API. The following cores are included: "
+      + lib.concatStringsSep ", " (map (x: "${x.name}") cores)
+      + ".";
   };
 }

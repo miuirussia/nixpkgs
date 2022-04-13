@@ -43,7 +43,7 @@ let
           homepage = "https://github.com/kubernetes/kops";
           changelog = "https://github.com/kubernetes/kops/tree/master/docs/releases";
           license = licenses.asl20;
-          maintainers = with maintainers; [ offline zimbatm diegolelis yurrriq ];
+          maintainers = with maintainers; [ offline zimbatm diegolelis ];
           platforms = platforms.unix;
         };
       } // attrs';
@@ -51,6 +51,12 @@ in
 rec {
 
   mkKops = generic;
+
+  kops_1_20 = mkKops rec {
+    version = "1.20.3";
+    sha256 = "sha256-Yrh0wFz7MQgTDwENqQouYh3pr1gOq64Rqft5yxIiCAo=";
+    rev = "v${version}";
+  };
 
   kops_1_21 = mkKops rec {
     version = "1.21.4";
@@ -61,12 +67,6 @@ rec {
   kops_1_22 = mkKops rec {
     version = "1.22.4";
     sha256 = "sha256-osU7yI77ZALGrAGuP8qAgv+ogDRn+BSVmcjPbi/WEKE=";
-    rev = "v${version}";
-  };
-
-  kops_1_23 = mkKops rec {
-    version = "1.23.0";
-    sha256 = "sha256-tiVNUaW0an6C8M9bxEX5pvB/W5IjZ/S24RdPikzm3bc=";
     rev = "v${version}";
   };
 }

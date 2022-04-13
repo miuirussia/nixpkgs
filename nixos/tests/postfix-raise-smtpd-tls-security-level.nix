@@ -1,7 +1,7 @@
 import ./make-test-python.nix {
   name = "postfix";
 
-  nodes.machine = { pkgs, ... }: {
+  machine = { pkgs, ... }: {
     imports = [ common/user-account.nix ];
     services.postfix = {
       enable = true;

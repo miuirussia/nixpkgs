@@ -356,19 +356,17 @@ def _update_package(path, target):
         text = _replace_value('hash', sri_hash, text)
 
     if fetcher == 'fetchFromGitHub':
-        # in the case of fetchFromGitHub, it's common to see `rev = version;` or `rev = "v${version}";`
-        # in which no string value is meant to be substituted. However, we can just overwrite the previous value.
-        regex = '(rev\s+=\s+[^;]*;)'
+        # in the case of fetchFromGitHub, it's common to see `rev = version;`
+        # in which no string value is meant to be substituted.
+        # Verify that the attribute is set to a variable
+        regex = '(rev\s+=\s+([_a-zA-Z][_a-zA-Z0-9\.]*);)'
         regex = re.compile(regex)
-        matches = regex.findall(text)
-        n = len(matches)
+        value = regex.findall(text)
+        n = len(value)
 
         if n == 0:
-            raise ValueError("Unable to find rev value for {}.".format(pname))
-        else:
-            # forcefully rewrite rev, incase tagging conventions changed for a release
-            match = matches[0]
-            text = text.replace(match, f'rev = "refs/tags/{prefix}${{version}}";')
+            # value is set to a string, e.g. `rev = "v${version}";`
+            text = _replace_value('rev', f"{prefix}${{version}}", text)
             # incase there's no prefix, just rewrite without interpolation
             text = text.replace('"${version}";', 'version;')
 

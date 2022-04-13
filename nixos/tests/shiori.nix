@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, lib, ...}:
   name = "shiori";
   meta.maintainers = with lib.maintainers; [ minijackson ];
 
-  nodes.machine =
+  machine =
     { ... }:
     { services.shiori.enable = true; };
 

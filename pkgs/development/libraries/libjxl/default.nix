@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
 
   LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";
 
-  doCheck = !stdenv.hostPlatform.isi686;
+  doCheck = true;
 
   # The test driver runs a test `LibraryCLinkageTest` which without
   # LD_LIBRARY_PATH setting errors with:

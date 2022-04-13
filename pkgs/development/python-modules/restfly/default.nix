@@ -7,13 +7,12 @@
 , pytestCheckHook
 , python-box
 , pythonOlder
-, responses
 , requests
 }:
 
 buildPythonPackage rec {
   pname = "restfly";
-  version = "1.4.6";
+  version = "1.4.5";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     owner = "stevemcgrath";
     repo = pname;
     rev = version;
-    hash = "sha256-nCubAn9AASnCsvlYdk4gmkoORRlsYEbJ8JmlT11xYWU=";
+    hash = "sha256-wWFf8LFZkwzbHX545tA5w2sB3ClL7eFuF+jGX0fSiSc=";
   };
 
   propagatedBuildInputs = [
@@ -35,7 +34,6 @@ buildPythonPackage rec {
     pytest-datafiles
     pytest-vcr
     pytestCheckHook
-    responses
   ];
 
   disabledTests = [

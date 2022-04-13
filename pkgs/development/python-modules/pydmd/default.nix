@@ -35,10 +35,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [
-    # test suite takes over 100 vCPU hours, just run small subset of it.
-    # TODO: Add a passthru.tests with all tests
-    "tests/test_dmdbase.py"
+  disabledTestPaths = [
+    # Those tests take over 1.5 h on hydra. Also, an error and two failures
+    "tests/test_spdmd.py"
   ];
 
   pythonImportsCheck = [

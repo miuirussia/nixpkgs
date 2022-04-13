@@ -11,9 +11,8 @@ stdenv.mkDerivation {
     sha256 = "0w121issdjxdv5i9ksa5m23if6pz1r9ql8p894f1pqn16w0kw1ix";
   };
 
-  nativeBuildInputs = [ automake autoconf ];
   buildInputs = [
-    cups glib libxml2 libusb1 libtool
+    cups automake autoconf glib libxml2 libusb1 libtool
   ];
 
   # lgmon3's --enable-libdir flag is used soley for specifying in which

@@ -3,7 +3,7 @@ import ./make-test-python.nix ({ pkgs, lib, ...} : {
 
   meta.maintainers = [ pkgs.lib.maintainers.eelco ];
 
-  nodes.machine = { ... }: {
+  machine = { ... }: {
     imports = [ ../modules/profiles/minimal.nix ];
     boot.initrd.network.enable = true;
     boot.initrd.network.postCommands =

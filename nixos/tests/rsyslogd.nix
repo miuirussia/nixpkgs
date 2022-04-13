@@ -11,7 +11,7 @@ with pkgs.lib;
     name = "rsyslogd-test1";
     meta.maintainers = [ pkgs.lib.maintainers.aanderse ];
 
-    nodes.machine = { config, pkgs, ... }: {
+    machine = { config, pkgs, ... }: {
       services.rsyslogd.enable = true;
       services.journald.forwardToSyslog = false;
     };
@@ -27,7 +27,7 @@ with pkgs.lib;
     name = "rsyslogd-test2";
     meta.maintainers = [ pkgs.lib.maintainers.aanderse ];
 
-    nodes.machine = { config, pkgs, ... }: {
+    machine = { config, pkgs, ... }: {
       services.rsyslogd.enable = true;
     };
 

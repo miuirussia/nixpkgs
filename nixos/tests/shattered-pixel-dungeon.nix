@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     maintainers = [ fgaz ];
   };
 
-  nodes.machine = { config, pkgs, ... }: {
+  machine = { config, pkgs, ... }: {
     imports = [
       ./common/x11.nix
     ];

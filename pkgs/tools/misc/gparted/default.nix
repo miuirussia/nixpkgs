@@ -6,11 +6,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gparted";
-  version = "1.4.0";
+  version = "1.3.1";
 
   src = fetchurl {
     url = "mirror://sourceforge/gparted/${pname}-${version}.tar.gz";
-    sha256 = "sha256-5Sk6eS5T/b66KcSoNBE82WA9DWOTMNqTGkaL82h4h74=";
+    sha256 = "sha256-Xu4ubXSxXvlrE7OiMQyGjtIpjgM0ECHn0SpamKHR4Qk=";
   };
 
   # Tries to run `pkexec --version` to get version.

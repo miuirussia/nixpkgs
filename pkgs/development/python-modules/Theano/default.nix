@@ -11,13 +11,9 @@
 , setuptools
 , six
 , libgpuarray
-, cudaSupport ? false, cudaPackages ? {}
-, cudnnSupport ? false
+, cudaSupport ? false, cudatoolkit
+, cudnnSupport ? false, cudnn
 }:
-
-let
-  inherit (cudaPackages) cudatoolkit cudnn;
-in
 
 assert cudnnSupport -> cudaSupport;
 
@@ -43,9 +39,7 @@ let
     (    lib.optional cudaSupport libgpuarray_
       ++ lib.optional cudnnSupport cudnn );
 
-  # We need to be careful with overriding Python packages within the package set
-  # as this can lead to collisions!
-  libgpuarray_ = libgpuarray.override { inherit cudaSupport cudaPackages; };
+  libgpuarray_ = libgpuarray.override { inherit cudaSupport cudatoolkit; };
 
 in buildPythonPackage rec {
   pname = "Theano";

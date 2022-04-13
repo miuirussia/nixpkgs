@@ -12,7 +12,7 @@ let
       maintainers = [ nequissimus atemu ];
     };
 
-    nodes.machine = { ... }:
+    machine = { ... }:
       {
         boot.kernelPackages = linuxPackages;
       };

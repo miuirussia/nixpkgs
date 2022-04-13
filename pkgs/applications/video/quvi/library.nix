@@ -18,6 +18,5 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
     maintainers = [ ];
-    broken = true; # missing glibc-2.34 support, no upstream activity
   };
 }

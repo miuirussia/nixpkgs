@@ -1,4 +1,4 @@
-{ config, lib, utils, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -214,13 +214,15 @@ in
         elementary-settings-daemon
         pantheon-agent-geoclue2
         pantheon-agent-polkit
-      ]) ++ (utils.removePackagesByName [
+      ]) ++ (gnome.removePackagesByName [
         gnome.gnome-font-viewer
         gnome.gnome-settings-daemon338
       ] config.environment.pantheon.excludePackages);
 
       programs.evince.enable = mkDefault true;
+      programs.evince.package = pkgs.pantheon.evince;
       programs.file-roller.enable = mkDefault true;
+      programs.file-roller.package = pkgs.pantheon.file-roller;
 
       # Settings from elementary-default-settings
       environment.etc."gtk-3.0/settings.ini".source = "${pkgs.pantheon.elementary-default-settings}/etc/gtk-3.0/settings.ini";
@@ -272,7 +274,7 @@ in
     })
 
     (mkIf serviceCfg.apps.enable {
-      environment.systemPackages = with pkgs.pantheon; utils.removePackagesByName ([
+      environment.systemPackages = with pkgs.pantheon; pkgs.gnome.removePackagesByName ([
         elementary-calculator
         elementary-calendar
         elementary-camera

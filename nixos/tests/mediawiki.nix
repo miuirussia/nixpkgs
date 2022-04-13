@@ -2,7 +2,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "mediawiki";
   meta.maintainers = [ lib.maintainers.aanderse ];
 
-  nodes.machine =
+  machine =
     { ... }:
     { services.mediawiki.enable = true;
       services.mediawiki.virtualHost.hostName = "localhost";

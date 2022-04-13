@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var/cache"
   ];
 
-  CFLAGS = lib.optionals stdenv.isDarwin [
+  CFLAGS = [
     # TODO: Revisit upstream issue https://savannah.gnu.org/bugs/?59972
     # https://github.com/Homebrew/homebrew-core/pull/69761#issuecomment-770268478
     "-D__nonnull\\(params\\)="

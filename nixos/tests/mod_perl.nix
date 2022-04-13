@@ -5,7 +5,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
     maintainers = [ sgo ];
   };
 
-  nodes.machine = { config, lib, pkgs, ... }: {
+  machine = { config, lib, pkgs, ... }: {
     services.httpd = {
       enable = true;
       adminAddr = "admin@localhost";

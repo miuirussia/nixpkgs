@@ -5,7 +5,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     maintainers = [ sbruder ];
   };
 
-  nodes.machine = { config, lib, pkgs, ... }: {
+  machine = { config, lib, pkgs, ... }: {
     services.invidious = {
       enable = true;
     };

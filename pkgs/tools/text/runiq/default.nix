@@ -2,14 +2,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "runiq";
-  version = "1.2.2";
+  version = "1.2.1";
 
   src = fetchCrate {
     inherit pname version;
-    sha256 = "sha256-WPQgTQICZ0DFr+7D99UGMx+I78376IC6iIJ3tCsj0Js=";
+    sha256 = "0xhd1z8mykxg9kiq8nw5agy1jxfk414czq62xm1s13ssig3h7jqj";
   };
 
-  cargoSha256 = "sha256-QKtrd690eoPXyd5CQg5/yAiTDk297y60XaUdoeFAe0c=";
+  cargoSha256 = "1g4yfz5xq9lqwh0ggyn8kn8bnzrqfmh7kx455md5ranrqqh0x5db";
 
   meta = with lib; {
     description = "An efficient way to filter duplicate lines from input, à la uniq";

@@ -173,9 +173,10 @@ self: super: {
   });
 
   cpsm = super.cpsm.overrideAttrs (old: {
-    nativeBuildInputs = [ cmake ];
     buildInputs = [
       python3
+      stdenv
+      cmake
       boost
       icu
       ncurses

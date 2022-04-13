@@ -19,7 +19,7 @@ self: super:
     jailbreak-cabal alex happy gtk2hs-buildtools rehoo hoogle;
 
   ghcjs-base = dontCheck (self.callPackage ../compilers/ghcjs/ghcjs-base.nix {
-    fetchFromGitHub = pkgs.buildPackages.fetchFromGitHub;
+    fetchgit = pkgs.buildPackages.fetchgit;
   });
 
   # GHCJS does not ship with the same core packages as GHC.

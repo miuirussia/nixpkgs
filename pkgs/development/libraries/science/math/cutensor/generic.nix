@@ -7,7 +7,7 @@
 , addOpenGLRunpath
 
 , version
-, hash
+, sha256
 }:
 
 let
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://developer.download.nvidia.com/compute/cutensor/${mostOfVersion}/local_installers/libcutensor-${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}-${version}.tar.gz";
-    inherit hash;
+    inherit sha256;
   };
 
   outputs = [ "out" "dev" ];

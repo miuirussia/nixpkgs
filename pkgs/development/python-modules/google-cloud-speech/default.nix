@@ -8,7 +8,6 @@
 , pytestCheckHook
 , pytest-asyncio
 , pythonOlder
-, setuptools
 }:
 
 buildPythonPackage rec {
@@ -27,7 +26,6 @@ buildPythonPackage rec {
     libcst
     google-api-core
     proto-plus
-    setuptools
   ];
 
   checkInputs = [

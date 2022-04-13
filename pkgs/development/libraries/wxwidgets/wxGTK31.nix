@@ -32,9 +32,13 @@
 , WebKit
 }:
 
+assert withWebKit -> stdenv.isDarwin;
+
 assert withGtk2 -> (!withWebKit);
 
 let
+  inherit (gnome2) GConf;
+  inherit (gst_all_1) gst-plugins-base gstreamer;
   gtk = if withGtk2 then gtk2 else gtk3;
 in
 stdenv.mkDerivation rec {
@@ -57,8 +61,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
-    gst_all_1.gst-plugins-base
-    gst_all_1.gstreamer
+    gst-plugins-base
+    gstreamer
   ]
   ++ lib.optionals (!stdenv.isDarwin) [
     gtk
@@ -69,7 +73,7 @@ stdenv.mkDerivation rec {
     xorgproto
   ]
   ++ lib.optionals withGtk2 [
-    gnome2.GConf
+    GConf
   ]
   ++ lib.optional withMesa libGLU
   ++ lib.optional (withWebKit && !stdenv.isDarwin) webkitgtk
@@ -145,7 +149,7 @@ stdenv.mkDerivation rec {
       database support, HTML viewing and printing, and much more.
     '';
     license = licenses.wxWindows;
-    maintainers = with maintainers; [ tfmoraes ];
+    maintainers = with maintainers; [ AndersonTorres tfmoraes ];
     platforms = platforms.unix;
   };
 

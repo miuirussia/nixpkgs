@@ -9,7 +9,7 @@ in {
       maintainers = [ felschr ];
     };
 
-    nodes.machine = { pkgs, ... }:
+    machine = { pkgs, ... }:
       {
         services.etebase-server = {
           inherit dataDir;

@@ -5,7 +5,6 @@
 , flint
 , mpfr
 , libmpc
-, catch
 }:
 
 stdenv.mkDerivation rec {
@@ -18,10 +17,6 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-5KpxBusJCuwrfFWHbrRKlH6Ic7YivYqz2m+BCbNfZp0=";
   };
-
-  postPatch = ''
-    cp ${catch}/include/catch/catch.hpp symengine/utilities/catch/catch.hpp
-  '';
 
   nativeBuildInputs = [ cmake ];
 

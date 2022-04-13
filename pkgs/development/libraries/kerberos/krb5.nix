@@ -18,7 +18,7 @@ let
 in
 with lib;
 stdenv.mkDerivation rec {
-  pname = "${type}krb5";
+  name = "${type}krb5-${version}";
   version = "1.19.2";
 
   src = fetchurl {

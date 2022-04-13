@@ -21,7 +21,7 @@ in
 {
   name = "pam-oath-login";
 
-  nodes.machine =
+  machine =
     { ... }:
     {
       security.pam.oath = {

@@ -1,25 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, sassc
-, gdk-pixbuf
-, librsvg
-, gtk-engine-murrine
-, gitUpdater
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, sassc, gdk-pixbuf, librsvg, gtk-engine-murrine }:
 
 stdenv.mkDerivation rec {
   pname = "greybird";
-  version = "3.23.1";
+  version = "3.22.15";
 
   src = fetchFromGitHub {
     owner = "shimmerproject";
     repo = pname;
     rev = "v${version}";
-    sha256 = "hfi2TBRrZTSN43tYKMPvb/dWwwUE7RakKTMBziHnCWA=";
+    sha256 = "1fk66fxy2lif9ngazlgkpsziw216i4b1ld2zm97cadf7n97376g9";
   };
 
   nativeBuildInputs = [
@@ -37,8 +26,6 @@ stdenv.mkDerivation rec {
   propagatedUserEnvPkgs = [
     gtk-engine-murrine
   ];
-
-  passthru.updateScript = gitUpdater { inherit pname version; rev-prefix = "v"; };
 
   meta = with lib; {
     description = "Grey and blue theme from the Shimmer Project for GTK-based environments";

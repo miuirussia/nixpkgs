@@ -6,13 +6,16 @@
 , pkg-config
 , gobject-introspection
 , vala
-, gi-docgen
+, gtk-doc
+, docbook-xsl-nons
+, docbook_xml_dtd_43
 , glib
 , gsettings-desktop-schemas
 , gtk3
 , enableGlade ? false
 , glade
 , xvfb-run
+, libxml2
 , gdk-pixbuf
 , librsvg
 , hicolor-icon-theme
@@ -25,7 +28,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libhandy";
-  version = "1.6.1";
+  version = "1.5.0";
 
   outputs = [
     "out"
@@ -38,12 +41,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-bqsDhEBNVr0bH6BZ2aCBF3d49q4ID/whIPKGVsp0YqQ=";
+    sha256 = "sha256-RmueAmwfnrO2WWb1MNl3A6ghLar5EXSMFF6cuEPb1v4=";
   };
 
   nativeBuildInputs = [
+    docbook_xml_dtd_43
+    docbook-xsl-nons
     gobject-introspection
-    gi-docgen
+    gtk-doc
+    libxml2
     meson
     ninja
     pkg-config
@@ -53,6 +59,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     gdk-pixbuf
     gtk3
+    libxml2
   ] ++ lib.optionals enableGlade [
     glade
   ];
@@ -97,11 +104,6 @@ stdenv.mkDerivation rec {
       meson test --print-errorlogs
 
     runHook postCheck
-  '';
-
-  postFixup = ''
-    # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
-    moveToOutput "share/doc" "$devdoc"
   '';
 
   passthru = {

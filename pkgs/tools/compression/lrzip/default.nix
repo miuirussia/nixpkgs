@@ -5,13 +5,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "lrzip";
-  version = "0.651";
+  version = "0.641";
 
   src = fetchFromGitHub {
     owner = "ckolivas";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-Mb324ojtLV0S10KhL7Vjf3DhSOtCy1pFMTzvLkTnpXM=";
+    sha256 = "sha256-253CH6TiHWyr13C76y9PXjyB7gj2Bhd2VRgJ5r+cm/g=";
   };
 
   postPatch = lib.optionalString stdenv.isDarwin ''

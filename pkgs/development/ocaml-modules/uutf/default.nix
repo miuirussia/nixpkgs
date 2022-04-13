@@ -1,18 +1,16 @@
 { lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, cmdliner , topkg, uchar }:
 let
   pname = "uutf";
+  webpage = "https://erratique.ch/software/${pname}";
 in
-
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
-  "${pname} is not available with OCaml ${ocaml.version}"
 
 stdenv.mkDerivation rec {
   name = "ocaml${ocaml.version}-${pname}-${version}";
-  version = "1.0.3";
+  version = "1.0.2";
 
   src = fetchurl {
-    url = "https://erratique.ch/software/${pname}/releases/${pname}-${version}.tbz";
-    sha256 = "sha256-h3KlYT0ecCmM4U3zMkGjaF8h5O9r20zwP+mF+x7KBWg=";
+    url = "${webpage}/releases/${pname}-${version}.tbz";
+    sha256 = "1nx1rly3qj23jzn9yk3x6fwqimcxjd84kv5859vvhdg56psq26p6";
   };
 
   nativeBuildInputs = [ ocaml ocamlbuild findlib topkg ];
@@ -25,8 +23,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Non-blocking streaming Unicode codec for OCaml";
-    homepage = "https://erratique.ch/software/uutf";
-    inherit (ocaml.meta) platforms;
+    homepage = webpage;
+    platforms = ocaml.meta.platforms or [];
     license = licenses.bsd3;
     maintainers = [ maintainers.vbgl ];
   };

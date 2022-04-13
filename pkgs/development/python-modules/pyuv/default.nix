@@ -1,6 +1,5 @@
 { lib
 , buildPythonPackage
-, pythonAtLeast
 , fetchFromGitHub
 , libuv
 }:
@@ -8,7 +7,6 @@
 buildPythonPackage rec {
   pname = "pyuv";
   version = "1.4.0";
-  disabled = pythonAtLeast "3.10"; # https://github.com/saghul/pyuv/issues/273
 
   src = fetchFromGitHub {
     owner = "saghul";

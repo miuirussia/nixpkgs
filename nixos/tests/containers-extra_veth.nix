@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
     maintainers = with lib.maintainers; [ kampfschlaefer ];
   };
 
-  nodes.machine =
+  machine =
     { pkgs, ... }:
     { imports = [ ../modules/installer/cd-dvd/channel.nix ];
       virtualisation.writableStore = true;

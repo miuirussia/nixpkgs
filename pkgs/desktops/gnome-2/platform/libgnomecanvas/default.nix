@@ -1,11 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, gtk2, intltool, libart_lgpl, libglade }:
+{ stdenv, fetchurl, pkg-config, gtk2, intltool, libart_lgpl, libglade }:
 
 stdenv.mkDerivation rec {
-  pname = "libgnomecanvas";
-  version = "2.30.3";
+  name = "libgnomecanvas-${minVer}.3";
+  minVer = "2.30";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libgnomecanvas/${lib.versions.majorMinor version}/libgnomecanvas-${version}.tar.bz2";
+    url = "mirror://gnome/sources/libgnomecanvas/${minVer}/${name}.tar.bz2";
     sha256 = "0h6xvswbqspdifnyh5pm2pqq55yp3kn6yrswq7ay9z49hkh7i6w5";
   };
 

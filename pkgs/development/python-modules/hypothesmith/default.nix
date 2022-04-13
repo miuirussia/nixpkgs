@@ -17,11 +17,7 @@ buildPythonPackage rec {
 
   checkInputs = [ black parso pytestCheckHook pytest-cov pytest-xdist ];
 
-  pytestFlagsArray = [
-    "-v"
-    "--numprocesses $NIX_BUILD_CORES"
-  ];
-
+  pytestFlagsArray = [ "-v" ];  # tests are fairly slow, prevents timeout due to no stdout printing
   pythonImportsCheck = [ "hypothesmith" ];
 
   meta = with lib; {

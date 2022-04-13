@@ -68,7 +68,5 @@ buildPythonApplication rec {
     license = licenses.unfreeRedistributable;
     platforms = platforms.unix;
     maintainers = with maintainers; [ gebner ];
-    # libusb1 1.9.3 uses setuptools' 2to3 translation feature, which has been removed in setuptools 58
-    broken = true;
   };
 }

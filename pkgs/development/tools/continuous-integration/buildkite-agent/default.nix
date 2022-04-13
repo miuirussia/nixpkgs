@@ -3,16 +3,16 @@
   nixosTests }:
 buildGoModule rec {
   pname = "buildkite-agent";
-  version = "3.35.1";
+  version = "3.33.3";
 
   src = fetchFromGitHub {
     owner = "buildkite";
     repo = "agent";
     rev = "v${version}";
-    sha256 = "sha256-fa32tKOlRuKTONiMboX7CUxeknePsNRC7jlBvAtXmus=";
+    sha256 = "sha256-RCKHVFYYcWraUwsGuD/anmWpNwc7cHc9jm0LwR9WRzA=";
   };
 
-  vendorSha256 = "sha256-YnOOJDzdirikFbS9451A/TWOSWv04QsqO68/cSXK82k=";
+  vendorSha256 = "sha256-n3XRxpEKjHf7L7fcGscWTVKBtot9waZbLoS9cG0kHfI=";
 
   postPatch = ''
     substituteInPlace bootstrap/shell/shell.go --replace /bin/bash ${bash}/bin/bash
@@ -46,7 +46,7 @@ buildGoModule rec {
     '';
     homepage = "https://buildkite.com/docs/agent";
     license = licenses.mit;
-    maintainers = with maintainers; [ pawelpacana zimbatm rvl techknowlogick ];
+    maintainers = with maintainers; [ pawelpacana zimbatm rvl ];
     platforms = with platforms; unix ++ darwin;
   };
 }

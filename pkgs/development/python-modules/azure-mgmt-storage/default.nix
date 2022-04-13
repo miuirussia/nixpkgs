@@ -3,20 +3,18 @@
 , fetchPypi
 , azure-mgmt-common
 , azure-mgmt-core
-, pythonOlder
+, isPy3k
 }:
 
 buildPythonPackage rec {
-  version = "20.0.0";
+  version = "19.1.0";
   pname = "azure-mgmt-storage";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.6";
+  disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
     extension = "zip";
-    hash = "sha256-buR2tWIv9vWVTt7m6w2N1CezIXAihVrfHshjPKBM3uI=";
+    sha256 = "sha256-Seoi8A4JZaNVCvNKQcGh06SBaQ9lAMeOhUCIAvVtdBY=";
   };
 
   propagatedBuildInputs = [
@@ -24,13 +22,9 @@ buildPythonPackage rec {
     azure-mgmt-core
   ];
 
-  pythonNamespaces = [
-    "azure.mgmt"
-  ];
+  pythonNamespaces = [ "azure.mgmt" ];
 
-  pythonImportsCheck = [
-    "azure.mgmt.storage"
-  ];
+  pythonImportsCheck = [ "azure.mgmt.storage" ];
 
   # has no tests
   doCheck = false;

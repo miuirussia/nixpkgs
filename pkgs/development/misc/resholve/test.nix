@@ -2,8 +2,10 @@
 , stdenv
 , callPackage
 , resholve
+, resholvePackage
+, resholveScript
+, resholveScriptBin
 , shunit2
-, fetchFromGitHub
 , coreutils
 , gnused
 , gnugrep
@@ -32,7 +34,46 @@ let
   parsed_packages = [ coreutils sqlite util-linux gnused gawk findutils rlwrap gnutar bc ];
 in
 rec {
-  module1 = resholve.mkDerivation {
+  re_shunit2 = with shunit2;
+    resholvePackage {
+      inherit pname src version installPhase;
+      solutions = {
+        shunit = {
+          interpreter = "none";
+          scripts = [ "bin/shunit2" ];
+          inputs = [ coreutils gnused gnugrep findutils ];
+          # resholve's Nix API is analogous to the CLI flags
+          # documented in 'man resholve'
+          fake = {
+            # "missing" functions shunit2 expects the user to declare
+            function = [
+              "oneTimeSetUp"
+              "oneTimeTearDown"
+              "setUp"
+              "tearDown"
+              "suite"
+              "noexec"
+            ];
+            # shunit2 is both bash and zsh compatible, and in
+            # some zsh-specific code it uses this non-bash builtin
+            builtin = [ "setopt" ];
+          };
+          fix = {
+            # stray absolute path; make it resolve from coreutils
+            "/usr/bin/od" = true;
+          };
+          keep = {
+            # variables invoked as commands; long-term goal is to
+            # resolve the *variable*, but that is complexish, so
+            # this is where we are...
+            "$__SHUNIT_CMD_ECHO_ESC" = true;
+            "$_SHUNIT_LINENO_" = true;
+            "$SHUNIT_CMD_TPUT" = true;
+          };
+        };
+      };
+    };
+  module1 = resholvePackage {
     pname = "testmod1";
     version = "unreleased";
 
@@ -56,7 +97,7 @@ rec {
 
     is_it_okay_with_arbitrary_envs = "shonuff";
   };
-  module2 = resholve.mkDerivation {
+  module2 = resholvePackage {
     pname = "testmod2";
     version = "unreleased";
 
@@ -64,20 +105,19 @@ rec {
     setSourceRoot = "sourceRoot=$(echo */tests/nix/openssl)";
 
     installPhase = ''
-      mkdir -p $out/bin $out/libexec
+      mkdir -p $out/bin
       install openssl.sh $out/bin/openssl.sh
-      install libexec.sh $out/libexec/invokeme
       install profile $out/profile
     '';
-    # LOGLEVEL="DEBUG";
+
     solutions = {
       openssl = {
         fix = {
           aliases = true;
         };
-        scripts = [ "bin/openssl.sh" "libexec/invokeme" ];
+        scripts = [ "bin/openssl.sh" ];
         interpreter = "none";
-        inputs = [ shunit2 openssl.bin "libexec" "libexec/invokeme" ];
+        inputs = [ re_shunit2 openssl.bin ];
         execer = [
           /*
             This is the same verdict binlore will
@@ -96,8 +136,7 @@ rec {
       };
     };
   };
-  # demonstrate that we could use resholve in larger build
-  module3 = stdenv.mkDerivation {
+  module3 = resholvePackage {
     pname = "testmod3";
     version = "unreleased";
 
@@ -107,15 +146,15 @@ rec {
     installPhase = ''
       mkdir -p $out/bin
       install conjure.sh $out/bin/conjure.sh
-      ${resholve.phraseSolution "conjure" {
+    '';
+
+    solutions = {
+      conjure = {
         scripts = [ "bin/conjure.sh" ];
         interpreter = "${bash}/bin/bash";
         inputs = [ module1 ];
-        fake = {
-          external = [ "jq" "openssl" ];
-        };
-      }}
-    '';
+      };
+    };
   };
 
   cli = stdenv.mkDerivation {
@@ -165,14 +204,14 @@ rec {
   };
 
   # Caution: ci.nix asserts the equality of both of these w/ diff
-  resholvedScript = resholve.writeScript "resholved-script" {
+  resholvedScript = resholveScript "resholved-script" {
     inputs = [ file ];
     interpreter = "${bash}/bin/bash";
   } ''
     echo "Hello"
     file .
   '';
-  resholvedScriptBin = resholve.writeScriptBin "resholved-script-bin" {
+  resholvedScriptBin = resholveScriptBin "resholved-script-bin" {
     inputs = [ file ];
     interpreter = "${bash}/bin/bash";
   } ''

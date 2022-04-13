@@ -21,17 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-12ol+2CnoPfkxmDGJJAkoafHGpQuWC4lh0N7lSvx2DE=";
   };
 
-  passthru.extras-require = {
-    async = [
-      aiocoap
-      dtlssocket
-    ];
-  };
+  propagatedBuildInputs = [
+    aiocoap
+    dtlssocket
+  ];
 
   checkInputs = [
     pytestCheckHook
-  ]
-  ++ passthru.extras-require.async;
+  ];
 
   pythonImportsCheck = [
     "pytradfri"

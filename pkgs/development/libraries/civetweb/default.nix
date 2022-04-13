@@ -30,9 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
     "-DCIVETWEB_ENABLE_CXX=ON"
-    "-DCIVETWEB_ENABLE_IPV6=ON"
+    "-DBUILD_SHARED_LIBS=ON"
 
     # The civetweb unit tests rely on downloading their fork of libcheck.
     "-DCIVETWEB_BUILD_TESTING=OFF"

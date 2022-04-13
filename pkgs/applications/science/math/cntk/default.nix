@@ -2,13 +2,9 @@
 , fetchpatch
 , openblas, blas, lapack, opencv3, libzip, boost, protobuf, mpi
 , onebitSGDSupport ? false
-, cudaSupport ? false, cudaPackages ? {}, addOpenGLRunpath, cudatoolkit, nvidia_x11
-, cudnnSupport ? cudaSupport
+, cudaSupport ? false, addOpenGLRunpath, cudatoolkit, nvidia_x11
+, cudnnSupport ? cudaSupport, cudnn
 }:
-
-let
-  inherit (cudaPackages) cudatoolkit cudnn;
-in
 
 assert cudnnSupport -> cudaSupport;
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";

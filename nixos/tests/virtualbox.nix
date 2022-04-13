@@ -353,7 +353,7 @@ let
   mkVBoxTest = useExtensionPack: vms: name: testScript: makeTest {
     name = "virtualbox-${name}";
 
-    nodes.machine = { lib, config, ... }: {
+    machine = { lib, config, ... }: {
       imports = let
         mkVMConf = name: val: val.machine // { key = "${name}-config"; };
         vmConfigs = mapAttrsToList mkVMConf vms;

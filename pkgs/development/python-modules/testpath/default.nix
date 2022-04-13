@@ -2,23 +2,17 @@
 , stdenv
 , buildPythonPackage
 , fetchPypi
-, flit-core
 , pytestCheckHook
 }:
 
 buildPythonPackage rec {
   pname = "testpath";
-  version = "0.6.0";
-  format = "pyproject";
+  version = "0.5.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-LxuX5kQsAmgevgG9hPUxAop8rqGvOCUAD1I0XDAoXg8=";
+    sha256 = "05z4s4d5i1ja16hiv4jhqv63fvg1a4vw77s0ay1sw11hrl5pmkqs";
   };
-
-  nativeBuildInputs = [
-    flit-core
-  ];
 
   checkInputs = [
     pytestCheckHook

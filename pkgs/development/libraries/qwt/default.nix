@@ -1,24 +1,25 @@
-{ lib, stdenv, fetchurl, qtbase, qtsvg, qttools, qmake }:
+{ lib, stdenv, fetchurl, qt4, qmake4Hook }:
 
 stdenv.mkDerivation rec {
   pname = "qwt";
-  version = "6.2.0";
+  version = "5.2.3";
 
   src = fetchurl {
-    url = "mirror://sourceforge/qwt/qwt-${version}.tar.bz2";
-    sha256 = "sha256-kZT2UTlV0P1zAPZxWBdQZEYBl6urGpL6EnpnpLC3FTA=";
+    url = "mirror://sourceforge/qwt/${pname}-${version}.tar.bz2";
+    sha256 = "1dqa096mm6n3bidfq2b67nmdsvsw4ndzzd1qhl6hn8skcwqazzip";
   };
 
-  propagatedBuildInputs = [ qtbase qtsvg qttools ];
-  nativeBuildInputs = [ qmake ];
+  propagatedBuildInputs = [ qt4 ];
+  nativeBuildInputs = [ qmake4Hook ];
 
   postPatch = ''
-    sed -e "s|QWT_INSTALL_PREFIX.*=.*|QWT_INSTALL_PREFIX = $out|g" -i qwtconfig.pri
+    sed -e "s@\$\$\[QT_INSTALL_PLUGINS\]@$out/lib/qt4/plugins@" -i designer/designer.pro
+    sed -e "s|INSTALLBASE.*=.*|INSTALLBASE = $out|g" -i qwtconfig.pri
   '';
 
-  qmakeFlags = [ "-after doc.path=$out/share/doc/qwt-${version}" ];
-
-  dontWrapQtApps = true;
+  preConfigure = ''
+    qmakeFlags="$qmakeFlags INSTALLBASE=$out -after doc.path=$out/share/doc/${pname}-${version}"
+  '';
 
   meta = with lib; {
     description = "Qt widgets for technical applications";

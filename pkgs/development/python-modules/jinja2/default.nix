@@ -39,7 +39,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    homepage = "https://jinja.palletsprojects.com/";
+    homepage = "http://jinja.pocoo.org/";
     description = "Stand-alone template engine";
     license = licenses.bsd3;
     longDescription = ''

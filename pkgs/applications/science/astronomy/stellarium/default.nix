@@ -1,25 +1,25 @@
 { stdenv, lib, mkDerivation, fetchFromGitHub
 , cmake, freetype, libpng, libGLU, libGL, openssl, perl, libiconv
-, qtscript, qtserialport, qttools, qtcharts
+, qtscript, qtserialport, qttools
 , qtmultimedia, qtlocation, qtbase, wrapQtAppsHook
 }:
 
 mkDerivation rec {
   pname = "stellarium";
-  version = "0.22.0";
+  version = "0.21.3";
 
   src = fetchFromGitHub {
     owner = "Stellarium";
     repo = "stellarium";
     rev = "v${version}";
-    sha256 = "sha256-scG/SS9emEmrZunv6n3Vzcchoh0Cf9rDOkuxAMnxNk4=";
+    sha256 = "sha256-TQMLy5ziBF7YqPDzPwgjY5FHxxMUe7MXo/TGxQ1nGcg=";
   };
 
   nativeBuildInputs = [ cmake perl wrapQtAppsHook ];
 
   buildInputs = [
     freetype libpng libGLU libGL openssl libiconv qtscript qtserialport qttools
-    qtmultimedia qtlocation qtbase qtcharts
+    qtmultimedia qtlocation qtbase
   ];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''

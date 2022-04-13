@@ -1,12 +1,9 @@
-{ stdenv
-, lib
+{ lib, stdenv
 , fetchurl
-, fetchpatch
 , autoreconfHook
 , dconf
 , evolution-data-server
 , gdm
-, geocode-glib
 , gettext
 , glib
 , gnome-desktop
@@ -26,13 +23,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-panel";
-  version = "3.44.0";
+  version = "3.42.0";
 
   outputs = [ "out" "dev" "man" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    hash = "sha256-mWVfddAxh2wTDtI8TaIsCZ57zEBIsCVaPDo7vHh7Mao=";
+    hash = "sha256-rqjA78LtuiDpetRpUXnNCiU45kwpBHAsyMWU6OCJhwM=";
   };
 
   patches = [
@@ -40,13 +37,6 @@ stdenv.mkDerivation rec {
     # instead of gnome-panel’s libdir so that the NixOS module can make gnome-panel
     # load modules from other packages as well.
     ./modulesdir-env-var.patch
-
-    # Add missing geocode-glib-1.0 dependency
-    # https://gitlab.gnome.org/GNOME/gnome-panel/-/merge_requests/49
-    (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/gnome-panel/-/commit/f58a43ec4649a25f1a762b36e1401b81cd2b214b.patch";
-      sha256 = "sha256-DFqaNUjkLh4xd81qgQpl+568eUZeWyF8LxdZoTgMfCQ=";
-    })
   ];
 
   # make .desktop Exec absolute
@@ -79,7 +69,6 @@ stdenv.mkDerivation rec {
     dconf
     evolution-data-server
     gdm
-    geocode-glib
     glib
     gnome-desktop
     gnome-menus

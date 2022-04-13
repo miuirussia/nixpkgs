@@ -1,27 +1,22 @@
 { lib
 , buildPythonPackage
-, cargo
-, cffi
 , fetchPypi
-, glean-parser
-, iso8601
-, pytest-localserver
-, pytestCheckHook
-, pythonOlder
-, rustc
 , rustPlatform
+, rustc
+, cargo
 , setuptools-rust
+# build inputs
+, cffi
+, glean-parser
 }:
 
 buildPythonPackage rec {
   pname = "glean-sdk";
   version = "44.0.0";
 
-  disabled = pythonOlder "3.6";
-
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-gzLsBwq3wrFde5cEb5+oFLW4KrwoiZpr22JbJhNr1yk=";
+    sha256 = "sha256-gzLsBwq3wrFde5cEb5+oFLW4KrwoiZpr22JbJhNr1yk=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
@@ -31,36 +26,22 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [
-    cargo
     rustc
-    rustPlatform.cargoSetupHook
+    cargo
     setuptools-rust
+    rustPlatform.cargoSetupHook
   ];
-
   propagatedBuildInputs = [
     cffi
     glean-parser
-    iso8601
   ];
 
-  checkInputs = [
-    pytest-localserver
-    pytestCheckHook
-  ];
-
-  postPatch = ''
-    substituteInPlace glean-core/python/setup.py \
-      --replace "glean_parser==5.0.1" "glean_parser>=5.0.1"
-  '';
-
-  pythonImportsCheck = [
-    "glean"
-  ];
+  pythonImportsCheck = [ "glean" ];
 
   meta = with lib; {
-    description = "Telemetry client libraries and are a part of the Glean project";
+    description = "Modern cross-platform telemetry client libraries and are a part of the Glean project";
     homepage = "https://mozilla.github.io/glean/book/index.html";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ kvark ];
+    maintainers = [ maintainers.kvark ];
   };
 }

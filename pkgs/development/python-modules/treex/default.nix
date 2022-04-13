@@ -18,23 +18,21 @@
 
 buildPythonPackage rec {
   pname = "treex";
-  version = "0.6.10";
+  version = "0.6.9";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "cgarciae";
     repo = pname;
     rev = version;
-    hash = "sha256-ZHfgmRNbFh8DFZkmilY0pmRNQhJFqT689I7Lu8FuFm4=";
+    sha256 = "1yvlldmhji12h249j14ba44hnb9x1fhrj7rh1cx2vn0vxj5wpg7x";
   };
 
-  # At the time of writing (2022-03-29), rich is currently at version 11.0.0.
-  # The treeo dependency is compatible with a patch, but not marked as such in
-  # treex. See https://github.com/cgarciae/treex/issues/68.
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace 'rich = "^11.2.0"' 'rich = "*"' \
-      --replace 'treeo = "^0.0.10"' 'treeo = "*"'
+      --replace 'rich = "^10.7.0"' 'rich = ">=10.7.0"' \
+      --replace 'PyYAML = "^5.4.1"' 'PyYAML = ">=5.4.1"' \
+      --replace 'optax = "^0.0.9"' 'optax = ">=0.0.9"'
   '';
 
   nativeBuildInputs = [

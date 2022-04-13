@@ -571,10 +571,7 @@ in
     users.users.oauth2_proxy = {
       description = "OAuth2 Proxy";
       isSystemUser = true;
-      group = "oauth2_proxy";
     };
-
-    users.groups.oauth2_proxy = {};
 
     systemd.services.oauth2_proxy = {
       description = "OAuth2 Proxy";

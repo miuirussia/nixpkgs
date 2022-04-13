@@ -1,4 +1,4 @@
-{ minor_version, major_version, patch_version, patches ? []
+{ minor_version, major_version, patch_version
 , ...}@args:
 let
   versionNoPatch = "${toString major_version}.${toString minor_version}";
@@ -6,7 +6,7 @@ let
   safeX11 = stdenv: !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic);
 in
 
-{ lib, stdenv, fetchurl, ncurses, buildEnv, libunwind, fetchpatch
+{ lib, stdenv, fetchurl, ncurses, buildEnv, libunwind
 , libX11, xorgproto, useX11 ? safeX11 stdenv && !lib.versionAtLeast version "4.09"
 , aflSupport ? false
 , flambdaSupport ? false
@@ -28,22 +28,21 @@ in
 let
    useNativeCompilers = !stdenv.isMips;
    inherit (lib) optional optionals optionalString;
-   pname = "ocaml${optionalString aflSupport "+afl"}${optionalString spaceTimeSupport "+spacetime"}${optionalString flambdaSupport "+flambda"}";
+   name = "ocaml${optionalString aflSupport "+afl"}${optionalString spaceTimeSupport "+spacetime"}${optionalString flambdaSupport "+flambda"}-${version}";
 in
 
 let
   x11env = buildEnv { name = "x11env"; paths = [libX11 xorgproto]; };
   x11lib = x11env + "/lib";
   x11inc = x11env + "/include";
-
-  fetchpatch' = x: if builtins.isAttrs x then fetchpatch x else x;
 in
 
 stdenv.mkDerivation (args // {
 
-  inherit pname version src;
+  inherit name;
+  inherit version;
 
-  patches = map fetchpatch' patches;
+  inherit src;
 
   strictDeps = true;
 
@@ -75,18 +74,7 @@ stdenv.mkDerivation (args // {
   hardeningDisable = lib.optional (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl) "pie"
     ++ lib.optionals (args ? hardeningDisable) args.hardeningDisable;
 
-  # Older versions have some race:
-  #  cp: cannot stat 'boot/ocamlrun': No such file or directory
-  #  make[2]: *** [Makefile:199: backup] Error 1
-  enableParallelBuilding = lib.versionAtLeast version "4.08";
-
-  # Workaround lack of parallelism support among top-level targets:
-  # we place nixpkgs-specific targets to a separate file and set
-  # sequential order among them as a single rule.
-  makefile = ./Makefile.nixpkgs;
-  buildFlags = if useNativeCompilers
-    then ["nixpkgs_world_bootstrap_world_opt"]
-    else ["nixpkgs_world"];
+  buildFlags = [ "world" ] ++ optionals useNativeCompilers [ "bootstrap" "world.opt" ];
   buildInputs = optional (!lib.versionAtLeast version "4.07") ncurses
     ++ optionals useX11 [ libX11 xorgproto ];
   propagatedBuildInputs = optional spaceTimeSupport libunwind;

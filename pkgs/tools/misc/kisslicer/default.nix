@@ -27,11 +27,8 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
-
   buildInputs = [
+    makeWrapper
     libGLU libGL
     libX11
   ];

@@ -5,7 +5,7 @@
 }:
 
 mkDerivation {
-  pname = "kcontacts";
+  name = "kcontacts";
   meta = {
     license = [ lib.licenses.lgpl21 ];
   };

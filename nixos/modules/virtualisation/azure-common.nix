@@ -21,11 +21,7 @@ with lib;
   # way to select them anyway.
   boot.loader.grub.configurationLimit = 0;
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
-    autoResize = true;
-  };
+  fileSystems."/".device = "/dev/disk/by-label/nixos";
 
   # Allow root logins only using the SSH key that the user specified
   # at instance creation time, ping client connections to avoid timeouts

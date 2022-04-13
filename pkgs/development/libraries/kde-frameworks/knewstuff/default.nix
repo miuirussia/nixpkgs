@@ -7,7 +7,7 @@
 }:
 
 mkDerivation {
-  pname = "knewstuff";
+  name = "knewstuff";
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [
     karchive kcompletion kconfig kcoreaddons ki18n kiconthemes kio kitemviews

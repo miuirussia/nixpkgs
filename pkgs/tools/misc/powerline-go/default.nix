@@ -16,6 +16,8 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-HYF6aKz+P241EKmupEoretadlrh9FBRx6nIER66jofg=";
 
+  doCheck = false;
+
   meta = with lib; {
     description = "A Powerline like prompt for Bash, ZSH and Fish";
     homepage = "https://github.com/justjanne/powerline-go";

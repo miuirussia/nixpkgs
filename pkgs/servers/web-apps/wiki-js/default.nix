@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "wiki-js";
-  version = "2.5.277";
+  version = "2.5.276";
 
   src = fetchurl {
     url = "https://github.com/Requarks/wiki/releases/download/v${version}/${pname}.tar.gz";
-    sha256 = "sha256-YLw0DR4dbPfNY56lNybEQFXFEVPZ99sQkwDl6gtz40E=";
+    sha256 = "sha256-ulx3/yj5wxmHsep0+93xpy6VeQJkMXRjGd/xx2F1zII=";
   };
 
   sourceRoot = ".";
@@ -21,10 +21,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = {
-    tests = { inherit (nixosTests) wiki-js; };
-    updateScript = ./update.sh;
-  };
+  passthru.tests = { inherit (nixosTests) wiki-js; };
 
   meta = with lib; {
     homepage = "https://js.wiki/";

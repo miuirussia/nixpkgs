@@ -5,7 +5,7 @@ import ./make-test-python.nix ({ pkgs, lib, ...}:
     maintainers = [ rnhmjoj ];
   };
 
-  nodes.machine = { ... }: {
+  machine = { ... }: {
     imports = [ ../modules/profiles/minimal.nix ];
 
     # add a virtual wlan interface

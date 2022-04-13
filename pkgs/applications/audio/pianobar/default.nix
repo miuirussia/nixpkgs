@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "pianobar";
-  version = "2022.04.01";
+  version = "2020.11.28";
 
   src = fetchurl {
     url = "https://6xq.net/projects/pianobar/${pname}-${version}.tar.bz2";
-    sha256 = "sha256-FnCyiGWouCpXu23+p/FuL6QUXS81SRC7FzgLMsm5R2M=";
+    sha256 = "1znlwybfpxsjqr1jmr8j0ci8wzmpzmk2yxb0qcx9w9a8nnbgnfv5";
   };
 
   nativeBuildInputs = [ pkg-config ];

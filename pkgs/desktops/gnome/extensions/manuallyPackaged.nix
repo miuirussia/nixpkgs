@@ -6,6 +6,7 @@
   "drop-down-terminal@gs-extensions.zzrough.org" = callPackage ./drop-down-terminal { };
   "EasyScreenCast@iacopodeenosee.gmail.com" = callPackage ./EasyScreenCast { };
   "emoji-selector@maestroschan.fr" = callPackage ./emoji-selector { };
+  "freon@UshakovVasilii_Github.yahoo.com" = callPackage ./freon { };
   "gsconnect@andyholmes.github.io" = callPackage ./gsconnect { };
   "icon-hider@kalnitsky.org" = callPackage ./icon-hider { };
   "impatience@gfxmonk.net" = callPackage ./impatience { };

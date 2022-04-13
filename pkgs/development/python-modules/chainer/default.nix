@@ -1,6 +1,6 @@
-{ config, lib, buildPythonPackage, fetchFromGitHub, isPy3k
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k
 , filelock, protobuf, numpy, pytestCheckHook, mock, typing-extensions
-, cupy, cudaSupport ? config.cudaSupport or false
+, cupy, cudaSupport ? false
 }:
 
 buildPythonPackage rec {
@@ -39,8 +39,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A flexible framework of neural networks for deep learning";
     homepage = "https://chainer.org/";
-    # Un-break me when updating chainer next time!
-    broken = cudaSupport && (lib.versionAtLeast cupy.version "8.0.0");
     license = licenses.mit;
     maintainers = with maintainers; [ hyphon81 ];
   };

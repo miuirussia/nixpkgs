@@ -132,10 +132,6 @@ in
       [ "environment" "gnome3" "excludePackages" ]
       [ "environment" "gnome" "excludePackages" ]
     )
-    (mkRemovedOptionModule
-      [ "services" "gnome" "experimental-features" "realtime-scheduling" ]
-      "Set `security.rtkit.enable = true;` to make realtime scheduling possible. (Still needs to be enabled using GSettings.)"
-    )
   ];
 
   options = {
@@ -146,6 +142,38 @@ in
       core-utilities.enable = mkEnableOption "GNOME core utilities";
       core-developer-tools.enable = mkEnableOption "GNOME core developer tools";
       games.enable = mkEnableOption "GNOME games";
+
+      experimental-features = {
+        realtime-scheduling = mkOption {
+          type = types.bool;
+          default = false;
+          description = ''
+            Makes mutter (which propagates to gnome-shell) request a low priority real-time
+            scheduling which is only available on the wayland session.
+            To enable this experimental feature it requires a restart of the compositor.
+            Note that enabling this option only enables the <emphasis>capability</emphasis>
+            for realtime-scheduling to be used. It doesn't automatically set the gsetting
+            so that mutter actually uses realtime-scheduling. This would require adding <literal>
+            rt-scheduler</literal> to <literal>/org/gnome/mutter/experimental-features</literal>
+            with dconf-editor. You cannot use extraGSettingsOverrides because that will only
+            change the default value of the setting.
+
+            Please be aware of these known issues with the feature in nixos:
+            <itemizedlist>
+             <listitem>
+              <para>
+               <link xlink:href="https://github.com/NixOS/nixpkgs/issues/90201">NixOS/nixpkgs#90201</link>
+              </para>
+             </listitem>
+             <listitem>
+              <para>
+               <link xlink:href="https://github.com/NixOS/nixpkgs/issues/86730">NixOS/nixpkgs#86730</link>
+              </para>
+            </listitem>
+            </itemizedlist>
+          '';
+        };
+      };
     };
 
     services.xserver.desktopManager.gnome = {
@@ -386,6 +414,7 @@ in
       services.gnome.rygel.enable = mkDefault true;
       services.gvfs.enable = true;
       services.system-config-printer.enable = (mkIf config.services.printing.enable (mkDefault true));
+      services.telepathy.enable = mkDefault true;
 
       systemd.packages = with pkgs.gnome; [
         gnome-session
@@ -451,28 +480,51 @@ in
       ];
     })
 
+    # Enable soft realtime scheduling, only supported on wayland
+    (mkIf serviceCfg.experimental-features.realtime-scheduling {
+      security.wrappers.".gnome-shell-wrapped" = {
+        source = "${pkgs.gnome.gnome-shell}/bin/.gnome-shell-wrapped";
+        owner = "root";
+        group = "root";
+        capabilities = "cap_sys_nice=ep";
+      };
+
+      systemd.user.services.gnome-shell-wayland = let
+        gnomeShellRT = with pkgs.gnome; pkgs.runCommand "gnome-shell-rt" {} ''
+          mkdir -p $out/bin/
+          cp ${gnome-shell}/bin/gnome-shell $out/bin
+          sed -i "s@${gnome-shell}/bin/@${config.security.wrapperDir}/@" $out/bin/gnome-shell
+        '';
+      in {
+        # Note we need to clear ExecStart before overriding it
+        serviceConfig.ExecStart = ["" "${gnomeShellRT}/bin/gnome-shell"];
+        # Do not use the default environment, it provides a broken PATH
+        environment = mkForce {};
+      };
+    })
+
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst
     (mkIf serviceCfg.core-utilities.enable {
       environment.systemPackages =
         with pkgs.gnome;
-        lib.utils.removePackagesByName
+        removePackagesByName
           ([
             baobab
             cheese
             eog
             epiphany
-            pkgs.gnome-text-editor
+            gedit
             gnome-calculator
             gnome-calendar
             gnome-characters
             gnome-clocks
-            pkgs.gnome-console
             gnome-contacts
             gnome-font-viewer
             gnome-logs
             gnome-maps
             gnome-music
             pkgs.gnome-photos
+            gnome-screenshot
             gnome-system-monitor
             gnome-weather
             nautilus
@@ -495,12 +547,9 @@ in
       programs.file-roller.enable = notExcluded pkgs.gnome.file-roller;
       programs.geary.enable = notExcluded pkgs.gnome.geary;
       programs.gnome-disks.enable = notExcluded pkgs.gnome.gnome-disk-utility;
+      programs.gnome-terminal.enable = notExcluded pkgs.gnome.gnome-terminal;
       programs.seahorse.enable = notExcluded pkgs.gnome.seahorse;
       services.gnome.sushi.enable = notExcluded pkgs.gnome.sushi;
-
-      # VTE shell integration for gnome-console
-      programs.bash.vteIntegration = mkDefault true;
-      programs.zsh.vteIntegration = mkDefault true;
 
       # Let nautilus find extensions
       # TODO: Create nautilus-with-extensions package
@@ -515,7 +564,7 @@ in
     })
 
     (mkIf serviceCfg.games.enable {
-      environment.systemPackages = with pkgs.gnome; lib.utils.removePackagesByName [
+      environment.systemPackages = (with pkgs.gnome; removePackagesByName [
         aisleriot
         atomix
         five-or-more
@@ -536,12 +585,12 @@ in
         quadrapassel
         swell-foop
         tali
-      ] config.environment.gnome.excludePackages;
+      ] config.environment.gnome.excludePackages);
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/-/blob/3.38.0/elements/core/meta-gnome-core-developer-tools.bst
     (mkIf serviceCfg.core-developer-tools.enable {
-      environment.systemPackages = with pkgs.gnome; lib.utils.removePackagesByName [
+      environment.systemPackages = (with pkgs.gnome; removePackagesByName [
         dconf-editor
         devhelp
         pkgs.gnome-builder
@@ -550,7 +599,7 @@ in
         # in default configurations.
         # https://github.com/NixOS/nixpkgs/issues/60908
         /* gnome-boxes */
-      ] config.environment.gnome.excludePackages;
+      ] config.environment.gnome.excludePackages);
 
       services.sysprof.enable = notExcluded pkgs.sysprof;
     })

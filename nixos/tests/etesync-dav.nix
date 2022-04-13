@@ -5,7 +5,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     maintainers = [ _3699n ];
   };
 
-  nodes.machine = { config, pkgs, ... }: {
+  machine = { config, pkgs, ... }: {
       environment.systemPackages = [ pkgs.curl pkgs.etesync-dav ];
   };
 

@@ -18,7 +18,7 @@ let
 in
 
 stdenv.mkDerivation rec {
-  pname = "avahi${lib.optionalString withLibdnssdCompat "-compat"}";
+  name = "avahi${lib.optionalString withLibdnssdCompat "-compat"}-${version}";
   version = "0.8";
 
   src = fetchurl {
@@ -33,10 +33,6 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./no-mkdir-localstatedir.patch
-    (fetchpatch {
-      url = "https://github.com/lathiat/avahi/commit/9d31939e55280a733d930b15ac9e4dda4497680c.patch";
-      sha256 = "sha256-BXWmrLWUvDxKPoIPRFBpMS3T4gijRw0J+rndp6iDybU=";
-    })
   ];
 
   buildInputs = [ libdaemon dbus glib expat libiconv libevent ]

@@ -6,7 +6,7 @@ import ./make-test-python.nix ({ pkgs, ... }:
     maintainers = [ lewo ];
   };
 
-  nodes.machine = { pkgs, lib, ... }: {
+  machine = { pkgs, lib, ... }: {
     services.journald.enableHttpGateway = true;
   };
 

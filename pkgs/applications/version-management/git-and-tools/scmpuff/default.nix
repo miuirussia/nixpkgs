@@ -1,23 +1,17 @@
-{ lib, buildGoModule, fetchFromGitHub, testVersion, scmpuff }:
+{ lib, buildGoPackage, fetchFromGitHub }:
 
-buildGoModule rec {
+buildGoPackage rec {
   pname = "scmpuff";
-  version = "0.5.0";
+  version = "0.3.0";
+  goPackagePath = "github.com/mroth/scmpuff";
+
+  goDeps = ./deps.nix;
 
   src = fetchFromGitHub {
     owner = "mroth";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-+L0W+M8sZdUSCWj9Ftft1gkRRfWMHdxon2xNnotx8Xs=";
-  };
-
-  vendorSha256 = "sha256-7WHVSEz3y1nxWfbxkzkfHhINLC8+snmWknHyUUpNy7c=";
-
-  ldflags = [ "-s" "-w" "-X main.VERSION=${version}" ];
-
-  passthru.tests.version = testVersion {
-    package = scmpuff;
-    command = "scmpuff version";
+    rev = "56dc2041f2c45ab15d41e63058c1c44fff905e81";
+    sha256 = "0zrzzcs0i13pfwcqh8qb0sji54vh37rdr7qasg57y56cqpx16vl3";
   };
 
   meta = with lib; {
@@ -25,5 +19,6 @@ buildGoModule rec {
     homepage = "https://github.com/mroth/scmpuff";
     license = licenses.mit;
     maintainers = with maintainers; [ cpcloud ];
+    platforms = concatLists (with platforms; [ linux darwin windows ]);
   };
 }

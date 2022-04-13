@@ -13,7 +13,7 @@
 , pytorch
 , six
 , soundfile
-, tensorboard
+, tensorflow-tensorboard
 , torchvision
 }:
 
@@ -56,7 +56,7 @@ buildPythonPackage rec {
     pillow
     pytestCheckHook
     pytorch
-    tensorboard
+    tensorflow-tensorboard
     torchvision
   ];
 
@@ -70,8 +70,6 @@ buildPythonPackage rec {
   disabledTestPaths = [
     # we are not interested in linting errors
     "tests/test_lint.py"
-    # missing caffe2 dependency
-    "tests/test_caffe2.py"
   ];
 
   meta = with lib; {

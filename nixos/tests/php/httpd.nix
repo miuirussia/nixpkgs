@@ -2,7 +2,7 @@ import ../make-test-python.nix ({ pkgs, lib, php, ... }: {
   name = "php-${php.version}-httpd-test";
   meta.maintainers = lib.teams.php.members;
 
-  nodes.machine = { config, lib, pkgs, ... }: {
+  machine = { config, lib, pkgs, ... }: {
     services.httpd = {
       enable = true;
       adminAddr = "admin@phpfpm";

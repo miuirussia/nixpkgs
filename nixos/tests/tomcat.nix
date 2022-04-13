@@ -3,7 +3,7 @@ import ./make-test-python.nix ({ pkgs, ... }:
 {
   name = "tomcat";
 
-  nodes.machine = { pkgs, ... }: {
+  machine = { pkgs, ... }: {
     services.tomcat.enable = true;
   };
 

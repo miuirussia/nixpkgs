@@ -1,84 +1,55 @@
 { lib
-, Babel
 , buildPythonPackage
-, click
-, exifread
 , fetchFromGitHub
-, filetype
-, flask
-, inifile
-, jinja2
-, marshmallow
-, marshmallow-dataclass
+, click
+, watchdog
+, exifread
+, requests
 , mistune
-, pip
+, inifile
+, Babel
+, jinja2
+, flask
 , pyopenssl
-, pytest-click
+, ndg-httpsclient
+, pytestCheckHook
+, pytest-cov
 , pytest-mock
 , pytest-pylint
-, pytestCheckHook
-, pythonOlder
-, python-slugify
-, requests
+, pytest-click
+, isPy27
+, functools32
 , setuptools
-, watchdog
-, werkzeug
 }:
 
 buildPythonPackage rec {
   pname = "lektor";
-  version = "3.3.3";
-  format = "pyproject";
-
-  disabled = pythonOlder "3.7";
+  version = "3.3.1";
 
   src = fetchFromGitHub {
     owner = "lektor";
-    repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-3jPN4VQdIUVjSSGJxPek2RrnXzCwkDxoEBqk4vuL+nc=";
+    repo = "lektor";
+    rev = version;
+    sha256 = "04gn3jybqf9wc6l9mi0djpki60adnk7gppmv987ik676k5x8f1kk";
   };
 
   propagatedBuildInputs = [
-    Babel
-    click
-    exifread
-    filetype
-    flask
-    inifile
-    jinja2
-    marshmallow
-    marshmallow-dataclass
-    mistune
-    pip
-    pyopenssl
-    python-slugify
-    requests
-    setuptools
-    watchdog
-    werkzeug
-  ];
+    click watchdog exifread requests mistune inifile Babel jinja2
+    flask pyopenssl ndg-httpsclient setuptools
+  ] ++ lib.optionals isPy27 [ functools32 ];
 
   checkInputs = [
-    pytest-click
-    pytest-mock
-    pytest-pylint
-    pytestCheckHook
+    pytestCheckHook pytest-cov pytest-mock pytest-pylint pytest-click
   ];
 
-  pythonImportsCheck = [
-    "lektor"
-  ];
-
-  disabledTests = [
-    # Test requires network access
-    "test_path_installed_plugin_is_none"
-  ];
+  # many errors -- tests assume inside of git repo, linting errors 13/317 fail
+  doCheck = false;
 
   meta = with lib; {
     description = "A static content management system";
-    homepage = "https://www.getlektor.com/";
-    license = licenses.bsd0;
+    homepage    = "https://www.getlektor.com/";
+    license     = licenses.bsd0;
     maintainers = with maintainers; [ costrouc ];
   };
+
 }

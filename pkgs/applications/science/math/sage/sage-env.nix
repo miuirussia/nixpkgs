@@ -151,7 +151,6 @@ writeTextFile rec {
 
     # needed for cython
     export CC='${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc'
-    export CXX='${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++'
     # cython needs to find these libraries, otherwise will fail with `ld: cannot find -lflint` or similar
     export LDFLAGS='${
       lib.concatStringsSep " " (map (pkg: "-L${pkg}/lib") [
@@ -179,7 +178,6 @@ writeTextFile rec {
         mpfr.dev
       ])
     }'
-    export CXXFLAGS=$CFLAGS
 
     export SAGE_LIB='${sagelib}/${python3.sitePackages}'
 

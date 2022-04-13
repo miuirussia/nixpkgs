@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "stripe-cli";
-  version = "1.8.4";
+  version = "1.8.1";
 
   src = fetchFromGitHub {
     owner = "stripe";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-TP366SozSNfxUGYXIOObfIul0BhQtIGQYZLwH/TPFs0=";
+    sha256 = "sha256-R1w+dVBIPbmBOhtVWKfB4tS+Jp1/tahRk6rifPM53HA=";
   };
 
-  vendorSha256 = "sha256-1c+YtfRy1ey0z117YHHkrCnpb7g+DmM+LR1rjn1YwMQ=";
+  vendorSha256 = "sha256-KgoSJcVUtE4ryJLtQXNCdl51sgO94vyb682OdL5CYw8=";
 
   subPackages = [
     "cmd/stripe"
@@ -22,6 +22,5 @@ buildGoModule rec {
     description = "A command-line tool for Stripe";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ RaghavSood ];
-    mainProgram = "stripe";
   };
 }

@@ -7,11 +7,11 @@
 
 buildPythonPackage rec {
   pname = "Bottleneck";
-  version = "1.3.4";
+  version = "1.3.2";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-F2Sn9K1YxVhyPFQoR+s2erC7ttiApOXV7vMKDs5c7Oo=";
+    sha256 = "20179f0b66359792ea283b69aa16366419132f3b6cf3adadc0c48e2e8118e573";
   };
 
   propagatedBuildInputs = [ numpy ];

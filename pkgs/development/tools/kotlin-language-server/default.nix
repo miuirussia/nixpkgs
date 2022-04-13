@@ -1,11 +1,11 @@
-{ lib, stdenv, fetchzip, openjdk11, gradle, makeWrapper, maven }:
+{ lib, stdenv, fetchurl, unzip, openjdk11, gradle }:
 
 stdenv.mkDerivation rec {
   pname = "kotlin-language-server";
-  version = "1.3.0";
-  src = fetchzip {
+  version = "1.2.0";
+  src = fetchurl {
     url = "https://github.com/fwcd/kotlin-language-server/releases/download/${version}/server.zip";
-    hash = "sha256-nqrZoSntomNLUMTni/yoiVhDOJFSFmZeGze8IJhITu0=";
+    sha256 = "sha256-GXr+sOGa09qeQrfaJYRPsoHULwfMst8tTr4y2cv752k=";
   };
 
   dontBuild = true;
@@ -17,19 +17,14 @@ stdenv.mkDerivation rec {
     cp -r bin/* $out/bin
   '';
 
-  nativeBuildInputs = [ gradle makeWrapper ];
+  nativeBuildInputs = [ unzip gradle ];
   buildInputs = [ openjdk11 gradle ];
-
-  postFixup = ''
-    wrapProgram "$out/bin/kotlin-language-server" --set JAVA_HOME ${openjdk11} --prefix PATH : ${lib.strings.makeBinPath [ openjdk11 maven ] }
-  '';
 
   meta = {
     description = "kotlin language server";
     longDescription = ''
       About Kotlin code completion, linting and more for any editor/IDE
       using the Language Server Protocol Topics'';
-    maintainers = with lib.maintainers; [ vtuan10 ];
     homepage = "https://github.com/fwcd/kotlin-language-server";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;

@@ -17,10 +17,9 @@ stdenv.mkDerivation rec {
     ./encoding.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
   buildInputs = [
     texinfo6_5 libXext xorgproto libX11 libXpm libXt libXcursor
-    alsa-lib zlib libpng libvorbis libXxf86dga libXxf86misc
+    alsa-lib cmake zlib libpng libvorbis libXxf86dga libXxf86misc
     libXxf86vm openal libGLU libGL
   ];
 

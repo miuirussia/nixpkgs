@@ -10,8 +10,7 @@ stdenv.mkDerivation  rec {
     sha256 = "00nwv2pqjbmxqdc6xdm0cljq6z05lv4y6bibmhz1kih9lm0lklnk";
   };
 
-  nativeBuildInputs = [ autoconf automake  ];
-  buildInputs = [ alsa-lib dssi gtk2 libjack2 ladspaH
+  buildInputs = [ alsa-lib autoconf automake dssi gtk2 libjack2 ladspaH
     ladspaPlugins liblo pkg-config ];
 
   installPhase = ''

@@ -2,11 +2,13 @@
 , lib
 , stdenv
 , substituteAll
-, fetchpatch
 , accountsservice
 , adwaita-icon-theme
+, cheese
+, clutter
+, clutter-gtk
 , colord
-, colord-gtk4
+, colord-gtk
 , cups
 , docbook-xsl-nons
 , fontconfig
@@ -24,17 +26,19 @@
 , gnome
 , gsettings-desktop-schemas
 , gsound
-, gtk4
+, gtk3
 , ibus
+, libcanberra-gtk3
 , libgnomekbd
 , libgtop
 , libgudev
-, libadwaita
+, libhandy
 , libkrb5
 , libpulseaudio
 , libpwquality
 , librsvg
 , libsecret
+, libsoup
 , libwacom
 , libxml2
 , libxslt
@@ -43,7 +47,7 @@
 , mutter
 , networkmanager
 , networkmanagerapplet
-, libnma-gtk4
+, libnma
 , ninja
 , pkg-config
 , polkit
@@ -64,11 +68,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-control-center";
-  version = "42.0";
+  version = "41.4";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-BzLvp8QXHOCg7UEGWAtM41pXsQFSwOo20jkTSRN3fto=";
+    sha256 = "sha256-1tsMTLcIV77PSKxQB/ErX2O51dfoDqfuV9O+USZp98k=";
   };
 
   patches = [
@@ -78,13 +82,6 @@ stdenv.mkDerivation rec {
       gnome_desktop = gnome-desktop;
       inherit glibc libgnomekbd tzdata;
       inherit cups networkmanagerapplet;
-    })
-
-    # Fix Online Accounts configuration on X11
-    # https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/1272
-    (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/gnome-control-center/-/commit/7fe322b9cedae313cd9af6f403eab9bfc6027674.patch";
-      sha256 = "cv1abqv0Kbfkfu7mZzEaZKXPE85yVBcQbjNHW+8ODFE=";
     })
   ];
 
@@ -103,8 +100,11 @@ stdenv.mkDerivation rec {
   buildInputs = [
     accountsservice
     adwaita-icon-theme
+    cheese
+    clutter
+    clutter-gtk
     colord
-    colord-gtk4
+    colord-gtk
     libepoxy
     fontconfig
     gdk-pixbuf
@@ -119,17 +119,19 @@ stdenv.mkDerivation rec {
     gnome-user-share # optional, sharing panel
     gsettings-desktop-schemas
     gsound
-    gtk4
+    gtk3
     ibus
+    libcanberra-gtk3
     libgtop
     libgudev
-    libadwaita
+    libhandy
     libkrb5
-    libnma-gtk4
+    libnma
     libpulseaudio
     libpwquality
     librsvg
     libsecret
+    libsoup
     libwacom
     libxml2
     modemmanager
@@ -143,19 +145,9 @@ stdenv.mkDerivation rec {
     upower
   ];
 
-  # postPatch = ''
-  #   scriptsToPatch=(
-  #     build-aux/meson/meson_post_install.py
-  #     build-aux/meson/find_xdg_file.py
-  #   )
-  #   # # patchShebangs requires executable file
-  #   # chmod +x "''${scriptsToPatch[@]}"
-  #   # patchShebangs "''${scriptsToPatch[@]}"
-  # '';
-
-  preConfigure = ''
-    # For ITS rules
-    addToSearchPath "XDG_DATA_DIRS" "${polkit.out}/share"
+  postPatch = ''
+    chmod +x build-aux/meson/meson_post_install.py # patchShebangs requires executable file
+    patchShebangs build-aux/meson/meson_post_install.py
   '';
 
   preFixup = ''

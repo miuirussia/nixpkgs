@@ -83,7 +83,6 @@
 , gssSupport ? true, libkrb5
 , jemallocSupport ? true, jemalloc
 , ltoSupport ? (stdenv.isLinux && stdenv.is64bit), overrideCC, buildPackages
-, pgoSupport ? (stdenv.isLinux && stdenv.isx86_64 && stdenv.hostPlatform == stdenv.buildPlatform), xvfb-run
 , pipewireSupport ? waylandSupport && webrtcSupport
 , pulseaudioSupport ? stdenv.isLinux, libpulseaudio
 , waylandSupport ? true, libxkbcommon, libdrm
@@ -99,18 +98,10 @@
 , googleAPISupport ? geolocationSupport
 , webrtcSupport ? !privacySupport
 
-# digital rights managemewnt
-
-# This flag controls whether Firefox will show the nagbar, that allows
-# users at runtime the choice to enable Widevine CDM support when a site
-# requests it.
-# Controlling the nagbar and widevine CDM at runtime is possible by setting
-# `browser.eme.ui.enabled` and `media.gmp-widevinecdm.enabled` accordingly
-, drmSupport ? true
-
 ## other
 
 , crashreporterSupport ? false
+, drmSupport ? false
 , safeBrowsingSupport ? false
 
 # As stated by Sylvestre Ledru (@sylvestre) on Nov 22, 2017 at
@@ -135,7 +126,7 @@
 }:
 
 assert stdenv.cc.libc or null != null;
-assert pipewireSupport -> !waylandSupport || !webrtcSupport -> throw "${pname}: pipewireSupport requires both wayland and webrtc support.";
+assert pipewireSupport -> !waylandSupport || !webrtcSupport -> throw "pipewireSupport requires both wayland and webrtc support.";
 
 let
   flag = tf: x: [(if tf then "--enable-${x}" else "--disable-${x}")];
@@ -149,10 +140,12 @@ let
     bootBintools = null;
   };
 
-  # LTO requires LLVM bintools including ld.lld and llvm-ar.
-  buildStdenv = overrideCC llvmPackages.stdenv (llvmPackages.stdenv.cc.override {
-    inherit (llvmPackages) bintools;
-  });
+  buildStdenv = if ltoSupport
+    # LTO requires LLVM bintools including ld.lld and llvm-ar.
+    then overrideCC llvmPackages.stdenv (llvmPackages.stdenv.cc.override {
+      inherit (llvmPackages) bintools;
+    })
+    else stdenv;
 
   # Compile the wasm32 sysroot to build the RLBox Sandbox
   # https://hacks.mozilla.org/2021/12/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/
@@ -171,22 +164,7 @@ buildStdenv.mkDerivation ({
 
   inherit src unpackPhase meta;
 
-  # Add another configure-build-profiling run before the final configure phase if we build with pgo
-  preConfigurePhases = lib.optionals pgoSupport [
-    "configurePhase"
-    "buildPhase"
-    "profilingPhase"
-  ];
-
   patches = [
-    (fetchpatch {
-      # RDD Sandbox paths for NixOS, remove with Firefox>=100
-      # https://hg.mozilla.org/integration/autoland/rev/5ac6a69a01f47ca050d90704a9791b8224d30f14
-      # https://bugzilla.mozilla.org/show_bug.cgi?id=1761692
-      name = "mozbz-1761692-rdd-sandbox-paths.patch";
-      url = "https://hg.mozilla.org/integration/autoland/raw-rev/5ac6a69a01f47ca050d90704a9791b8224d30f14";
-      hash = "sha256-+NGRUxXA7HGvPaAwvDveqRsdXof5nBIc+l4hdf7cC/Y=";
-    })
   ]
   ++ lib.optional (lib.versionAtLeast version "86") ./env_var_for_system_dir-ff86.patch
   ++ lib.optional (lib.versionAtLeast version "90" && lib.versionOlder version "95") ./no-buildconfig-ffx90.patch
@@ -221,7 +199,6 @@ buildStdenv.mkDerivation ({
     which
     wrapGAppsHook
   ]
-  ++ lib.optionals pgoSupport [ xvfb-run ]
   ++ extraNativeBuildInputs;
 
   setOutputFlags = false; # `./mach configure` doesn't understand `--*dir=` flags.
@@ -237,9 +214,6 @@ buildStdenv.mkDerivation ({
     export MOZ_OBJDIR=$(pwd)/mozobj
     export MOZBUILD_STATE_PATH=$(pwd)/mozbuild
 
-    # Don't try to send libnotify notifications during build
-    export MOZ_NOSPAM=1
-
     # Set consistent remoting name to ensure wmclass matches with desktop file
     export MOZ_APP_REMOTINGNAME="${binaryName}"
 
@@ -254,25 +228,6 @@ buildStdenv.mkDerivation ({
     # RBox WASM Sandboxing
     export WASM_CC=${pkgsCross.wasi32.stdenv.cc}/bin/${pkgsCross.wasi32.stdenv.cc.targetPrefix}cc
     export WASM_CXX=${pkgsCross.wasi32.stdenv.cc}/bin/${pkgsCross.wasi32.stdenv.cc.targetPrefix}c++
- '' + lib.optionalString pgoSupport ''
-   if [ -e "$TMPDIR/merged.profdata" ]; then
-     echo "Configuring with profiling data"
-     for i in "''${!configureFlagsArray[@]}"; do
-       if [[ ''${configureFlagsArray[i]} = "--enable-profile-generate=cross" ]]; then
-         unset 'configureFlagsArray[i]'
-       fi
-     done
-     configureFlagsArray+=(
-       "--enable-profile-use=cross"
-       "--with-pgo-profile-path="$TMPDIR/merged.profdata""
-       "--with-pgo-jarlog="$TMPDIR/jarlog""
-     )
-   else
-     echo "Configuring to generate profiling data"
-     configureFlagsArray+=(
-       "--enable-profile-generate=cross"
-     )
-   fi
   '' + lib.optionalString googleAPISupport ''
     # Google API key used by Chromium and Firefox.
     # Note: These are for NixOS/nixpkgs use ONLY. For your own distribution,
@@ -303,6 +258,7 @@ buildStdenv.mkDerivation ({
     "--with-system-webp"
     "--with-system-zlib"
   ]
+  ++ lib.optional (!ltoSupport) "--with-clang-path=${llvmPackages.clang}/bin/clang"
   # LTO is done using clang and lld on Linux.
   ++ lib.optionals ltoSupport [
      "--enable-lto=cross" # Cross-Language LTO
@@ -321,7 +277,7 @@ buildStdenv.mkDerivation ({
   ++ flag gssSupport "negotiateauth"
   ++ flag webrtcSupport "webrtc"
   ++ flag crashreporterSupport "crashreporter"
-  ++ lib.optional (!drmSupport) "--disable-eme"
+  ++ lib.optional drmSupport "--enable-eme=widevine"
 
   ++ (if debugBuild then [ "--enable-debug" "--enable-profiling" ]
                     else [ "--disable-debug" "--enable-optimize" ])
@@ -380,33 +336,8 @@ buildStdenv.mkDerivation ({
   ++ lib.optional  jemallocSupport jemalloc
   ++ extraBuildInputs;
 
-  profilingPhase = lib.optionalString pgoSupport ''
-    # Package up Firefox for profiling
-    ./mach package
-
-    # Run profiling
-    (
-      export HOME=$TMPDIR
-      export LLVM_PROFDATA=llvm-profdata
-      export JARLOG_FILE="$TMPDIR/jarlog"
-
-      xvfb-run -w 10 -s "-screen 0 1920x1080x24" \
-        ./mach python ./build/pgo/profileserver.py
-    )
-
-    # Copy profiling data to a place we can easily reference
-    cp ./merged.profdata $TMPDIR/merged.profdata
-
-    # Clean build dir
-    ./mach clobber
-  '';
-
   preBuild = ''
     cd mozobj
-  '';
-
-  postBuild = ''
-    cd ..
   '';
 
   makeFlags = extraMakeFlags;
@@ -415,10 +346,6 @@ buildStdenv.mkDerivation ({
 
   # tests were disabled in configureFlags
   doCheck = false;
-
-  preInstall = ''
-    cd mozobj
-  '';
 
   postInstall = lib.optionalString buildStdenv.isLinux ''
     # Remove SDK cruft. FIXME: move to a separate output?

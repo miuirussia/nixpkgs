@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     maintainers = pkgs.plotinus.meta.maintainers;
   };
 
-  nodes.machine =
+  machine =
     { pkgs, ... }:
 
     { imports = [ ./common/x11.nix ];

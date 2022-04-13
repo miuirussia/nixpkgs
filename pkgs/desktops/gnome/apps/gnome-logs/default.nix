@@ -1,6 +1,6 @@
-{ stdenv
-, lib
+{ lib, stdenv
 , fetchurl
+, fetchpatch
 , meson
 , ninja
 , pkg-config
@@ -10,7 +10,6 @@
 , wrapGAppsHook
 , gettext
 , itstool
-, libhandy
 , libxml2
 , libxslt
 , docbook_xsl
@@ -22,12 +21,20 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-logs";
-  version = "42.0";
+  version = "3.36.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-logs/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "TV5FFp1r9DkC16npoHk8kW65LaumuoWzXI629nLNq9c=";
+    url = "mirror://gnome/sources/gnome-logs/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    sha256 = "0w1nfdxbv3f0wnhmdy21ydvr4swfc108hypda561p7l9lrhnnxj4";
   };
+
+  patches = [
+    # https://gitlab.gnome.org/GNOME/gnome-logs/-/issues/52
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/GNOME/gnome-logs/-/commit/b42defceefc775220b525f665a3b662ab9593b81.patch";
+      sha256 = "1s0zscmhwy7r0xff17wh8ik8x9xw1vrkipw5vl5i770bxnljps8n";
+    })
+  ];
 
   nativeBuildInputs = [
     python3
@@ -46,9 +53,9 @@ stdenv.mkDerivation rec {
   buildInputs = [
     glib
     gtk3
-    libhandy
     systemd
     gsettings-desktop-schemas
+    gnome.adwaita-icon-theme
   ];
 
   mesonFlags = [
@@ -73,7 +80,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Apps/Logs";
     description = "A log viewer for the systemd journal";
     maintainers = teams.gnome.members;
-    license = licenses.gpl3Plus;
+    license = licenses.gpl3;
     platforms = platforms.linux;
   };
 }

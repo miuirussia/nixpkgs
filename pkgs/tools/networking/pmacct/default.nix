@@ -11,21 +11,19 @@
 , withNflog ? true, libnetfilter_log
 , withSQLite ? true, sqlite
 , withPgSQL ? true, postgresql
-, withMysql ? true, libmysqlclient, zlib, numactl
+, withMysql ? true, libmysqlclient, zlib
 , gnutlsSupport ? false, gnutls
-, testVersion
-, pmacct
 }:
 
 stdenv.mkDerivation rec {
-  version = "1.7.7";
+  version = "1.7.6";
   pname = "pmacct";
 
   src = fetchFromGitHub {
     owner = "pmacct";
     repo = "pmacct";
     rev = "v${version}";
-    sha256 = "1pjaa44qj3y5dfwsd1a9r7a4riy7afza8phx2npcsyyarssxc63w";
+    sha256 = "0x1i75hwz44siqvn4i58jgji0zwrqgn6ayv89s9m9nh3b423nsiv";
   };
 
   nativeBuildInputs = [
@@ -40,7 +38,7 @@ stdenv.mkDerivation rec {
   ++ lib.optional withNflog libnetfilter_log
   ++ lib.optional withSQLite sqlite
   ++ lib.optional withPgSQL postgresql
-  ++ lib.optionals withMysql [ libmysqlclient zlib numactl ]
+  ++ lib.optionals withMysql [ libmysqlclient zlib ]
   ++ lib.optional gnutlsSupport gnutls;
 
   MYSQL_CONFIG = lib.optionalString withMysql "${lib.getDev libmysqlclient}/bin/mysql_config";
@@ -54,10 +52,6 @@ stdenv.mkDerivation rec {
   ++ lib.optional withMysql "--enable-mysql"
   ++ lib.optional gnutlsSupport "--enable-gnutls";
 
-  passthru.tests = {
-    version = testVersion { package = pmacct; command = "pmacct -V"; };
-  };
-
   meta = with lib; {
     description = "A small set of multi-purpose passive network monitoring tools";
     longDescription = ''
@@ -65,7 +59,6 @@ stdenv.mkDerivation rec {
       [NetFlow IPFIX sFlow libpcap BGP BMP RPKI IGP Streaming Telemetry]
     '';
     homepage = "http://www.pmacct.net/";
-    changelog = "https://github.com/pmacct/pmacct/blob/v${version}/ChangeLog";
     license = licenses.gpl2;
     maintainers = with maintainers; [ _0x4A6F ];
     platforms = platforms.unix;

@@ -13,7 +13,7 @@
 , glib
 , appstream
 , libsoup
-, libadwaita
+, libhandy
 , polkit
 , isocodes
 , gspell
@@ -21,7 +21,7 @@
 , gobject-introspection
 , flatpak
 , fwupd
-, gtk4
+, gtk3
 , gsettings-desktop-schemas
 , gnome-desktop
 , libxmlb
@@ -42,11 +42,11 @@ in
 
 stdenv.mkDerivation rec {
   pname = "gnome-software";
-  version = "42.0";
+  version = "41.4";
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-software/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "QsaF4u95li6zCo6VjHA8mh899zFQQiOgYos7Yk733B4=";
+    sha256 = "evhzzkcs8racUbyevGG4Nt+8z9b0Jwbj7TqpCaruxGU=";
   };
 
   patches = [
@@ -73,12 +73,12 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    gtk4
+    gtk3
     glib
     packagekit
     appstream
     libsoup
-    libadwaita
+    libhandy
     gsettings-desktop-schemas
     gnome-desktop
     gspell
@@ -97,8 +97,6 @@ stdenv.mkDerivation rec {
     "-Dgudev=false"
     # FIXME: package malcontent parental controls
     "-Dmalcontent=false"
-    # Needs flatpak to upgrade
-    "-Dsoup2=true"
   ] ++ lib.optionals (!withFwupd) [
     "-Dfwupd=false"
   ];

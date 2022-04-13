@@ -31,13 +31,7 @@ in stdenv.mkDerivation rec {
       })
     ++ (if isFuse3
       then [ ./fuse3-install.patch ./fuse3-Do-not-set-FUSERMOUNT_DIR.patch ]
-      else [
-        ./fuse2-Do-not-set-FUSERMOUNT_DIR.patch
-        (fetchpatch {
-          url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-fs/fuse/files/fuse-2.9.9-closefrom-glibc-2-34.patch?id=8a970396fca7aca2d5a761b8e7a8242f1eef14c9";
-          sha256 = "sha256-ELYBW/wxRcSMssv7ejCObrpsJHtOPJcGq33B9yHQII4=";
-        })
-      ]);
+      else [ ./fuse2-Do-not-set-FUSERMOUNT_DIR.patch ]);
 
   nativeBuildInputs = if isFuse3
     then [ meson ninja pkg-config ]
@@ -98,7 +92,7 @@ in stdenv.mkDerivation rec {
       provides the reference implementation for communicating with the FUSE
       kernel module.
     '';
-    homepage = "https://github.com/libfuse/libfuse";
+    inherit (src.meta) homepage;
     changelog = "https://github.com/libfuse/libfuse/releases/tag/fuse-${version}";
     platforms = platforms.linux;
     license = with licenses; [ gpl2Only lgpl21Only ];

@@ -23,11 +23,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-text-editor";
-  version = "42.0";
+  version = "41.1";
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-text-editor/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-DjIUDuHBNChWO81feE5h7iL/0a0n2MAig7Q1ioHfq1A=";
+    sha256 = "sha256-YZ7FINbgkF1DEWcCTkPc4Nv2o0Xy1IaTUB1w3HYm+GE=";
   };
 
   nativeBuildInputs = [
@@ -52,6 +52,14 @@ stdenv.mkDerivation rec {
     libadwaita
     pcre
   ];
+
+  postPatch = ''
+    chmod +x build-aux/meson/postinstall.py
+    patchShebangs build-aux/meson/postinstall.py
+    substituteInPlace build-aux/meson/postinstall.py \
+      --replace "gtk-update-icon-cache" "gtk4-update-icon-cache"
+  '';
+
 
   passthru = {
     updateScript = gnome.updateScript {

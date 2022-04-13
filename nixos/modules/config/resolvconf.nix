@@ -47,8 +47,8 @@ in
 
       enable = mkOption {
         type = types.bool;
-        default = !(config.environment.etc ? "resolv.conf");
-        defaultText = literalExpression ''!(config.environment.etc ? "resolv.conf")'';
+        default = false;
+        internal = true;
         description = ''
           DNS configuration is managed by resolvconf.
         '';
@@ -110,6 +110,8 @@ in
 
   config = mkMerge [
     {
+      networking.resolvconf.enable = !(config.environment.etc ? "resolv.conf");
+
       environment.etc."resolvconf.conf".text =
         if !cfg.enable then
           # Force-stop any attempts to use resolvconf

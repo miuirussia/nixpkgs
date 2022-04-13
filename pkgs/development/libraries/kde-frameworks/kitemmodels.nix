@@ -5,7 +5,7 @@
 }:
 
 mkDerivation {
-  pname = "kitemmodels";
+  name = "kitemmodels";
   nativeBuildInputs = [ extra-cmake-modules ];
   propagatedBuildInputs = [ qtbase ];
   outputs = [ "out" "dev" ];

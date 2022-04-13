@@ -1,18 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, dtc, pkgsCross }:
+{ lib, stdenv, fetchFromGitHub, dtc, fetchpatch, pkgsCross }:
 
 stdenv.mkDerivation rec {
   pname = "spike";
-  version = "1.1.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "riscv";
     repo = "riscv-isa-sim";
     rev = "v${version}";
-    sha256 = "sha256-4D2Fezej0ioOOupw3kgMT5VLs+/jXQjwvek6v0AVMzI=";
+    sha256 = "1hcl01nj96s3rkz4mrq747s5lkw81lgdjdimb8b1b9h8qnida7ww";
   };
 
   nativeBuildInputs = [ dtc ];
   enableParallelBuilding = true;
+
+  patches = [
+    # Add missing headers to fix build.
+    (fetchpatch {
+      url = "https://github.com/riscv/riscv-isa-sim/commit/b3855682c2d744c613d2ffd6b53e3f021ecea4f3.patch";
+      sha256 = "1v1mpp4iddf5n4h3kmj65g075m7xc31bxww7gldnmgl607ma7cnl";
+    })
+  ];
 
   postPatch = ''
     patchShebangs scripts/*.sh
@@ -31,9 +39,7 @@ stdenv.mkDerivation rec {
     ''
       runHook preInstallCheck
 
-      echo -e "#include<stdio.h>\nint main() {printf(\"Hello, world\");return 0;}" > hello.c
-      ${riscvPkgs.stdenv.cc}/bin/riscv64-none-elf-gcc -o hello hello.c
-      $out/bin/spike -m64 ${riscvPkgs.riscv-pk}/bin/pk hello | grep -Fq "Hello, world"
+      $out/bin/spike -m64 ${riscvPkgs.riscv-pk}/bin/pk ${riscvPkgs.hello}/bin/hello | grep -Fq "Hello, world"
 
       runHook postInstallCheck
     '';

@@ -4,7 +4,6 @@
 
   # build inputs
 , atk
-, file
 , gdk-pixbuf
 , glib-networking
 , gnome-desktop
@@ -18,7 +17,7 @@
 
   # check inputs
 , xvfb-run
-, nose2
+, nose
 , flake8
 
   # python dependencies
@@ -84,13 +83,13 @@ let
 in
 buildPythonApplication rec {
   pname = "lutris-original";
-  version = "0.5.10";
+  version = "0.5.9.1";
 
   src = fetchFromGitHub {
     owner = "lutris";
     repo = "lutris";
     rev = "v${version}";
-    sha256 = "sha256-PrnULCdQXNZ9OTa00NVyqiTdKRRkAYBcDj7lMwEqkw4=";
+    sha256 = "sha256-ykPJneCKbFKv0x/EDo9PkRb1LkMeFeYzTDmvE3ShNe0=";
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
@@ -104,7 +103,6 @@ buildPythonApplication rec {
     libnotify
     pango
     webkitgtk
-    python_magic
   ] ++ gstDeps;
 
   propagatedBuildInputs = [
@@ -120,19 +118,19 @@ buildPythonApplication rec {
     python_magic
   ];
 
-  postPatch = ''
-    substituteInPlace lutris/util/magic.py \
-      --replace "'libmagic.so.1'" "'${lib.getLib file}/lib/libmagic.so.1'"
-  '';
-
-
-  checkInputs = [ xvfb-run nose2 flake8 ] ++ requiredTools;
+  checkInputs = [ xvfb-run nose flake8 ] ++ requiredTools;
   preCheck = "export HOME=$PWD";
   checkPhase = ''
     runHook preCheck
     xvfb-run -s '-screen 0 800x600x24' make test
     runHook postCheck
   '';
+
+  # unhardcodes xrandr and fixes nosetests
+  # upstream in progress: https://github.com/lutris/lutris/pull/3754
+  patches = [
+    ./fixes.patch
+  ];
 
   # avoid double wrapping
   dontWrapGApps = true;

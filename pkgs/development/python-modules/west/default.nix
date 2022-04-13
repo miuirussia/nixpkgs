@@ -1,24 +1,16 @@
-{ lib
-, buildPythonPackage
-, colorama
-, configobj
-, fetchPypi
-, packaging
-, pykwalify
-, pythonOlder
-, pyyaml
+{ lib, fetchPypi, buildPythonPackage, isPy3k
+, colorama, configobj, packaging, pyyaml, pykwalify
 }:
 
 buildPythonPackage rec {
+  version = "0.12.0";
   pname = "west";
-  version = "0.13.0";
-  format = "setuptools";
 
-  disabled = pythonOlder "3.6";
+  disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-jlOmeIM6NfgYykjhgs7KpnAXFMbT/lpbT/bBaJ2CGY4=";
+    sha256 = "d7ce0d719fd218fee5983442fe93a33a21a6be6a736915a7ffbe75369714e9ce";
   };
 
   propagatedBuildInputs = [
@@ -32,12 +24,12 @@ buildPythonPackage rec {
   # pypi package does not include tests (and for good reason):
   # tests run under 'tox' and have west try to git clone repos (not sandboxable)
   doCheck = false;
-
   pythonImportsCheck = [
     "west"
   ];
 
   meta = with lib; {
+    homepage = "https://github.com/zephyrproject-rtos/west";
     description = "Zephyr RTOS meta tool";
     longDescription = ''
       West lets you manage multiple Git repositories under a single directory using a single file,
@@ -55,7 +47,6 @@ buildPythonPackage rec {
       For more details, see Multiple Repository Management in the west documentation
       (https://docs.zephyrproject.org/latest/guides/west/repo-tool.html).
     '';
-    homepage = "https://github.com/zephyrproject-rtos/west";
     license = licenses.asl20;
     maintainers = with maintainers; [ siriobalmelli ];
   };

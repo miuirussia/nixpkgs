@@ -59,9 +59,7 @@ in stdenv.mkDerivation rec {
     "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
   ];
 
-  postPatch = ''
-    patchShebangs lib/OffloadArch/make_generated_offload_arch_h.sh
-  '' + lib.optionalString enableSharedLibraries ''
+  postPatch = lib.optional enableSharedLibraries ''
     substitute '${./outputs.patch}' ./outputs.patch --subst-var lib
     patch -p1 < ./outputs.patch
   '';

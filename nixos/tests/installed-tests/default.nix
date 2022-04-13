@@ -43,7 +43,7 @@ let
             maintainers = tested.meta.maintainers;
           };
 
-          nodes.machine = { ... }: {
+          machine = { ... }: {
             imports = [
               testConfig
             ] ++ optional withX11 ../common/x11.nix;

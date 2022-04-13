@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "m-cli";
-  version = "0.3.0";
+  version = "0.2.5";
 
   src = fetchFromGitHub {
     owner = "rgcr";
-    repo = pname;
+    repo = "m-cli";
     rev = "v${version}";
-    sha256 = "sha256-KzlE1DdVMLnGmcOS1a2HK4pASofD1EHpdqbzVVIxeb4=";
+    sha512 = "0mkcx7jq91pbfs8327qc8434gj73fvjgdfdsrza0lyd9wns6jhsqsf0585klzl68aqscvksgzi2asdnim4va35cdkp2fdzl0g3sm4kd";
   };
 
   dontBuild = true;
@@ -40,6 +40,5 @@ stdenv.mkDerivation rec {
 
     platforms = platforms.darwin;
     maintainers = with maintainers; [];
-    mainProgram = "m";
   };
 }

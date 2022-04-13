@@ -4,6 +4,8 @@
 , neovim
 }:
 
+with lib;
+
 with python3.pkgs; buildPythonApplication rec {
   pname = "neovim-remote";
   version = "2.4.0";
@@ -33,12 +35,11 @@ with python3.pkgs; buildPythonApplication rec {
     "test_escape_double_quotes_in_filenames"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A tool that helps controlling nvim processes from a terminal";
     homepage = "https://github.com/mhinz/neovim-remote/";
     license = licenses.mit;
     maintainers = with maintainers; [ edanaher ];
     platforms = platforms.unix;
-    mainProgram = "nvr";
   };
 }

@@ -1,44 +1,22 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, pygccxml
-, pythonOlder
-, setuptools-scm
-}:
-
+{ lib, fetchPypi, buildPythonPackage, isPy3k, setuptools-scm, pygccxml }:
 buildPythonPackage rec {
-  pname = "pybindgen";
-  version = "0.22.1";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  pname = "PyBindGen";
+  version = "0.22.0";
 
   src = fetchPypi {
-    pname = "PyBindGen";
-    inherit version;
-    hash = "sha256-jH8iORpJqEUY9aKtBuOlseg50Q402nYxUZyKKPy6N2Q=";
+    inherit pname version;
+    sha256 = "5b4837d3138ac56863d93fe462f1dac39fb87bd50898e0da4c57fefd645437ac";
   };
 
-  buildInputs = [
-    setuptools-scm
-  ];
+  buildInputs = [ setuptools-scm ];
 
-  checkInputs = [
-    pygccxml
-  ];
-
-  pythonImportsCheck = [
-    "pybindgen"
-  ];
-
-  # Fails to import module 'cxxfilt' from pygccxml on Py3k
-  doCheck = (!isPy3k);
+  checkInputs = [ pygccxml ];
+  doCheck = (!isPy3k); # Fails to import module 'cxxfilt' from pygccxml on Py3k
 
   meta = with lib; {
-    description = "Python Bindings Generator";
     homepage = "https://github.com/gjcarneiro/pybindgen";
-    license = licenses.lgpl21Plus;
+    description = "Python Bindings Generator";
+    license = licenses.lgpl2;
     maintainers = with maintainers; [ teto ];
   };
 }

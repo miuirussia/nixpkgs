@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ...} : {
     maintainers = [ nequissimus ];
   };
 
-  nodes.machine = { pkgs, ... }:
+  machine = { pkgs, ... }:
     {
       imports = [ ./common/x11.nix ];
       services.xserver.desktopManager.xterm.enable = false;

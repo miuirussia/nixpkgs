@@ -13,8 +13,6 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ readline ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
-
   postPatch = ''
     substituteInPlace Makefile --replace '`svnversion -n`' "${version}"
   '';
@@ -48,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/zsaleeba/picoc";
     downloadPage = "https://code.google.com/p/picoc/downloads/list";
     license = licenses.bsd3;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }

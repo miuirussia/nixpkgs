@@ -5,7 +5,7 @@ import ./make-test-python.nix (
       maintainers = [ symphorien ];
     };
 
-    nodes.machine = { lib, ... }: let
+    machine = { lib, ... }: let
       writer = pkgs.writeShellScript "write" ''
         set -x
         echo "$@"  >> /tmp/notifications

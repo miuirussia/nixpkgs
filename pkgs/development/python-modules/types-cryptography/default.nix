@@ -7,11 +7,11 @@
 
 buildPythonPackage rec {
   pname = "types-cryptography";
-  version = "3.3.19";
+  version = "3.3.18";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-+VcTjwczMrnAfq2wgx76pXj9tgTlU6w41yxGeutLfCM=";
+    sha256 = "sha256-RI/q+a4xImFJvGvOHPj/9U2mYe8Eg398DDFoKYhcNig=";
   };
 
   pythonImportsCheck = [

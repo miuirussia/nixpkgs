@@ -1,13 +1,14 @@
 { lib, buildGoModule, fetchgit }:
 
 buildGoModule rec {
-  pname = "gotools";
-  version = "0.1.10";
+  pname = "gotools-unstable";
+  version = "2021-01-13";
+  rev = "8b4aab62c064010e8e875d2e5a8e63a96fefc87d";
 
   src = fetchgit {
-    rev = "v${version}";
+    inherit rev;
     url = "https://go.googlesource.com/tools";
-    sha256 = "sha256-r71+//VhayW18uvMl/ls/8KYNbZ7uDZw3SWoqPL3Xqk=";
+    sha256 = "1cmnm9fl2a6hiplj8s6x0l3czcw4xh3j3lvzbgccnp1l8kz8q2vm";
   };
 
   # The gopls folder contains a Go submodule which causes a build failure.
@@ -24,7 +25,7 @@ buildGoModule rec {
     rm -rf gopls
   '';
 
-  vendorSha256 = "sha256-UJIXG8WKzazNTXoqEFlT/umC40F6z2Q5I8RfxnMbsPM=";
+  vendorSha256 = "18qpjmmjpk322fvf81cafkpl3spv7hpdpymhympmld9isgzggfyz";
 
   doCheck = false;
 
@@ -38,7 +39,9 @@ buildGoModule rec {
     export GOTOOLDIR=$out/bin
   '';
 
-  excludedPackages = [ "vet" "cover" ];
+  excludedPackages = "\\("
+    + lib.concatStringsSep "\\|" ([ "testdata" "vet" "cover" ])
+    + "\\)";
 
   # Set GOTOOLDIR for derivations adding this to buildInputs
   postInstall = ''
@@ -50,11 +53,4 @@ buildGoModule rec {
   # Do not copy this without a good reason for enabling
   # In this case tools is heavily coupled with go itself and embeds paths.
   allowGoReference = true;
-
-  meta = with lib; {
-    description = "Additional tools for Go development";
-    homepage = "http://go.googlesource.com/tools";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ danderson ];
-  };
 }

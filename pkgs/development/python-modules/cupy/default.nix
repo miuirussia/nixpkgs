@@ -1,31 +1,22 @@
 { lib, buildPythonPackage
 , fetchPypi, isPy3k, cython
 , fastrlock, numpy, six, wheel, pytestCheckHook, mock, setuptools
-, cudaPackages
+, cudatoolkit, cudnn, cutensor, nccl
 , addOpenGLRunpath
 }:
 
-let
-  inherit (cudaPackages) cudatoolkit cudnn cutensor nccl;
-in buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "cupy";
-  version = "10.3.1";
+  version = "10.2.0";
   disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-c8BOKI1AWU+zN8lhliRus55PUAgvFm+TlxKToYn7jWc=";
+    sha256 = "sha256-5ovvA76QGOsOnVztMfDgLerks5nJrKR08rLc+ArmWA8=";
   };
 
-  # See https://docs.cupy.dev/en/v10.2.0/reference/environment.html. Seting both
-  # CUPY_NUM_BUILD_JOBS and CUPY_NUM_NVCC_THREADS to NIX_BUILD_CORES results in
-  # a small amount of thrashing but it turns out there are a large number of
-  # very short builds and a few extremely long ones, so setting both ends up
-  # working nicely in practice.
   preConfigure = ''
     export CUDA_PATH=${cudatoolkit}
-    export CUPY_NUM_BUILD_JOBS="$NIX_BUILD_CORES"
-    export CUPY_NUM_NVCC_THREADS="$NIX_BUILD_CORES"
   '';
 
   nativeBuildInputs = [

@@ -3,7 +3,7 @@
 , pythonOlder
 , lib
 , setuptools-scm
-, pytestCheckHook
+, pytest
 , typing-extensions
 , glibcLocales
 }:
@@ -26,17 +26,12 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace " --cov" ""
   '';
 
-  checkInputs = [ pytestCheckHook typing-extensions ];
+  checkInputs = [ pytest typing-extensions ];
 
-  disabledTestPaths = [
-    # mypy tests aren't passing with latest mypy
-    "tests/mypy"
-  ];
-
-  disabledTests = [
-    # not compatible with python3.10
-    "test_typed_dict"
-  ];
+  # mypy tests aren't passing with latest mypy
+  checkPhase = ''
+    py.test . --ignore=tests/mypy
+  '';
 
   disabled = pythonOlder "3.3";
 

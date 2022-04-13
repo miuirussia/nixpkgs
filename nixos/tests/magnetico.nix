@@ -9,7 +9,7 @@ in
     maintainers = [ rnhmjoj ];
   };
 
-  nodes.machine = { ... }: {
+  machine = { ... }: {
     imports = [ ../modules/profiles/minimal.nix ];
 
     networking.firewall.allowedTCPPorts = [ 9000 ];

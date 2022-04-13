@@ -5,7 +5,7 @@ in {
   name = "osrm-backend";
   meta.maintainers = [ lib.maintainers.erictapen ];
 
-  nodes.machine = { config, pkgs, ... }:{
+  machine = { config, pkgs, ... }:{
 
     services.osrm = {
       enable = true;

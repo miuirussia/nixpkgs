@@ -28,7 +28,7 @@ in lib.optionalAttrs stdenv.hostPlatform.isLinux (
 
     nixosTest-test = pkgs.nixosTest ({ lib, pkgs, figlet, ... }: {
       name = "nixosTest-test";
-      nodes.machine = { pkgs, ... }: {
+      machine = { pkgs, ... }: {
         system.nixos = dummyVersioning;
         environment.systemPackages = [ pkgs.hello figlet ];
       };

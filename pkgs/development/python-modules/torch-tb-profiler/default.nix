@@ -4,7 +4,7 @@
 , pandas
 , pytestCheckHook
 , pytorch
-, tensorboard
+, tensorflow-tensorboard
 , torchvision
 }:
 
@@ -25,7 +25,7 @@ buildPythonPackage rec {
   # See https://discourse.nixos.org/t/extracting-sub-directory-from-fetchgit-or-fetchurl-or-any-derivation/8830.
   src = "${repo}/tb_plugin";
 
-  propagatedBuildInputs = [ pandas tensorboard ];
+  propagatedBuildInputs = [ pandas tensorflow-tensorboard ];
 
   checkInputs = [ pytestCheckHook pytorch torchvision ];
 

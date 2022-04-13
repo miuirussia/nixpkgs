@@ -4,13 +4,13 @@ buildDunePackage rec {
   minimumOCamlVersion = "4.06";
 
   pname = "mirage-time";
-  version = "3.0.0";
+  version = "2.0.1";
 
   useDune2 = true;
 
   src = fetchurl {
     url = "https://github.com/mirage/mirage-time/releases/download/v${version}/mirage-time-v${version}.tbz";
-    sha256 = "sha256-DUCUm1jix+i3YszIzgZjRQRiM8jJXQ49F6JC/yicvXw=";
+    sha256 = "1w6mm4g7fc19cs0ncs0s9fsnb1k1s04qqzs9bsqvq8ngsb90cbh0";
   };
 
   propagatedBuildInputs = [ ocaml_lwt ];

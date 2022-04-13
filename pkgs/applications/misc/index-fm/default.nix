@@ -3,6 +3,7 @@
 , fetchFromGitLab
 , cmake
 , extra-cmake-modules
+, applet-window-buttons
 , karchive
 , kcoreaddons
 , ki18n
@@ -37,6 +38,7 @@ mkDerivation rec {
   ];
 
   buildInputs = [
+    applet-window-buttons
     karchive
     kcoreaddons
     ki18n

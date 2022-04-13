@@ -11,16 +11,16 @@
 
 buildPythonPackage rec {
   pname = "mizani";
-  version = "0.7.4";
+  version = "0.7.3";
   format = "setuptools";
 
-  disabled = pythonOlder "3.8";
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "has2k1";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-oqbo/aQ5L1nQO8BvXH6/8PBPiWcv2m/LUjwow8+J90w=";
+    sha256 = "04r53dp5jbklv8l9ncgc5wiq0gx25y73h65gmmbbfkxwgsl3w78l";
   };
 
   propagatedBuildInputs = [

@@ -29,11 +29,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "openttd";
-  version = "12.2";
+  version = "12.1";
 
   src = fetchurl {
     url = "https://cdn.openttd.org/openttd-releases/${version}/${pname}-${version}-source.tar.xz";
-    hash = "sha256-gVCPDek6DCZLIW71agX4OB//e/+m0BASGiFJC02s6Vw=";
+    sha256 = "sha256-JYv1uZgwEIkLoQUYtQa8SrgPfAjM7FlJfpulWkqj5+M=";
   };
 
   nativeBuildInputs = [ cmake makeWrapper ];

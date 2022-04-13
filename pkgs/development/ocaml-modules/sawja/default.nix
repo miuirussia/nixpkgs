@@ -2,7 +2,8 @@
 
 let
   pname = "sawja";
-  version = "1.5.11";
+  version = "1.5.10";
+  webpage = "http://sawja.inria.fr/";
 in
 
 if !lib.versionAtLeast ocaml.version "4.07"
@@ -19,7 +20,7 @@ stdenv.mkDerivation {
     owner = "javalib-team";
     repo = pname;
     rev = version;
-    sha256 = "sha256-1aKkRZDuLJLmDhUC1FXnn4QrgXaTyAbnXfTOAdnKgs8=";
+    sha256 = "sha256:0k51rscs9mdgpg3qn4cahql5ncdvlb207m015hr8v6r1vfgn0ddq";
   };
 
   nativeBuildInputs = [ which ocaml findlib ];
@@ -41,7 +42,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "A library written in OCaml, relying on Javalib to provide a high level representation of Java bytecode programs";
-    homepage = "http://sawja.inria.fr/";
+    homepage = webpage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.vbgl ];
     platforms = ocaml.meta.platforms or [];

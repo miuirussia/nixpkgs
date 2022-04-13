@@ -13,14 +13,14 @@
 
 buildPythonPackage rec {
   pname = "slixmpp";
-  version = "1.8.2";
+  version = "1.8.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-U7lD2iVy2gS5Ktop4PVKg+cUbIg4MJt+m6tH5aOb1Y4=";
+    hash = "sha256-QgTIC+4JtAD9nnS+fJKZwF0aJEIrFmPHkYg8cPgXmcA=";
   };
 
   propagatedBuildInputs = [
@@ -44,7 +44,6 @@ buildPythonPackage rec {
   disabledTestPaths = [
     # Exclude live tests
     "tests/live_test.py"
-    "tests/test_xep_0454.py"
   ];
 
   pythonImportsCheck = [

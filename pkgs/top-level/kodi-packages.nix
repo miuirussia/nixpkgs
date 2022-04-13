@@ -153,7 +153,7 @@ let self = rec {
   trakt-module = callPackage ../applications/video/kodi/addons/trakt-module { };
 
   trakt = callPackage ../applications/video/kodi/addons/trakt { };
-}; in self // lib.optionalAttrs config.allowAliases {
+}; in self // lib.optionalAttrs (config.allowAliases or true) {
   # deprecated or renamed packages
 
   controllers = throw "kodi.packages.controllers has been replaced with kodi.packages.controller-topology-project - a package which contains a large number of controller profiles." { };

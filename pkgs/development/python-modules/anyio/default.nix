@@ -2,7 +2,6 @@
 , lib
 , buildPythonPackage
 , fetchFromGitHub
-, fetchpatch
 , pythonOlder
 , setuptools-scm
 , idna
@@ -20,7 +19,7 @@
 
 buildPythonPackage rec {
   pname = "anyio";
-  version = "3.5.0";
+  version = "3.3.4";
   format = "pyproject";
   disabled = pythonOlder "3.7";
 
@@ -28,16 +27,8 @@ buildPythonPackage rec {
     owner = "agronholm";
     repo = pname;
     rev = version;
-    sha256 = "sha256-AZ9M/NBCBlMIUpRJgKbJRL/oReZDUh2Jhwtoxoo0tMs=";
+    sha256 = "sha256-aMnXZ+4dlybId2QhjE/3STY+Sj/vzI6K7wmqqx+P8yE=";
   };
-
-  patches = [
-    (fetchpatch {
-      # Pytest 7.0 compatibility
-      url = "https://github.com/agronholm/anyio/commit/fed7cc4f95e196f68251bcb9253da3b143ea8e7e.patch";
-      sha256 = "sha256-VmZmiQEmWJ4aPz0Wx+GTMZo7jXRDScnRYf2Hu2hiRVw=";
-    })
-  ];
 
   preBuild = ''
     export SETUPTOOLS_SCM_PRETEND_VERSION=${version}

@@ -7,7 +7,6 @@
 , openssl
 , protobuf
 , zlib
-, catch2
 }:
 
 stdenv.mkDerivation rec {
@@ -20,10 +19,6 @@ stdenv.mkDerivation rec {
     rev = "et-v${version}";
     hash = "sha256-cCZbG0CD5V/FTj1BuVr083EJ+BCgIcKHomNtpJb3lOo=";
   };
-
-  preBuild = ''
-    cp ${catch2}/include/catch2/catch.hpp ../external_imported/Catch2/single_include/catch2/catch.hpp
-  '';
 
   nativeBuildInputs = [
     cmake
@@ -46,8 +41,6 @@ stdenv.mkDerivation rec {
   CXXFLAGS = lib.optional stdenv.cc.isClang [
     "-std=c++17"
   ];
-
-  doCheck = true;
 
   meta = with lib; {
     description = "Remote shell that automatically reconnects without interrupting the session";

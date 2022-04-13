@@ -48,8 +48,7 @@ buildPythonPackage {
     ln -s ${xgboost}/bin/xgboost ../xgboost
   '';
 
-  # tests are extremely cpu intensive, only run basic tests to ensure package is working
-  pytestFlagsArray = ["../tests/python/test_basic.py"];
+  pytestFlagsArray = ["../tests/python"];
   disabledTestPaths = [
     # Requires internet access: https://github.com/dmlc/xgboost/blob/03cd087da180b7dff21bd8ef34997bf747016025/tests/python/test_ranking.py#L81
     "../tests/python/test_ranking.py"

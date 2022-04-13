@@ -11,8 +11,6 @@ stdenv.mkDerivation rec {
     owner = "puppetlabs";
   };
 
-  cmakeFlags = [ "-DLEATHERMAN_ENABLE_TESTING=OFF" ];
-
   NIX_CFLAGS_COMPILE = "-Wno-error";
 
   nativeBuildInputs = [ cmake ];

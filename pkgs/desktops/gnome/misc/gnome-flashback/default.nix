@@ -1,10 +1,9 @@
-{ stdenv
-, lib
+{ lib, stdenv
 , autoreconfHook
 , fetchurl
 , gettext
 , glib
-, gnome-bluetooth_1_0
+, gnome-bluetooth
 , gnome-desktop
 , gnome-panel
 , gnome-session
@@ -31,7 +30,7 @@
 }:
 let
   pname = "gnome-flashback";
-  version = "3.44.0";
+  version = "3.42.1";
 
   # From data/sessions/Makefile.am
   requiredComponentsCommon = enableGnomePanel:
@@ -62,7 +61,7 @@ let
 
     src = fetchurl {
       url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${name}.tar.xz";
-      sha256 = "sha256-HfCDgSfGJG7s2J0cUP+I/IKr9t47MGjlLd5JWkK9VQo=";
+      sha256 = "sha256:0kl4m05whm03m2v0y3jd69lghkggn8s0hxdhvchcas7jmhh940n8";
     };
 
     # make .desktop Execs absolute
@@ -95,7 +94,7 @@ let
 
     buildInputs = [
       glib
-      gnome-bluetooth_1_0
+      gnome-bluetooth
       gnome-desktop
       gsettings-desktop-schemas
       gtk3

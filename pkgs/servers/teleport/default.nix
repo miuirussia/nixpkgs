@@ -60,7 +60,6 @@ buildGoModule rec {
     ./tsh.patch
     # https://github.com/NixOS/nixpkgs/issues/132652
     ./test.patch
-    ./0001-fix-add-nix-path-to-exec-env.patch
   ];
 
   # Reduce closure size for client machines

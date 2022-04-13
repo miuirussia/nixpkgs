@@ -24,10 +24,6 @@ stdenv.mkDerivation rec {
     "--with-nm-plugindir=$(out)/lib/NetworkManager"
   ];
 
-  passthru = {
-    networkManagerPlugin = "VPN/nm-strongswan-service.name";
-  };
-
   PKG_CONFIG_LIBNM_VPNSERVICEDIR = "$(out)/lib/NetworkManager/VPN";
 
   meta = with lib; {

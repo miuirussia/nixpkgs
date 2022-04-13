@@ -1,7 +1,7 @@
 import ./make-test-python.nix ({ pkgs, ... }: {
   name = "oh-my-zsh";
 
-  nodes.machine = { pkgs, ... }:
+  machine = { pkgs, ... }:
 
     {
       programs.zsh = {

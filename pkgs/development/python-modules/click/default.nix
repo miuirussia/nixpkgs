@@ -5,23 +5,15 @@
 , importlib-metadata
 , locale
 , pytestCheckHook
-
-# large-rebuild downstream dependencies
-, flask
-, black
-
-# applications
-, magic-wormhole
-, mitmproxy
 }:
 
 buildPythonPackage rec {
   pname = "click";
-  version = "8.0.4";
+  version = "8.0.3";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-hFjXsSh8X7EoyQ4jOBz5nc3nS+r2x/9jhM6E1v4JCts=";
+    sha256 = "sha256-QQ6TKwUPXu13PEzalN51lxyJzbMVWnKggxE5p55ey1s=";
   };
 
   postPatch = ''
@@ -36,10 +28,6 @@ buildPythonPackage rec {
   checkInputs = [
     pytestCheckHook
   ];
-
-  passthru.tests = {
-    inherit black flask magic-wormhole mitmproxy;
-  };
 
   meta = with lib; {
     homepage = "https://click.palletsprojects.com/";

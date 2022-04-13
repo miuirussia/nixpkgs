@@ -16,8 +16,6 @@
 , rustc
 , rust
 , cargo
-, gi-docgen
-, python3
 , gnome
 , vala
 , withIntrospection ? stdenv.hostPlatform == stdenv.buildPlatform
@@ -27,15 +25,13 @@
 
 stdenv.mkDerivation rec {
   pname = "librsvg";
-  version = "2.54.0";
+  version = "2.52.6";
 
-  outputs = [ "out" "dev" "installedTests" ] ++ lib.optionals withIntrospection [
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "installedTests" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "uvjrwUfxRrQmG7PQzQ+slEv427Sx8jR9IzQfl03MMIU=";
+    sha256 = "o/k5oeajpgQIJEYy0DI/jDsg60t7AAU24uW9k7jv+q0=";
   };
 
   cargoVendorDir = "vendor";
@@ -49,12 +45,10 @@ stdenv.mkDerivation rec {
     pkg-config
     rustc
     cargo
-    python3.pkgs.docutils
     vala
     rustPlatform.cargoSetupHook
   ] ++ lib.optionals withIntrospection [
     gobject-introspection
-    gi-docgen
   ];
 
   buildInputs = [
@@ -123,11 +117,6 @@ stdenv.mkDerivation rec {
     # Merge gdkpixbuf and librsvg loaders
     cat ${lib.getLib gdk-pixbuf}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache $GDK_PIXBUF/loaders.cache > $GDK_PIXBUF/loaders.cache.tmp
     mv $GDK_PIXBUF/loaders.cache.tmp $GDK_PIXBUF/loaders.cache
-  '';
-
-  postFixup = ''
-    # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
-    moveToOutput "share/doc" "$devdoc"
   '';
 
   passthru = {

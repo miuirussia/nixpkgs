@@ -25,8 +25,7 @@ stdenv.mkDerivation {
     sha256 = "06s9nl155yxmx56056y22kz1p5b2sb5fhr3gf4ddlczjkd1xch53";
   };
 
-  nativeBuildInputs = [ autoconf automake ];
-  buildInputs = [ libtool
+  buildInputs = [ autoconf libtool automake
                   cups popt libtiff libpng
                   ghostscript ];
 

@@ -62,12 +62,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   makeFlags = [ "V=1" ];
 
-  postConfigure = ''
-    mkdir ${placeholder "bindingconfig"}
-    cp bindings/python-cffi/_notmuch_config.py ${placeholder "bindingconfig"}/
-  '';
-
-  outputs = [ "out" "man" "info" "bindingconfig" ]
+  outputs = [ "out" "man" "info" ]
     ++ lib.optional withEmacs "emacs"
     ++ lib.optional withRuby "ruby";
 

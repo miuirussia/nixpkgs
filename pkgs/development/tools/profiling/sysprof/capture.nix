@@ -17,7 +17,6 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "-Dwith_sysprofd=none"
     "-Dlibsysprof=false"
-    "-Dlibunwind=false"
     "-Dhelp=false"
     "-Denable_tools=false"
     "-Denable_tests=false"

@@ -1,7 +1,5 @@
-{ stdenv
-, lib
+{ lib, stdenv
 , fetchFromGitHub
-, itstool
 , meson
 , ninja
 , pkg-config
@@ -26,7 +24,6 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    itstool
     meson
     ninja
     pkg-config

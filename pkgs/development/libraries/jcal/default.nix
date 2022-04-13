@@ -3,7 +3,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "jcal";
+  name = "jcal";
   version = "0.4.1";
 
   src = fetchFromGitHub {

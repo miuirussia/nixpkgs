@@ -10,7 +10,7 @@ else
 buildDunePackage rec {
   pname = "stog";
   version = "0.20.0";
-  duneVersion = "3";
+  useDune2 = true;
   minimalOCamlVersion = "4.12";
   src = fetchFromGitLab {
     domain = "framagit.org";

@@ -11,23 +11,24 @@
 }:
 stdenv.mkDerivation rec {
   pname = "roon-bridge";
-  version = "1.8-918";
+  version = "1.8-880";
 
   src =
     let
       urlVersion = builtins.replaceStrings [ "." "-" ] [ "00" "00" ] version;
       inherit (stdenv.targetPlatform) system;
+      noSuchSystem = throw "Unsupposed system: ${system}";
     in
       {
         x86_64-linux = fetchurl {
           url = "http://download.roonlabs.com/builds/RoonBridge_linuxx64_${urlVersion}.tar.bz2";
-          hash = "sha256-Tx8KmGKh6BNoo2RKJm0HfPHRXiFsz+FtX5gQZ1FCEEg=";
+          sha256 = "sha256-YTLy3D1CQR1hlsGw2MmZtxHT82T0PCYZxD4adt2m1+o=";
         };
         aarch64-linux = fetchurl {
           url = "http://download.roonlabs.com/builds/RoonBridge_linuxarmv8_${urlVersion}.tar.bz2";
-          hash = "sha256-UkdAs+/l9c4j8PNlAZfNNCJogjxZItcDikS+tOjYjA0=";
+          sha256 = "sha256-aCQtYMUIzwhmYJW4a8cFzIRuxyMVIkeaJH4w1Lasp3M=";
         };
-      }.${system} or (throw "Unsupposed system: ${system}");
+      }.${system} or noSuchSystem;
 
   dontConfigure = true;
   dontBuild = true;

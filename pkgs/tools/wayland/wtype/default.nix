@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation rec {
   pname = "wtype";
-  version = "0.4";
+  version = "0.3";
 
   src = fetchFromGitHub {
     owner = "atx";
     repo = "wtype";
     rev = "v${version}";
-    hash = "sha256-TfpzAi0mkXugQn70MISyNFOXIJpDwvgh3enGv0Xq8S4=";
+    hash = "sha256-8q2PxI3ItR4tsP/KOiSlqnuK4ZSe7OdekheolEFVmys=";
   };
 
   nativeBuildInputs = [ meson ninja pkg-config wayland ];

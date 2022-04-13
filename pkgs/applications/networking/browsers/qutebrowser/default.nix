@@ -1,12 +1,10 @@
 { stdenv, lib, fetchurl, fetchzip, python3
 , mkDerivationWith, wrapQtAppsHook, wrapGAppsHook, qtbase, qtwebengine, glib-networking
-, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxml2
+, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxml2, pipewire_0_2
 , libxslt, gst_all_1 ? null
 , withPdfReader      ? true
 , withMediaPlayback  ? true
 , backend            ? "webengine"
-, pipewireSupport    ? stdenv.isLinux
-, pipewire_0_2
 }:
 
 assert withMediaPlayback -> gst_all_1 != null;
@@ -33,12 +31,12 @@ let
 
 in mkDerivationWith python3Packages.buildPythonApplication rec {
   pname = "qutebrowser";
-  version = "2.5.0";
+  version = "2.4.0";
 
   # the release tarballs are different from the git checkout!
   src = fetchurl {
     url = "https://github.com/qutebrowser/qutebrowser/releases/download/v${version}/${pname}-${version}.tar.gz";
-    sha256 = "1zai8ivc9cqax2idspwvyp24dkis0x6sv29fia8ja3sp62i45171";
+    sha256 = "8s2auxTrq/ljBXOy+4RHvhkod3h9xOOWThtV9yqFkuw=";
   };
 
   # Needs tox
@@ -123,7 +121,7 @@ in mkDerivationWith python3Packages.buildPythonApplication rec {
       "''${qtWrapperArgs[@]}"
       --add-flags '--backend ${backend}'
       --set QUTE_QTWEBENGINE_VERSION_OVERRIDE "${lib.getVersion qtwebengine}"
-      ${lib.optionalString (pipewireSupport && backend == "webengine") ''--prefix LD_LIBRARY_PATH : ${libPath}''}
+      ${lib.optionalString (!stdenv.isDarwin && backend == "webengine") ''--prefix LD_LIBRARY_PATH : ${libPath}''}
     )
   '';
 

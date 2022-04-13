@@ -5,20 +5,18 @@
 , msrestazure
 , azure-common
 , azure-mgmt-core
-, pythonOlder
+, azure-mgmt-nspkg
+, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-media";
-  version = "9.0.0";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.6";
+  version = "8.0.0";
 
   src = fetchPypi {
     inherit pname version;
     extension = "zip";
-    hash = "sha256-TI7l8sSQ2QUgPqiE3Cu/F67Wna+KHbQS3fuIjOb95ZM=";
+    sha256 = "c08e687c0afa061a3e05acaf29ce81e737480d592b07e0de5f77e9a7f9f00c00";
   };
 
   propagatedBuildInputs = [
@@ -26,14 +24,14 @@ buildPythonPackage rec {
     msrestazure
     azure-common
     azure-mgmt-core
+  ] ++ lib.optionals (!isPy3k) [
+    azure-mgmt-nspkg
   ];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.mgmt.media"
-  ];
+  pythonImportsCheck = [ "azure.mgmt.media" ];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Media Services Client Library";

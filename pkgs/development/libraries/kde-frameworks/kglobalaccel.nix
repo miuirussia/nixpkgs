@@ -6,7 +6,7 @@
 }:
 
 mkDerivation {
-  pname = "kglobalaccel";
+  name = "kglobalaccel";
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [
     kconfig kcoreaddons kcrash kdbusaddons kservice kwindowsystem qttools

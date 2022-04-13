@@ -13,7 +13,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     autoreconfHook
-    makeWrapper
     pkg-config
   ];
 
@@ -23,6 +22,7 @@ stdenv.mkDerivation rec {
     libSM
     libstartup_notification
     libxml2
+    makeWrapper
     openbox
   ];
 

@@ -45,8 +45,7 @@ in
     };
     instance = mkOption {
       type = types.nullOr types.str;
-      default = config.services.varnish.stateDir;
-      defaultText = lib.literalExpression "config.services.varnish.stateDir";
+      default = null;
       description = ''
         varnishstat -n value.
       '';
@@ -67,7 +66,7 @@ in
     };
   };
   serviceOpts = {
-    path = [ config.services.varnish.package ];
+    path = [ pkgs.varnish ];
     serviceConfig = {
       RestartSec = mkDefault 1;
       DynamicUser = false;

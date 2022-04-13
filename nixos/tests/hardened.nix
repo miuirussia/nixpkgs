@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ... } : {
     maintainers = [ joachifm ];
   };
 
-  nodes.machine =
+  machine =
     { lib, pkgs, config, ... }:
     with lib;
     { users.users.alice = { isNormalUser = true; extraGroups = [ "proc" ]; };

@@ -12,6 +12,8 @@ buildGoModule rec {
   };
   vendorSha256 = "sha256-AOcWkcw+2DcgBxvxRO/sdb339a7hmI7Oy5I4kW4oE+k=";
 
+  doCheck = false;
+
   nativeBuildInputs = [ installShellFiles ];
 
   # Bundle release metadata
@@ -37,7 +39,7 @@ buildGoModule rec {
     description = "Istio configuration command line utility for service operators to debug and diagnose their Istio mesh";
     homepage = "https://istio.io/latest/docs/reference/commands/istioctl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ superherointj bryanasdev000 veehaitch ];
+    maintainers = with maintainers; [ veehaitch ];
     platforms = platforms.unix;
   };
 }

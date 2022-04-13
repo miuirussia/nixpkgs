@@ -21,10 +21,10 @@
 , qtwayland
 }:
 let
-  version = "1.0.1";
+  version = "0.8.2";
   timestamp = "99999999999";
   commit = "nix-${version}";
-  hash = "sha256-vHBlrtQ06kjjXXGL/jSdpAPHgqb7Vn1c6jXZVXwxHPQ=";
+  hash = "sha256-BaqKlF2SZueykFhtj91McP39oXYAx+lz8eXhn5eouqg=";
 
   udev_rules = ''
     #Flipper Zero serial port
@@ -50,13 +50,13 @@ mkDerivation {
     pkg-config
     qmake
     qttools
-    wrapQtAppsHook
   ];
 
   buildInputs = [
     zlib
     libusb1
     libGL
+    wrapQtAppsHook
 
     qtbase
     qt3d
@@ -70,30 +70,39 @@ mkDerivation {
     qtwayland
   ];
 
-  qmakeFlags = [
-    "DEFINES+=DISABLE_APPLICATION_UPDATES"
-    "CONFIG+=qtquickcompiler"
-  ];
-
-  postPatch = ''
+  preBuild = ''
     substituteInPlace qflipper_common.pri \
         --replace 'GIT_VERSION = unknown' 'GIT_VERSION = "${version}"' \
         --replace 'GIT_TIMESTAMP = 0' 'GIT_TIMESTAMP = ${timestamp}' \
         --replace 'GIT_COMMIT = unknown' 'GIT_COMMIT = "${commit}"'
     cat qflipper_common.pri
+
   '';
 
-  postInstall = ''
+  installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
-    ${lib.optionalString stdenv.isDarwin ''
-    cp qFlipper.app/Contents/MacOS/qFlipper $out/bin
+    ${lib.optionalString stdenv.isLinux ''
+      install -Dm755 qFlipper $out/bin/qFlipper
     ''}
-    cp qFlipper-cli $out/bin
+    ${lib.optionalString stdenv.isDarwin ''
+      install -Dm755 qFlipper.app/Contents/MacOS/qFlipper $out/bin/qFlipper
+    ''}
+    cp qFlipperTool $out/bin
+
+    mkdir -p $out/share/applications
+    cp installer-assets/appimage/qFlipper.desktop $out/share/applications
+
+    mkdir -p $out/share/icons
+    cp application/assets/icons/qFlipper.png $out/share/icons
 
     mkdir -p $out/etc/udev/rules.d
     tee $out/etc/udev/rules.d/42-flipperzero.rules << EOF
     ${udev_rules}
     EOF
+
+    runHook postInstall
   '';
 
   meta = with lib; {

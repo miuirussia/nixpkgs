@@ -18,8 +18,10 @@ stdenv.mkDerivation rec {
   pname = "pixz";
   version = "1.0.7";
 
-  nativeBuildInputs = [ pkg-config autoconf automake ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [
+    autoconf
+    automake
     libtool
     asciidoc
     libxslt

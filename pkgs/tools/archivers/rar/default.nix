@@ -1,24 +1,19 @@
 { lib, stdenv, fetchurl, autoPatchelfHook, installShellFiles }:
 
 let
-  version = "6.11";
-  downloadVersion = lib.replaceStrings [ "." ] [ "" ] version;
+  version = "6.0.2";
   srcUrl = {
     i686-linux = {
-      url = "https://www.rarlab.com/rar/rarlinux-x32-${downloadVersion}.tar.gz";
-      sha256 = "sha256-7mpKkOEspGskt9yfSDrdK7CieJ0AectJKTi8TxLnbtk=";
+      url = "https://www.rarlab.com/rar/rarlinux-${version}.tar.gz";
+      sha256 = "sha256-5iqk7eoo+hgltgscquob+wofzhuqz0m/8jf7bxdf9qa=";
     };
     x86_64-linux = {
-      url = "https://www.rarlab.com/rar/rarlinux-x64-${downloadVersion}.tar.gz";
-      sha256 = "sha256-pb3QdLqdxIf3ybLfPao3MdilTHYjCB1BujYsTQuEMtE=";
-    };
-    aarch64-darwin = {
-      url = "https://www.rarlab.com/rar/rarmacos-arm-${downloadVersion}.tar.gz";
-      sha256 = "sha256-q2fC4w2/tJ+GaD3ETPP+V3SAApdlLDgr3eE2YcERQXA=";
+      url = "https://www.rarlab.com/rar/rarlinux-x64-${version}.tar.gz";
+      sha256 = "sha256-WAvrUGCgfwI51Mo/RYSSF0OLPPrTegUCuDEsnBeR9uQ=";
     };
     x86_64-darwin = {
-      url = "https://www.rarlab.com/rar/rarmacos-x64-${downloadVersion}.tar.gz";
-      sha256 = "sha256-yHWxAscqnLKrG9Clsaiy6wSbyVz4gpvN6AjyirCmIKQ=";
+      url = "https://www.rarlab.com/rar/rarosx-${version}.tar.gz";
+      sha256 = "sha256-baZ71vYXIGs25f7PJ0ujoGUrsWZRmFLhvDI0KoVktsg=";
     };
   }.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
   manSrc = fetchurl {
@@ -35,10 +30,9 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  buildInputs = lib.optionals stdenv.isLinux [ stdenv.cc.cc.lib ];
+  buildInputs = [ stdenv.cc.cc.lib ];
 
-  nativeBuildInputs = [ installShellFiles ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [ autoPatchelfHook installShellFiles ];
 
   installPhase = ''
     runHook preInstall

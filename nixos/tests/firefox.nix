@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, firefoxPackage, ... }: {
     maintainers = [ eelco shlevy ];
   };
 
-  nodes.machine =
+  machine =
     { pkgs, ... }:
 
     { imports = [ ./common/x11.nix ];

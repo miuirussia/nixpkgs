@@ -6,7 +6,7 @@
 }:
 
 mkDerivation {
-  pname = "kdoctools";
+  name = "kdoctools";
   nativeBuildInputs = [
     extra-cmake-modules
     # The build system insists on having native Perl.

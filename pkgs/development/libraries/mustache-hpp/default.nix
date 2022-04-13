@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "mustache";
@@ -11,11 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "0r9rbk6v1wpld2ismfsk2lkhbyv3dkf0p03hkjivbj05qkfhvlbb";
   };
 
-  dontBuild = true;
+  nativeBuildInputs = [ cmake ];
 
   installPhase = ''
     mkdir -p $out/include
-    cp mustache.hpp $out/include
+    cp ../mustache.hpp $out/include
   '';
 
   meta = with lib; {

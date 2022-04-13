@@ -4,19 +4,15 @@
 , jinja2
 , lxml
 , pygments
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "gcovr";
-  version = "5.1";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "5.0";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-d4CEQ1m/8LlsBBR9r/8l5uWF4FWFvVQjabvDd9ad4SE=";
+    sha256 = "1d80264cbaadff356b3dda71b8c62b3aa803e5b3eb6d526a24932cd6660a2576";
   };
 
   propagatedBuildInputs = [
@@ -37,9 +33,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Python script for summarizing gcov data";
-    homepage = "https://www.gcovr.com/";
+    description = "A Python script for summarizing gcov data";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ ];
+    homepage = "https://www.gcovr.com/";
   };
 }

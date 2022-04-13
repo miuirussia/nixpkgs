@@ -5,8 +5,6 @@
 , php
 , lib, stdenv
 , installShellFiles
-, which
-, python3
 }:
 
 # Make a custom wrapper. If `wrapProgram` is used, arcanist thinks .arc-wrapped is being
@@ -16,7 +14,7 @@
 let makeArcWrapper = toolset: ''
   cat << WRAPPER > $out/bin/${toolset}
   #!$shell -e
-  export PATH='${php}/bin:${which}/bin'\''${PATH:+':'}\$PATH
+  export PATH='${php}/bin/'\''${PATH:+':'}\$PATH
   exec ${php}/bin/php $out/libexec/arcanist/bin/${toolset} "\$@"
   WRAPPER
   chmod +x $out/bin/${toolset}
@@ -34,9 +32,7 @@ stdenv.mkDerivation {
     sha256 = "0jiv4aj4m5750dqw9r8hizjkwiyxk4cg4grkr63sllsa2dpiibxw";
   };
 
-  patches = [ ./dont-require-python3-in-path.patch ];
-
-  buildInputs = [ php python3 ];
+  buildInputs = [ php ];
 
   nativeBuildInputs = [ bison flex installShellFiles ];
 

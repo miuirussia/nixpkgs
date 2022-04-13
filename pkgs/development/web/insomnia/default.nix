@@ -2,7 +2,7 @@
 , fontconfig, freetype, gdk-pixbuf, glib, pango, mesa, nspr, nss, gtk3
 , at-spi2-atk, gsettings-desktop-schemas, gobject-introspection, wrapGAppsHook
 , libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext
-, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb, libxshmfence, nghttp2
+, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb, nghttp2
 , libudev0-shim, glibc, curl, openssl, autoPatchelfHook }:
 
 let
@@ -15,12 +15,12 @@ let
   ];
 in stdenv.mkDerivation rec {
   pname = "insomnia";
-  version = "2022.1.1";
+  version = "2021.7.2";
 
   src = fetchurl {
     url =
       "https://github.com/Kong/insomnia/releases/download/core%40${version}/Insomnia.Core-${version}.deb";
-    sha256 = "sha256-AaRiXGdKCzcsY4GEgLr5PO+f7STsR+p7ybGISdJlCVk=";
+    sha256 = "sha256-HkQWW4h2+XT5Xi4oiIiMPnrRKw+GIyjGMQ5B1NrBARU=";
   };
 
   nativeBuildInputs =
@@ -53,7 +53,6 @@ in stdenv.mkDerivation rec {
     libXrender
     libXtst
     libxcb
-    libxshmfence
     mesa # for libgbm
     nspr
     nss

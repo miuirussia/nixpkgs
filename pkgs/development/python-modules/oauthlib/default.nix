@@ -1,26 +1,28 @@
 { lib
-, blinker
 , buildPythonPackage
-, cryptography
 , fetchFromGitHub
-, mock
+
+# propagates
+, blinker
+, cryptography
 , pyjwt
+
+# test
+, mock
 , pytestCheckHook
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "oauthlib";
-  version = "3.2.0";
+  version = "3.1.1";
   format = "setuptools";
 
-  disabled = pythonOlder "3.7";
-
+  # master supports pyjwt==1.7.1
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-41JFURG8G8BjlAlNu2+lbj84XR/trAk1U5OPYxPq+5M=";
+    hash = "sha256:1bgxpzh11i0x7h9py3a29cz5z714b3p498b62znnn5ciy0cr80sv";
   };
 
   propagatedBuildInputs = [
@@ -34,14 +36,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "oauthlib"
-  ];
-
   meta = with lib; {
-    description = "Generic, spec-compliant, thorough implementation of the OAuth request-signing logic";
     homepage = "https://github.com/idan/oauthlib";
-    license = licenses.bsd3;
+    description = "A generic, spec-compliant, thorough implementation of the OAuth request-signing logic";
     maintainers = with maintainers; [ prikhi ];
+    license = licenses.bsd3;
   };
 }

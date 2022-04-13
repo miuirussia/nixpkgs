@@ -6,11 +6,10 @@
 , symlinkJoin
 
 , cudaSupport
-, cudaPackages ? {}
+, cudatoolkit
+, cudnn
 }:
 let
-  inherit (cudaPackages) cudatoolkit cudnn;
-
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-unsplit";
     paths = [ cudatoolkit.out cudatoolkit.lib ];

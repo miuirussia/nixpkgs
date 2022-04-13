@@ -7,13 +7,13 @@
 
 buildPythonApplication rec {
   pname = "behave";
-  version = "1.2.7.dev2";
+  version = "1.2.7.dev1";
 
   src = fetchFromGitHub {
     owner = "behave";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-B8PUN1Q4UAsDWrHjPZDlpaPjCKjI/pAogCSI+BQnaWs=";
+    sha256 = "1ssgixmqlg8sxsyalr83a1970njc2wg3zl8idsmxnsljwacv7qwv";
   };
 
   checkInputs = [ pytestCheckHook mock pathpy pyhamcrest pytest-html ];

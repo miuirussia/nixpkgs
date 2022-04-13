@@ -15,7 +15,6 @@
 , CoreServices
 , tzdata
 , cmake
-, perl
   # kafka is optional but one of the most used features
 , enableKafka ? true
   # TODO investigate adding "api" "api-client" "vrl-cli" and various "vendor-*"
@@ -30,7 +29,7 @@
 
 let
   pname = "vector";
-  version = "0.20.1";
+  version = "0.20.0";
 in
 rustPlatform.buildRustPackage {
   inherit pname version;
@@ -39,11 +38,11 @@ rustPlatform.buildRustPackage {
     owner = "timberio";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-0xC6CpmSTRt7zj6RHqtjbMXWEiMUOdIymWVGI8Js+70=";
+    sha256 = "sha256-OkT1Gj66Z4sj3YtaMlU1lbquTECPG34qydXGbx24Ig4=";
   };
 
-  cargoSha256 = "sha256-NLMyE9+iYFWuMmL50TeLZVvlHkIDaSZYJwXK4ykGrb8=";
-  nativeBuildInputs = [ pkg-config cmake perl ];
+  cargoSha256 = "sha256-O2uy0wK4pdwjAYzIKJnCzJVsA3n+U+dw731y7OPJfP0=";
+  nativeBuildInputs = [ pkg-config cmake ];
   buildInputs = [ oniguruma openssl protobuf rdkafka zstd ]
     ++ lib.optionals stdenv.isDarwin [ Security libiconv coreutils CoreServices ];
 

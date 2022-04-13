@@ -5,7 +5,7 @@ import ./make-test-python.nix ({ lib, ... }: {
     maintainers = [ rnhmjoj ];
   };
 
-  nodes.machine = { ... }: {
+  machine = { ... }: {
     virtualisation.useBootLoader = true;
 
     boot.loader.timeout = null;

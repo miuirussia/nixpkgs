@@ -5,7 +5,6 @@
 , backoff
 , buildPythonPackage
 , fetchFromGitHub
-, poetry-core
 , pytest-asyncio
 , pytestCheckHook
 , pythonOlder
@@ -13,8 +12,8 @@
 
 buildPythonPackage rec {
   pname = "aiogithubapi";
-  version = "22.3.1";
-  format = "pyproject";
+  version = "22.2.4";
+  format = "setuptools";
 
   disabled = pythonOlder "3.8";
 
@@ -22,12 +21,8 @@ buildPythonPackage rec {
     owner = "ludeeus";
     repo = pname;
     rev = version;
-    hash = "sha256-5gKANZtDhIoyfyLdS15JDWTxHBFkaHDUlbVVhRs7MSE=";
+    sha256 = "sha256-2RYpeyX88+eEilK/wLDJ6Ock1JBgIUPWbm/ZBJSQ2pg=";
   };
-
-  nativeBuildInputs = [
-    poetry-core
-  ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -44,7 +39,7 @@ buildPythonPackage rec {
   postPatch = ''
     # Upstream is releasing with the help of a CI to PyPI, GitHub releases
     # are not in their focus
-    substituteInPlace pyproject.toml \
+    substituteInPlace setup.py \
       --replace 'version="main",' 'version="${version}",'
   '';
 

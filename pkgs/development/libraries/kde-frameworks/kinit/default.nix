@@ -7,7 +7,7 @@
 let inherit (lib) getLib; in
 
 mkDerivation {
-  pname = "kinit";
+  name = "kinit";
   outputs = [ "out" "dev" ];
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [

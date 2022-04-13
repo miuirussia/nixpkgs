@@ -18,10 +18,9 @@ let
   plat = elemAt info 1;
   shas =
     {
-      x86_64-linux   = "1s16l95wc589cr69pfbgmkn9rkvxn6sd6jlbiqpm6p6iyxiaxd6c";
-      x86_64-darwin  = "05h7pvq4pb816wgcymnfklp3w6sv54x6138v2infw5219dnk8pfs";
-      aarch64-linux  = "0q4xnjzhlx1b2lkikca88qh9glfxaifsm419k2bxxlrfrx31zlkq";
-      aarch64-darwin = "067mb1dianwiarw8cz1va4g6zfhp9ls4s174xbpkxwsknvvyhgz6";
+      x86_64-linux  = "1s16l95wc589cr69pfbgmkn9rkvxn6sd6jlbiqpm6p6iyxiaxd6c";
+      x86_64-darwin = "05h7pvq4pb816wgcymnfklp3w6sv54x6138v2infw5219dnk8pfs";
+      aarch64-linux = "0q4xnjzhlx1b2lkikca88qh9glfxaifsm419k2bxxlrfrx31zlkq";
     };
 in
 stdenv.mkDerivation rec {
@@ -45,8 +44,7 @@ stdenv.mkDerivation rec {
       "ES_CLASSPATH=\"\$ES_CLASSPATH:$out/\$additional_classpath_directory/*\""
   '';
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
   buildInputs = [ jre_headless util-linux zlib ];
 

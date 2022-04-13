@@ -9,9 +9,8 @@
 , libaio
 , enableCmdlib ? false
 , enableDmeventd ? false
-, udevSupport ? !stdenv.hostPlatform.isStatic, udev ? null
-, onlyLib ? stdenv.hostPlatform.isStatic
-, enableVDO ? false, vdo ? null
+, udevSupport ? !stdenv.targetPlatform.isStatic, udev ? null
+, onlyLib ? stdenv.targetPlatform.isStatic
 , nixosTests
 }:
 
@@ -19,7 +18,7 @@
 assert enableDmeventd -> enableCmdlib;
 
 stdenv.mkDerivation rec {
-  pname = "lvm2" + lib.optionalString enableDmeventd "-with-dmeventd" + lib.optionalString enableVDO "-with-vdo";
+  pname = "lvm2" + lib.optionalString enableDmeventd "-with-dmeventd";
   inherit version;
 
   src = fetchurl {
@@ -34,8 +33,6 @@ stdenv.mkDerivation rec {
     udev
   ] ++ lib.optionals (!onlyLib) [
     libuuid
-  ] ++ lib.optionals enableVDO [
-    vdo
   ];
 
   configureFlags = [
@@ -59,10 +56,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals udevSupport [
     "--enable-udev_rules"
     "--enable-udev_sync"
-  ] ++ lib.optionals stdenv.hostPlatform.isStatic [
+  ] ++ lib.optionals stdenv.targetPlatform.isStatic [
     "--enable-static_link"
-  ] ++  lib.optionals enableVDO [
-    "--enable-vdo"
   ];
 
   preConfigure = ''
@@ -96,7 +91,7 @@ stdenv.mkDerivation rec {
       url = "https://git.alpinelinux.org/aports/plain/main/lvm2/mallinfo.patch?h=3.7-stable&id=31bd4a8c2dc00ae79a821f6fe0ad2f23e1534f50";
       sha256 = "0g6wlqi215i5s30bnbkn8w7axrs27y3bnygbpbnf64wwx7rxxlj0";
     })
-  ] ++ lib.optionals stdenv.hostPlatform.isStatic [
+  ] ++ lib.optionals stdenv.targetPlatform.isStatic [
     ./no-shared.diff
   ];
 
@@ -119,7 +114,7 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = lib.optionalString onlyLib ''
-    install -D -t $out/lib libdm/ioctl/libdevmapper.${if stdenv.hostPlatform.isStatic then "a" else "so"}
+    install -D -t $out/lib libdm/ioctl/libdevmapper.${if stdenv.targetPlatform.isStatic then "a" else "so"}
     make -C libdm install_include
     make -C libdm install_pkgconfig
   '';

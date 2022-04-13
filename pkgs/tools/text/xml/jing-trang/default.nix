@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, jre_headless, jdk_headless, ant, saxon }:
+{ lib, stdenv, fetchFromGitHub, jre_headless, jdk, ant, saxon }:
 
 stdenv.mkDerivation rec {
   pname = "jing-trang";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ jdk_headless ant saxon ];
+  buildInputs = [ jdk ant saxon ];
 
   CLASSPATH = "lib/saxon.jar";
 

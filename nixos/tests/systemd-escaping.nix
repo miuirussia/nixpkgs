@@ -14,7 +14,7 @@ in
 {
   name = "systemd-escaping";
 
-  nodes.machine = { pkgs, lib, utils, ... }: {
+  machine = { pkgs, lib, utils, ... }: {
     systemd.services.echo =
       assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ [] ])).success;
       assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ {} ])).success;

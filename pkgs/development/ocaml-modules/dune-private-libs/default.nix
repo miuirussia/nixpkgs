@@ -1,17 +1,15 @@
-{ lib, buildDunePackage, dune_3, stdune }:
+{ lib, buildDunePackage, dune_2 }:
 
 buildDunePackage rec {
   pname = "dune-private-libs";
 
-  duneVersion = "3";
+  useDune2 = true;
 
-  inherit (dune_3) src version;
+  inherit (dune_2) src version patches;
 
-  minimalOCamlVersion = "4.08";
+  minimumOCamlVersion = "4.08";
 
   dontAddPrefix = true;
-
-  propagatedBuildInputs = [ stdune ];
 
   meta = with lib; {
     description = "Private libraries of Dune";

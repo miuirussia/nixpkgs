@@ -47,6 +47,5 @@ mkDerivation {
     maintainers = with maintainers; [ hodapp kovirobi ];
     license = with licenses; [ mpl20 gpl2Plus ];
     platforms = with platforms; linux ++ darwin;
-    broken = true;
   };
 }

@@ -1,7 +1,7 @@
 import ./make-test-python.nix {
   name = "fsck";
 
-  nodes.machine = { lib, ... }: {
+  machine = { lib, ... }: {
     virtualisation.emptyDiskImages = [ 1 ];
 
     virtualisation.fileSystems = {

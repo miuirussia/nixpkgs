@@ -6,7 +6,7 @@
 }:
 
 mkDerivation {
-  pname = "kbookmarks";
+  name = "kbookmarks";
   nativeBuildInputs = [ extra-cmake-modules qttools ];
   buildInputs = [
     kcodecs kconfig kconfigwidgets kcoreaddons kiconthemes kxmlgui

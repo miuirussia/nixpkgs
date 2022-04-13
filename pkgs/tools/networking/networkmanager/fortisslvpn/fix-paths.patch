@@ -1,12 +1,11 @@
-diff --git a/src/nm-fortisslvpn-service.c b/src/nm-fortisslvpn-service.c
-index 6c340d0..995c981 100644
 --- a/src/nm-fortisslvpn-service.c
 +++ b/src/nm-fortisslvpn-service.c
-@@ -182,6 +182,7 @@ nm_find_openfortivpn (void)
+@@ -387,7 +387,7 @@
  {
  	static const char *openfortivpn_binary_paths[] =
  		{
+-			"/bin/openfortivpn",
 +			"@openfortivpn@/bin/openfortivpn",
- 			"/usr/local/bin/openfortivpn",
  			"/usr/bin/openfortivpn",
+ 			"/usr/local/bin/openfortivpn",
  			NULL

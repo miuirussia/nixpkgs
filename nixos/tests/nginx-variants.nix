@@ -13,7 +13,7 @@ builtins.listToAttrs (
         value = makeTest {
           name = "nginx-variant-${nginxName}";
 
-          nodes.machine = { pkgs, ... }: {
+          machine = { pkgs, ... }: {
             services.nginx = {
               enable = true;
               virtualHosts.localhost.locations."/".return = "200 'foo'";

@@ -6,7 +6,7 @@
 }:
 
 mkDerivation {
-  pname = "kdesignerplugin";
+  name = "kdesignerplugin";
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
     kcompletion kconfig kconfigwidgets kcoreaddons kiconthemes kio kitemviews

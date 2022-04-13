@@ -3,8 +3,8 @@
 , fetchurl
 , pkg-config
 , gnome
-, gtk4
-, libadwaita
+, gtk3
+, libhandy
 , wrapGAppsHook
 , gjs
 , gobject-introspection
@@ -12,17 +12,18 @@
 , meson
 , ninja
 , geoclue2
+, gnome-desktop
 , python3
 , gsettings-desktop-schemas
 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-weather";
-  version = "42.0";
+  version = "41.0";
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-weather/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "V57mkdhT5bs/9Q6Me0P4Wundfls6ZJ4CwlSi2bgHtGU=";
+    sha256 = "1vidwq768xnrnr24jcfbpwjczz7vm5zmaiv41nb75q4p8avlwqg5";
   };
 
   nativeBuildInputs = [
@@ -34,10 +35,11 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    gtk4
-    libadwaita
+    gtk3
+    libhandy
     gjs
     gobject-introspection
+    gnome-desktop
     libgweather
     gnome.adwaita-icon-theme
     geoclue2
@@ -68,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Apps/Weather";
     description = "Access current weather conditions and forecasts";
     maintainers = teams.gnome.members;
-    license = licenses.gpl2Plus;
+    license = licenses.gpl2;
     platforms = platforms.linux;
   };
 }

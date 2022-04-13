@@ -9,7 +9,7 @@ with pkgs.lib;
     name = "vector-test1";
     meta.maintainers = [ pkgs.lib.maintainers.happysalada ];
 
-    nodes.machine = { config, pkgs, ... }: {
+    machine = { config, pkgs, ... }: {
       services.vector = {
         enable = true;
         journaldAccess = true;

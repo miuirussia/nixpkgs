@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     maintainers = [ asbachb ];
   };
 
-  nodes.machine = { config, pkgs, ... }: {
+  machine = { config, pkgs, ... }: {
     imports = [
       ./common/x11.nix
     ];

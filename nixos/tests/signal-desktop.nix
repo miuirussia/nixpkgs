@@ -16,7 +16,7 @@ in {
     maintainers = [ flokli primeos ];
   };
 
-  nodes.machine = { ... }:
+  machine = { ... }:
 
   {
     imports = [

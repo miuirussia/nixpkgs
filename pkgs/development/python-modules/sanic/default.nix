@@ -40,12 +40,9 @@ buildPythonPackage rec {
   postPatch = ''
     # Loosen dependency requirements.
     substituteInPlace setup.py \
-      --replace "pytest==6.2.5" "pytest" \
-      --replace "gunicorn==20.0.4" "gunicorn" \
-      --replace "multidict>=5.0,<6.0" "multidict"
-
-    sed '/pytest-sanic/d' setup.py
-
+      --replace '"pytest==6.2.5"' '"pytest"' \
+      --replace '"gunicorn==20.0.4"' '"gunicorn"' \
+      --replace '"pytest-sanic",' "" \
     # Patch a request headers test to allow brotli encoding
     # (we build httpx with brotli support, upstream doesn't).
     substituteInPlace tests/test_headers.py \
@@ -121,8 +118,6 @@ buildPythonPackage rec {
     "test_num_workers"
     "test_server_run"
     "test_version"
-    # Sensitive comparison of raw HTTP header fails
-    "test_raw_headers"
   ];
 
   disabledTestPaths = [

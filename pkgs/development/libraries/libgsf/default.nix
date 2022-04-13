@@ -1,59 +1,26 @@
-{ fetchurl
-, lib
-, stdenv
-, pkg-config
-, intltool
-, gettext
-, glib
-, libxml2
-, zlib
-, bzip2
-, perl
-, gdk-pixbuf
-, libiconv
-, libintl
-, gnome
-}:
+{ fetchurl, lib, stdenv, pkg-config, intltool, gettext, glib, libxml2, zlib, bzip2
+, perl, gdk-pixbuf, libiconv, libintl, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "libgsf";
-  version = "1.14.49";
-
-  outputs = [ "out" "dev" ];
+  version = "1.14.48";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "6evjZojwEMnm5AyJA/NzKUjeuKygMleNB9B1G9gs+Fc=";
+    sha256 = "/4bX8dRt0Ovvt72DCnSkHbZDYrmHv4hT//arTBEyuDc=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-    libintl
-  ];
+  nativeBuildInputs = [ pkg-config intltool libintl ];
 
-  buildInputs = [
-    gettext
-    bzip2
-    zlib
-  ];
+  buildInputs = [ gettext bzip2 zlib ];
+  checkInputs = [ perl ];
 
-  checkInputs = [
-    perl
-  ];
+  propagatedBuildInputs = [ libxml2 glib gdk-pixbuf libiconv ];
 
-  propagatedBuildInputs = [
-    libxml2
-    glib
-    gdk-pixbuf
-    libiconv
-  ];
+  outputs = [ "out" "dev" ];
 
   doCheck = true;
-
-  preCheck = ''
-    patchShebangs ./tests/
-  '';
+  preCheck = "patchShebangs ./tests/";
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -64,10 +31,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "GNOME's Structured File Library";
-    homepage = "https://www.gnome.org/projects/libgsf";
-    license = licenses.lgpl2Plus;
+    homepage    = "https://www.gnome.org/projects/libgsf";
+    license     = licenses.lgpl2Plus;
     maintainers = with maintainers; [ lovek323 ];
-    platforms = lib.platforms.unix;
+    platforms   = lib.platforms.unix;
 
     longDescription = ''
       Libgsf aims to provide an efficient extensible I/O abstraction for

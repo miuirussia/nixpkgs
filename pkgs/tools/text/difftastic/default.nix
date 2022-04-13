@@ -1,19 +1,17 @@
-{ lib, fetchFromGitHub, rustPlatform, tree-sitter, difftastic, testVersion }:
+{ lib, fetchFromGitHub, rustPlatform, tree-sitter }:
 
 rustPlatform.buildRustPackage rec {
   pname = "difftastic";
-  version = "0.26.3";
+  version = "0.22.0";
 
   src = fetchFromGitHub {
     owner = "wilfred";
     repo = pname;
     rev = version;
-    sha256 = "11qvl78dskhawmzjbff2cd4icwvlfhg8hzf1law5w5cr768zv7yn";
+    sha256 = "sha256-VV4nCR+BGly+EdCkyI4KeS0Zmn6NkfRsMs//0Sj3E20=";
   };
 
-  cargoSha256 = "1kmwd9m94kl3j6ajfndr7rjx66fsqvnn2jh0m54ac5qd5r9hhdc8";
-
-  passthru.tests.version = testVersion { package = difftastic; };
+  cargoSha256 = "sha256-MyCi5PuUs9MJArDFaBgjjBInYJAS/SAPe1iNTs9feLY=";
 
   meta = with lib; {
     description = "A syntax-aware diff";

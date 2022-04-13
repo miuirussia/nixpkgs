@@ -11,11 +11,11 @@
 let
 
   pname = "pgadmin";
-  version = "6.7";
+  version = "6.5";
 
   src = fetchurl {
     url = "https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${version}/source/pgadmin4-${version}.tar.gz";
-    sha256 = "1g2yxwgj9fp1fkn8j2jrdhmr2b2s6y8sgv4jq55aaxm4hfkkqh6d";
+    sha256 = "0df1r7c7vgrkc6qq6ljxsak9ish477508hdxgqqpqiy816inyaa0";
   };
 
   yarnDeps = mkYarnModules {
@@ -50,11 +50,9 @@ python3.pkgs.buildPythonApplication rec {
     # relax dependencies
     substituteInPlace requirements.txt \
       --replace "Pillow==8.3.*" "Pillow>=8.3.0" \
-      --replace "psycopg2==2.9.*" "psycopg2>=2.9" \
+      --replace "psycopg2==2.8.*" "psycopg2>=2.8.0" \
       --replace "cryptography==3.*" "cryptography>=3.0" \
-      --replace "requests==2.25.*" "requests>=2.25.0" \
-      --replace "boto3==1.20.*" "boto3>=1.20" \
-      --replace "botocore==1.23.*" "botocore>=1.23"
+      --replace "requests==2.25.*" "requests>=2.25.0"
     # don't use Server Mode (can be overridden later)
     substituteInPlace pkg/pip/setup_pip.py \
       --replace "req = req.replace('psycopg2', 'psycopg2-binary')" "req = req" \
@@ -150,8 +148,6 @@ python3.pkgs.buildPythonApplication rec {
     qrcode
     pillow
     pyotp
-    botocore
-    boto3
   ];
 
   passthru = {

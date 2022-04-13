@@ -17,12 +17,12 @@
 
 buildPythonPackage rec {
   pname = "aws-adfs";
-  version = "2.0.1";
+  version = "1.24.5";
   disabled = isPy27;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-+WMv52JIbh51pqLhDnUCzrcbPD5eutzwFcPOhO+nR7s=";
+    sha256 = "6a78bd31477ea9988166215ae86abcbfe1413bee20373ecdf0dd170b7290db55";
   };
 
   propagatedBuildInputs = [

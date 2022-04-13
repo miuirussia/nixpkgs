@@ -2,7 +2,7 @@
 
 let
   dict = variant: a: stdenv.mkDerivation ({
-    inherit (hspell) version src patchPhase nativeBuildInputs;
+    inherit (hspell) src patchPhase nativeBuildInputs;
     buildFlags = [ variant ];
 
     meta = hspell.meta // {
@@ -15,7 +15,7 @@ in
   recurseForDerivations = true;
 
   aspell = dict "aspell" {
-    pname = "aspell-dict-he";
+    name = "aspell-dict-he-${hspell.version}";
 
     installPhase = ''
       mkdir -p $out/lib/aspell
@@ -23,7 +23,7 @@ in
   };
 
   myspell = dict "myspell" {
-    pname = "myspell-dict-he";
+    name = "myspell-dict-he-${hspell.version}";
 
     installPhase = ''
       mkdir -p $out/lib/myspell
@@ -31,7 +31,7 @@ in
   };
 
   hunspell = dict "hunspell" {
-    pname = "hunspell-dict-he";
+    name = "hunspell-dict-he-${hspell.version}";
 
     installPhase = ''
       mkdir -p $out/lib

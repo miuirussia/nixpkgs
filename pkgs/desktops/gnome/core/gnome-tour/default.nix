@@ -6,7 +6,7 @@
 , ninja
 , fetchurl
 , pkg-config
-, gtk4
+, gtk3
 , glib
 , gdk-pixbuf
 , desktop-file-utils
@@ -14,7 +14,7 @@
 , wrapGAppsHook
 , python3
 , gnome
-, libadwaita
+, libhandy
 , librsvg
 , rustc
 , cargo
@@ -22,11 +22,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-tour";
-  version = "42.0";
+  version = "40.1";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    hash = "sha256-/PGsaJBX2oZZaXDsPag1VSHApy6VBj6wWdX+5N6oL08=";
+    hash = "sha256-rYYS110B7qY8WcmY65KOvm75mEZgYbn8H97IKF02M5g=";
   };
 
   cargoVendorDir = "vendor";
@@ -49,10 +49,15 @@ stdenv.mkDerivation rec {
   buildInputs = [
     gdk-pixbuf
     glib
-    gtk4
-    libadwaita
+    gtk3
+    libhandy
     librsvg
   ];
+
+  postPatch = ''
+    chmod +x build-aux/meson_post_install.py
+    patchShebangs build-aux/meson_post_install.py
+  '';
 
   passthru = {
     updateScript = gnome.updateScript {

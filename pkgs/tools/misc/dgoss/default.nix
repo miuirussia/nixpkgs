@@ -1,6 +1,6 @@
 { lib
 , fetchFromGitHub
-, resholve
+, resholvePackage
 , substituteAll
 , bash
 , coreutils
@@ -8,7 +8,7 @@
 , which
 }:
 
-resholve.mkDerivation rec {
+resholvePackage rec {
   pname = "dgoss";
   version = "0.3.16";
 

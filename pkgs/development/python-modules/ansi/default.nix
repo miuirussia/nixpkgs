@@ -1,29 +1,17 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "ansi";
-  version = "0.3.6";
-  format = "pyproject";
+  version = "0.2.0";
 
-  src = fetchFromGitHub {
-    owner = "tehmaze";
-    repo = pname;
-    rev = "${pname}-${version}";
-    hash = "sha256-2gu2Dba3LOjMhbCCZrBqzlOor5KqDYThhe8OP8J3O2M=";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "98e9b27c4bb187867a69480cbc63b843331622fec7e7d090873d806e1b5d8a80";
   };
 
-  checkInputs = [
-    pytestCheckHook
-  ];
-
-  pythonImportsCheck = [
-    "ansi.colour"
-    "ansi.color"
-  ];
+  checkPhase = ''
+    python -c "import ansi.color"
+  '';
 
   meta = with lib; {
     description = "ANSI cursor movement and graphics";

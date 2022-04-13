@@ -5,7 +5,7 @@
 }:
 
 mkDerivation {
-  pname = "prison";
+  name = "prison";
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [ libdmtx qrencode ];
   propagatedBuildInputs = [ qtbase ];

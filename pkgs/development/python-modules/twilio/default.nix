@@ -1,19 +1,17 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
-, pythonOlder
-
+, mock
+, nose
 , pyjwt
+, pythonOlder
 , pytz
 , requests
-
-, mock
-, pytestCheckHook
 }:
 
 buildPythonPackage rec {
   pname = "twilio";
-  version = "7.8.0";
+  version = "7.5.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.6";
@@ -21,8 +19,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "twilio";
     repo = "twilio-python";
-    rev = "refs/tags/${version}";
-    sha256 = "sha256-r28iKUv+i8D6JLvsJA7x8T2KFzK26limIwqsXC5jjSE=";
+    rev = version;
+    sha256 = "0h6r9nz7dcvagrjhzvnirpnjazcy9r64cwlr2bnmlrbjhwdni9rq";
   };
 
   propagatedBuildInputs = [
@@ -33,7 +31,7 @@ buildPythonPackage rec {
 
   checkInputs = [
     mock
-    pytestCheckHook
+    nose
   ];
 
   pythonImportsCheck = [

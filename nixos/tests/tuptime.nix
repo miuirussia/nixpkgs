@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ...} : {
     maintainers = [ evils ];
   };
 
-  nodes.machine = { pkgs, ... }: {
+  machine = { pkgs, ... }: {
     imports = [ ../modules/profiles/minimal.nix ];
     services.tuptime.enable = true;
   };

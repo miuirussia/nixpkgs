@@ -6,7 +6,7 @@
 }:
 
 mkDerivation {
-  pname = "kxmlgui";
+  name = "kxmlgui";
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [
     attica kglobalaccel ki18n kiconthemes kitemviews ktextwidgets kwindowsystem

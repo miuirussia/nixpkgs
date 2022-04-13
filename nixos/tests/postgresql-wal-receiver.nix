@@ -31,7 +31,7 @@ let
         name = "postgresql-wal-receiver-${postgresqlPackage}";
         meta.maintainers = with lib.maintainers; [ pacien ];
 
-        nodes.machine = { ... }: {
+        machine = { ... }: {
           services.postgresql = {
             package = pkg;
             enable = true;

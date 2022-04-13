@@ -1,23 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool }:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "libnet";
-  version = "1.2";
+  version = "1.2-rc3";
 
-  src = fetchFromGitHub {
-    owner = "sam-github";
-    repo = "libnet";
-    rev = "v${version}";
-    sha256 = "sha256-Y/wd9c4whUbfpvWvKzJV6vJN3AlA14XBejchRG6wBc4=";
+  src = fetchurl {
+    url = "mirror://sourceforge/libnet-dev/${pname}-${version}.tar.gz";
+    sha256 = "0qsapqa7dzq9f6lb19kzilif0pj82b64fjv5bq086hflb9w81hvj";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-  ];
-
-  preConfigure = "./autogen.sh";
+  patches = [ ./fix-includes.patch ];
 
   meta = with lib; {
     homepage = "https://github.com/sam-github/libnet";

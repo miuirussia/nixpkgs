@@ -1,7 +1,7 @@
 { fetchFromGitHub, lib, stdenv, autoreconfHook }:
 
 stdenv.mkDerivation rec {
-  pname = "dotconf";
+  name = "dotconf-" + version;
   version = "1.3";
 
   src = fetchFromGitHub {

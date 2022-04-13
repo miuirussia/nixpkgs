@@ -640,7 +640,7 @@ let
     };
     virtual = {
       name = "Virtual";
-      nodes.machine = {
+      machine = {
         networking.useNetworkd = networkd;
         networking.useDHCP = false;
         networking.interfaces.tap0 = {
@@ -784,7 +784,7 @@ let
     };
     routes = {
       name = "routes";
-      nodes.machine = {
+      machine = {
         networking.useNetworkd = networkd;
         networking.useDHCP = false;
         networking.interfaces.eth0 = {
@@ -865,7 +865,7 @@ let
     };
     rename = {
       name = "RenameInterface";
-      nodes.machine = { pkgs, ... }: {
+      machine = { pkgs, ... }: {
         virtualisation.vlans = [ 1 ];
         networking = {
           useNetworkd = networkd;
@@ -878,7 +878,7 @@ let
                 linkConfig.Name = "custom_name";
               };
             }
-       else { boot.initrd.services.udev.rules = ''
+       else { services.udev.initrdRules = ''
                SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="52:54:00:12:01:01", KERNEL=="eth*", NAME="custom_name"
               '';
             });
@@ -916,7 +916,7 @@ let
       testMac = "06:00:00:00:02:00";
     in {
       name = "WlanInterface";
-      nodes.machine = { pkgs, ... }: {
+      machine = { pkgs, ... }: {
         boot.kernelModules = [ "mac80211_hwsim" ];
         networking.wlanInterfaces = {
           wlan0 = { device = "wlan0"; };

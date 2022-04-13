@@ -1,29 +1,25 @@
 { lib
 , buildPythonPackage
 , fetchPypi
-, pytestCheckHook
-, pythonOlder
+, pytest
+, isPy27
 }:
 
 buildPythonPackage rec {
+  version = "1.1.0";
   pname = "pysnooper";
-  version = "1.1.1";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.8";
 
   src = fetchPypi {
     inherit version;
     pname = "PySnooper";
-    hash = "sha256-0X3JHMoVk8ECMNzkXkax0/8PiRDww46UHt9roSYLOCA=";
+    sha256 = "0fa932ad396d2bac089d4b1f94f0ce49cde4140ee64ddd24a4065fadea10fcc9";
   };
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  # test dependency python-toolbox fails with py27
+  doCheck = !isPy27;
 
-  pythonImportsCheck = [
-    "pysnooper"
+  checkInputs = [
+    pytest
   ];
 
   meta = with lib; {

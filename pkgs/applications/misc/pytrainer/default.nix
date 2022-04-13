@@ -26,13 +26,13 @@ let
   };
 in python.pkgs.buildPythonApplication rec {
   pname = "pytrainer";
-  version = "2.1.0";
+  version = "2.0.2";
 
   src = fetchFromGitHub {
     owner = "pytrainer";
     repo = "pytrainer";
     rev = "v${version}";
-    sha256 = "sha256-U2SVQKkr5HF7LB0WuCZ1xc7TljISjCNO26QUDGR+W/4=";
+    sha256 = "sha256-i3QC6ct7tS8B0QQjtVqPcd03LLIxo6djQe4YX35syzk=";
   };
 
   propagatedBuildInputs = with python.pkgs; [

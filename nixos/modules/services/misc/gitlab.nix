@@ -848,7 +848,10 @@ in {
 
         extraConfig = mkOption {
           type = types.lines;
-          default = "";
+          default = ''
+            copytruncate
+            compress
+          '';
           description = ''
             Extra logrotate config options for this path. Refer to
             <link xlink:href="https://linux.die.net/man/8/logrotate"/> for details.
@@ -974,14 +977,13 @@ in {
     # Enable rotation of log files
     services.logrotate = {
       enable = cfg.logrotate.enable;
-      settings = {
+      paths = {
         gitlab = {
-          files = "${cfg.statePath}/log/*.log";
-          su = "${cfg.user} ${cfg.group}";
+          path = "${cfg.statePath}/log/*.log";
+          user = cfg.user;
+          group = cfg.group;
           frequency = cfg.logrotate.frequency;
-          rotate = cfg.logrotate.keep;
-          copytruncate = true;
-          compress = true;
+          keep = cfg.logrotate.keep;
           extraConfig = cfg.logrotate.extraConfig;
         };
       };

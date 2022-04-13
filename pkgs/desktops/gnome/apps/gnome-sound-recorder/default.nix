@@ -1,5 +1,4 @@
-{ stdenv
-, lib
+{ lib, stdenv
 , fetchurl
 , pkg-config
 , gettext
@@ -7,7 +6,7 @@
 , wrapGAppsHook
 , gjs
 , glib
-, gtk4
+, gtk3
 , gdk-pixbuf
 , gst_all_1
 , gnome
@@ -15,16 +14,16 @@
 , ninja
 , python3
 , desktop-file-utils
-, libadwaita
+, libhandy
 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-sound-recorder";
-  version = "42.0";
+  version = "40.0";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "TAjDFSgvPr96LabyDg/58McdqlIp/NL+C1wKqqoG8K0=";
+    sha256 = "00b55vsfzx877b7mj744abzjws7zclz71wbvh0axsrbl9l84ranl";
   };
 
   nativeBuildInputs = [
@@ -41,9 +40,9 @@ stdenv.mkDerivation rec {
   buildInputs = [
     gjs
     glib
-    gtk4
+    gtk3
     gdk-pixbuf
-    libadwaita
+    libhandy
   ] ++ (with gst_all_1; [
     gstreamer
     gst-plugins-base

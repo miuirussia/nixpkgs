@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "08xnhaif8syv1fa0k6lc3jm7yg2k50b02lyds8w0jyzh4xi5crqj";
   };
 
-  nativeBuildInputs = [ autoconf automake ];
-  buildInputs = [ wxGTK libtool python2 gettext ];
+  buildInputs = [ wxGTK autoconf automake libtool python2 gettext ];
 
   preConfigure = "patchShebangs .";
 

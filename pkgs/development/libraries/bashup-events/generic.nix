@@ -1,7 +1,7 @@
 {
   # general
   lib
-, resholve
+, resholvePackage
 , bash
 , doCheck ? true
 , doInstallCheck ? true
@@ -32,7 +32,7 @@ let
     '';
 
 in
-resholve.mkDerivation rec {
+resholvePackage rec {
   # bashup.events doesn't version yet but it has two variants with
   # differing features/performance characteristics:
   # - branch master: a variant for bash 3.2+

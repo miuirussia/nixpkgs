@@ -6,7 +6,7 @@ in {
   name = "unit-php-test";
   meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
 
-  nodes.machine = { config, lib, pkgs, ... }: {
+  machine = { config, lib, pkgs, ... }: {
     services.unit = {
       enable = true;
       config = pkgs.lib.strings.toJSON {

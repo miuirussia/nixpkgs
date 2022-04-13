@@ -3,7 +3,7 @@
 
 buildDunePackage rec {
   pname = "jingoo";
-  version = "1.4.4";
+  version = "1.4.2";
 
   useDune2 = true;
 
@@ -13,7 +13,7 @@ buildDunePackage rec {
     owner = "tategakibunko";
     repo = "jingoo";
     rev = "v${version}";
-    sha256 = "sha256-qIw69OE7wYyZYKnIc9QrmF8MzY5Fg5pBFyIpexmaYxA=";
+    sha256 = "0q947aik4i4z5wjllhwlkxh60qczwgra21yyrrzwhi9y5bnf8346";
   };
 
   buildInputs = [ menhir ];

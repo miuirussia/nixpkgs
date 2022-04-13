@@ -25,11 +25,11 @@
 
 buildPythonPackage rec {
   pname = "scikit-build";
-  version = "0.13.1";
+  version = "0.12.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-XRd0ousVmI4IHFgsJUq0qXUgluajTyNUEct5vWFmDDc=";
+    sha256 = "f851382c469bcd9a8c98b1878bcfdd13b68556279d2fd9a329be41956ae5a7fe";
   };
 
   propagatedBuildInputs = [
@@ -66,8 +66,6 @@ buildPythonPackage rec {
     "test_install_command" # tries to alter out path
     "test_test_command" # tries to alter out path
     "test_setup" # tries to install using distutils
-    "test_pep518" # pip exits with code 1
-    "test_dual_pep518" # pip exits with code 1
   ]);
 
   checkPhase = ''

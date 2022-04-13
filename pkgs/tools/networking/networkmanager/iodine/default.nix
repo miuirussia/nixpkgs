@@ -48,7 +48,6 @@ in stdenv.mkDerivation {
       packageName = pname;
       attrPath = "networkmanager-iodine";
     };
-    networkManagerPlugin = "VPN/nm-iodine-service.name";
   };
 
   meta = with lib; {

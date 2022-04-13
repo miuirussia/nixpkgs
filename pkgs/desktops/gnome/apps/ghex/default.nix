@@ -2,31 +2,30 @@
 , lib
 , fetchurl
 , pkg-config
-, gi-docgen
 , meson
 , ninja
+, python3
 , gnome
 , desktop-file-utils
 , appstream-glib
 , gettext
 , itstool
 , libxml2
-, gtk4
+, gtk3
 , glib
 , atk
-, gobject-introspection
-, wrapGAppsHook4
+, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
   pname = "ghex";
-  version = "42.0";
+  version = "3.41.1";
 
-  outputs = [ "out" "dev" "devdoc" ];
+  outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/ghex/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "Ly11VO8SimxoAJ2YY5TiBMMWeMU+HUpAnyGQmNS/ybs=";
+    url = "mirror://gnome/sources/ghex/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    sha256 = "i3nPAJ6uXEfK0KtT4hmcOm+y86thh381m+1SR3DuYfc=";
   };
 
   nativeBuildInputs = [
@@ -36,13 +35,12 @@ stdenv.mkDerivation rec {
     meson
     ninja
     pkg-config
-    gi-docgen
-    gobject-introspection
-    wrapGAppsHook4
+    python3
+    wrapGAppsHook
   ];
 
   buildInputs = [
-    gtk4
+    gtk3
     atk
     glib
   ];
@@ -52,16 +50,9 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # mremap does not exist on darwin
-    "-Dmmap-buffer-backend=false"
-  ];
-
-  postFixup = ''
-    # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
-    moveToOutput "share/doc" "$devdoc"
+  postPatch = ''
+     chmod +x meson_post_install.py
+     patchShebangs meson_post_install.py
   '';
 
   passthru = {

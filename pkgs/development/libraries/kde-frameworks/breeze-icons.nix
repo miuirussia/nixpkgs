@@ -1,7 +1,7 @@
 { mkDerivation, extra-cmake-modules, gtk3, qtsvg, hicolor-icon-theme }:
 
 mkDerivation {
-  pname = "breeze-icons";
+  name = "breeze-icons";
   nativeBuildInputs = [ extra-cmake-modules gtk3 ];
   buildInputs = [ qtsvg ];
   propagatedBuildInputs = [

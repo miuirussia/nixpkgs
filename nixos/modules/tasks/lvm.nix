@@ -7,18 +7,17 @@ in {
   options.services.lvm = {
     package = mkOption {
       type = types.package;
-      default = pkgs.lvm2;
+      default = if cfg.dmeventd.enable then pkgs.lvm2_dmeventd else pkgs.lvm2;
       internal = true;
       defaultText = literalExpression "pkgs.lvm2";
       description = ''
         This option allows you to override the LVM package that's used on the system
         (udev rules, tmpfiles, systemd services).
-        Defaults to pkgs.lvm2, pkgs.lvm2_dmeventd if dmeventd or pkgs.lvm2_vdo if vdo is enabled.
+        Defaults to pkgs.lvm2, or pkgs.lvm2_dmeventd if dmeventd is enabled.
       '';
     };
     dmeventd.enable = mkEnableOption "the LVM dmevent daemon";
     boot.thin.enable = mkEnableOption "support for booting from ThinLVs";
-    boot.vdo.enable = mkEnableOption "support for booting from VDOLVs";
   };
 
   config = mkMerge [
@@ -41,7 +40,6 @@ in {
       environment.etc."lvm/lvm.conf".text = ''
         dmeventd/executable = "${cfg.package}/bin/dmeventd"
       '';
-      services.lvm.package = mkDefault pkgs.lvm2_dmeventd;
     })
     (mkIf cfg.boot.thin.enable {
       boot.initrd = {
@@ -63,32 +61,6 @@ in {
       environment.etc."lvm/lvm.conf".text = concatMapStringsSep "\n"
         (bin: "global/${bin}_executable = ${pkgs.thin-provisioning-tools}/bin/${bin}")
         [ "thin_check" "thin_dump" "thin_repair" "cache_check" "cache_dump" "cache_repair" ];
-
-      environment.systemPackages = [ pkgs.thin-provisioning-tools ];
-    })
-    (mkIf cfg.boot.vdo.enable {
-      boot = {
-        initrd = {
-          kernelModules = [ "kvdo" ];
-
-          extraUtilsCommands = ''
-            ls ${pkgs.vdo}/bin/ | grep -v adaptLVMVDO | while read BIN; do
-              copy_bin_and_libs ${pkgs.vdo}/bin/$BIN
-            done
-          '';
-
-          extraUtilsCommandsTest = ''
-            ls ${pkgs.vdo}/bin/ | grep -v adaptLVMVDO | while read BIN; do
-              $out/bin/$(basename $BIN) --help > /dev/null
-            done
-          '';
-        };
-        extraModulePackages = [ config.boot.kernelPackages.kvdo ];
-      };
-
-      services.lvm.package = mkOverride 999 pkgs.lvm2_vdo;  # this overrides mkDefault
-
-      environment.systemPackages = [ pkgs.vdo ];
     })
     (mkIf (cfg.dmeventd.enable || cfg.boot.thin.enable) {
       boot.initrd.preLVMCommands = ''

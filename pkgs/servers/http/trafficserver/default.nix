@@ -13,7 +13,6 @@
 , python3
 , xz
 , zlib
-, catch2
 # recommended dependencies
 , withHwloc ? true
 , hwloc
@@ -114,8 +113,6 @@ stdenv.mkDerivation rec {
       tools/check-unused-dependencies
 
     substituteInPlace configure --replace '/usr/bin/file' '${file}/bin/file'
-
-    cp ${catch2}/include/catch2/catch.hpp tests/include/catch.hpp
   '' + lib.optionalString stdenv.isLinux ''
     substituteInPlace configure \
       --replace '/usr/include/linux' '${linuxHeaders}/include/linux'

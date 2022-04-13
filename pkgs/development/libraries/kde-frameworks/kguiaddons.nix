@@ -4,7 +4,7 @@
 }:
 
 mkDerivation {
-  pname = "kguiaddons";
+  name = "kguiaddons";
 
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [ qtx11extras wayland ];

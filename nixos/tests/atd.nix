@@ -6,7 +6,7 @@ import ./make-test-python.nix ({ pkgs, ... }:
     maintainers = [ bjornfor ];
   };
 
-  nodes.machine =
+  machine =
     { ... }:
     { services.atd.enable = true;
       users.users.alice = { isNormalUser = true; };

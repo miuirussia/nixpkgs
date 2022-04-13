@@ -14,16 +14,14 @@
 
 buildPythonPackage rec {
   pname = "python-binance";
-  version = "1.0.16";
-  format = "setuptools";
-
+  version = "1.0.10";
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "sammchardy";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-2v3qeykjQR/CUOC6F0Xomm49Q+wrYJS8vmL3+u6ew0M=";
+    rev = "v${version}";
+    sha256 = "09pq2blvky1ah4k8yc6zkp2g5nkn3awc52ad3lxvj6m33akfzxiv";
   };
 
   propagatedBuildInputs = [
@@ -46,9 +44,7 @@ buildPythonPackage rec {
     "tests/test_historical_klines.py"
   ];
 
-  pythonImportsCheck = [
-    "binance"
-  ];
+  pythonImportsCheck = [ "binance" ];
 
   meta = with lib; {
     description = "Binance Exchange API python implementation for automated trading";

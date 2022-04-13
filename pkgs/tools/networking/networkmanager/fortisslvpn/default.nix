@@ -1,5 +1,4 @@
-{ stdenv
-, lib
+{ lib, stdenv
 , fetchurl
 , substituteAll
 , openfortivpn
@@ -8,30 +7,35 @@
 , file
 , glib
 , gtk3
-, gtk4
 , networkmanager
 , ppp
 , libsecret
 , withGnome ? true
 , gnome
+, fetchpatch
 , libnma
-, libnma-gtk4
 }:
 
 stdenv.mkDerivation rec {
   pname = "NetworkManager-fortisslvpn";
-  version = "1.4.0";
+  version = "1.2.10";
   name = "${pname}${if withGnome then "-gnome" else ""}-${version}";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "sFXiY0m1FrI1hXmKs+9XtDawFIAOkqiscyz8jnbF2vo=";
+    sha256 = "1sw66cxgs4in4cjp1cm95c5ijsk8xbbmq4ykg2jwqwgz6cf2lr3s";
   };
 
   patches = [
     (substituteAll {
       src = ./fix-paths.patch;
       inherit openfortivpn;
+    })
+
+    # Don't use etc/dbus-1/system.d
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/GNOME/NetworkManager-fortisslvpn/merge_requests/11.patch";
+      sha256 = "0l7l2r1njh62lh2pf497ibf99sgkvjsj58xr76qx3jxgq9zfw6n9";
     })
   ];
 
@@ -48,15 +52,12 @@ stdenv.mkDerivation rec {
     glib
   ] ++ lib.optionals withGnome [
     gtk3
-    gtk4
     libsecret
     libnma
-    libnma-gtk4
   ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"
-    "--with-gtk4=${if withGnome then "yes" else "no"}"
     "--localstatedir=/var"
     "--enable-absolute-paths"
   ];
@@ -73,7 +74,6 @@ stdenv.mkDerivation rec {
       attrPath = "networkmanager-fortisslvpn";
       versionPolicy = "odd-unstable";
     };
-    networkManagerPlugin = "VPN/nm-fortisslvpn-service.name";
   };
 
   meta = with lib; {

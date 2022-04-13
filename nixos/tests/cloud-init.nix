@@ -61,7 +61,7 @@ in makeTest {
   meta = with pkgs.lib.maintainers; {
     maintainers = [ lewo ];
   };
-  nodes.machine = { ... }:
+  machine = { ... }:
   {
     virtualisation.qemu.options = [ "-cdrom" "${metadataDrive}/metadata.iso" ];
     services.cloud-init = {

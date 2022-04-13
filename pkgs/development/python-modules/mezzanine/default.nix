@@ -20,12 +20,12 @@
 }:
 
 buildPythonPackage rec {
-  version = "5.1.3";
+  version = "5.1.0";
   pname = "Mezzanine";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-G/Oj5g70tFUhnbSVElVk0s9Ka+MEuPsEgj6blcFBOoY=";
+    sha256 = "ce1117c81416d2e0a77981419312e200aec1cf3cb3ea9630083bd29e74bbb265";
   };
 
   disabled = isPyPy || lib.versionOlder django.version "1.11"

@@ -7,7 +7,7 @@ with pkgs.lib;
 let
   matomoTest = package:
   makeTest {
-    nodes.machine = { config, pkgs, ... }: {
+    machine = { config, pkgs, ... }: {
       services.matomo = {
         package = package;
         enable = true;

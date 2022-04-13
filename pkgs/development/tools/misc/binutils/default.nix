@@ -13,7 +13,6 @@ in
 , flex
 , texinfo
 , perl
-, substitute
 }:
 
 # configure silently disables ld.gold if it's unsupported,
@@ -96,13 +95,7 @@ stdenv.mkDerivation {
        # this comment for more information:
        # https://gitlab.haskell.org/ghc/ghc/issues/4210#note_78333
        lib.optional (stdenv.targetPlatform.isAarch32 && stdenv.hostPlatform.system != stdenv.targetPlatform.system) ./R_ARM_COPY.patch
-    ++ lib.optional stdenv.targetPlatform.isWindows ./windres-locate-gcc.patch
-    ++ lib.optional stdenv.targetPlatform.isMips64n64
-       # this patch is from debian:
-       # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
-       (if stdenv.targetPlatform.isMusl
-        then substitute { src = ./mips64-default-n64.patch; replacements = [ "--replace" "gnuabi64" "muslabi64" ]; }
-        else ./mips64-default-n64.patch);
+    ++ lib.optional stdenv.targetPlatform.isWindows ./windres-locate-gcc.patch;
 
   outputs = [ "out" "info" "man" ];
 

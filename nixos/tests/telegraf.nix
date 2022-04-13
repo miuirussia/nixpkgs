@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ...} : {
     maintainers = [ mic92 ];
   };
 
-  nodes.machine = { ... }: {
+  machine = { ... }: {
     services.telegraf.enable = true;
     services.telegraf.environmentFiles = [(pkgs.writeText "secrets" ''
       SECRET=example

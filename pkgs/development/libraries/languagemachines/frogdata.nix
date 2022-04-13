@@ -7,12 +7,12 @@ let
 in
 
 stdenv.mkDerivation {
-  pname = "frogdata";
+  name = "frogdata-${release.version}";
   version = release.version;
   src = fetchurl { inherit (release) url sha256;
                    name = "frogdata-${release.version}.tar.gz"; };
-  nativeBuildInputs = [ pkg-config automake autoconf ];
-  buildInputs = [ libtool autoconf-archive
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ automake autoconf libtool autoconf-archive
                 ];
 
   preConfigure = ''

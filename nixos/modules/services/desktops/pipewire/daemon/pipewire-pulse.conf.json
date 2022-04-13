@@ -29,7 +29,14 @@
     },
     {
       "name": "libpipewire-module-protocol-pulse",
-      "args": {}
+      "args": {
+        "server.address": [
+          "unix:native"
+        ],
+        "vm.overrides": {
+          "pulse.min.quantum": "1024/48000"
+        }
+      }
     }
   ],
   "context.exec": [
@@ -39,14 +46,6 @@
     }
   ],
   "stream.properties": {},
-  "pulse.properties": {
-    "server.address": [
-      "unix:native"
-    ],
-    "vm.overrides": {
-      "pulse.min.quantum": "1024/48000"
-    }
-  },
   "pulse.rules": [
     {
       "matches": [

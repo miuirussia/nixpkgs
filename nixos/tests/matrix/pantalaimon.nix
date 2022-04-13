@@ -36,7 +36,7 @@ import ../make-test-python.nix (
       maintainers = teams.matrix.members;
     };
 
-    nodes.machine = { pkgs, ... }: {
+    machine = { pkgs, ... }: {
       services.pantalaimon-headless.instances.${pantalaimonInstanceName} = {
         homeserver = "https://localhost:8448";
         listenAddress = "0.0.0.0";

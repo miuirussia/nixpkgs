@@ -9,7 +9,13 @@
 , withManpage ? false
 }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+let
+  notmuch2 = callPackage ./notmuch.nix {
+    inherit notmuch;
+  };
+in
+buildPythonApplication rec {
   pname = "alot";
   version = "0.10";
 

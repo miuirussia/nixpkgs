@@ -5,7 +5,7 @@
 }:
 
 mkDerivation {
-  pname = "kdeclarative";
+  name = "kdeclarative";
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [
     libepoxy kglobalaccel kguiaddons ki18n kiconthemes kio kwidgetsaddons

@@ -1,7 +1,7 @@
 import ./make-test-python.nix ({ pkgs, ... }: {
   name = "memcached";
 
-  nodes.machine = {
+  machine = {
     imports = [ ../modules/profiles/minimal.nix ];
     services.memcached.enable = true;
   };

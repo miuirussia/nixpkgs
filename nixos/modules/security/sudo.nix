@@ -245,7 +245,7 @@ in
 
     environment.systemPackages = [ sudo ];
 
-    security.pam.services.sudo = { sshAgentAuth = true; usshAuth = true; };
+    security.pam.services.sudo = { sshAgentAuth = true; };
 
     environment.etc.sudoers =
       { source =

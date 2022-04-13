@@ -3,32 +3,22 @@
 , fetchPypi
 , aiohttp
 , python-dateutil
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "pyplaato";
-  version = "0.0.17";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "0.0.15";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-fd7gHDah5yoqpH5d3bwEDsIfeflXzXevJLMD7lvz180=";
+    sha256 = "1nykbkv2fg1x5min07cbi44x6am48f5gw3mnyj7x2kpmj6sqfpqp";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ aiohttp python-dateutil ];
 
-  # Module has no tests
+  # Project has no tests
   doCheck = false;
-
-  pythonImportsCheck = [
-    "pyplaato"
-  ];
+  pythonImportsCheck = [ "pyplaato" ];
 
   meta = with lib; {
     description = "Python API client for fetching Plaato data";

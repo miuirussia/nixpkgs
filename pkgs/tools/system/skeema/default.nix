@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "skeema";
-  version = "1.7.1";
+  version = "1.7.0";
 
   src = fetchFromGitHub {
     owner = "skeema";
     repo = "skeema";
     rev = "v${version}";
-    sha256 = "sha256-DHdc6Le4WhL5QC/hqtbtq7rdBdLiRflDNnXQY2l2aJ8=";
+    sha256 = "1a75vixrpidim641809nj931r73zvbj2rsls7d80z7w87maav51m";
   };
 
   vendorSha256 = null;

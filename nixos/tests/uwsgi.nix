@@ -5,7 +5,7 @@ import ./make-test-python.nix ({ pkgs, ... }:
     maintainers = [ lnl7 ];
   };
 
-  nodes.machine = { pkgs, ... }: {
+  machine = { pkgs, ... }: {
     users.users.hello  =
       { isSystemUser = true;
         group = "hello";

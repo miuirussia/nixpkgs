@@ -1,28 +1,19 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytest }:
 
 buildPythonPackage rec {
   pname = "pytest-runner";
-  version = "6.0.0";
-  format = "pyproject";
+  version = "5.3.1";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-tNhTYu0ptMNIZ43nl99Djw8FCUl924xkcJbAKm2HtoU=";
+    sha256 = "0fce5b8dc68760f353979d99fdd6b3ad46330b6b1837e2077a89ebcf204aac91";
   };
+
+  nativeBuildInputs = [ setuptools-scm pytest ];
 
   postPatch = ''
     rm pytest.ini
   '';
-
-  nativeBuildInputs = [
-    setuptools-scm
-    pytest
-  ];
 
   checkPhase = ''
     py.test tests

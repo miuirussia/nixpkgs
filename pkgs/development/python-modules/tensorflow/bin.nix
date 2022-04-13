@@ -18,9 +18,10 @@
 , opt-einsum
 , backports_weakref
 , tensorflow-estimator
-, tensorboard
+, tensorflow-tensorboard
 , cudaSupport ? false
-, cudaPackages ? {}
+, cudatoolkit
+, cudnn
 , patchelfUnstable
 , zlib
 , python
@@ -42,7 +43,6 @@ assert ! (stdenv.isDarwin && cudaSupport);
 
 let
   packages = import ./binary-hashes.nix;
-  inherit (cudaPackages) cudatoolkit cudnn;
 in buildPythonPackage {
   pname = "tensorflow" + lib.optionalString cudaSupport "-gpu";
   inherit (packages) version;
@@ -74,7 +74,7 @@ in buildPythonPackage {
     google-pasta
     wrapt
     tensorflow-estimator
-    tensorboard
+    tensorflow-tensorboard
     keras-applications
     keras-preprocessing
     h5py
@@ -168,7 +168,7 @@ in buildPythonPackage {
     '';
 
   # Upstream has a pip hack that results in bin/tensorboard being in both tensorflow
-  # and the propagated input tensorboard, which causes environment collisions.
+  # and the propagated input tensorflow-tensorboard, which causes environment collisions.
   # Another possibility would be to have tensorboard only in the buildInputs
   # See https://github.com/NixOS/nixpkgs/pull/44381 for more information.
   postInstall = ''
@@ -181,10 +181,6 @@ in buildPythonPackage {
     "tensorflow.python"
     "tensorflow.python.framework"
   ];
-
-  passthru = {
-    inherit cudaPackages;
-  };
 
   meta = with lib; {
     description = "Computation using data flow graphs for scalable machine learning";

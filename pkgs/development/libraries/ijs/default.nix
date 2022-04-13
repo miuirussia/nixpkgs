@@ -1,8 +1,9 @@
 { lib, stdenv, autoreconfHook, ghostscript }:
 
 stdenv.mkDerivation {
-  pname = "ijs";
-  inherit (ghostscript) version src;
+  name = "ijs-${ghostscript.version}";
+
+  inherit (ghostscript) src;
 
   postPatch = "cd ijs";
 

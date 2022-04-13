@@ -21,9 +21,10 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  nativeBuildInputs = [ autoconf automake ];
   buildInputs =
     [
+      autoconf
+      automake
       libtool
       intltool
     ];

@@ -79,7 +79,6 @@ let
     if lib.strings.hasInfix "manylinux1" f then { pkg = [ ml.manylinux1 ]; str = "1"; }
     else if lib.strings.hasInfix "manylinux2010" f then { pkg = [ ml.manylinux2010 ]; str = "2010"; }
     else if lib.strings.hasInfix "manylinux2014" f then { pkg = [ ml.manylinux2014 ]; str = "2014"; }
-    else if lib.strings.hasInfix "manylinux_" f then { pkg = [ ml.manylinux2014 ]; str = "pep600"; }
     else { pkg = [ ]; str = null; };
 
   # Predict URL from the PyPI index.
@@ -111,8 +110,8 @@ let
     (pkgs.stdenvNoCC.mkDerivation {
       name = file;
       nativeBuildInputs = [
-        pkgs.buildPackages.curl
-        pkgs.buildPackages.jq
+        pkgs.curl
+        pkgs.jq
       ];
       isWheel = lib.strings.hasSuffix "whl" file;
       system = "builtin";
@@ -220,8 +219,7 @@ let
   };
 
   # Machine tag for our target platform (if available)
-  getTargetMachine = stdenv: manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null;
-
+  targetMachine = manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null;
 in
 {
   inherit
@@ -235,6 +233,6 @@ in
     cleanPythonSources
     moduleName
     getPythonVersion
-    getTargetMachine
+    targetMachine
     ;
 }

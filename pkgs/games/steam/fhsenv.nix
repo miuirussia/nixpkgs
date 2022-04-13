@@ -206,6 +206,12 @@ in buildFHSUserEnv rec {
   ++ steamPackages.steam-runtime-wrapped.overridePkgs
   ++ extraLibraries pkgs;
 
+  extraBuildCommands = ''
+    ln -s /usr/lib/libbz2.so usr/lib/libbz2.so.1.0
+  '' + lib.optionalString (steam-runtime-wrapped-i686 != null) ''
+    ln -s /usr/lib32/libbz2.so usr/lib32/libbz2.so.1.0
+  '';
+
   extraInstallCommands = ''
     mkdir -p $out/share/applications
     ln -s ${steam}/share/icons $out/share
@@ -263,7 +269,7 @@ in buildFHSUserEnv rec {
     name = "steam-run";
 
     targetPkgs = commonTargetPkgs;
-    inherit multiPkgs profile extraInstallCommands;
+    inherit multiPkgs extraBuildCommands profile extraInstallCommands;
 
     inherit unshareIpc unsharePid;
 

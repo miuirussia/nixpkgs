@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub
 , cmake, addOpenGLRunpath
 , cudatoolkit
-, cutensor
+, cutensor_cudatoolkit
 }:
 
 let
@@ -61,9 +61,9 @@ in
     # CUTENSOR_ROOT is double escaped
     postPatch = ''
       substituteInPlace CMakeLists.txt \
-        --replace "\''${CUTENSOR_ROOT}/include" "${cutensor.dev}/include"
+        --replace "\''${CUTENSOR_ROOT}/include" "${cutensor_cudatoolkit.dev}/include"
     '';
 
-    CUTENSOR_ROOT = cutensor;
+    CUTENSOR_ROOT = cutensor_cudatoolkit;
   });
 }

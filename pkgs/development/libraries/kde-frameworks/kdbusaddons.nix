@@ -5,7 +5,7 @@
 }:
 
 mkDerivation {
-  pname = "kdbusaddons";
+  name = "kdbusaddons";
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [ qttools qtx11extras ];
   propagatedBuildInputs = [ qtbase ];

@@ -16,7 +16,6 @@
 buildPythonPackage rec {
   pname = "xmlsec";
   version = "1.3.12";
-  format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
@@ -36,14 +35,7 @@ buildPythonPackage rec {
 
   # Full git clone required for test_doc_examples
   checkInputs = [ pytestCheckHook hypothesis ];
-
-  disabledTestPaths = [
-    "tests/test_doc_examples.py"
-    # test_reinitialize_module segfaults python
-    # https://github.com/mehcode/python-xmlsec/issues/203
-    "tests/test_xmlsec.py"
-  ];
-
+  disabledTestPaths = [ "tests/test_doc_examples.py" ];
 
   pythonImportsCheck = [ "xmlsec" ];
 

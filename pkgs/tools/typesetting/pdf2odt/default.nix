@@ -1,5 +1,5 @@
 { lib
-, resholve
+, resholvePackage
 , fetchFromGitHub
 , bc
 , coreutils
@@ -13,7 +13,7 @@
 , findutils
 }:
 
-resholve.mkDerivation rec {
+resholvePackage rec {
   pname = "pdf2odt";
   version = "20170207";
 

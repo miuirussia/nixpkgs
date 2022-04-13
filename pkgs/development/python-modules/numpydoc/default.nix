@@ -7,13 +7,13 @@
 
 buildPythonPackage rec {
   pname = "numpydoc";
-  version = "1.2";
+  version = "1.1.0";
   disabled = isPy27;
 
   src = fetchPypi {
     inherit pname;
     inherit version;
-    sha256 = "sha256-DOwjN0DGsSWRMAXRboqZluBgUor8uLfK0/JwZinf1vc=";
+    sha256 = "c36fd6cb7ffdc9b4e165a43f67bf6271a7b024d0bb6b00ac468c9e2bfc76448e";
   };
 
   checkInputs = [ nose pytest ];

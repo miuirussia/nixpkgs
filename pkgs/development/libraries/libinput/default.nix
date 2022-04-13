@@ -1,7 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitLab
-, gitUpdater
+, fetchurl
 , pkg-config
 , meson
 , ninja
@@ -45,16 +44,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "libinput";
-  version = "1.20.0";
+  version = "1.19.3";
 
   outputs = [ "bin" "out" "dev" ];
 
-  src = fetchFromGitLab {
-    domain = "gitlab.freedesktop.org";
-    owner = "libinput";
-    repo = "libinput";
-    rev = version;
-    sha256 = "Ey6ItBIrf1POACp2+6R0B4KxJq5V1HoO+y4j6hZSGAE=";
+  src = fetchurl {
+    url = "https://www.freedesktop.org/software/libinput/libinput-${version}.tar.xz";
+    sha256 = "sha256-PK54zN4Z19Dzh+WLxzTU0Xq19kJvVKnotyjJCxe6oGg=";
   };
 
   patches = [
@@ -117,14 +113,8 @@ stdenv.mkDerivation rec {
     sed -i "/install_subdir('libinput', install_dir : dir_etc)/d" meson.build
   '';
 
-  passthru = {
-    tests = {
-      libinput-module = nixosTests.libinput;
-    };
-    updateScript = gitUpdater {
-      inherit pname version;
-      patchlevel-unstable = true;
-    };
+  passthru.tests = {
+    libinput-module = nixosTests.libinput;
   };
 
   meta = with lib; {

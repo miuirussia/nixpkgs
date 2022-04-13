@@ -2,7 +2,7 @@ import ../make-test-python.nix ({ pkgs, lib, php, ... }: {
   name = "php-${php.version}-fpm-nginx-test";
   meta.maintainers = lib.teams.php.members;
 
-  nodes.machine = { config, lib, pkgs, ... }: {
+  machine = { config, lib, pkgs, ... }: {
     environment.systemPackages = [ php ];
 
     services.nginx = {

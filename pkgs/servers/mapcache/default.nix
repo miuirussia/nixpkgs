@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation rec {
   pname = "mapcache";
-  version = "1.12.1";
+  version = "1.12.0";
 
   src = fetchFromGitHub {
     owner = "MapServer";
     repo = pname;
     rev = "rel-${lib.replaceStrings [ "." ] [ "-" ] version}";
-    sha256 = "sha256-NuiZMWcmsN5wDCd37Hvj3cazwT3Ea+OknV/YR3urZB0=";
+    sha256 = "sha256-13lOQC4PJtByhvceuF00uoipLFHrFiyJrsy2iWcEANc=";
   };
 
   nativeBuildInputs = [

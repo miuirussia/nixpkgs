@@ -10,7 +10,6 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
     services.powerdns.extraConfig = ''
       launch=gmysql
       gmysql-user=pdns
-      zone-cache-refresh-interval=0
     '';
 
     services.mysql = {

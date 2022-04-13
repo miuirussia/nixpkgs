@@ -11,7 +11,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
     maintainers = with lib.maintainers; [ aristid aszlig eelco kampfschlaefer ianwookim ];
   };
 
-  nodes.machine =
+  machine =
     { pkgs, ... }:
     { imports = [ ../modules/installer/cd-dvd/channel.nix ];
       virtualisation.writableStore = true;

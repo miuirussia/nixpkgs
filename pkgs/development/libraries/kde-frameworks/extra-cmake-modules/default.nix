@@ -1,7 +1,7 @@
 { mkDerivation, lib, cmake, pkg-config }:
 
 mkDerivation {
-  pname = "extra-cmake-modules";
+  name = "extra-cmake-modules";
 
   patches = [
     ./nix-lib-path.patch

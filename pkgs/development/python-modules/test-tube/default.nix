@@ -8,7 +8,7 @@
 , numpy
 , pandas
 , pytorch
-, tensorboard
+, tensorflow-tensorboard
 }:
 
 buildPythonPackage rec {
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     numpy
     pandas
     pytorch
-    tensorboard
+    tensorflow-tensorboard
   ];
 
   meta = with lib; {

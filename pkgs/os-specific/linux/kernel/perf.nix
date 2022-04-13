@@ -9,6 +9,8 @@
 
 with lib;
 
+assert versionAtLeast kernel.version "3.12";
+
 stdenv.mkDerivation {
   pname = "perf-linux";
   version = kernel.version;

@@ -1,52 +1,27 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, future
-, mock
-, parameterized
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, future, python-dateutil, six, pytest, mock, parameterized }:
 
 buildPythonPackage rec {
   pname = "vertica-python";
-  version = "1.0.4";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "1.0.3";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-IpdrR9mDG+8cNnXgSXkmXahSEP4EGnEBJqZk5SNu9pA=";
+    sha256 = "cfe1794c5ba9fdfbd470a55d82f60c2e08e129828367753bf64199a58a539bc2";
   };
 
-  propagatedBuildInputs = [
-    future
-    python-dateutil
-    six
-  ];
+  propagatedBuildInputs = [ future python-dateutil six ];
 
-  checkInputs = [
-    mock
-    parameterized
-    pytestCheckHook
-  ];
+  checkInputs = [ pytest mock parameterized ];
 
-  disabledTestPaths = [
-    # Integration tests require an accessible Vertica db
-    "vertica_python/tests/integration_tests"
-  ];
-
-  pythonImportsCheck = [
-    "vertica_python"
-  ];
+  # Integration tests require an accessible Vertica db
+  checkPhase = ''
+    pytest --ignore vertica_python/tests/integration_tests
+  '';
 
   meta = with lib; {
     description = "Native Python client for Vertica database";
     homepage = "https://github.com/vertica/vertica-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arnoldfarkas ];
+    maintainers = [ maintainers.arnoldfarkas ];
   };
 }

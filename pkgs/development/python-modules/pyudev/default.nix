@@ -4,11 +4,11 @@
 
 buildPythonPackage rec {
   pname = "pyudev";
-  version = "0.23.2";
+  version = "0.22.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Mq41hbMgpRvCg+CgQAD9iiVZnttEVB4vUDT2r+5dFcw=";
+    sha256 = "0xmj6l08iih2js9skjqpv4w7y0dhxyg91zmrs6v5aa65gbmipfv9";
   };
 
   postPatch = ''

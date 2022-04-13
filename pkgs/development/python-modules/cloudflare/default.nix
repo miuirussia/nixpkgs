@@ -7,19 +7,15 @@
 , future
 , pyyaml
 , jsonlines
-, pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "cloudflare";
-  version = "2.9.10";
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
+  version = "2.8.15";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-LsUMB0zqlelHqWsgdmJ8v+Qn/reYuxCTKTODBT9K0bg=";
+    sha256 = "1f47bd324f80e91487dea2c79be934b1dc612bcfa63e784dcf74c6a2f52a41cc";
   };
 
   propagatedBuildInputs = [
@@ -33,15 +29,12 @@ buildPythonPackage rec {
 
   # no tests associated with package
   doCheck = false;
-
-  pythonImportsCheck = [
-    "CloudFlare"
-  ];
+  pythonImportsCheck = [ "CloudFlare" ];
 
   meta = with lib; {
     description = "Python wrapper for the Cloudflare v4 API";
     homepage = "https://github.com/cloudflare/python-cloudflare";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = [ maintainers.costrouc ];
   };
 }

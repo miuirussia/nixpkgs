@@ -20,7 +20,7 @@ let
       maintainers = [ lewo ma27 ];
     };
 
-    nodes.machine = { pkgs, lib, ... }: {
+    machine = { pkgs, lib, ... }: {
       imports = [ baseConfig ];
       services.hydra = { inherit package; };
     };

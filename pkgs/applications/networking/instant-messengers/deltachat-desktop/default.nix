@@ -1,41 +1,38 @@
 { lib
 , copyDesktopItems
-, electron_16
+, electron
 , esbuild
 , fetchFromGitHub
 , fetchpatch
 , libdeltachat
 , makeDesktopItem
 , makeWrapper
-, nodejs-14_x
-, noto-fonts-emoji
+, nodePackages
 , pkg-config
-, roboto
 , rustPlatform
-, sqlcipher
 , stdenv
 , CoreServices
 }:
 
 let
   libdeltachat' = libdeltachat.overrideAttrs (old: rec {
-    version = "1.76.0";
+    version = "1.70.0";
     src = fetchFromGitHub {
       owner = "deltachat";
       repo = "deltachat-core-rust";
       rev = version;
-      hash = "sha256-aeYOszOFyLaC1xKswYZLzqoWSFFWOOeOkc+WrtqU0jo=";
+      hash = "sha256-702XhFWvFG+g++3X97sy6C5DMNWogv1Xbr8QPR8QyLo=";
     };
     cargoDeps = rustPlatform.fetchCargoTarball {
       inherit src;
       name = "${old.pname}-${version}";
-      hash = "sha256-sBFXcLXpAkX+HzRKrLKaHhi5ieS8Yc/Uf30WcXyWrok=";
+      hash = "sha256-MiSGJMXe8vouv4XEHXq274FHEvBMtd7IX6DyNJIWYeU=";
     };
   });
   electronExec = if stdenv.isDarwin then
-    "${electron_16}/Applications/Electron.app/Contents/MacOS/Electron"
+    "${electron}/Applications/Electron.app/Contents/MacOS/Electron"
   else
-    "${electron_16}/bin/electron";
+    "${electron}/bin/electron";
   esbuild' = esbuild.overrideAttrs (old: rec {
     version = "0.12.29";
     src = fetchFromGitHub {
@@ -45,18 +42,19 @@ let
       hash = "sha256-oU++9E3StUoyrMVRMZz8/1ntgPI62M1NoNz9sH/N5Bg=";
     };
   });
-in nodejs-14_x.pkgs.deltachat-desktop.override rec {
+in nodePackages.deltachat-desktop.override rec {
   pname = "deltachat-desktop";
-  version = "1.28.2";
+  version = "1.26.0";
 
   src = fetchFromGitHub {
     owner = "deltachat";
     repo = "deltachat-desktop";
     rev = "v${version}";
-    hash = "sha256-jhtriDnt8Yl8eCmUTEyoPjccZV8RNAchMykkkiRpF60=";
+    hash = "sha256-IDyGV2+/+wHp5N4G10y5OHvw2yoyVxWx394xszIYoj4=";
   };
 
   nativeBuildInputs = [
+    esbuild
     makeWrapper
     pkg-config
   ] ++ lib.optionals stdenv.isLinux [
@@ -74,28 +72,27 @@ in nodejs-14_x.pkgs.deltachat-desktop.override rec {
   USE_SYSTEM_LIBDELTACHAT = "true";
   VERSION_INFO_GIT_REF = src.rev;
 
-  postInstall = ''
+  postInstall = let
+    keep = lib.concatMapStringsSep " " (file: "! -name ${file}") [
+      "_locales" "build" "html-dist" "images" "index.js"
+      "node_modules" "themes" "tsc-dist"
+    ];
+  in ''
     rm -r node_modules/deltachat-node/{deltachat-core-rust,prebuilds,src}
+
+    patchShebangs node_modules/sass/sass.js
 
     npm run build
 
     npm prune --production
 
-    install -D $out/lib/node_modules/deltachat-desktop/build/icon.png \
+    find . -mindepth 1 -maxdepth 1 ${keep} -print0 | xargs -0 rm -r
+
+    mkdir -p $out/share/icons/hicolor/scalable/apps
+    ln -s $out/lib/node_modules/deltachat-desktop/build/icon.png \
       $out/share/icons/hicolor/scalable/apps/deltachat.png
 
-    awk '!/^#/ && NF' build/packageignore_list \
-      | xargs -I {} sh -c "rm -rf {}" || true
-
-    ln -sf ${noto-fonts-emoji}/share/fonts/noto/NotoColorEmoji.ttf \
-      $out/lib/node_modules/deltachat-desktop/html-dist/fonts/noto/emoji
-    for font in $out/lib/node_modules/deltachat-desktop/html-dist/fonts/Roboto-*.ttf; do
-      ln -sf ${roboto}/share/fonts/truetype/$(basename $font) \
-        $out/lib/node_modules/deltachat-desktop/html-dist/fonts
-    done
-
     makeWrapper ${electronExec} $out/bin/deltachat \
-      --set LD_PRELOAD ${sqlcipher}/lib/libsqlcipher${stdenv.hostPlatform.extensions.sharedLibrary} \
       --add-flags $out/lib/node_modules/deltachat-desktop
   '';
 

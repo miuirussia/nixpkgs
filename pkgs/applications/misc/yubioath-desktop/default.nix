@@ -15,7 +15,7 @@ mkDerivation rec {
 
   doCheck = false;
 
-  buildInputs = [ qtbase qtquickcontrols2 qtgraphicaleffects python3 ];
+  buildInputs = [ stdenv qtbase qtquickcontrols2 qtgraphicaleffects python3 ];
 
   nativeBuildInputs = [ qmake makeWrapper python3.pkgs.wrapPython ];
 

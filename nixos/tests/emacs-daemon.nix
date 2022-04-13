@@ -6,7 +6,7 @@ import ./make-test-python.nix ({ pkgs, ...} : {
 
   enableOCR = true;
 
-  nodes.machine =
+  machine =
     { ... }:
 
     { imports = [ ./common/x11.nix ];

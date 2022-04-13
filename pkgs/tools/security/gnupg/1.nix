@@ -29,6 +29,5 @@ stdenv.mkDerivation rec {
       available.
     '';
     platforms = platforms.all;
-    mainProgram = "gpg";
   };
 }

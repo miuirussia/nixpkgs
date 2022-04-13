@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook autoconf automake ];
-  buildInputs = [libtool];
+  nativeBuildInputs = [ autoreconfHook ];
+  buildInputs = [autoconf automake libtool];
   propagatedBuildInputs = [ gmpxx ];
 
   configureFlags = [

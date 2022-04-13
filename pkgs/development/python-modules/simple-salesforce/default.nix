@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "simple-salesforce";
-  version = "1.11.6";
+  version = "1.11.4";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-/uaFEQnilcelHKjbmrnyLm5Mzj2V8P4oEH+cgJn+KvI=";
+    sha256 = "17d6g7zfhlgd2n4mimjarl2x4hl7ww2lb4izidlns1hzqm8igg4y";
   };
 
   propagatedBuildInputs = [

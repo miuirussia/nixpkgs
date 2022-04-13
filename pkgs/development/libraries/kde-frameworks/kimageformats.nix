@@ -7,7 +7,7 @@
 let inherit (lib) getDev; in
 
 mkDerivation {
-  pname = "kimageformats";
+  name = "kimageformats";
 
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [ karchive openexr libavif qtbase ];

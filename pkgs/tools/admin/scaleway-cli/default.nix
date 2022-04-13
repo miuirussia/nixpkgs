@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "scaleway-cli";
-  version = "2.5.1";
+  version = "2.4.0";
 
   src = fetchFromGitHub {
     owner = "scaleway";
     repo = "scaleway-cli";
     rev = "v${version}";
-    sha256 = "sha256-a8imZN3APQEb9ntQOzOKGBEiPKmb5ZYC9ZKnOuLiElc=";
+    sha256 = "yYzcziEKPSiMvw9LWd60MkHmYFAvN7Qza6Z117NOOv0=";
   };
 
-  vendorSha256 = "sha256-aaYS0WqNa8997kdV38blUsYovtUHHtEUXCTG9vwv2ko=";
+  vendorSha256 = "7cGVeja1YE96PEV1IRklyh6MeMDFAP+2TpYvvFkBYnQ=";
 
   # some tests require network access to scaleway's API, failing when sandboxed
   doCheck = false;

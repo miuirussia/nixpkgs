@@ -35,7 +35,7 @@ installSanePath = path: ''
 in
 stdenv.mkDerivation {
   name = "sane-config";
-  dontUnpack = true;
+  phases = "installPhase";
 
   installPhase = ''
     function symlink () {

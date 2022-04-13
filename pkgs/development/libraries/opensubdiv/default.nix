@@ -1,10 +1,6 @@
 { config, lib, stdenv, fetchFromGitHub, cmake, pkg-config, xorg, libGLU
 , libGL, glew, ocl-icd, python3
 , cudaSupport ? config.cudaSupport or false, cudatoolkit
-  # For visibility mostly. The whole approach to cuda architectures and capabilities
-  # will be reworked soon.
-, cudaArch ? "compute_37"
-, openclSupport ? !cudaSupport
 , darwin
 }:
 
@@ -28,7 +24,7 @@ stdenv.mkDerivation rec {
       glew xorg.libX11 xorg.libXrandr xorg.libXxf86vm xorg.libXcursor
       xorg.libXinerama xorg.libXi
     ]
-    ++ lib.optional (openclSupport && !stdenv.isDarwin) ocl-icd
+    ++ lib.optional (!stdenv.isDarwin) ocl-icd
     ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [OpenCL Cocoa CoreVideo IOKit AppKit AGL ])
     ++ lib.optional cudaSupport cudatoolkit;
 
@@ -41,10 +37,8 @@ stdenv.mkDerivation rec {
       "-DGLEW_INCLUDE_DIR=${glew.dev}/include"
       "-DGLEW_LIBRARY=${glew.dev}/lib"
     ] ++ lib.optionals cudaSupport [
-      "-DOSD_CUDA_NVCC_FLAGS=--gpu-architecture=${cudaArch}"
+      "-DOSD_CUDA_NVCC_FLAGS=--gpu-architecture=compute_30"
       "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
-    ] ++ lib.optionals (!openclSupport) [
-      "-DNO_OPENCL=1"
     ];
 
   postInstall = "rm $out/lib/*.a";
@@ -52,7 +46,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "An Open-Source subdivision surface library";
     homepage = "http://graphics.pixar.com/opensubdiv";
-    broken = openclSupport && cudaSupport;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.eelco ];
     license = lib.licenses.asl20;

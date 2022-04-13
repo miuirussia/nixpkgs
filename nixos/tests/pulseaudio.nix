@@ -27,7 +27,7 @@ let
           maintainers = [ synthetica ] ++ pkgs.pulseaudio.meta.maintainers;
         };
 
-        nodes.machine = { ... }:
+        machine = { ... }:
 
           {
             imports = [ ./common/wayland-cage.nix ];

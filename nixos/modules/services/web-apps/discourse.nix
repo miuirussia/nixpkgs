@@ -609,7 +609,6 @@ in
       connection_reaper_interval = 30;
       relative_url_root = null;
       message_bus_max_backlog_size = 100;
-      message_bus_clear_every = 50;
       secret_key_base = cfg.secretKeyBaseFile;
       fallback_assets_path = null;
 
@@ -656,12 +655,7 @@ in
       long_polling_interval = null;
     };
 
-    services.redis.servers.discourse =
-      lib.mkIf (lib.elem cfg.redis.host [ "localhost" "127.0.0.1" ]) {
-        enable = true;
-        bind = cfg.redis.host;
-        port = cfg.backendSettings.redis_port;
-      };
+    services.redis.enable = lib.mkDefault (cfg.redis.host == "localhost");
 
     services.postgresql = lib.mkIf databaseActuallyCreateLocally {
       enable = true;
@@ -702,12 +696,12 @@ in
     systemd.services.discourse = {
       wantedBy = [ "multi-user.target" ];
       after = [
-        "redis-discourse.service"
+        "redis.service"
         "postgresql.service"
         "discourse-postgresql.service"
       ];
       bindsTo = [
-        "redis-discourse.service"
+        "redis.service"
       ] ++ lib.optionals (cfg.database.host == null) [
         "postgresql.service"
         "discourse-postgresql.service"

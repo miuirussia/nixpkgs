@@ -206,7 +206,6 @@ rec {
             )];
           };
         in
-          lib.warnIf (t?machine) "In test `${name}': The `machine' attribute in NixOS tests (pkgs.nixosTest / make-test-pyton.nix / testing-python.nix / makeTest) is deprecated. Please use the equivalent `nodes.machine'."
           build-vms.buildVirtualNetwork (
               nodes // lib.optionalAttrs (machine != null) { inherit machine; }
           );

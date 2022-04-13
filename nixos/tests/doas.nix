@@ -6,7 +6,7 @@ import ./make-test-python.nix (
       maintainers = [ cole-h ];
     };
 
-    nodes.machine =
+    machine =
       { ... }:
         {
           users.groups = { foobar = {}; barfoo = {}; baz = { gid = 1337; }; };

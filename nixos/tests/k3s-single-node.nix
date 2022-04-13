@@ -38,7 +38,7 @@ import ./make-test-python.nix ({ pkgs, ... }:
       maintainers = [ euank ];
     };
 
-    nodes.machine = { pkgs, ... }: {
+    machine = { pkgs, ... }: {
       environment.systemPackages = with pkgs; [ k3s gzip ];
 
       # k3s uses enough resources the default vm fails.

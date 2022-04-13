@@ -1,11 +1,8 @@
-{ lib, stdenv, ocaml, findlib, dune_1, dune_2, dune_3 }:
+{ lib, stdenv, ocaml, findlib, dune_1, dune_2 }:
 
 { pname, version, nativeBuildInputs ? [], enableParallelBuilding ? true, ... }@args:
 
-let Dune =
-  let dune-version = args . duneVersion or (if args.useDune2 or true then "2" else "1"); in
-  { "1" = dune_1; "2" = dune_2; "3" = dune_3; }."${dune-version}"
-; in
+let Dune = if args.useDune2 or true then dune_2 else dune_1; in
 
 if (args ? minimumOCamlVersion && ! lib.versionAtLeast ocaml.version args.minimumOCamlVersion) ||
    (args ? minimalOCamlVersion && ! lib.versionAtLeast ocaml.version args.minimalOCamlVersion)
@@ -34,7 +31,7 @@ stdenv.mkDerivation ({
     runHook postInstall
   '';
 
-} // (builtins.removeAttrs args [ "minimalOCamlVersion" "duneVersion" ]) // {
+} // (builtins.removeAttrs args [ "minimalOCamlVersion" ]) // {
 
   name = "ocaml${ocaml.version}-${pname}-${version}";
 

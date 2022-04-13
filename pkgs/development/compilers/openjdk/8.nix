@@ -17,8 +17,7 @@ let
     i686-linux = "i386";
     x86_64-linux = "amd64";
     aarch64-linux = "aarch64";
-    powerpc64le-linux = "ppc64le";
-  }.${stdenv.system} or (throw "Unsupported platform ${stdenv.system}");
+  }.${stdenv.system} or (throw "Unsupported platform");
 
   update = "322";
   build = "ga";

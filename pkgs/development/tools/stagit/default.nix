@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "stagit";
-  version = "1.1";
+  version = "1.0";
 
   src = fetchgit {
     url = "git://git.codemadness.org/stagit";
     rev = version;
-    sha256 = "sha256-wnXvK1OYd6FxJuZai5a0Mvz4gWpjlhLgGrcKlvn2lbs=";
+    sha256 = "sha256-4QSKW89RyK/PpGE+lOHFiMTI82pdspfObnzd0rcgQkg=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];

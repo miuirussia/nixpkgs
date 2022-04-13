@@ -1,23 +1,18 @@
-{ cmake, fetchFromGitHub, lib, ninja, stdenv, testVersion, quick-lint-js }:
-
+{ cmake, fetchFromGitHub, lib, ninja, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "quick-lint-js";
-  version = "2.3.1";
+  version = "2.3.0";
 
   src = fetchFromGitHub {
     owner = "quick-lint";
     repo = "quick-lint-js";
     rev = version;
-    sha256 = "sha256-3DiK7c+RuCIy9B2j6ozSaVIRf63o9S8uH27SZZJHjes=";
+    sha256 = "1ay59pmprcswip6zzbqfy5g2rdv4lgmps8vrxay4l9w6xn9lg03v";
   };
 
   nativeBuildInputs = [ cmake ninja ];
   doCheck = true;
-
-  passthru.tests = {
-    version = testVersion { package = quick-lint-js; };
-  };
 
   meta = with lib; {
     description = "Find bugs in Javascript programs";

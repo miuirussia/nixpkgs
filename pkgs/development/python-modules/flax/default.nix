@@ -7,7 +7,6 @@
 , msgpack
 , numpy
 , optax
-, pytest-xdist
 , pytestCheckHook
 , tensorflow
 }:
@@ -38,11 +37,9 @@ buildPythonPackage rec {
 
   checkInputs = [
     keras
-    pytest-xdist
     pytestCheckHook
     tensorflow
   ];
-  pytestFlagsArray = [ "-n $NIX_BUILD_CORES" ];
 
   disabledTestPaths = [
     # Docs test, needs extra deps + we're not interested in it.

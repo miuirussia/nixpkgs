@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "0xp6ijnrggskjrvscp204bmdpz48l5a8nxr9abp17wni6akb5wiq";
   };
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook cmake ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
   buildInputs = [
     dbus
     openssl
@@ -38,6 +38,7 @@ stdenv.mkDerivation rec {
     libepoxy
     boost
     libXdmcp
+    cmake
     aspell
     libgit2
     libxkbcommon

@@ -27,6 +27,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/msabramo/python_unittest_parameterized_test_case";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
-    broken = python.isPy3k; # uses use_2to3
   };
 }

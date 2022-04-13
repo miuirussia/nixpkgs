@@ -6,10 +6,7 @@ let
 
   inherit (lib) mkOption types;
 
-  podmanPackage = (pkgs.podman.override {
-    extraPackages = cfg.extraPackages
-      ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems) config.boot.zfs.package;
-  });
+  podmanPackage = (pkgs.podman.override { inherit (cfg) extraPackages; });
 
   # Provides a fake "docker" binary mapping to podman
   dockerCompat = pkgs.runCommand "${podmanPackage.pname}-docker-compat-${podmanPackage.version}" {

@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     maintainers = [ peterhoeg ];
   };
 
-  nodes.machine = { ... }: {
+  machine = { ... }: {
     environment.systemPackages = with pkgs; [ dbus ];
     services.packagekit = {
       enable = true;

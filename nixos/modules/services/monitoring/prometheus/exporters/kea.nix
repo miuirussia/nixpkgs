@@ -25,10 +25,6 @@ in {
     };
   };
   serviceOpts = {
-    after = [
-      "kea-dhcp4-server.service"
-      "kea-dhcp6-server.service"
-    ];
     serviceConfig = {
       User = "kea";
       ExecStart = ''

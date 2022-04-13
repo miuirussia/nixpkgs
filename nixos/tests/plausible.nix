@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
     maintainers = [ ma27 ];
   };
 
-  nodes.machine = { pkgs, ... }: {
+  machine = { pkgs, ... }: {
     virtualisation.memorySize = 4096;
     services.plausible = {
       enable = true;

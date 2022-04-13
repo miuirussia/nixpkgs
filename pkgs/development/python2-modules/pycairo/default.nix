@@ -3,7 +3,7 @@
 , meson
 , ninja
 , buildPythonPackage
-, pytest
+, pytestCheckHook
 , pkg-config
 , cairo
 , python
@@ -32,11 +32,9 @@ buildPythonPackage rec {
     cairo
   ];
 
-  # HACK: Don't use the pytestCheckHook because PYTHONPATH
-  # will be added by the Python setuptook breaking meson.
-  checkPhase = ''
-    ${pytest}/bin/pytest
-  '';
+  checkInputs = [
+    pytestCheckHook
+  ];
 
   mesonFlags = [
     # This is only used for figuring out what version of Python is in

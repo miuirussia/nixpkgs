@@ -7,11 +7,11 @@
 }:
 buildPythonPackage rec {
   pname = "PyRect";
-  version = "0.2.0";
+  version = "0.1.4";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-9lFV9t+bkptnyv+9V8CUfFrlRJ07WA0XgHS/+0egm3g=";
+    sha256 = "sha256-Oy+nNTzjKhGqawoVSVlo0qdjQjyJR64ki5LAN9704gI=";
   };
 
   checkInputs = [ tox pytestCheckHook pygame ];

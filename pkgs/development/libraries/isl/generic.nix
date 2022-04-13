@@ -9,8 +9,7 @@
 }:
 
 stdenv.mkDerivation {
-  pname = "isl";
-  inherit version;
+  name = "isl-${version}";
 
   src = fetchurl {
     inherit urls sha256;

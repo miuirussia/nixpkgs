@@ -1,50 +1,35 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, electron
-, runtimeShell
-, makeWrapper
-, copyDesktopItems
-, makeDesktopItem
-}:
+{ lib, stdenv, fetchFromGitHub, electron, runtimeShell } :
 
 stdenv.mkDerivation rec {
   pname = "nix-tour";
-  version = "unstable-2022-01-03";
+  version = "0.0.1";
+
+  buildInputs = [ electron ];
 
   src = fetchFromGitHub {
     owner = "nixcloud";
     repo = "tour_of_nix";
-    rev = "6a6784983e6dc121574b97eb9b1d03592c8cb9a7";
-    sha256 = "sha256-BhQz59wkwwY0ShXzqUD6MQl4NE/jUik5RbLzseEc5Bc=";
+    rev = "v${version}";
+    sha256 = "sha256-a/P2ZMc9OpM4PxRFklSO6oVCc96AGWkxtGF/EmnfYSU=";
   };
 
-  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
-  buildInputs = [ electron ];
-
   installPhase = ''
-    install -d $out/bin $out/share/nix-tour
-    cp -R * $out/share/nix-tour
-    makeWrapper ${electron}/bin/electron $out/bin/nix-tour \
-      --add-flags $out/share/nix-tour/electron-main.js
+    mkdir -p $out/bin
+    mkdir -p $out/share
+    cp -R * $out/share
+    chmod 0755 $out/share/ -R
+    echo "#!${runtimeShell}" > $out/bin/nix-tour
+    echo "cd $out/share/" >> $out/bin/nix-tour
+    echo "${electron}/bin/electron $out/share/electron-main.js" >> $out/bin/nix-tour
+    chmod 0755 $out/bin/nix-tour
   '';
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      desktopName = "Tour of Nix";
-      genericName = "Tour of Nix";
-      comment =
-        "Interactive programming guide dedicated to the nix programming language";
-      categories = [ "Development" "Documentation" ];
-      exec = "nix-tour";
-    })
-  ];
 
   meta = with lib; {
     description = "'the tour of nix' from nixcloud.io/tour as offline version";
     homepage = "https://nixcloud.io/tour";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ qknight yuu ];
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ qknight ];
   };
+
 }

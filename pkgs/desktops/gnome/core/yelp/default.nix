@@ -5,7 +5,6 @@
 , webkitgtk
 , pkg-config
 , gtk3
-, libhandy
 , glib
 , gnome
 , sqlite
@@ -18,11 +17,11 @@
 
 stdenv.mkDerivation rec {
   pname = "yelp";
-  version = "42.1";
+  version = "41.2";
 
   src = fetchurl {
     url = "mirror://gnome/sources/yelp/${lib.versions.major version}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-JbEUarhUmIilqNoGf2O0cLDw+AC2roicrNEU0B1xO0E=";
+    sha256 = "sha256-sAvwM/At15ttPyVQMccd+NbtOOVSyHC485GjdHJMQ8U=";
   };
 
   nativeBuildInputs = [
@@ -34,7 +33,6 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     gtk3
-    libhandy
     glib
     webkitgtk
     sqlite

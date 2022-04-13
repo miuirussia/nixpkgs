@@ -1,16 +1,16 @@
-{ lib, buildGoPackage, fetchFromGitHub }:
+{ lib, buildGoPackage, fetchgit }:
 
 buildGoPackage rec {
   pname = "govers";
-  version = "unstable-2016-06-23";
+  version = "20160623-${lib.strings.substring 0 7 rev}";
+  rev = "77fd787551fc5e7ae30696e009e334d52d2d3a43";
 
   goPackagePath = "github.com/rogpeppe/govers";
 
-  src = fetchFromGitHub {
-    owner = "rogpeppe";
-    repo = "govers";
-    rev = "77fd787551fc5e7ae30696e009e334d52d2d3a43";
-    sha256 = "sha256-lpc8wFKAB+A8mBm9q3qNzTM8ktFS1MYdIvZVFP0eiIs=";
+  src = fetchgit {
+    inherit rev;
+    url = "https://github.com/rogpeppe/govers";
+    sha256 = "12w83vyi8mgn48fwdm2js693qcydimxapg8rk0yf01w0ab03r5wn";
   };
 
   dontRenameImports = true;

@@ -7,7 +7,7 @@
 , parameterized
 , pillow
 , scipy
-, tensorboard
+, tensorflow-tensorboard
 }:
 
 buildPythonPackage rec {
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     parameterized
     pillow
     scipy
-    tensorboard
+    tensorflow-tensorboard
   ];
 
   pythonImportsCheck = [

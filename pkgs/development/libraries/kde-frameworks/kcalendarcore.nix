@@ -6,7 +6,7 @@
 }:
 
 mkDerivation {
-  pname = "kcalendarcore";
+  name = "kcalendarcore";
   nativeBuildInputs = [ extra-cmake-modules ];
   propagatedBuildInputs = [ libical ];
   outputs = [ "out" "dev" ];

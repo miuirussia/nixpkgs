@@ -5,7 +5,7 @@
 }:
 
 mkDerivation {
-  pname = "kpackage";
+  name = "kpackage";
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [ karchive kconfig kcoreaddons ki18n qtbase ];
   patches = [

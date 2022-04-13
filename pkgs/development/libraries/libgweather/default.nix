@@ -6,9 +6,12 @@
 , pkg-config
 , libxml2
 , glib
+, gtk3
 , gettext
 , libsoup
-, gi-docgen
+, gtk-doc
+, docbook-xsl-nons
+, docbook_xml_dtd_43
 , gobject-introspection
 , python3
 , tzdata
@@ -19,21 +22,14 @@
 
 stdenv.mkDerivation rec {
   pname = "libgweather";
-  version = "4.0.0";
+  version = "40.0";
 
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "RA1EgBtvcrSMZ25eN/kQnP7hOU/XTMknJeGxuk+ug0w=";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    sha256 = "1rkf4yv43qcahyx7bismdv6z2vh5azdnm1fqfmnzrada9cm8ykna";
   };
-
-  patches = [
-    # Headers depend on glib but it is only listed in Requires.private,
-    # which does not influence Cflags on non-static builds in nixpkgs’s
-    # pkg-config. Let’s add it to Requires to ensure Cflags are set correctly.
-    ./fix-pkgconfig.patch
-  ];
 
   nativeBuildInputs = [
     meson
@@ -41,7 +37,9 @@ stdenv.mkDerivation rec {
     pkg-config
     gettext
     vala
-    gi-docgen
+    gtk-doc
+    docbook-xsl-nons
+    docbook_xml_dtd_43
     gobject-introspection
     python3
     python3.pkgs.pygobject3
@@ -49,6 +47,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     glib
+    gtk3
     libsoup
     libxml2
     geocode-glib
@@ -61,13 +60,9 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    patchShebangs build-aux/meson/meson_post_install.py
-    patchShebangs build-aux/meson/gen_locations_variant.py
-  '';
-
-  postFixup = ''
-    # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
-    moveToOutput "share/doc" "$devdoc"
+    chmod +x meson/meson_post_install.py
+    patchShebangs meson/meson_post_install.py
+    patchShebangs data/gen_locations_variant.py
   '';
 
   passthru = {

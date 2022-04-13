@@ -2,7 +2,6 @@
 , buildPythonPackage
 , fetchFromGitHub
 , pythonOlder
-, python
 
 # native inputs
 , pkgconfig
@@ -15,7 +14,7 @@
 
 buildPythonPackage rec {
   pname = "python-lz4";
-  version = "4.0.0";
+  version = "3.1.12";
   format = "setuptools";
 
   disabled = pythonOlder "3.5";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-9gp67i2fotvFOpkaQZ82/YKnDEs3DnzXfuNCVRJg88I=";
+    sha256 = "sha256-fqt9aJGqZpfbiYtU8cmm7UQaixZwbTKFBwRfR1B/qic=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     psutil
   ];
 
-  # for lz4.steam
-  PYLZ4_EXPERIMENTAL = true;
-
-  # prevent local lz4 directory from getting imported as it lacks native extensions
+  # leave build directory, so the installed library gets imported
   preCheck = ''
-    rm -r lz4
-    export PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH
+    pushd tests
+  '';
+
+  postCheck = ''
+    popd
   '';
 
   meta = with lib; {

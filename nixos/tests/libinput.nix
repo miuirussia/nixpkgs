@@ -3,7 +3,7 @@ import ./make-test-python.nix ({ ... }:
 {
   name = "libinput";
 
-  nodes.machine = { ... }:
+  machine = { ... }:
     {
       imports = [
         ./common/x11.nix

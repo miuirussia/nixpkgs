@@ -9,7 +9,7 @@
 }:
 
 mkDerivation {
-  pname = "kio";
+  name = "kio";
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
     karchive kconfigwidgets kdbusaddons ki18n kiconthemes knotifications

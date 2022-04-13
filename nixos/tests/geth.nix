@@ -4,7 +4,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     maintainers = with maintainers; [bachp ];
   };
 
-  nodes.machine = { ... }: {
+  machine = { ... }: {
     services.geth."mainnet" = {
       enable = true;
       http = {

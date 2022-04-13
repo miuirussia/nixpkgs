@@ -46,7 +46,6 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
       qrcode
       pillow
       pyotp
-      boto3
     ]);
   in
   {

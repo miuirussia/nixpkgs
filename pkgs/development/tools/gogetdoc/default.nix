@@ -12,6 +12,8 @@ buildGoModule rec {
 
   doCheck = false;
 
+  excludedPackages = "\\(testdata\\)";
+
   src = fetchFromGitHub {
     inherit rev;
 

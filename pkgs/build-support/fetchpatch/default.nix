@@ -9,8 +9,7 @@ let
   # 0.3.4 would change hashes: https://github.com/NixOS/nixpkgs/issues/25154
   patchutils = buildPackages.patchutils_0_3_3;
 in
-{ relative ? null
-, stripLen ? 0
+{ stripLen ? 0
 , extraPrefix ? null
 , excludes ? []
 , includes ? []
@@ -18,18 +17,7 @@ in
 , postFetch ? ""
 , ...
 }@args:
-let
-  args' = if relative != null then {
-    stripLen = 1 + lib.length (lib.splitString "/" relative) + stripLen;
-    extraPrefix = if extraPrefix != null then extraPrefix else "";
-  } else {
-    inherit stripLen extraPrefix;
-  };
-in let
-  inherit (args') stripLen extraPrefix;
-in
-lib.throwIfNot (excludes == [] || includes == [])
-  "fetchpatch: cannot use excludes and includes simultaneously"
+
 fetchurl ({
   postFetch = ''
     tmpfile="$TMPDIR/patch"
@@ -39,19 +27,17 @@ fetchurl ({
       exit 1
     fi
 
-    "${patchutils}/bin/lsdiff" \
-      ${lib.optionalString (relative != null) "-p1 -i ${lib.escapeShellArg relative}/'*'"} \
-      "$out" \
-    | sort -u | sed -e 's/[*?]/\\&/g' \
-    | xargs -I{} \
-      "${patchutils}/bin/filterdiff" \
-      --include={} \
-      --strip=${toString stripLen} \
-      ${lib.optionalString (extraPrefix != null) ''
-          --addoldprefix=a/${lib.escapeShellArg extraPrefix} \
-          --addnewprefix=b/${lib.escapeShellArg extraPrefix} \
-      ''} \
-      --clean "$out" > "$tmpfile"
+    "${patchutils}/bin/lsdiff" "$out" \
+      | sort -u | sed -e 's/[*?]/\\&/g' \
+      | xargs -I{} \
+        "${patchutils}/bin/filterdiff" \
+        --include={} \
+        --strip=${toString stripLen} \
+        ${lib.optionalString (extraPrefix != null) ''
+           --addoldprefix=a/${extraPrefix} \
+           --addnewprefix=b/${extraPrefix} \
+        ''} \
+        --clean "$out" > "$tmpfile"
 
     if [ ! -s "$tmpfile" ]; then
       echo "error: Normalized patch '$tmpfile' is empty (while the fetched file was not)!" 1>&2
@@ -78,6 +64,5 @@ fetchurl ({
     ${patchutils}/bin/interdiff "$out" /dev/null > "$tmpfile"
     mv "$tmpfile" "$out"
   '' + postFetch;
-} // builtins.removeAttrs args [
-  "relative" "stripLen" "extraPrefix" "excludes" "includes" "revert" "postFetch"
-])
+  meta.broken = excludes != [] && includes != [];
+} // builtins.removeAttrs args ["stripLen" "extraPrefix" "excludes" "includes" "revert" "postFetch"])
