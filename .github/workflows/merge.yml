@@ -1,8 +1,12 @@
 name: Merge upstream branches
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"
+    inputs:
+      ref:
+        type: string
+        required: true
+        description: 'Nixpkgs reference'
+        default: 'nixpkgs-unstable'
 jobs:
   merge:
     runs-on: ubuntu-latest
@@ -14,7 +18,7 @@ jobs:
         with:
           path: nixpkgs-original
           repository: NixOS/nixpkgs
-          ref: nixpkgs-unstable
+          ref: ${{ github.event.inputs.ref }}
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           persist-credentials: true
       - name: Install nix
