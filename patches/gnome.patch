@@ -1,0 +1,120 @@
+From 2ce9210495431c17f82f67e86e7b0cbc50b2195a Mon Sep 17 00:00:00 2001
+From: Ryan Horiguchi <ryan.horiguchi@gmail.com>
+Date: Sat, 16 Apr 2022 23:47:24 +0200
+Subject: [PATCH] gnomeExtensions: improve update script
+
+---
+ .../gnome/extensions/update-extensions.py     | 39 +++++++++++--------
+ 1 file changed, 22 insertions(+), 17 deletions(-)
+
+diff --git a/pkgs/desktops/gnome/extensions/update-extensions.py b/pkgs/desktops/gnome/extensions/update-extensions.py
+index 581781fb11a8f..add748b3adfd6 100755
+--- a/pkgs/desktops/gnome/extensions/update-extensions.py
++++ b/pkgs/desktops/gnome/extensions/update-extensions.py
+@@ -2,6 +2,8 @@
+ #!nix-shell -I nixpkgs=../../../.. -i python3 -p python3
+ 
+ import json
++import os
++import re
+ import urllib.request
+ import urllib.error
+ from typing import List, Dict, Optional, Any, Tuple
+@@ -22,7 +24,7 @@
+ }
+ 
+ 
+-# Some type alias to increase readility of complex compound types
++# Some type alias to increase readability of complex compound types
+ PackageName = str
+ ShellVersion = str
+ Uuid = str
+@@ -48,22 +50,25 @@ def fetch_extension_data(uuid: str, version: str) -> Tuple[str, str]:
+     uuid = uuid.replace("@", "")
+     url: str = f"https://extensions.gnome.org/extension-data/{uuid}.v{version}.shell-extension.zip"
+ 
+-    # Yes, we download that file three times:
++    # Yes, we download that file two times:
+ 
+-    # The first time is for the maintainter, so they may have a personal backup to fix potential issues
++    # The first time is for the maintainer, so they may have a personal backup to fix potential issues
+     # subprocess.run(
+     #     ["wget", url], capture_output=True, text=True
+     # )
+ 
+-    # The second time, we extract the metadata.json because we need it too
+-    with urllib.request.urlopen(url) as response:
+-        data = zipfile.ZipFile(io.BytesIO(response.read()), 'r')
+-        metadata = base64.b64encode(data.read('metadata.json')).decode()
+-
+-    # The third time is to get the file into the store and to get its hash
+-    hash = subprocess.run(
++    # The second time, we add the file to store
++    process = subprocess.run(
+         ["nix-prefetch-url", "--unpack", url], capture_output=True, text=True
+-    ).stdout.strip()
++    )
++
++    # Get hash from nix-prefetch-url output
++    hash = process.stdout.strip()
++
++    # Get metadata.json from nix store
++    path = re.search("/nix/store/[\\w|\\.|-]*", process.stderr).group(0)
++    with open(os.path.join(path, "metadata.json"), "r") as out:
++        metadata = base64.b64encode(out.read().encode("ascii")).decode()
+ 
+     return hash, metadata
+ 
+@@ -114,7 +119,7 @@ def generate_extension_versions(
+             "version": str(extension_version),
+             "sha256": sha256,
+             # The downloads are impure, their metadata.json may change at any time.
+-            # Thus, be back it up / pin it to remain deterministic
++            # Thus, we back it up / pin it to remain deterministic
+             # Upstream issue: https://gitlab.gnome.org/Infrastructure/extensions-web/-/issues/137
+             "metadata": metadata,
+         }
+@@ -127,7 +132,7 @@ def pname_from_url(url: str) -> Tuple[str, str]:
+     """
+ 
+     url = url.split("/")  # type: ignore
+-    return (url[3], url[2])
++    return url[3], url[2]
+ 
+ 
+ def process_extension(extension: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+@@ -151,7 +156,7 @@ def process_extension(extension: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+                    Don't make any assumptions on it, and treat it like an opaque string!
+             "link" follows the following schema: "/extension/$number/$string/"
+                    The number is monotonically increasing and unique to every extension.
+-                   The string is usually derived from the extensions's name (but shortened, kebab-cased and URL friendly).
++                   The string is usually derived from the extension name (but shortened, kebab-cased and URL friendly).
+                    It may diverge from the actual name.
+             The keys of "shell_version_map" are GNOME Shell version numbers.
+ 
+@@ -269,7 +274,7 @@ def scrape_extensions_index() -> List[Dict[str, Any]]:
+         f"Done. Writing results to extensions.json ({len(processed_extensions)} extensions in total)"
+     )
+ 
+-    with open("extensions.json", "w") as out:
++    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "extensions.json"), "w") as out:
+         # Manually pretty-print the outer level, but then do one compact line per extension
+         # This allows for the diffs to be manageable (one line of change per extension) despite their quantity
+         for index, extension in enumerate(processed_extensions):
+@@ -281,14 +286,14 @@ def scrape_extensions_index() -> List[Dict[str, Any]]:
+             out.write("\n")
+         out.write("]\n")
+ 
+-    with open("extensions.json", "r") as out:
++    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "extensions.json"), "r") as out:
+         # Check that the generated file actually is valid JSON, just to be sure
+         json.load(out)
+ 
+     logging.info(
+         "Done. Writing name collisions to collisions.json (please check manually)"
+     )
+-    with open("collisions.json", "w") as out:
++    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "collisions.json"), "w") as out:
+         # Filter out those that are not duplicates
+         package_name_registry_filtered: Dict[ShellVersion, Dict[PackageName, List[Uuid]]] = {
+             # The outer level keys are shell versions
