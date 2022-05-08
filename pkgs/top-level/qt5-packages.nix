@@ -142,6 +142,8 @@ in (kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGea
 
   mapbox-gl-qml = libsForQt5.callPackage ../development/libraries/mapbox-gl-qml { };
 
+  maplibre-gl-native = callPackage ../development/libraries/maplibre-gl-native { };
+
   mauikit = callPackage ../development/libraries/mauikit { };
 
   mauikit-filebrowsing = callPackage ../development/libraries/mauikit-filebrowsing { };
@@ -161,12 +163,6 @@ in (kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGea
   polkit-qt = callPackage ../development/libraries/polkit-qt-1 { };
 
   poppler = callPackage ../development/libraries/poppler {
-    lcms = pkgs.lcms2;
-    qt5Support = true;
-    suffix = "qt5";
-  };
-
-  poppler_0_61 = callPackage ../development/libraries/poppler/0.61.nix {
     lcms = pkgs.lcms2;
     qt5Support = true;
     suffix = "qt5";

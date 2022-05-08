@@ -4,17 +4,17 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "06iajjyhx0rvpn4yr3h1hc4w4w3k59bdmfhxnjzzh76wsrdxxrc6";
+      sha256 = "sha256-fPWiGi0w4OFlMZOIf3gd21jyeYhg5t/VdLz7kK9fD8Q=";
       type = "gem";
     };
-    version = "1.4.2";
+    version = "1.5.1";
   };
   multi_json = {
     groups = ["default"];
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0pb1g1y3dsiahavspyzkdy39j4q377009f6ix0bh1ag4nqw43l0z";
+      sha256 = "sha256-H9BBOLbkqQAX6NG4BMA5AxOZhm/z+6u3girqNnx4YV0=";
       type = "gem";
     };
     version = "1.15.0";

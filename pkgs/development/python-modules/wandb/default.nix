@@ -1,4 +1,6 @@
-{ azure-core
+{ lib
+, stdenv
+, azure-core
 , bokeh
 , buildPythonPackage
 , click
@@ -9,8 +11,8 @@
 , GitPython
 , jsonref
 , jsonschema
-, lib
 , matplotlib
+, nbclient
 , nbformat
 , pandas
 , pathtools
@@ -22,6 +24,7 @@
 , pytest-xdist
 , pytestCheckHook
 , python-dateutil
+, pythonOlder
 , pyyaml
 , requests
 , scikit-learn
@@ -29,19 +32,21 @@
 , setproctitle
 , setuptools
 , shortuuid
-, stdenv
 , tqdm
 }:
 
 buildPythonPackage rec {
   pname = "wandb";
-  version = "0.12.14";
+  version = "0.12.16";
+  format = "setuptools";
+
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = "client";
     rev = "v${version}";
-    hash = "sha256-60E64ePW+C0C/eG7pLp4SpAFqycOHiCvOvmNOg2yoqY=";
+    hash = "sha256-ZY7nTj93piTEeHhW+H+nQ+ws2dDmmY6u3p7uz296PbA=";
   };
 
   # setuptools is necessary since pkg_resources is required at runtime.
@@ -71,6 +76,28 @@ buildPythonPackage rec {
     mkdir -p $out/bin
     ln -s ${git}/bin/git $out/bin/git
   '';
+
+  preCheck = ''
+    export HOME=$(mktemp -d)
+  '';
+
+  checkInputs = [
+    azure-core
+    bokeh
+    flask
+    jsonref
+    jsonschema
+    matplotlib
+    nbclient
+    nbformat
+    pandas
+    pydantic
+    pytest-mock
+    pytest-xdist
+    pytestCheckHook
+    scikit-learn
+    tqdm
+  ];
 
   disabledTestPaths = [
     # Tests that try to get chatty over sockets or spin up servers, not possible in the nix build environment.
@@ -112,26 +139,13 @@ buildPythonPackage rec {
 
   # Disable test that fails on darwin due to issue with python3Packages.psutil:
   # https://github.com/giampaolo/psutil/issues/1219
-  disabledTests = lib.optional stdenv.isDarwin "test_tpu_system_stats";
-
-  checkInputs = [
-    azure-core
-    bokeh
-    flask
-    jsonref
-    jsonschema
-    matplotlib
-    nbformat
-    pandas
-    pydantic
-    pytest-mock
-    pytest-xdist
-    pytestCheckHook
-    scikit-learn
-    tqdm
+  disabledTests = lib.optional stdenv.isDarwin [
+    "test_tpu_system_stats"
   ];
 
-  pythonImportsCheck = [ "wandb" ];
+  pythonImportsCheck = [
+    "wandb"
+  ];
 
   meta = with lib; {
     description = "A CLI and library for interacting with the Weights and Biases API";

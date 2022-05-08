@@ -1,11 +1,12 @@
-{ lib
-, rustPlatform
+{ comma
 , fetchFromGitHub
-, nix
 , fzy
+, lib
 , makeWrapper
-, testVersion
-, comma
+, nix
+, nix-index
+, rustPlatform
+, testers
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -25,12 +26,12 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/comma \
-      --prefix PATH : ${lib.makeBinPath [ nix fzy ]}
+      --prefix PATH : ${lib.makeBinPath [ nix fzy nix-index ]}
     ln -s $out/bin/comma $out/bin/,
   '';
 
   passthru.tests = {
-    version = testVersion { package = comma; };
+    version = testers.testVersion { package = comma; };
   };
 
   meta = with lib; {

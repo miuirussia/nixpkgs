@@ -7,13 +7,13 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "mautrix-facebook";
-  version = "0.3.3";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "mautrix";
     repo = "facebook";
     rev = "v${version}";
-    hash = "sha256-lIUGuc6ZL+GW7jw5OhPE3/mU5pg8Y09dd+p5kiy14io=";
+    hash = "sha256-Yc8W8A11dnXrJdLtu/rJHTVlu2pEawXn5xuT8Ez+h9U=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -26,7 +26,7 @@ python3.pkgs.buildPythonPackage rec {
     prometheus-client
     pycryptodome
     python-olm
-    python_magic
+    python-magic
     ruamel-yaml
     unpaddedbase64
     yarl
