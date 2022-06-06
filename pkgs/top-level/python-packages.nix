@@ -403,6 +403,8 @@ in {
 
   aioshelly = callPackage ../development/python-modules/aioshelly { };
 
+  aioshutil = callPackage ../development/python-modules/aioshutil { };
+
   aiosignal = callPackage ../development/python-modules/aiosignal { };
 
   aioslimproto = callPackage ../development/python-modules/aioslimproto { };
@@ -410,6 +412,8 @@ in {
   aiosmb = callPackage ../development/python-modules/aiosmb { };
 
   aiosmtpd = callPackage ../development/python-modules/aiosmtpd { };
+
+  aiosmtplib = callPackage ../development/python-modules/aiosmtplib { };
 
   aiosqlite = callPackage ../development/python-modules/aiosqlite { };
 
@@ -2883,6 +2887,8 @@ in {
 
   ezdxf = callPackage ../development/python-modules/ezdxf { };
 
+  f90nml = callPackage ../development/python-modules/f90nml { };
+
   Fabric = callPackage ../development/python-modules/Fabric { };
 
   faadelays = callPackage ../development/python-modules/faadelays { };
@@ -2914,6 +2920,8 @@ in {
   faraday-plugins = callPackage ../development/python-modules/faraday-plugins { };
 
   fastapi = callPackage ../development/python-modules/fastapi { };
+
+  fastapi-mail = callPackage ../development/python-modules/fastapi-mail { };
 
   fastavro = callPackage ../development/python-modules/fastavro { };
 
@@ -5321,6 +5329,8 @@ in {
 
   mesonpep517 = callPackage ../development/python-modules/mesonpep517 { };
 
+  messagebird = callPackage ../development/python-modules/messagebird { };
+
   metakernel = callPackage ../development/python-modules/metakernel { };
 
   metar = callPackage ../development/python-modules/metar { };
@@ -7474,6 +7484,8 @@ in {
 
   pykwalify = callPackage ../development/python-modules/pykwalify { };
 
+  pykwb = callPackage ../development/python-modules/pykwb { };
+
   pylacrosse = callPackage ../development/python-modules/pylacrosse { };
 
   pylama = callPackage ../development/python-modules/pylama { };
@@ -7551,6 +7563,8 @@ in {
   pymaging = callPackage ../development/python-modules/pymaging { };
 
   pymaging_png = callPackage ../development/python-modules/pymaging_png { };
+
+  pymailgunner = callPackage ../development/python-modules/pymailgunner { };
 
   pymanopt = callPackage ../development/python-modules/pymanopt { };
 
@@ -8758,6 +8772,8 @@ in {
   pyunbound = callPackage ../tools/networking/unbound/python.nix { };
 
   pyunifi = callPackage ../development/python-modules/pyunifi { };
+
+  pyunifiprotect = callPackage ../development/python-modules/pyunifiprotect { };
 
   pyupdate = callPackage ../development/python-modules/pyupdate { };
 
@@ -10775,6 +10791,8 @@ in {
   unidiff = callPackage ../development/python-modules/unidiff { };
 
   unifi = callPackage ../development/python-modules/unifi { };
+
+  unifi-discovery = callPackage ../development/python-modules/unifi-discovery { };
 
   unify = callPackage ../development/python-modules/unify { };
 
