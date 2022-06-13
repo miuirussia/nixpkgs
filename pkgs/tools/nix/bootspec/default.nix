@@ -4,7 +4,7 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "bootspec";
-  version = "2022-05-31-unstable";
+  version = "unstable-2022-05-31";
 
   src = fetchFromGitHub {
     owner = "DeterminateSystems";
@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage {
     sha256 = "sha256-LYhbRoujzR2sl5d4ew9oH+EFiqYjgzE/gwl1eAODcMU=";
   };
 
-  cargoSha256 = "sha256-8TEaWWimHdGVFozPoKK4tL0a1usjwSGJtET7yFWawOA=";
+  cargoSha256 = "sha256-7r3K/h4q3dkRhPDRJG9t7J8tJU9XUbfHrPfylVnqWKE=";
 
   meta = with lib; {
     description = "Implementation of RFC-0125's datatype and synthesis tooling";
