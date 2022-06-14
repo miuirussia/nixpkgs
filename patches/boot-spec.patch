@@ -231,7 +231,7 @@ index 0000000000000..86f4eaaeba468
 +    boot.loader = {
 +      grub.enable = mkDefault false;
 +      systemd-boot.enable = mkDefault false;
-+      supportsInitrdSecrets = false;
++      supportsInitrdSecrets = mkDefault false;
 +    };
 +
 +    system.build.installBootLoader = cfg.installHook;
