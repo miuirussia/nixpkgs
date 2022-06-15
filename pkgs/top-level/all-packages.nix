@@ -255,6 +255,8 @@ with pkgs;
 
   authz0 = callPackage ../tools/security/authz0 { };
 
+  atomic-operator = callPackage ../tools/security/atomic-operator { };
+
   avro-tools = callPackage ../development/tools/avro-tools { };
 
   bacnet-stack = callPackage ../tools/networking/bacnet-stack {};
@@ -1208,6 +1210,8 @@ with pkgs;
   sdbus-cpp = callPackage ../development/libraries/sdbus-cpp { };
 
   sdlookup = callPackage ../tools/security/sdlookup { };
+
+  smbscan = callPackage ../tools/security/smbscan { };
 
   spectre-cli = callPackage ../tools/security/spectre-cli { };
 
@@ -4684,6 +4688,8 @@ with pkgs;
 
   cmt = callPackage ../applications/audio/cmt {};
 
+  crlfsuite = callPackage ../tools/security/crlfsuite {};
+
   crlfuzz = callPackage ../tools/security/crlfuzz {};
 
   hedgedoc = callPackage ../servers/web-apps/hedgedoc { };
@@ -7930,6 +7936,8 @@ with pkgs;
 
   lcdf-typetools = callPackage ../tools/misc/lcdf-typetools { };
 
+  ldapmonitor = callPackage ../tools/security/ldapmonitor { };
+
   ldapvi = callPackage ../tools/misc/ldapvi { };
 
   ldeep = python3Packages.callPackage ../tools/security/ldeep { };
@@ -8382,6 +8390,8 @@ with pkgs;
   mirrorbits = callPackage ../servers/mirrorbits { };
 
   mitmproxy = with python3Packages; toPythonApplication mitmproxy;
+
+  mitmproxy2swagger = callPackage ../tools/security/mitmproxy2swagger { };
 
   mjpegtools = callPackage ../tools/video/mjpegtools { };
 
@@ -8934,6 +8944,8 @@ with pkgs;
   odt2txt = callPackage ../tools/text/odt2txt { };
 
   odyssey = callPackage ../tools/misc/odyssey { };
+
+  offensive-azure = callPackage ../tools/security/offensive-azure { };
 
   offlineimap = callPackage ../tools/networking/offlineimap { };
 
@@ -11427,6 +11439,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) CoreServices Foundation;
   };
 
+  watchlog = callPackage ../tools/misc/watchlog { };
+
   watchman = callPackage ../development/tools/watchman {
     inherit (darwin.apple_sdk.frameworks) CoreServices;
     autoconf = buildPackages.autoconf269;
@@ -13587,9 +13601,10 @@ with pkgs;
     mlton20130715
     mlton20180207Binary
     mlton20180207
+    mlton20210107
     mltonHEAD;
 
-  mlton = mlton20180207;
+  mlton = mlton20210107;
 
   mono = mono6;
 
@@ -24654,7 +24669,9 @@ with pkgs;
 
   mobile-broadband-provider-info = callPackage ../data/misc/mobile-broadband-provider-info { };
 
-  mojave-gtk-theme = callPackage ../data/themes/mojave { };
+  mojave-gtk-theme = callPackage ../data/themes/mojave {
+    inherit (gnome) gnome-shell;
+  };
 
   moka-icon-theme = callPackage ../data/icons/moka-icon-theme { };
 
@@ -28376,6 +28393,8 @@ with pkgs;
 
   normalize = callPackage ../applications/audio/normalize { };
 
+  norouter = callPackage ../tools/networking/norouter { };
+
   mailspring = callPackage ../applications/networking/mailreaders/mailspring {};
 
   mm = callPackage ../applications/networking/instant-messengers/mm { };
@@ -30614,6 +30633,8 @@ with pkgs;
   wayv = callPackage ../tools/X11/wayv {};
 
   wayvnc = callPackage ../applications/networking/remote/wayvnc { };
+
+  webanalyze = callPackage ../tools/security/webanalyze { };
 
   webcamoid = libsForQt5.callPackage ../applications/video/webcamoid { };
 
@@ -34098,6 +34119,8 @@ with pkgs;
   gobuster = callPackage ../tools/security/gobuster { };
 
   gotestwaf = callPackage ../tools/security/gotestwaf { };
+
+  gowitness = callPackage ../tools/security/gowitness { };
 
   guetzli = callPackage ../applications/graphics/guetzli { };
 
