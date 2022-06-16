@@ -2961,6 +2961,8 @@ with pkgs;
 
   catch2 = callPackage ../development/libraries/catch2 { };
 
+  catch2_3 = callPackage ../development/libraries/catch2/3.nix { };
+
   catdoc = callPackage ../tools/text/catdoc { };
 
   catdocx = callPackage ../tools/text/catdocx { };
@@ -8677,9 +8679,7 @@ with pkgs;
 
   neuron-notes = haskell.lib.compose.justStaticExecutables (haskell.lib.compose.generateOptparseApplicativeCompletion "neuron" haskellPackages.neuron);
 
-  ngrok = ngrok-2;
-
-  ngrok-2 = callPackage ../tools/networking/ngrok-2 { };
+  ngrok = callPackage ../tools/networking/ngrok { };
 
   nifi = callPackage ../servers/web-apps/nifi { };
 
@@ -9758,8 +9758,6 @@ with pkgs;
   qscintilla = libsForQt5.callPackage ../development/libraries/qscintilla { };
 
   qscintilla-qt4 = callPackage ../development/libraries/qscintilla-qt4 { };
-
-  qshowdiff = callPackage ../tools/text/qshowdiff { };
 
   qrcp = callPackage ../tools/networking/qrcp { };
 
@@ -18311,8 +18309,6 @@ with pkgs;
   libbde = callPackage ../development/libraries/libbde { };
 
   libbencodetools = callPackage ../development/libraries/libbencodetools { };
-
-  libbluedevil = callPackage ../development/libraries/libbluedevil { };
 
   libbdplus = callPackage ../development/libraries/libbdplus { };
 
@@ -32318,6 +32314,8 @@ with pkgs;
   sienna = callPackage ../games/sienna { love = love_0_10; };
 
   sil = callPackage ../games/sil { };
+
+  sil-q = callPackage ../games/sil-q { };
 
   simutrans = callPackage ../games/simutrans { };
   # get binaries without data built by Hydra
