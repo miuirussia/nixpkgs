@@ -1005,6 +1005,8 @@ with pkgs;
 
   addlicense = callPackage ../tools/misc/addlicense { };
 
+  adenum  = callPackage ../tools/security/adenum { };
+
   adlplug = callPackage ../applications/audio/adlplug {
     inherit (darwin.apple_sdk.frameworks) Foundation Cocoa Carbon CoreServices ApplicationServices CoreAudio CoreMIDI AudioToolbox Accelerate CoreImage IOKit AudioUnit QuartzCore WebKit DiscRecording CoreAudioKit;
     jack = libjack2;
@@ -1923,13 +1925,13 @@ with pkgs;
 
   iamy = callPackage ../tools/admin/iamy { };
 
+  iam-policy-json-to-terraform = callPackage ../tools/misc/iam-policy-json-to-terraform { };
+
   azure-cli = callPackage ../tools/admin/azure-cli { };
 
   azure-functions-core-tools = callPackage ../development/tools/azure-functions-core-tools { };
 
   azure-storage-azcopy = callPackage ../development/tools/azcopy { };
-
-  awless = callPackage ../tools/virtualization/awless { };
 
   bashblog = callPackage ../tools/text/bashblog { };
 
@@ -4331,6 +4333,8 @@ with pkgs;
   roundcube = callPackage ../servers/roundcube { };
 
   roundcubePlugins = dontRecurseIntoAttrs (callPackage ../servers/roundcube/plugins { });
+
+  routersploit = callPackage ../tools/security/routersploit { };
 
   routinator = callPackage ../servers/routinator {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -7483,6 +7487,10 @@ with pkgs;
 
   kdbplus = pkgsi686Linux.callPackage ../applications/misc/kdbplus { };
 
+  kdigger = callPackage ../tools/security/kdigger {
+    buildGoModule = buildGo118Module;
+  };
+
   keepalived = callPackage ../tools/networking/keepalived { };
 
   kexec-tools = callPackage ../os-specific/linux/kexec-tools { };
@@ -9921,8 +9929,6 @@ with pkgs;
   reiserfsprogs = callPackage ../tools/filesystems/reiserfsprogs { };
 
   relic = callPackage ../development/tools/relic { };
-
-  alarm-clock-applet = callPackage ../tools/misc/alarm-clock-applet { };
 
   remind = callPackage ../tools/misc/remind { };
 
@@ -20759,6 +20765,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Carbon;
   };
 
+  sokol = callPackage ../development/libraries/sokol { };
+
   sonic = callPackage ../development/libraries/sonic { };
 
   sope = callPackage ../development/libraries/sope { };
@@ -22912,6 +22920,8 @@ with pkgs;
 
   alertmanager-irc-relay = callPackage ../servers/monitoring/alertmanager-irc-relay { };
 
+  tinyalsa = callPackage ../os-specific/linux/tinyalsa { };
+
   alsa-firmware = callPackage ../os-specific/linux/alsa-project/alsa-firmware { };
   alsa-lib = callPackage ../os-specific/linux/alsa-project/alsa-lib { };
   alsa-oss = callPackage ../os-specific/linux/alsa-project/alsa-oss { };
@@ -24809,6 +24819,8 @@ with pkgs;
   papirus-maia-icon-theme = callPackage ../data/icons/papirus-maia-icon-theme {
     inherit (plasma5Packages) breeze-icons;
   };
+
+  plasma-overdose-kde-theme = callPackage ../data/themes/plasma-overdose-kde-theme { };
 
   papis = with python3Packages; toPythonApplication papis;
 
@@ -28336,6 +28348,8 @@ with pkgs;
     mopidy-tunein
     mopidy-youtube
     mopidy-ytmusic;
+
+  monocypher = callPackage ../development/libraries/monocypher { };
 
   motif = callPackage ../development/libraries/motif { };
 
@@ -32497,6 +32511,8 @@ with pkgs;
 
   ultrastardx = callPackage ../games/ultrastardx { };
 
+  umoria = callPackage ../games/umoria { };
+
   unciv = callPackage ../games/unciv { };
 
   unnethack = callPackage ../games/unnethack { };
@@ -33297,6 +33313,8 @@ with pkgs;
   xmedcon = callPackage ../applications/science/medicine/xmedcon { };
 
   ### SCIENCE/PHYSICS
+
+  dawn = callPackage ../applications/science/physics/dawn {};
 
   elmerfem = callPackage ../applications/science/physics/elmerfem {};
 
