@@ -990,6 +990,7 @@ mapAliases ({
   openmpt123 = libopenmpt; # Added 2021-09-05
   opensans-ttf = throw "'opensans-ttf' has been renamed to/replaced by 'open-sans'"; # Converted to throw 2022-02-22
   openssh_with_kerberos = throw "'openssh_with_kerberos' has been renamed to/replaced by 'openssh'"; # Converted to throw 2022-02-22
+  openssl_3_0 = openssl_3; # Added 2022-06-27
   orchis = orchis-theme; # Added 2021-06-09
   osxfuse = macfuse-stubs; # Added 2021-03-20
   otter-browser = throw "otter-browser has been removed from nixpkgs, as it was unmaintained"; # Added 2020-02-02
@@ -1643,7 +1644,8 @@ mapAliases ({
     ffmpegthumbs filelight granatier gwenview k3b kactivitymanagerd kaddressbook
     kalendar kalzium kapman kapptemplate kate katomic kblackbox kblocks kbounce
     kcachegrind kcalc kcharselect kcolorchooser kde-cli-tools kde-gtk-config
-    kdenlive kdeplasma-addons kdf kdialog kdiamond keditbookmarks kfind kfloppy
+    kdenlive kdeplasma-addons kdevelop-pg-qt kdevelop-unwrapped kdev-php
+    kdev-python kdevelop kdf kdialog kdiamond keditbookmarks kfind kfloppy
     kgamma5 kget kgpg khelpcenter kig kigo killbots kinfocenter kitinerary
     kleopatra klettres klines kmag kmail kmenuedit kmines kmix kmplot
     knavalbattle knetwalk knights kollision kolourpaint kompare konsole kontact

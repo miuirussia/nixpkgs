@@ -1,8 +1,8 @@
 /* The top-level package collection of nixpkgs.
- * It is sorted by categories corresponding to the folder names
- * in the /pkgs folder. Inside the categories packages are roughly
- * sorted by alphabet, but strict sorting has been long lost due
- * to merges. Please use the full-text search of your editor. ;)
+ * It is sorted by categories corresponding to the folder names in the /pkgs
+ * folder. Inside the categories packages are roughly sorted by alphabet, but
+ * strict sorting has been long lost due to merges. Please use the full-text
+ * search of your editor. ;)
  * Hint: ### starts category names.
  */
 { lib, noSysDirs, config, overlays }:
@@ -206,6 +206,10 @@ with pkgs;
           '!' -newermt '${year}-01-01' -exec touch -h -d '${year}-01-02' '{}' '+'
       }
     '');
+
+  chkservice = callPackage ../tools/admin/chkservice {
+    stdenv = gcc10StdenvCompat;
+  };
 
   addOpenGLRunpath = callPackage ../build-support/add-opengl-runpath { };
 
@@ -2661,6 +2665,8 @@ with pkgs;
 
   awsls = callPackage ../tools/admin/awsls { };
 
+  awsrm = callPackage ../tools/admin/awsrm { };
+
   awstats = callPackage ../tools/system/awstats { };
 
   awsweeper = callPackage ../tools/admin/awsweeper { };
@@ -3935,6 +3941,8 @@ with pkgs;
 
   languagetool = callPackage ../tools/text/languagetool {  };
 
+  ldtk = callPackage ../applications/editors/ldtk { };
+
   lepton = callPackage ../tools/graphics/lepton { };
 
   lepton-eda = callPackage ../applications/science/electronics/lepton-eda { };
@@ -4026,6 +4034,24 @@ with pkgs;
   merriweather-sans = callPackage ../data/fonts/merriweather-sans { };
 
   meson = callPackage ../development/tools/build-managers/meson { };
+
+  # while building documentation meson may want to run binaries for host
+  # which needs an emulator
+  # example of an error which this fixes
+  # [Errno 8] Exec format error: './gdk3-scan'
+  mesonEmulatorHook =
+    if (stdenv.buildPlatform != stdenv.targetPlatform) then
+      makeSetupHook
+        {
+          name = "mesonEmulatorHook";
+          substitutions = {
+            crossFile = writeText "cross-file.conf" ''
+              [binaries]
+              exe_wrapper = ${lib.escapeShellArg (stdenv.targetPlatform.emulator buildPackages)}
+            '';
+          };
+        } ../development/tools/build-managers/meson/emulator-hook.sh
+    else throw "mesonEmulatorHook has to be in a cross conditional i.e. (stdenv.buildPlatform != stdenv.hostPlatform)";
 
   meson-tools = callPackage ../misc/meson-tools { };
 
@@ -4285,6 +4311,8 @@ with pkgs;
   s2png = callPackage ../tools/graphics/s2png { };
 
   shab = callPackage ../tools/text/shab { };
+
+  sheldon = callPackage ../tools/misc/sheldon { };
 
   shell-hist = callPackage ../tools/misc/shell-hist { };
 
@@ -4572,6 +4600,8 @@ with pkgs;
   bomutils = callPackage ../tools/archivers/bomutils { };
 
   boofuzz= callPackage ../tools/security/boofuzz { };
+
+  briar-desktop = callPackage ../applications/networking/instant-messengers/briar-desktop { };
 
   bsdbuild = callPackage ../development/tools/misc/bsdbuild { };
 
@@ -5672,7 +5702,7 @@ with pkgs;
   conform = callPackage ../applications/version-management/git-and-tools/conform { };
 
   emscripten = callPackage ../development/compilers/emscripten {
-    llvmPackages = llvmPackages_13;
+    llvmPackages = llvmPackages_14;
   };
 
   emscriptenPackages = recurseIntoAttrs (callPackage ./emscripten-packages.nix { });
@@ -12449,7 +12479,10 @@ with pkgs;
 
   bigloo = callPackage ../development/compilers/bigloo { };
 
-  binaryen = callPackage ../development/compilers/binaryen { };
+  binaryen = callPackage ../development/compilers/binaryen {
+    nodejs = nodejs-slim;
+    inherit (python3Packages) filecheck;
+  };
 
   blueprint-compiler = callPackage ../development/compilers/blueprint { };
 
@@ -13666,6 +13699,8 @@ with pkgs;
 
   microscheme = callPackage ../development/compilers/microscheme { };
 
+  millet = callPackage ../development/tools/millet {};
+
   mint = callPackage ../development/compilers/mint { };
 
   mitscheme = callPackage ../development/compilers/mit-scheme
@@ -14409,7 +14444,7 @@ with pkgs;
 
   inherit (beam.interpreters)
     erlang erlangR25 erlangR24 erlangR23 erlangR22 erlangR21
-    erlang_odbc erlang_javac erlang_odbc_javac erlang_basho_R16B02
+    erlang_odbc erlang_javac erlang_odbc_javac
     elixir elixir_1_13 elixir_1_12 elixir_1_11 elixir_1_10 elixir_1_9
     elixir_ls;
 
@@ -16099,6 +16134,8 @@ with pkgs;
     sdk = true;
   };
 
+  nrf5-sdk = callPackage ../development/libraries/nrf5-sdk { };
+
   nrfutil = callPackage ../development/tools/misc/nrfutil { };
 
   obelisk = callPackage ../development/tools/ocaml/obelisk { menhir = ocamlPackages.menhir; };
@@ -17680,7 +17717,14 @@ with pkgs;
   relibc = callPackage ../development/libraries/relibc { };
 
   # Only supported on Linux
-  glibcLocales = if stdenv.hostPlatform.isLinux then callPackage ../development/libraries/glibc/locales.nix { } else null;
+  glibcLocales =
+    if stdenv.hostPlatform.isLinux
+    then callPackage ../development/libraries/glibc/locales.nix { }
+    else null;
+  glibcLocalesUtf8 =
+    if stdenv.hostPlatform.isLinux
+    then callPackage ../development/libraries/glibc/locales.nix { allLocales = false; }
+    else null;
 
   glibcInfo = callPackage ../development/libraries/glibc/info.nix { };
 
@@ -17746,7 +17790,10 @@ with pkgs;
   gns3-gui = gns3Packages.guiStable;
   gns3-server = gns3Packages.serverStable;
 
-  gobject-introspection = callPackage ../development/libraries/gobject-introspection {
+  gobject-introspection = if (stdenv.hostPlatform != stdenv.targetPlatform)
+    then callPackage ../development/libraries/gobject-introspection/wrapper.nix { } else gobject-introspection-unwrapped;
+
+  gobject-introspection-unwrapped = callPackage ../development/libraries/gobject-introspection {
     nixStoreDir = config.nix.storeDir or builtins.storeDir;
     inherit (darwin) cctools;
   };
@@ -18355,7 +18402,10 @@ with pkgs;
 
   libantlr3c = callPackage ../development/libraries/libantlr3c {};
 
-  libaom = callPackage ../development/libraries/libaom { };
+  libaom = callPackage ../development/libraries/libaom {
+    # Remove circular dependency for libavif
+    libjxl = libjxl.override { buildDocs = false; };
+  };
 
   libappindicator-gtk2 = libappindicator.override { gtkVersion = "2"; };
   libappindicator-gtk3 = libappindicator.override { gtkVersion = "3"; };
@@ -20166,7 +20216,7 @@ with pkgs;
 
   inherit (callPackages ../development/libraries/openssl { })
     openssl_1_1
-    openssl_3_0;
+    openssl_3;
 
   opensubdiv = callPackage ../development/libraries/opensubdiv { };
 
@@ -20875,6 +20925,23 @@ with pkgs;
   };
 
   sphinx = with python3Packages; toPythonApplication sphinx;
+
+  # A variation of sphinx that is only suitable for offline use as it excludes
+  # pyopenssl, which is broken on aarch64-darwin.
+  # https://github.com/NixOS/nixpkgs/issues/175875
+  sphinx_offline =
+    if !(stdenv.buildPlatform.isDarwin && stdenv.buildPlatform.isAarch64)
+    then sphinx
+    else
+      sphinx.override (o: {
+        requests = pkgsBuildTarget.python3Packages.requests.override (o: {
+          urllib3 = pkgsBuildTarget.python3Packages.urllib3.overrideAttrs (o: {
+            # urllib3 adds the optional pyopenssl to propagatedBuildInputs
+            # pkgs/development/python-modules/urllib3/default.nix
+            propagatedBuildInputs = [];
+          });
+        });
+      });
 
   sphinx-autobuild = with python3Packages; toPythonApplication sphinx-autobuild;
 
@@ -22240,7 +22307,7 @@ with pkgs;
 
   nginxStable = callPackage ../servers/http/nginx/stable.nix {
     zlib = zlib-ng.override { withZlibCompat = true; };
-    openssl = openssl_3_0;
+    openssl = openssl_3;
     pcre = pcre2;
     withPerl = false;
     # We don't use `with` statement here on purpose!
@@ -22250,7 +22317,7 @@ with pkgs;
 
   nginxMainline = callPackage ../servers/http/nginx/mainline.nix {
     zlib = zlib-ng.override { withZlibCompat = true; };
-    openssl = openssl_3_0;
+    openssl = openssl_3;
     pcre = pcre2;
     withKTLS = true;
     withPerl = false;
@@ -24098,6 +24165,8 @@ with pkgs;
 
   trinity = callPackage ../os-specific/linux/trinity { };
 
+  trino-cli = callPackage ../development/tools/database/trino-cli { };
+
   trinsic-cli = callPackage ../tools/admin/trinsic-cli {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -24160,11 +24229,15 @@ with pkgs;
     buildBarebox
     bareboxTools;
 
-  uclibc = callPackage ../os-specific/linux/uclibc { };
+  uclibc-ng = callPackage ../os-specific/linux/uclibc-ng { };
 
-  uclibcCross = callPackage ../os-specific/linux/uclibc {
+  uclibc-ng-cross = callPackage ../os-specific/linux/uclibc-ng {
     stdenv = crossLibcStdenv;
   };
+
+  # Aliases
+  uclibc = uclibc-ng;
+  uclibcCross = uclibc-ng-cross;
 
   eudev = callPackage ../os-specific/linux/eudev { util-linux = util-linuxMinimal; };
 
@@ -25053,6 +25126,8 @@ with pkgs;
   spdx-license-list-data = callPackage ../data/misc/spdx-license-list-data { };
 
   stdmanpages = callPackage ../data/documentation/std-man-pages { };
+
+  starfetch = callPackage ../tools/misc/starfetch { };
 
   starship = callPackage ../tools/misc/starship {
     inherit (darwin.apple_sdk.frameworks) Security Foundation Cocoa;
@@ -26728,9 +26803,11 @@ with pkgs;
   firefoxPackages = recurseIntoAttrs (callPackage ../applications/networking/browsers/firefox/packages.nix {});
 
   firefox-unwrapped = firefoxPackages.firefox;
+  firefox-esr-102-unwrapped = firefoxPackages.firefox-esr-102;
   firefox-esr-91-unwrapped = firefoxPackages.firefox-esr-91;
   firefox = wrapFirefox firefox-unwrapped { };
   firefox-wayland = wrapFirefox firefox-unwrapped { forceWayland = true; };
+  firefox-esr-102 = wrapFirefox firefox-esr-102-unwrapped { };
   firefox-esr-91 = wrapFirefox firefox-esr-91-unwrapped { };
 
   firefox-esr = firefox-esr-91;
@@ -26930,6 +27007,8 @@ with pkgs;
 
   # Git with SVN support, but without GUI.
   gitSVN = lowPrio (git.override { svnSupport = true; });
+
+  git-autofixup = perlPackages.GitAutofixup;
 
   git-doc = lib.addMetaAttrs {
     description = "Additional documentation for Git";
@@ -27349,6 +27428,8 @@ with pkgs;
 
   pixelnuke = callPackage ../applications/graphics/pixelnuke { };
 
+  pixelorama = callPackage ../applications/editors/pixelorama { };
+
   pixeluvo = callPackage ../applications/graphics/pixeluvo { };
 
   pixinsight = libsForQt5.callPackage ../applications/graphics/pixinsight { };
@@ -27757,19 +27838,6 @@ with pkgs;
   kde-gruvbox = callPackage ../data/themes/kde-gruvbox { };
 
   kdeltachat = libsForQt5.callPackage ../applications/networking/instant-messengers/kdeltachat { };
-
-  kdevelop-pg-qt = libsForQt5.callPackage ../applications/editors/kdevelop5/kdevelop-pg-qt.nix { };
-
-  kdevelop-unwrapped = libsForQt5.callPackage ../applications/editors/kdevelop5/kdevelop.nix {
-    llvmPackages = llvmPackages_10;
-  };
-
-  kdev-php = libsForQt5.callPackage ../applications/editors/kdevelop5/kdev-php.nix { };
-  kdev-python = libsForQt5.callPackage ../applications/editors/kdevelop5/kdev-python.nix {
-    python = python3;
-  };
-
-  kdevelop = libsForQt5.callPackage ../applications/editors/kdevelop5/wrapper.nix { };
 
   kepubify = callPackage ../tools/misc/kepubify { };
 
@@ -28865,6 +28933,8 @@ with pkgs;
   diffpdf = libsForQt5.callPackage ../applications/misc/diffpdf { };
 
   diff-pdf = callPackage ../applications/misc/diff-pdf { wxGTK = wxGTK31; };
+
+  diffuse = callPackage ../applications/misc/diffuse { };
 
   mlocate = callPackage ../tools/misc/mlocate { };
 
@@ -30256,7 +30326,9 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  tig = callPackage ../applications/version-management/git-and-tools/tig { };
+  tig = callPackage ../applications/version-management/git-and-tools/tig {
+    readline = readline81;
+  };
 
   tilemaker = callPackage ../applications/misc/tilemaker { };
 
@@ -32099,6 +32171,8 @@ with pkgs;
 
   icbm3d = callPackage ../games/icbm3d { };
 
+  infra-arcana = callPackage ../games/infra-arcana { };
+
   ingen = callPackage ../applications/audio/ingen { };
 
   ideogram = callPackage ../applications/graphics/ideogram { };
@@ -33691,6 +33765,8 @@ with pkgs;
   };
 
   why3 = callPackage ../applications/science/logic/why3 { };
+
+  wayback-machine-archiver = callPackage ../tools/misc/wayback-machine-archiver { };
 
   workcraft = callPackage ../applications/science/logic/workcraft {};
 
@@ -35683,7 +35759,7 @@ with pkgs;
 
   xsos = callPackage ../os-specific/linux/xsos { };
 
-  xmcp = callPackage ../tools/x11/xmcp { };
+  xmcp = callPackage ../tools/X11/xmcp { };
 
   zk = callPackage ../applications/office/zk {};
 
