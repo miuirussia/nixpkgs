@@ -1244,6 +1244,8 @@ with pkgs;
 
   nominatim = callPackage ../servers/nominatim { };
 
+  ocs-url = libsForQt5.callPackage ../tools/misc/ocs-url { };
+
   pferd = callPackage ../tools/misc/pferd {};
 
   qFlipper = libsForQt515.callPackage ../tools/misc/qflipper { };
@@ -9708,6 +9710,10 @@ with pkgs;
     wxGTK30-gtk3 = wxGTK30-gtk3.override { withWebKit = true; };
   };
 
+  polaris = callPackage ../servers/polaris { };
+
+  polaris-web = callPackage ../servers/polaris/web.nix { };
+
   polipo = callPackage ../servers/polipo { };
 
   polkit_gnome = callPackage ../tools/security/polkit-gnome { };
@@ -11852,6 +11858,8 @@ with pkgs;
 
   xfstests = callPackage ../tools/misc/xfstests { };
 
+  xprompt = callPackage ../tools/X11/xprompt { };
+
   xprintidle = callPackage ../tools/X11/xprintidle {};
 
   xprintidle-ng = callPackage ../tools/X11/xprintidle-ng {};
@@ -12574,6 +12582,8 @@ with pkgs;
     gmp-static = gmp.override { withStatic = true; };
     tex = texlive.combined.scheme-full;
   };
+
+  bun = callPackage ../development/web/bun { };
 
   cakelisp = callPackage ../development/compilers/cakelisp { };
 
@@ -15643,7 +15653,9 @@ with pkgs;
 
   cli11 = callPackage ../development/tools/misc/cli11 { };
 
-  datree = callPackage ../development/tools/datree { };
+  datree = callPackage ../development/tools/datree {
+    buildGoModule = buildGo118Module;
+  };
 
   dcadec = callPackage ../development/tools/dcadec { };
 
@@ -16733,6 +16745,8 @@ with pkgs;
     guile = null;
     readline = readline81;
   };
+
+  gf = callPackage ../development/tools/misc/gf { };
 
   java-language-server = callPackage ../development/tools/java/java-language-server { };
 
@@ -31380,6 +31394,8 @@ with pkgs;
 
   xnee = callPackage ../tools/X11/xnee { };
 
+  xnotify = callPackage ../tools/X11/xnotify { };
+
   xvidcap = callPackage ../applications/video/xvidcap {
     inherit (gnome2) scrollkeeper libglade;
   };
@@ -34012,6 +34028,8 @@ with pkgs;
   librepcb = libsForQt5.callPackage ../applications/science/electronics/librepcb { };
 
   ngspice = callPackage ../applications/science/electronics/ngspice { };
+
+  nvc = callPackage ../applications/science/electronics/nvc { };
 
   openems = callPackage ../applications/science/electronics/openems {
     qcsxcad = libsForQt5.qcsxcad;
