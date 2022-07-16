@@ -3615,7 +3615,7 @@ with pkgs;
 
   element-desktop = callPackage ../applications/networking/instant-messengers/element/element-desktop.nix {
     inherit (darwin.apple_sdk.frameworks) Security AppKit CoreServices;
-    electron = electron_17;
+    electron = electron_19;
   };
   element-desktop-wayland = writeScriptBin "element-desktop" ''
     #!/bin/sh
@@ -7630,6 +7630,8 @@ with pkgs;
 
   jsubfinder = callPackage ../tools/security/jsubfinder { };
 
+  jtag-remote-server = callPackage ../development/embedded/jtag-remote-server { };
+
   jtc = callPackage ../development/tools/jtc { };
 
   jumpapp = callPackage ../tools/X11/jumpapp {};
@@ -8145,6 +8147,8 @@ with pkgs;
   kcollectd = libsForQt5.callPackage ../tools/misc/kcollectd {};
 
   kea = callPackage ../tools/networking/kea { };
+
+  iredis = callPackage ../tools/admin/iredis { };
 
   ispell = callPackage ../tools/text/ispell {};
 
@@ -10068,6 +10072,8 @@ with pkgs;
   redpanda = callPackage ../servers/redpanda { };
 
   redsocks = callPackage ../tools/networking/redsocks { };
+
+  renpy = callPackage ../development/interpreters/renpy { };
 
   rep = callPackage ../development/tools/rep { };
 
@@ -13198,7 +13204,7 @@ with pkgs;
     inherit (gnome2) libart_lgpl;
   });
 
-  gnat = gnat11;
+  gnat = gnat12;
 
   gnat6 = wrapCC (gcc6.cc.override {
     name = "gnat";
@@ -13229,7 +13235,7 @@ with pkgs;
     gnatboot =
       if stdenv.hostPlatform == stdenv.targetPlatform
          && stdenv.buildPlatform == stdenv.hostPlatform
-      then buildPackages.gnat6
+      then buildPackages.gnatboot
       else buildPackages.gnat9;
   });
 
@@ -13245,7 +13251,7 @@ with pkgs;
     gnatboot =
       if stdenv.hostPlatform == stdenv.targetPlatform
          && stdenv.buildPlatform == stdenv.hostPlatform
-      then buildPackages.gnat6
+      then buildPackages.gnatboot
       else buildPackages.gnat10;
   });
 
@@ -13261,7 +13267,7 @@ with pkgs;
     gnatboot =
       if stdenv.hostPlatform == stdenv.targetPlatform
          && stdenv.buildPlatform == stdenv.hostPlatform
-      then buildPackages.gnat6
+      then buildPackages.gnatboot
       else buildPackages.gnat11;
   });
 
@@ -13277,7 +13283,7 @@ with pkgs;
     gnatboot =
       if stdenv.hostPlatform == stdenv.targetPlatform
          && stdenv.buildPlatform == stdenv.hostPlatform
-      then buildPackages.gnat6
+      then buildPackages.gnatboot
       else buildPackages.gnat12;
   });
 
@@ -15851,6 +15857,8 @@ with pkgs;
 
   frame = callPackage ../development/libraries/frame { };
 
+  framesh = callPackage ../applications/blockchains/framesh { };
+
   frp = callPackage ../tools/networking/frp { };
 
   fsatrace = callPackage ../development/tools/misc/fsatrace { };
@@ -16470,7 +16478,7 @@ with pkgs;
 
   rman = callPackage ../development/tools/misc/rman { };
 
-  rnix-lsp = callPackage ../development/tools/rnix-lsp { };
+  rnix-lsp = callPackage ../development/tools/rnix-lsp { nix = nixVersions.nix_2_9; };
 
   rnginline = with python3Packages; toPythonApplication rnginline;
 
@@ -22145,9 +22153,7 @@ with pkgs;
     jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
-  eventstore = callPackage ../servers/nosql/eventstore {
-    Nuget = dotnetPackages.Nuget;
-  };
+  eventstore = callPackage ../servers/nosql/eventstore { };
 
   exim = callPackage ../servers/mail/exim { };
 
@@ -27841,7 +27847,7 @@ with pkgs;
     ghostscript = null;
   });
 
-  imagemagickBig = lowPrio (callPackage ../applications/graphics/ImageMagick/7.0.nix {
+  imagemagickBig = lowPrio (callPackage ../applications/graphics/ImageMagick {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices Foundation;
   });
 
@@ -31331,6 +31337,10 @@ with pkgs;
   xmonad-with-packages = callPackage ../applications/window-managers/xmonad/wrapper.nix {
     inherit (haskellPackages) ghcWithPackages;
     packages = _: [ haskellPackages.xmonad-contrib ];
+  };
+
+  xmonadctl = callPackage ../applications/window-managers/xmonad/xmonadctl.nix {
+    inherit (haskellPackages) ghcWithPackages;
   };
 
   xmonad_log_applet = callPackage ../applications/window-managers/xmonad/log-applet {
