@@ -18731,6 +18731,8 @@ with pkgs;
 
   libchop = callPackage ../development/libraries/libchop { };
 
+  libcifpp = callPackage ../development/libraries/libcifpp { };
+
   libcint = callPackage ../development/libraries/libcint { };
 
   libclc = callPackage ../development/libraries/libclc { };
@@ -23131,6 +23133,8 @@ with pkgs;
 
   unifi = unifi7;
 
+  unifi-protect-backup = callPackage ../applications/backup/unifi-protect-backup { };
+
   unifi-video = callPackage ../servers/unifi-video { };
 
   unpackerr = callPackage ../servers/unpackerr {
@@ -26052,6 +26056,8 @@ with pkgs;
   caerbannog = callPackage ../applications/misc/caerbannog { };
 
   cardboard = callPackage ../applications/window-managers/cardboard { };
+
+  cardo = callPackage ../data/fonts/cardo { };
 
   cage = callPackage ../applications/window-managers/cage {
     wlroots = wlroots_0_14;
@@ -33411,6 +33417,8 @@ with pkgs;
   delly = callPackage ../applications/science/biology/delly { };
 
   diamond = callPackage ../applications/science/biology/diamond { };
+
+  dssp = callPackage ../applications/science/biology/dssp { };
 
   ecopcr = callPackage ../applications/science/biology/ecopcr { };
 
