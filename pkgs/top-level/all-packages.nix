@@ -828,6 +828,10 @@ with pkgs;
 
   makeDesktopItem = callPackage ../build-support/make-desktopitem { };
 
+  copyPkgconfigItems = makeSetupHook { } ../build-support/setup-hooks/copy-pkgconfig-items.sh;
+
+  makePkgconfigItem = callPackage ../build-support/make-pkgconfigitem { };
+
   makeDarwinBundle = callPackage ../build-support/make-darwin-bundle { };
 
   makeAutostartItem = callPackage ../build-support/make-startupitem { };
@@ -16117,7 +16121,9 @@ with pkgs;
 
   kubeaudit = callPackage ../tools/security/kubeaudit { };
 
-  kubectx = callPackage ../development/tools/kubectx { };
+  kubectx = callPackage ../development/tools/kubectx {
+    buildGoModule = buildGo117Module;
+  };
 
   kube-linter = callPackage ../development/tools/kube-linter { };
 
@@ -16960,6 +16966,8 @@ with pkgs;
   arrayfire = callPackage ../development/libraries/arrayfire {};
 
   arrow-cpp = callPackage ../development/libraries/arrow-cpp {};
+
+  arrow-glib = callPackage ../development/libraries/arrow-glib {};
 
   arsenal = callPackage ../tools/security/arsenal { };
 
