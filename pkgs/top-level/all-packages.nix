@@ -292,6 +292,8 @@ with pkgs;
 
   buf = callPackage ../development/tools/buf { };
 
+  cbfmt = callPackage ../development/tools/cbfmt { };
+
   cfn-nag = callPackage ../development/tools/cfn-nag { };
 
   cxx-rs = callPackage ../development/libraries/cxx-rs { };
@@ -379,6 +381,8 @@ with pkgs;
   commix = callPackage ../tools/security/commix { };
 
   containerpilot = callPackage ../applications/networking/cluster/containerpilot { };
+
+  crc = callPackage ../applications/networking/cluster/crc { };
 
   coordgenlibs  = callPackage ../development/libraries/coordgenlibs { };
 
@@ -691,7 +695,7 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) CoreServices;
     boost = boost177; # Configure checks for specific version.
     protobuf = protobuf3_19;
-    icu =  icu67;
+    icu =  icu69;
     v8 = v8_8_x;
   };
 
@@ -1232,6 +1236,8 @@ with pkgs;
   httm = callPackage ../tools/filesystems/httm { };
 
   kanata = callPackage ../tools/system/kanata { };
+
+  kanata-with-cmd = callPackage ../tools/system/kanata { withCmd = true; };
 
   ksnip = libsForQt5.callPackage ../tools/misc/ksnip { };
 
@@ -3046,6 +3052,8 @@ with pkgs;
 
   buildtorrent = callPackage ../tools/misc/buildtorrent { };
 
+  bundletool = callPackage ../development/tools/bundletool { };
+
   bustle = haskellPackages.bustle;
 
   bwm_ng = callPackage ../tools/networking/bwm-ng { };
@@ -3488,6 +3496,8 @@ with pkgs;
 
   dbus-broker = callPackage ../os-specific/linux/dbus-broker { };
 
+  dbx = python3Packages.callPackage ../applications/misc/dbx { };
+
   ioport = callPackage ../os-specific/linux/ioport {};
 
   dgoss = callPackage ../tools/misc/dgoss { };
@@ -3705,7 +3715,9 @@ with pkgs;
 
   extrude = callPackage ../tools/security/extrude { };
 
-  fastly = callPackage ../misc/fastly {};
+  fastly = callPackage ../misc/fastly {
+    # If buildGoModule is overriden, provide a matching version of the go attribute
+  };
 
   f2 = callPackage ../tools/misc/f2 {};
 
@@ -4187,7 +4199,7 @@ with pkgs;
   # example of an error which this fixes
   # [Errno 8] Exec format error: './gdk3-scan'
   mesonEmulatorHook =
-    if (stdenv.buildPlatform != stdenv.targetPlatform) then
+    if (!stdenv.buildPlatform.canExecute stdenv.targetPlatform) then
       makeSetupHook
         {
           name = "mesonEmulatorHook";
@@ -4198,7 +4210,7 @@ with pkgs;
             '';
           };
         } ../development/tools/build-managers/meson/emulator-hook.sh
-    else throw "mesonEmulatorHook has to be in a cross conditional i.e. (stdenv.buildPlatform != stdenv.hostPlatform)";
+    else throw "mesonEmulatorHook has to be in a conditional to check if the target binaries can be executed i.e. (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)";
 
   meson-tools = callPackage ../misc/meson-tools { };
 
@@ -4363,8 +4375,6 @@ with pkgs;
   pastel = callPackage ../applications/misc/pastel {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
-
-  patdiff = callPackage ../tools/misc/patdiff { };
 
   patool = with python3Packages; toPythonApplication patool;
 
@@ -10871,8 +10881,6 @@ with pkgs;
 
   squashfuse = callPackage ../tools/filesystems/squashfuse { };
 
-  srcml = callPackage ../applications/version-management/srcml { };
-
   srt-live-server = callPackage ../applications/video/srt-live-server { };
 
   srt-to-vtt-cl = callPackage ../tools/cd-dvd/srt-to-vtt-cl { };
@@ -13674,8 +13682,6 @@ with pkgs;
 
   oraclejdk11 = callPackage ../development/compilers/oraclejdk/jdk11-linux.nix { };
 
-  oraclejdk14 = callPackage ../development/compilers/oraclejdk/jdk14-linux.nix { };
-
   jasmin = callPackage ../development/compilers/jasmin { };
 
   java-service-wrapper = callPackage ../tools/system/java-service-wrapper {
@@ -15241,6 +15247,8 @@ with pkgs;
   ameba = callPackage ../development/tools/ameba { };
 
   anybadge = with python3Packages; toPythonApplication anybadge;
+
+  apkg = callPackage ../tools/package-management/apkg { };
 
   augeas = callPackage ../tools/system/augeas { };
 
@@ -18052,7 +18060,7 @@ with pkgs;
   gns3-gui = gns3Packages.guiStable;
   gns3-server = gns3Packages.serverStable;
 
-  gobject-introspection = if (stdenv.hostPlatform != stdenv.targetPlatform)
+  gobject-introspection = if (!stdenv.hostPlatform.canExecute stdenv.targetPlatform)
     then callPackage ../development/libraries/gobject-introspection/wrapper.nix { } else gobject-introspection-unwrapped;
 
   gobject-introspection-unwrapped = callPackage ../development/libraries/gobject-introspection {
@@ -20459,6 +20467,10 @@ with pkgs;
   openjpeg = callPackage ../development/libraries/openjpeg { };
 
   openpa = callPackage ../development/libraries/openpa { };
+
+  openpgp-card-tools = callPackage ../tools/security/openpgp-card-tools {
+    inherit (darwin.apple_sdk.frameworks) PCSC;
+  };
 
   opensaml-cpp = callPackage ../development/libraries/opensaml-cpp { };
 
@@ -26127,7 +26139,9 @@ with pkgs;
 
   bonzomatic = callPackage ../applications/editors/bonzomatic { };
 
-  bottles = callPackage ../applications/misc/bottles { };
+  bottles = callPackage ../applications/misc/bottles {
+    wine = wineWowPackages.minimal;
+  };
 
   brave = callPackage ../applications/networking/browsers/brave { };
 
@@ -27643,6 +27657,8 @@ with pkgs;
   hdr-plus = callPackage ../applications/graphics/hdr-plus {
     stdenv = clangStdenv;
   };
+
+  hedgedoc-cli = callPackage ../tools/admin/hedgedoc-cli { };
 
   heimer = libsForQt5.callPackage ../applications/misc/heimer { };
 
@@ -29287,6 +29303,8 @@ with pkgs;
   taxi = callPackage ../applications/networking/ftp/taxi { };
 
   taxi-cli = with python3Packages; toPythonApplication taxi;
+
+  tcping-go = callPackage ../applications/networking/tcping-go { };
 
   librep = callPackage ../development/libraries/librep { };
 
@@ -34701,6 +34719,10 @@ with pkgs;
 
   dell-530cdn = callPackage ../misc/drivers/dell-530cdn {};
 
+  deploy-rs = callPackage ../tools/package-management/deploy-rs {
+    inherit (darwin.apple_sdk.frameworks) CoreServices SystemConfiguration;
+  };
+
   dockutil = callPackage ../os-specific/darwin/dockutil { };
 
   eiciel = callPackage ../tools/filesystems/eiciel { };
@@ -34824,6 +34846,8 @@ with pkgs;
   hplip = callPackage ../misc/drivers/hplip { };
 
   hplipWithPlugin = hplip.override { withPlugin = true; };
+
+  hyfetch = callPackage ../tools/misc/hyfetch { };
 
   hyperfine = callPackage ../tools/misc/hyperfine {
     inherit (darwin.apple_sdk.frameworks) Security;
