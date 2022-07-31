@@ -5386,6 +5386,8 @@ in {
 
   mediafile = callPackage ../development/python-modules/mediafile { };
 
+  mediapy = callPackage ../development/python-modules/mediapy { };
+
   meilisearch = callPackage ../development/python-modules/meilisearch { };
 
   meinheld = callPackage ../development/python-modules/meinheld { };
@@ -6774,6 +6776,10 @@ in {
   plaid-python = callPackage ../development/python-modules/plaid-python { };
 
   plantuml = callPackage ../development/python-modules/plantuml { };
+
+  plantuml-markdown = callPackage ../development/python-modules/plantuml-markdown {
+    inherit (pkgs) plantuml;
+  };
 
   plaster = callPackage ../development/python-modules/plaster { };
 
@@ -10063,6 +10069,8 @@ in {
   sphinxcontrib-bibtex = callPackage ../development/python-modules/sphinxcontrib-bibtex { };
 
   sphinxcontrib-blockdiag = callPackage ../development/python-modules/sphinxcontrib-blockdiag { };
+
+  sphinxcontrib-confluencebuilder = callPackage ../development/python-modules/sphinxcontrib-confluencebuilder { };
 
   sphinxcontrib-devhelp = callPackage ../development/python-modules/sphinxcontrib-devhelp { };
 

@@ -1464,9 +1464,7 @@ with pkgs;
 
   oberon-risc-emu = callPackage ../applications/emulators/oberon-risc-emu { };
 
-  openmsx = callPackage ../applications/emulators/openmsx {
-    python = python3;
-  };
+  openmsx = callPackage ../applications/emulators/openmsx { };
 
   packwiz = callPackage ../tools/games/minecraft/packwiz { };
 
@@ -4476,6 +4474,8 @@ with pkgs;
 
   s2png = callPackage ../tools/graphics/s2png { };
 
+  sfz = callPackage ../tools/misc/sfz { };
+
   shab = callPackage ../tools/text/shab { };
 
   sheldon = callPackage ../tools/misc/sheldon { };
@@ -5718,7 +5718,7 @@ with pkgs;
 
   mcrcon = callPackage ../tools/networking/mcrcon {};
 
-  mozillavpn = libsForQt5.callPackage ../tools/networking/mozillavpn { };
+  mozillavpn = qt6Packages.callPackage ../tools/networking/mozillavpn { };
 
   mozwire = callPackage ../tools/networking/mozwire {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -6013,6 +6013,8 @@ with pkgs;
   extundelete = callPackage ../tools/filesystems/extundelete { };
 
   expect = callPackage ../tools/misc/expect { };
+
+  exportarr = callPackage ../servers/monitoring/exportarr { };
 
   expliot = callPackage ../tools/security/expliot { };
 
@@ -10603,6 +10605,8 @@ with pkgs;
 
   shout = nodePackages.shout;
 
+  showmethekey = callPackage ../applications/video/showmethekey { };
+
   shrikhand = callPackage ../data/fonts/shrikhand { };
 
   shunit2 = callPackage ../tools/misc/shunit2 { };
@@ -10863,6 +10867,8 @@ with pkgs;
   solc-select = with python3Packages; toPythonApplication solc-select;
 
   sourceHighlight = callPackage ../tools/text/source-highlight { };
+
+  somebar = callPackage ../applications/misc/somebar { };
 
   spacebar = callPackage ../os-specific/darwin/spacebar {
     inherit (darwin.apple_sdk.frameworks)
@@ -11456,9 +11462,7 @@ with pkgs;
 
   ttylog = callPackage ../tools/misc/ttylog { };
 
-  txtpbfmt = callPackage ../development/tools/txtpbfmt {
-    buildGoModule = buildGo118Module;
-  };
+  txtpbfmt = callPackage ../development/tools/txtpbfmt { };
 
   ipbt = callPackage ../tools/misc/ipbt { };
 
@@ -15942,7 +15946,6 @@ with pkgs;
 
   flow = callPackage ../development/tools/analysis/flow {
     inherit (darwin.apple_sdk.frameworks) CoreServices;
-    ocamlPackages = ocaml-ng.ocamlPackages_4_12;
   };
 
   fly = callPackage ../development/tools/continuous-integration/fly { };
@@ -26941,7 +26944,9 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) CoreAudio CoreMIDI CoreServices Cocoa;
   };
 
-  fvwm = callPackage ../applications/window-managers/fvwm { };
+  fvwm = fvwm2;
+  fvwm2 = callPackage ../applications/window-managers/fvwm/2.6.nix { };
+  fvwm3 = callPackage ../applications/window-managers/fvwm/3.nix { };
 
   ganttproject-bin = callPackage ../applications/misc/ganttproject-bin { };
 
@@ -27431,6 +27436,8 @@ with pkgs;
   gtkterm = callPackage ../tools/misc/gtkterm { };
 
   gtk-pipe-viewer = perlPackages.callPackage ../applications/video/pipe-viewer { withGtk3 = true; };
+
+  gum = callPackage ../applications/misc/gum { };
 
   hydrus = python3Packages.callPackage ../applications/graphics/hydrus {
     inherit miniupnpc_2 swftools;
@@ -29737,6 +29744,8 @@ with pkgs;
   purple-mm-sms = callPackage ../applications/networking/instant-messengers/pidgin-plugins/purple-mm-sms { };
 
   purple-plugin-pack = callPackage ../applications/networking/instant-messengers/pidgin-plugins/purple-plugin-pack { };
+
+  purple-signald = callPackage ../applications/networking/instant-messengers/pidgin-plugins/purple-signald { };
 
   purple-slack = callPackage ../applications/networking/instant-messengers/pidgin-plugins/purple-slack { };
 
@@ -33316,9 +33325,7 @@ with pkgs;
   cinnamon = recurseIntoAttrs (callPackage ../desktops/cinnamon { });
   inherit (cinnamon) mint-x-icons mint-y-icons;
 
-  enlightenment = recurseIntoAttrs (callPackage ../desktops/enlightenment {
-    callPackage = newScope enlightenment;
-  });
+  enlightenment = recurseIntoAttrs (callPackage ../desktops/enlightenment { });
 
   gnome2 = recurseIntoAttrs (callPackage ../desktops/gnome-2 { });
 
