@@ -1,8 +1,8 @@
 diff --git a/.github/CODEOWNERS b/.github/CODEOWNERS
-index 557542772cf7c..351c6ab0e46fb 100644
+index b9f69a6ce7b80..ed5d5931d0ec2 100644
 --- a/.github/CODEOWNERS
 +++ b/.github/CODEOWNERS
-@@ -71,6 +71,7 @@
+@@ -72,6 +72,7 @@
  /nixos/doc/manual/man-nixos-option.xml                @nbp
  /nixos/modules/installer/tools/nixos-option.sh        @nbp
  /nixos/modules/system                                 @dasJ
@@ -58,10 +58,10 @@ index 0000000000000..9b7ed6ccdac3c
 +  </section>
 +</section>
 diff --git a/nixos/modules/module-list.nix b/nixos/modules/module-list.nix
-index 81b3869997033..7991865b7abac 100644
+index 616f357663cac..eaa190b66ca93 100644
 --- a/nixos/modules/module-list.nix
 +++ b/nixos/modules/module-list.nix
-@@ -1179,6 +1179,7 @@
+@@ -1199,6 +1199,7 @@
    ./system/boot/loader/grub/grub.nix
    ./system/boot/loader/grub/ipxe.nix
    ./system/boot/loader/grub/memtest.nix
@@ -71,10 +71,10 @@ index 81b3869997033..7991865b7abac 100644
    ./system/boot/loader/raspberrypi/raspberrypi.nix
 diff --git a/nixos/modules/system/activation/bootspec.nix b/nixos/modules/system/activation/bootspec.nix
 new file mode 100644
-index 0000000000000..fd9e18980a9e3
+index 0000000000000..b11dc37521ca7
 --- /dev/null
 +++ b/nixos/modules/system/activation/bootspec.nix
-@@ -0,0 +1,57 @@
+@@ -0,0 +1,56 @@
 +# Note that these schemas are defined by RFC-0125.
 +# This document is considered a stable API, and is depended upon by external tooling.
 +# Changes to the structure of the document, or the semantics of the values should go through an RFC.
@@ -84,10 +84,13 @@ index 0000000000000..fd9e18980a9e3
 +let
 +  schemas = {
 +    v1 = rec {
++      filename = "boot.v1.json";
 +      json =
-+        pkgs.writeText "boot.json"
++        pkgs.writeText filename
 +          (builtins.toJSON
 +            {
++              schemaVersion = 1;
++
 +              kernel = "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}";
 +              kernelParams = config.boot.kernelParams;
 +              initrd = "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}";
@@ -98,10 +101,12 @@ index 0000000000000..fd9e18980a9e3
 +      generator =
 +        let
 +          specialisationLoader = (lib.mapAttrsToList
-+            (childName: childToplevel: lib.escapeShellArgs [ "--slurpfile" childName "${childToplevel}/boot.json" ])
++            (childName: childToplevel: lib.escapeShellArgs [ "--slurpfile" childName "${childToplevel}/${filename}" ])
 +            children);
 +        in
 +        ''
++          mkdir -p $out/bootspec
++
 +          ${pkgs.jq}/bin/jq '
 +            .toplevel = $toplevel |
 +            .init = $init
@@ -110,30 +115,24 @@ index 0000000000000..fd9e18980a9e3
 +            --arg toplevel "$out" \
 +            --arg init "$out/init" \
 +            < ${json} \
-+            | ${pkgs.jq}/bin/jq '
-+              .specialisation = (
-+                $ARGS.named | map_values(. | first | .v1)
-+              ) |
-+              { v1: . }
-+              ' \
++            | ${pkgs.jq}/bin/jq \
 +              --sort-keys \
++              '.specialisation = ($ARGS.named | map_values(. | first))' \
 +              ${lib.concatStringsSep " " specialisationLoader} \
-+              > $out/boot.json
++            > $out/bootspec/${filename}
 +        '';
 +    };
 +  };
 +in
-+rec {
++{
 +  # This will be run as a part of the `systemBuilder` in ./top-level.nix. This
 +  # means `$out` points to the output of `config.system.build.toplevel` and can
 +  # be used for a variety of things (though, for now, it's only used to report
 +  # the path of the `toplevel` itself and the `init` executable).
 +  writer = schemas.v1.generator;
-+
-+  validator = "${pkgs.bootspec}/bin/validate $out/boot.json";
 +}
 diff --git a/nixos/modules/system/activation/top-level.nix b/nixos/modules/system/activation/top-level.nix
-index 84f560691fc4d..9a35bd0114d90 100644
+index 84f560691fc4d..0f03fbf713746 100644
 --- a/nixos/modules/system/activation/top-level.nix
 +++ b/nixos/modules/system/activation/top-level.nix
 @@ -22,6 +22,14 @@ let
@@ -151,12 +150,11 @@ index 84f560691fc4d..9a35bd0114d90 100644
      in ''
        mkdir $out
  
-@@ -95,6 +103,9 @@ let
+@@ -95,6 +103,8 @@ let
  
        echo -n "${toString config.system.extraDependencies}" > $out/extra-dependencies
  
 +      ${bootSpec.writer}
-+      ${bootSpec.validator}
 +
        ${config.system.extraSystemBuilderCmds}
      '';
@@ -231,7 +229,7 @@ index 0000000000000..86f4eaaeba468
 +    boot.loader = {
 +      grub.enable = mkDefault false;
 +      systemd-boot.enable = mkDefault false;
-+      supportsInitrdSecrets = mkDefault false;
++      supportsInitrdSecrets = false;
 +    };
 +
 +    system.build.installBootLoader = cfg.installHook;
@@ -284,46 +282,3 @@ index 0000000000000..b024e7dd4031d
 +    </para>
 +  </section>
 +</chapter>
-diff --git a/pkgs/tools/nix/bootspec/default.nix b/pkgs/tools/nix/bootspec/default.nix
-new file mode 100644
-index 0000000000000..c29d200ef4e35
---- /dev/null
-+++ b/pkgs/tools/nix/bootspec/default.nix
-@@ -0,0 +1,24 @@
-+{ lib
-+, fetchFromGitHub
-+, rustPlatform
-+}:
-+rustPlatform.buildRustPackage {
-+  pname = "bootspec";
-+  version = "unstable-2022-05-31";
-+
-+  src = fetchFromGitHub {
-+    owner = "DeterminateSystems";
-+    repo = "bootspec";
-+    rev = "308253d2d1057ae217eabdaa3af269010435edce";
-+    sha256 = "sha256-LYhbRoujzR2sl5d4ew9oH+EFiqYjgzE/gwl1eAODcMU=";
-+  };
-+
-+  cargoSha256 = "sha256-7r3K/h4q3dkRhPDRJG9t7J8tJU9XUbfHrPfylVnqWKE=";
-+
-+  meta = with lib; {
-+    description = "Implementation of RFC-0125's datatype and synthesis tooling";
-+    homepage = "https://github.com/DeterminateSystems/bootspec";
-+    license = licenses.mit;
-+    maintainers = teams.determinatesystems.members;
-+  };
-+}
-diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
-index 9c8f5d232fc7f..7ae74f2020ca1 100644
---- a/pkgs/top-level/all-packages.nix
-+++ b/pkgs/top-level/all-packages.nix
-@@ -1914,6 +1914,8 @@ with pkgs;
- 
-   blanket = callPackage ../applications/audio/blanket { };
- 
-+  bootspec = callPackage ../tools/nix/bootspec { };
-+
-   brakeman = callPackage ../development/tools/analysis/brakeman { };
- 
-   brewtarget = libsForQt514.callPackage ../applications/misc/brewtarget { } ;
