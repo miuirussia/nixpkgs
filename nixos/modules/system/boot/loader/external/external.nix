@@ -30,7 +30,7 @@ in
     boot.loader = {
       grub.enable = mkDefault false;
       systemd-boot.enable = mkDefault false;
-      supportsInitrdSecrets = mkDefault false;
+      supportsInitrdSecrets = false;
     };
 
     system.build.installBootLoader = cfg.installHook;

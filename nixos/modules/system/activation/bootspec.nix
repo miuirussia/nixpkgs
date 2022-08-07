@@ -7,10 +7,13 @@
 let
   schemas = {
     v1 = rec {
+      filename = "boot.v1.json";
       json =
-        pkgs.writeText "boot.json"
+        pkgs.writeText filename
           (builtins.toJSON
             {
+              schemaVersion = 1;
+
               kernel = "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}";
               kernelParams = config.boot.kernelParams;
               initrd = "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}";
@@ -21,10 +24,12 @@ let
       generator =
         let
           specialisationLoader = (lib.mapAttrsToList
-            (childName: childToplevel: lib.escapeShellArgs [ "--slurpfile" childName "${childToplevel}/boot.json" ])
+            (childName: childToplevel: lib.escapeShellArgs [ "--slurpfile" childName "${childToplevel}/${filename}" ])
             children);
         in
         ''
+          mkdir -p $out/bootspec
+
           ${pkgs.jq}/bin/jq '
             .toplevel = $toplevel |
             .init = $init
@@ -33,25 +38,19 @@ let
             --arg toplevel "$out" \
             --arg init "$out/init" \
             < ${json} \
-            | ${pkgs.jq}/bin/jq '
-              .specialisation = (
-                $ARGS.named | map_values(. | first | .v1)
-              ) |
-              { v1: . }
-              ' \
+            | ${pkgs.jq}/bin/jq \
               --sort-keys \
+              '.specialisation = ($ARGS.named | map_values(. | first))' \
               ${lib.concatStringsSep " " specialisationLoader} \
-              > $out/boot.json
+            > $out/bootspec/${filename}
         '';
     };
   };
 in
-rec {
+{
   # This will be run as a part of the `systemBuilder` in ./top-level.nix. This
   # means `$out` points to the output of `config.system.build.toplevel` and can
   # be used for a variety of things (though, for now, it's only used to report
   # the path of the `toplevel` itself and the `init` executable).
   writer = schemas.v1.generator;
-
-  validator = "${pkgs.bootspec}/bin/validate $out/boot.json";
 }
