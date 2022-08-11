@@ -1203,6 +1203,8 @@ with pkgs;
     libgamemode32 = pkgsi686Linux.gamemode.lib;
   };
 
+  gamescope = callPackage ../applications/window-managers/gamescope { };
+
   gay = callPackage ../tools/misc/gay {  };
 
   elkhound = callPackage ../development/tools/elkhound { };
@@ -7255,6 +7257,8 @@ with pkgs;
 
   heaptrack = libsForQt5.callPackage ../development/tools/profiling/heaptrack {};
 
+  heatshrink = callPackage ../tools/compression/heatshrink { };
+
   heimdall = libsForQt5.callPackage ../tools/misc/heimdall { };
 
   heimdall-gui = heimdall.override { enableGUI = true; };
@@ -8491,7 +8495,9 @@ with pkgs;
 
   lshw = callPackage ../tools/system/lshw { };
 
-  lunatic = callPackage ../development/interpreters/lunatic { };
+  lunatic = callPackage ../development/interpreters/lunatic {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   lv = callPackage ../tools/text/lv { };
 
@@ -9264,8 +9270,9 @@ with pkgs;
 
   ola = callPackage ../applications/misc/ola { };
 
-  olive-editor = libsForQt514.callPackage ../applications/video/olive-editor
-    { stdenv = gcc10StdenvCompat;     inherit (darwin.apple_sdk.frameworks) CoreFoundation; };
+  olive-editor = libsForQt514.callPackage ../applications/video/olive-editor {
+    inherit (darwin.apple_sdk.frameworks) CoreFoundation;
+  };
 
   ombi = callPackage ../servers/ombi { };
 
@@ -9505,6 +9512,8 @@ with pkgs;
   paco = callPackage ../development/compilers/paco { };
 
   padthv1 = libsForQt5.callPackage ../applications/audio/padthv1 { };
+
+  padbuster = callPackage ../tools/security/padbuster { };
 
   page = callPackage ../tools/misc/page { };
 
@@ -11207,7 +11216,7 @@ with pkgs;
   termcolor = callPackage ../development/libraries/termcolor { };
 
   termscp = callPackage ../tools/networking/termscp {
-    inherit (darwin.apple_sdk.frameworks) Foundation Security;
+    inherit (darwin.apple_sdk.frameworks) AppKit Cocoa Foundation Security;
   };
 
   termius = callPackage ../applications/networking/termius { };
@@ -13463,6 +13472,7 @@ with pkgs;
   gcc-arm-embedded-8 = callPackage ../development/compilers/gcc-arm-embedded/8 {};
   gcc-arm-embedded-9 = callPackage ../development/compilers/gcc-arm-embedded/9 {};
   gcc-arm-embedded-10 = callPackage ../development/compilers/gcc-arm-embedded/10 {};
+  gcc-arm-embedded-11 = callPackage ../development/compilers/gcc-arm-embedded/11 {};
   gcc-arm-embedded = gcc-arm-embedded-10;
 
   # Has to match the default gcc so that there are no linking errors when
@@ -23104,6 +23114,7 @@ with pkgs;
   prometheus-wireguard-exporter = callPackage ../servers/monitoring/prometheus/wireguard-exporter.nix {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+  prometheus-zfs-exporter = callPackage ../servers/monitoring/prometheus/zfs-exporter.nix { };
   prometheus-xmpp-alerts = callPackage ../servers/monitoring/prometheus/xmpp-alerts.nix { };
 
   prometheus-cpp = callPackage ../development/libraries/prometheus-cpp { };
@@ -23708,10 +23719,7 @@ with pkgs;
 
   gomp = callPackage ../applications/version-management/gomp { };
 
-  gomplate = callPackage ../development/tools/gomplate {
-    # pinned due to build failure or vendoring problems. When unpinning double check with: nix-build -A $name.go-modules --rebuild
-    buildGoModule = buildGo117Module;
-  };
+  gomplate = callPackage ../development/tools/gomplate { };
 
   gpm = callPackage ../servers/gpm {
     ncurses = null;  # Keep curses disabled for lack of value
@@ -35678,6 +35686,8 @@ with pkgs;
 
   thinkfan = callPackage ../tools/system/thinkfan { };
 
+  touchosc = callPackage ../applications/audio/touchosc {};
+
   tp-auto-kbbl = callPackage ../tools/system/tp-auto-kbbl { };
 
   tup = callPackage ../development/tools/build-managers/tup { };
@@ -36227,7 +36237,9 @@ with pkgs;
 
   uhubctl = callPackage ../tools/misc/uhubctl {};
 
-  kodelife = callPackage ../applications/graphics/kodelife {};
+  kodelife = callPackage ../applications/graphics/kodelife {
+    inherit (gst_all_1) gstreamer gst-plugins-base;
+  };
 
   bunnyfetch = callPackage ../tools/misc/bunnyfetch {};
 
