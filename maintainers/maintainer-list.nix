@@ -683,6 +683,13 @@
     githubId = 2626481;
     name = "Ambroz Bizjak";
   };
+  amesgen = {
+    email = "amesgen@amesgen.de";
+    github = "amesgen";
+    githubId = 15369874;
+    name = "Alexander Esgen";
+    matrix = "@amesgen:amesgen.de";
+  };
   ametrine = {
     name = "Matilde Ametrine";
     email = "matilde@diffyq.xyz";
@@ -2306,6 +2313,12 @@
     github = "ChrisJefferson";
     githubId = 811527;
     name = "Christopher Jefferson";
+  };
+  chrispattison = {
+    email = "chpattison@gmail.com";
+    github = "ChrisPattison";
+    githubId = 641627;
+    name = "Chris Pattison";
   };
   chrispickard = {
     email = "chrispickard9@gmail.com";
