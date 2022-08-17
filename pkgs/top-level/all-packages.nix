@@ -1497,8 +1497,18 @@ with pkgs;
 
   pcsxr = callPackage ../applications/emulators/pcsxr { };
 
-  ppsspp = callPackage ../applications/emulators/ppsspp {
+  ppsspp = callPackage ../applications/emulators/ppsspp { };
+
+  ppsspp-sdl = ppsspp;
+
+  ppsspp-sdl-wayland = ppsspp.override {
+    forceWayland = true;
+    enableVulkan = false; # https://github.com/hrydgard/ppsspp/issues/13845
+  };
+
+  ppsspp-qt = ppsspp.override {
     inherit (libsForQt5) qtbase qtmultimedia wrapQtAppsHook;
+    enableVulkan = false; # https://github.com/hrydgard/ppsspp/issues/11628
   };
 
   proton-caller = callPackage ../applications/emulators/proton-caller { };
@@ -7026,11 +7036,7 @@ with pkgs;
 
   grive2 = callPackage ../tools/filesystems/grive2 { };
 
-  groff = callPackage ../tools/text/groff {
-    ghostscript = null;
-    psutils = null;
-    netpbm = null;
-  };
+  groff = callPackage ../tools/text/groff { };
 
   gromit-mpx = callPackage ../tools/graphics/gromit-mpx {
     gtk = gtk3;
@@ -9032,7 +9038,7 @@ with pkgs;
 
   noip = callPackage ../tools/networking/noip { };
 
-  nomad = nomad_1_2;
+  nomad = nomad_1_3;
 
   # Nomad never updates major go versions within a release series and is unsupported
   # on Go versions that it did not ship with. Due to historic bugs when compiled
@@ -9040,12 +9046,10 @@ with pkgs;
   # Upstream partially documents used Go versions here
   # https://github.com/hashicorp/nomad/blob/master/contributing/golang.md
   nomad_1_2 = callPackage ../applications/networking/cluster/nomad/1.2.nix {
-    # pinned due to build failure or vendoring problems. When unpinning double check with: nix-build -A $name.go-modules --rebuild
     buildGoModule = buildGo117Module;
   };
   nomad_1_3 = callPackage ../applications/networking/cluster/nomad/1.3.nix {
-    # pinned due to build failure or vendoring problems. When unpinning double check with: nix-build -A $name.go-modules --rebuild
-    buildGoModule = buildGo117Module;
+    buildGoModule = buildGo118Module;
   };
 
   nomad-autoscaler = callPackage ../applications/networking/cluster/nomad-autoscaler { };
@@ -9946,9 +9950,7 @@ with pkgs;
 
   proxify = callPackage ../tools/networking/proxify { };
 
-  proxysql = callPackage ../servers/sql/proxysql {
-    stdenv = if stdenv.targetPlatform.isx86_64 then gcc10Stdenv else stdenv;
-  };
+  proxysql = callPackage ../servers/sql/proxysql { };
 
   prs = callPackage ../tools/security/prs { };
 
@@ -14910,6 +14912,9 @@ with pkgs;
   # Import PHP81 interpreter, extensions and packages
   php81 = callPackage ../development/interpreters/php/8.1.nix {
     stdenv = if stdenv.cc.isClang then llvmPackages.stdenv else stdenv;
+    pcre2 = pcre2.override {
+      withJitSealloc = false; # Needed to avoid crashes, see https://bugs.php.net/bug.php?id=78630
+    };
   };
   php81Extensions = recurseIntoAttrs php81.extensions;
   php81Packages = recurseIntoAttrs php81.packages;
@@ -14917,6 +14922,9 @@ with pkgs;
   # Import PHP80 interpreter, extensions and packages
   php80 = callPackage ../development/interpreters/php/8.0.nix {
     stdenv = if stdenv.cc.isClang then llvmPackages.stdenv else stdenv;
+    pcre2 = pcre2.override {
+      withJitSealloc = false; # Needed to avoid crashes, see https://bugs.php.net/bug.php?id=78630
+    };
   };
   php80Extensions = recurseIntoAttrs php80.extensions;
   php80Packages = recurseIntoAttrs php80.packages;
@@ -15768,6 +15776,11 @@ with pkgs;
   ctmg = callPackage ../tools/security/ctmg { };
 
   cmake = callPackage ../development/tools/build-managers/cmake {
+    inherit (darwin.apple_sdk.frameworks) SystemConfiguration;
+    inherit (libsForQt5) qtbase wrapQtAppsHook;
+  };
+
+  cmake_3_23 = callPackage ../development/tools/build-managers/cmake/3_23.nix {
     inherit (darwin.apple_sdk.frameworks) SystemConfiguration;
     inherit (libsForQt5) qtbase wrapQtAppsHook;
   };
@@ -19823,9 +19836,7 @@ with pkgs;
 
   libtifiles2 = callPackage ../development/libraries/libtifiles2 { };
 
-  libtiff = if stdenv.isDarwin && stdenv.isAarch64
-    then callPackage ../development/libraries/libtiff/aarch64-darwin.nix { }
-    else callPackage ../development/libraries/libtiff { };
+  libtiff = callPackage ../development/libraries/libtiff { };
 
   libtiger = callPackage ../development/libraries/libtiger { };
 
@@ -21256,6 +21267,8 @@ with pkgs;
 
   snappy = callPackage ../development/libraries/snappy { };
 
+  snappymail = callPackage ../servers/snappymail { };
+
   snow = callPackage ../tools/security/snow { };
 
   snowcrash = callPackage ../tools/security/snowcrash { };
@@ -22144,14 +22157,14 @@ with pkgs;
   ### DEVELOPMENT / PERL MODULES
 
   perlInterpreters = callPackages ../development/interpreters/perl {};
-  inherit (perlInterpreters) perl532 perl534 perldevel;
+  inherit (perlInterpreters) perl534 perl536 perldevel;
 
-  perl532Packages = recurseIntoAttrs perl532.pkgs;
   perl534Packages = recurseIntoAttrs perl534.pkgs;
+  perl536Packages = recurseIntoAttrs perl536.pkgs;
   perldevelPackages = perldevel.pkgs;
 
-  perl = perl534;
-  perlPackages = perl534Packages;
+  perl = perl536;
+  perlPackages = perl536Packages;
 
   ack = perlPackages.ack;
 
@@ -23784,14 +23797,14 @@ with pkgs;
   gomplate = callPackage ../development/tools/gomplate { };
 
   gpm = callPackage ../servers/gpm {
-    ncurses = null;  # Keep curses disabled for lack of value
+    withNcurses = false; # Keep curses disabled for lack of value
 
     # latest 6.8 mysteriously fails to parse '@headings single':
     #   https://lists.gnu.org/archive/html/bug-texinfo/2021-09/msg00011.html
     texinfo = buildPackages.texinfo6_7;
   };
 
-  gpm-ncurses = gpm.override { inherit ncurses; };
+  gpm-ncurses = gpm.override { withNcurses = true; };
 
   gpu-switch = callPackage ../os-specific/linux/gpu-switch { };
 
@@ -24310,6 +24323,8 @@ with pkgs;
 
   impl = callPackage ../development/tools/impl { };
 
+  moq = callPackage ../development/tools/moq { };
+
   quicktemplate = callPackage ../development/tools/quicktemplate { };
 
   linux_logo = callPackage ../tools/misc/linux-logo { };
@@ -24554,16 +24569,6 @@ with pkgs;
     gnupg = callPackage ../tools/security/gnupg/23.nix {
       enableMinimal = true;
       guiSupport = false;
-      pcsclite = null;
-      sqlite = null;
-      pinentry = null;
-      adns = null;
-      gnutls = null;
-      libusb1 = null;
-      openldap = null;
-      readline = null;
-      zlib = null;
-      bzip2 = null;
     };
   };
   systemdMinimal = systemd.override {
