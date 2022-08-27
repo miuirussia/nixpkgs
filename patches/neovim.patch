@@ -1,0 +1,81 @@
+diff --git a/pkgs/applications/editors/neovim/utils.nix b/pkgs/applications/editors/neovim/utils.nix
+index cb0c005759b..1df6f7250aa 100644
+--- a/pkgs/applications/editors/neovim/utils.nix
++++ b/pkgs/applications/editors/neovim/utils.nix
+@@ -102,10 +102,13 @@ let
+           # as expected by packdir
+           packDirArgs.myNeovimPackages = myVimPackage;
+ 
++          packDir = vimUtils.packDir packDirArgs;
++
+           # vim accepts a limited number of commands so we join them all
+           flags = [
+             "--cmd" (lib.intersperse "|" hostProviderViml)
+-            "--cmd" "set packpath^=${vimUtils.packDir packDirArgs}"
++            "--cmd" "set packpath^=${packDir}"
++            "--cmd" "set rtp^=${packDir}"
+             ];
+         in
+         [
+diff --git a/pkgs/applications/editors/vim/plugins/vim-utils.nix b/pkgs/applications/editors/vim/plugins/vim-utils.nix
+index d11d638f4a0..8237a6e6041 100644
+--- a/pkgs/applications/editors/vim/plugins/vim-utils.nix
++++ b/pkgs/applications/editors/vim/plugins/vim-utils.nix
+@@ -3,6 +3,7 @@
+ , runCommand, makeWrapper
+ , nix-prefetch-hg, nix-prefetch-git
+ , fetchFromGitHub, runtimeShell
++, hasLuaModule
+ , python3
+ , callPackage, makeSetupHook
+ }:
+@@ -172,6 +173,12 @@ let
+   */
+   packDir = packages:
+   let
++    linkLuaPlugin = plugin: packageName: dir: ''
++      mkdir -p $out/pack/${packageName}/${dir}/${plugin.pname}/lua
++      ln -sf ${plugin}/share/lua/5.1/* $out/pack/${packageName}/${dir}/${plugin.pname}/lua
++      ln -sf ${plugin}/${plugin.pname}-${plugin.version}-rocks/${plugin.pname}/${plugin.version}/* $out/pack/${packageName}/${dir}/${plugin.pname}/
++    '';
++
+     linkVimlPlugin = plugin: packageName: dir: ''
+       mkdir -p $out/pack/${packageName}/${dir}
+       if test -e "$out/pack/${packageName}/${dir}/${lib.getName plugin}"; then
+@@ -181,6 +188,9 @@ let
+       ln -sf ${plugin}/${rtpPath} $out/pack/${packageName}/${dir}/${lib.getName plugin}
+     '';
+ 
++    link = pluginPath: if hasLuaModule pluginPath
++      then linkLuaPlugin pluginPath
++      else linkVimlPlugin pluginPath;
+ 
+     packageLinks = packageName: {start ? [], opt ? []}:
+     let
+@@ -198,9 +208,9 @@ let
+       [ "mkdir -p $out/pack/${packageName}/start" ]
+       # To avoid confusion, even dependencies of optional plugins are added
+       # to `start` (except if they are explicitly listed as optional plugins).
+-      ++ (builtins.map (x: linkVimlPlugin x packageName "start") allPlugins)
++      ++ (builtins.map (x: link x packageName "start") allPlugins)
+       ++ ["mkdir -p $out/pack/${packageName}/opt"]
+-      ++ (builtins.map (x: linkVimlPlugin x packageName "opt") opt)
++      ++ (builtins.map (x: link x packageName "opt") opt)
+       # Assemble all python3 dependencies into a single `site-packages` to avoid doing recursive dependency collection
+       # for each plugin.
+       # This directory is only for python import search path, and will not slow down the startup time.
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index 99ca3ec3508..912a5e9feb8 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -35981,7 +35981,9 @@ with pkgs;
+ 
+   viewnior = callPackage ../applications/graphics/viewnior { };
+ 
+-  vimUtils = callPackage ../applications/editors/vim/plugins/vim-utils.nix { };
++  vimUtils = callPackage ../applications/editors/vim/plugins/vim-utils.nix {
++    inherit (lua51Packages) hasLuaModule;
++  };
+ 
+   vimPlugins = recurseIntoAttrs (callPackage ../applications/editors/vim/plugins {
+     llvmPackages = llvmPackages_6;
