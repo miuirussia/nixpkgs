@@ -5,7 +5,7 @@ index cb0c005759b..1df6f7250aa 100644
 @@ -102,10 +102,13 @@ let
            # as expected by packdir
            packDirArgs.myNeovimPackages = myVimPackage;
- 
+
 +          packDir = vimUtils.packDir packDirArgs;
 +
            # vim accepts a limited number of commands so we join them all
@@ -13,6 +13,7 @@ index cb0c005759b..1df6f7250aa 100644
              "--cmd" (lib.intersperse "|" hostProviderViml)
 -            "--cmd" "set packpath^=${vimUtils.packDir packDirArgs}"
 +            "--cmd" "set packpath^=${packDir}"
++            "--cmd" "set runtimepath^=${packDir}"
 +            "--cmd" "set rtp^=${packDir}"
              ];
          in
@@ -45,11 +46,11 @@ index d11d638f4a0..8237a6e6041 100644
 @@ -181,6 +188,9 @@ let
        ln -sf ${plugin}/${rtpPath} $out/pack/${packageName}/${dir}/${lib.getName plugin}
      '';
- 
+
 +    link = pluginPath: if hasLuaModule pluginPath
 +      then linkLuaPlugin pluginPath
 +      else linkVimlPlugin pluginPath;
- 
+
      packageLinks = packageName: {start ? [], opt ? []}:
      let
 @@ -198,9 +208,9 @@ let
@@ -69,13 +70,13 @@ index 99ca3ec3508..912a5e9feb8 100644
 --- a/pkgs/top-level/all-packages.nix
 +++ b/pkgs/top-level/all-packages.nix
 @@ -35981,7 +35981,9 @@ with pkgs;
- 
+
    viewnior = callPackage ../applications/graphics/viewnior { };
- 
+
 -  vimUtils = callPackage ../applications/editors/vim/plugins/vim-utils.nix { };
 +  vimUtils = callPackage ../applications/editors/vim/plugins/vim-utils.nix {
 +    inherit (lua51Packages) hasLuaModule;
 +  };
- 
+
    vimPlugins = recurseIntoAttrs (callPackage ../applications/editors/vim/plugins {
      llvmPackages = llvmPackages_6;

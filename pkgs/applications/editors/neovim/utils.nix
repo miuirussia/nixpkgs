@@ -108,6 +108,7 @@ let
           flags = [
             "--cmd" (lib.intersperse "|" hostProviderViml)
             "--cmd" "set packpath^=${packDir}"
+            "--cmd" "set runtimepath^=${packDir}"
             "--cmd" "set rtp^=${packDir}"
             ];
         in
