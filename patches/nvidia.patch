@@ -1,0 +1,22 @@
+From 2461a6233430ce84fbd79958ab290318521de865 Mon Sep 17 00:00:00 2001
+From: Max Schorradt <schorradt@tech-effect.de>
+Date: Wed, 24 Aug 2022 20:17:58 +0200
+Subject: [PATCH] nvidia: remove deleted useGlamor option
+
+---
+ nixos/modules/hardware/video/nvidia.nix | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/nixos/modules/hardware/video/nvidia.nix b/nixos/modules/hardware/video/nvidia.nix
+index 8c6c97f9b21d0..c51f9c0b214b5 100644
+--- a/nixos/modules/hardware/video/nvidia.nix
++++ b/nixos/modules/hardware/video/nvidia.nix
+@@ -260,8 +260,6 @@ in
+     # - Configure the display manager to run specific `xrandr` commands which will
+     #   configure/enable displays connected to the Intel iGPU / AMD APU.
+ 
+-    services.xserver.useGlamor = mkDefault offloadCfg.enable;
+-
+     services.xserver.drivers = let
+     in optional primeEnabled {
+       name = igpuDriver;
