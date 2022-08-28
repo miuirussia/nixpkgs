@@ -3,7 +3,6 @@
 , runCommand, makeWrapper
 , nix-prefetch-hg, nix-prefetch-git
 , fetchFromGitHub, runtimeShell
-, hasLuaModule
 , python3
 , callPackage, makeSetupHook
 }:
@@ -173,12 +172,6 @@ let
   */
   packDir = packages:
   let
-    linkLuaPlugin = plugin: packageName: dir: ''
-      mkdir -p $out/pack/${packageName}/${dir}/${plugin.pname}/lua
-      ln -sf ${plugin}/share/lua/5.1/* $out/pack/${packageName}/${dir}/${plugin.pname}/lua
-      ln -sf ${plugin}/${plugin.pname}-${plugin.version}-rocks/${plugin.pname}/${plugin.version}/* $out/pack/${packageName}/${dir}/${plugin.pname}/
-    '';
-
     linkVimlPlugin = plugin: packageName: dir: ''
       mkdir -p $out/pack/${packageName}/${dir}
       if test -e "$out/pack/${packageName}/${dir}/${lib.getName plugin}"; then
@@ -188,9 +181,6 @@ let
       ln -sf ${plugin}/${rtpPath} $out/pack/${packageName}/${dir}/${lib.getName plugin}
     '';
 
-    link = pluginPath: if hasLuaModule pluginPath
-      then linkLuaPlugin pluginPath
-      else linkVimlPlugin pluginPath;
 
     packageLinks = packageName: {start ? [], opt ? []}:
     let
@@ -208,9 +198,9 @@ let
       [ "mkdir -p $out/pack/${packageName}/start" ]
       # To avoid confusion, even dependencies of optional plugins are added
       # to `start` (except if they are explicitly listed as optional plugins).
-      ++ (builtins.map (x: link x packageName "start") allPlugins)
+      ++ (builtins.map (x: linkVimlPlugin x packageName "start") allPlugins)
       ++ ["mkdir -p $out/pack/${packageName}/opt"]
-      ++ (builtins.map (x: link x packageName "opt") opt)
+      ++ (builtins.map (x: linkVimlPlugin x packageName "opt") opt)
       # Assemble all python3 dependencies into a single `site-packages` to avoid doing recursive dependency collection
       # for each plugin.
       # This directory is only for python import search path, and will not slow down the startup time.
