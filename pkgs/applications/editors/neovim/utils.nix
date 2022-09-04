@@ -102,13 +102,11 @@ let
           # as expected by packdir
           packDirArgs.myNeovimPackages = myVimPackage;
 
-          packDir = vimUtils.packDir packDirArgs;
-
           # vim accepts a limited number of commands so we join them all
           flags = [
             "--cmd" (lib.intersperse "|" hostProviderViml)
-            "--cmd" "set packpath^=${packDir}"
-            "--cmd" "set rtp^=${packDir}"
+            "--cmd" "set packpath^=${vimUtils.packDir packDirArgs}"
+            "--cmd" "set rtp^=${vimUtils.packDir packDirArgs}"
             ];
         in
         [
