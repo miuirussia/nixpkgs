@@ -2953,6 +2953,8 @@ with pkgs;
     inherit (plasma5Packages) breeze-icons;
   };
 
+  beautysh = callPackage ../development/tools/beautysh { };
+
   bc = callPackage ../tools/misc/bc { };
 
   bdf2psf = callPackage ../tools/misc/bdf2psf { };
@@ -13066,6 +13068,8 @@ with pkgs;
   alan_2 = callPackage ../development/compilers/alan/2.nix { };
 
   algol68g = callPackage ../development/compilers/algol68g { };
+
+  ante = callPackage ../development/compilers/ante { };
 
   armips = callPackage ../development/compilers/armips {
     stdenv = gcc10Stdenv;
