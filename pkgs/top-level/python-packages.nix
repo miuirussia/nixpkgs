@@ -2300,6 +2300,8 @@ in {
 
   dbus-client-gen = callPackage ../development/python-modules/dbus-client-gen { };
 
+  dbus-fast = callPackage ../development/python-modules/dbus-fast { };
+
   dbus-next = callPackage ../development/python-modules/dbus-next { };
 
   dbus-python = callPackage ../development/python-modules/dbus {
@@ -6786,6 +6788,8 @@ in {
 
   overly = callPackage ../development/python-modules/overly { };
 
+  overpy = callPackage ../development/python-modules/overpy { };
+
   pandas-stubs = callPackage ../development/python-modules/pandas-stubs { };
 
   parameterizedtestcase = callPackage ../development/python-modules/parameterizedtestcase { };
@@ -10429,6 +10433,8 @@ in {
   sphinx-basic-ng = callPackage ../development/python-modules/sphinx-basic-ng { };
 
   sphinx-copybutton = callPackage ../development/python-modules/sphinx-copybutton { };
+
+  sphinxemoji = callPackage ../development/python-modules/sphinxemoji { };
 
   sphinx-inline-tabs = callPackage ../development/python-modules/sphinx-inline-tabs { };
 

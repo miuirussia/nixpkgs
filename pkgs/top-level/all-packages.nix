@@ -424,6 +424,8 @@ with pkgs;
 
   crackle = callPackage ../tools/networking/crackle { };
 
+  crackql = callPackage ../tools/security/crackql { };
+
   crow-translate = libsForQt5.callPackage ../applications/misc/crow-translate { };
 
   cryptowatch-desktop = callPackage ../applications/finance/cryptowatch { };
@@ -2754,6 +2756,8 @@ with pkgs;
 
   goku = callPackage ../os-specific/darwin/goku { };
 
+  grb = callPackage ../applications/misc/grb { };
+
   kerf   = kerf_1; /* kerf2 is WIP */
   kerf_1 = callPackage ../development/interpreters/kerf {
     stdenv = clangStdenv;
@@ -2853,6 +2857,8 @@ with pkgs;
   };
 
   apprise = with python3Packages; toPythonApplication apprise;
+
+  aptdec = callPackage ../development/libraries/aptdec {};
 
   aria2 = callPackage ../tools/networking/aria2 {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -3221,6 +3227,8 @@ with pkgs;
 
   caddy = callPackage ../servers/caddy { };
 
+  xcaddy = callPackage ../servers/caddy/xcaddy { };
+
   traefik = callPackage ../servers/traefik { };
 
   traefik-certs-dumper = callPackage ../tools/misc/traefik-certs-dumper { };
@@ -3288,6 +3296,8 @@ with pkgs;
   cfdyndns = callPackage ../applications/networking/dyndns/cfdyndns {
     openssl = openssl_1_1;
   };
+
+  cf-terraforming = callPackage ../tools/misc/cf-terraforming { };
 
   charliecloud = callPackage ../applications/virtualization/charliecloud { };
 
@@ -3546,6 +3556,8 @@ with pkgs;
 
   cutemarked-ng = libsForQt5.callPackage ../applications/office/cutemarked-ng { };
 
+  dab_lib = callPackage ../development/libraries/dab_lib {};
+
   dabet = callPackage ../tools/misc/dabet { };
 
   dabtools = callPackage ../applications/radio/dabtools { };
@@ -3711,6 +3723,8 @@ with pkgs;
   dozenal = callPackage ../applications/misc/dozenal { };
 
   dpic = callPackage ../tools/graphics/dpic { };
+
+  dsdcc = callPackage ../development/libraries/dsdcc {};
 
   dstp = callPackage ../development/tools/dstp { };
 
@@ -4625,6 +4639,8 @@ with pkgs;
 
   sfz = callPackage ../tools/misc/sfz { };
 
+  sgp4 = callPackage ../development/libraries/sgp4 {};
+
   shab = callPackage ../tools/text/shab { };
 
   sheldon = callPackage ../tools/misc/sheldon { };
@@ -4738,34 +4754,35 @@ with pkgs;
   rsbep = callPackage ../tools/backup/rsbep { };
 
   rsyslog = callPackage ../tools/system/rsyslog {
-    hadoop = null; # Currently Broken
-    libksi = null; # Currently Broken
+    withHadoop = false; # Currently Broken
+    withKsi = false; # Currently Broken
   };
 
   rsyslog-light = rsyslog.override {
-    libkrb5 = null;
-    systemd = null;
-    jemalloc = null;
-    libmysqlclient = null;
-    postgresql = null;
-    libdbi = null;
-    net-snmp = null;
-    libuuid = null;
-    gnutls = null;
-    libgcrypt = null;
-    liblognorm = null;
-    openssl = null;
-    librelp = null;
-    libksi = null;
-    liblogging = null;
-    libnet = null;
-    hadoop = null;
-    rdkafka = null;
-    libmongo-client = null;
-    czmq = null;
-    rabbitmq-c = null;
-    hiredis = null;
-    libmaxminddb = null;
+    withKrb5 = false;
+    withSystemd = false;
+    withJemalloc = false;
+    withMysql = false;
+    withPostgres = false;
+    withDbi = false;
+    withNetSnmp = false;
+    withUuid = false;
+    withCurl = false;
+    withGnutls = false;
+    withGcrypt = false;
+    withLognorm = false;
+    withMaxminddb = false;
+    withOpenssl = false;
+    withRelp = false;
+    withKsi = false;
+    withLogging = false;
+    withNet = false;
+    withHadoop = false;
+    withRdkafka = false;
+    withMongo = false;
+    withCzmq = false;
+    withRabbitmq = false;
+    withHiredis = false;
   };
 
   rtrtr = callPackage ../servers/rtrtr {
@@ -5717,6 +5734,8 @@ with pkgs;
   wgetpaste = callPackage ../tools/text/wgetpaste { };
 
   dismap = callPackage ../tools/security/dismap { };
+
+  dismember = callPackage ../tools/security/dismember { };
 
   dirvish  = callPackage ../tools/backup/dirvish { };
 
@@ -11005,6 +11024,8 @@ with pkgs;
     lua = lua5_3;
   };
 
+  silenthound = callPackage ../tools/security/silenthound { };
+
   silice = callPackage ../development/compilers/silice { };
 
   silver-searcher = callPackage ../tools/text/silver-searcher { };
@@ -13331,6 +13352,8 @@ with pkgs;
 
   dbmate = callPackage ../development/tools/database/dbmate { };
 
+  dbmonster = callPackage ../tools/security/dbmonster { };
+
   devpi-client = python3Packages.callPackage ../development/tools/devpi-client {};
 
   devpi-server = callPackage ../development/tools/devpi-server {};
@@ -14591,6 +14614,7 @@ with pkgs;
   cargo-audit = callPackage ../development/tools/rust/cargo-audit {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+  cargo-auditable = callPackage ../development/tools/rust/cargo-auditable { };
   cargo-bisect-rustc = callPackage ../development/tools/rust/cargo-bisect-rustc {
     inherit (darwin.apple_sdk.frameworks) Security;
     openssl = openssl_1_1;
@@ -14714,6 +14738,10 @@ with pkgs;
   cargo-temp = callPackage ../development/tools/rust/cargo-temp { };
   cargo-udeps = callPackage ../development/tools/rust/cargo-udeps {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security SystemConfiguration;
+  };
+  cargo-ui = callPackage ../development/tools/rust/cargo-ui {
+    inherit (xorg) libX11 libXcursor libXi libXrandr libxcb;
+    inherit (darwin.apple_sdk.frameworks);
   };
 
   cargo-tauri = callPackage ../development/tools/rust/cargo-tauri { };
@@ -15714,7 +15742,9 @@ with pkgs;
 
   srelay = callPackage ../tools/networking/srelay { };
 
-  xidel = callPackage ../tools/text/xidel { };
+  xidel = callPackage ../tools/text/xidel {
+    openssl = openssl_1_1;
+  };
 
   asdf-vm = callPackage ../tools/misc/asdf-vm { };
 
@@ -15888,7 +15918,7 @@ with pkgs;
   };
 
   bazel_5 = callPackage ../development/tools/build-managers/bazel/bazel_5 {
-    inherit (darwin) cctools;
+    inherit (darwin) cctools sigtool;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation CoreServices Foundation;
     buildJdk = jdk11_headless;
     runJdk = jdk11_headless;
@@ -16446,6 +16476,8 @@ with pkgs;
   evmdis = callPackage ../development/tools/analysis/evmdis { };
 
   eweb = callPackage ../development/tools/literate-programming/eweb { };
+
+  explain = callPackage ../development/tools/explain { };
 
   funnelweb = callPackage ../development/tools/literate-programming/funnelweb { };
 
@@ -17904,6 +17936,8 @@ with pkgs;
 
   coeurl = callPackage ../development/libraries/coeurl { };
 
+  coercer = callPackage ../tools/security/coercer { };
+
   cogl = callPackage ../development/libraries/cogl { };
 
   coin3d = callPackage ../development/libraries/coin3d { };
@@ -18426,6 +18460,10 @@ with pkgs;
     # Using gcc 10 because this fails to build with gcc 11
     # Error similar to this https://github.com/RPCS3/rpcs3/issues/10291
     stdenv = gcc10Stdenv;
+  };
+
+  graphinder = callPackage ../tools/security/graphinder {
+    python3 = python310;
   };
 
   icon-lang = callPackage ../development/interpreters/icon-lang { };
@@ -22260,6 +22298,11 @@ with pkgs;
 
   webkitgtk_4_1 = webkitgtk.override {
     libsoup = libsoup_3;
+  };
+
+  webkitgtk_5_0 = webkitgtk.override {
+    libsoup = libsoup_3;
+    gtk3 = gtk4;
   };
 
   websocketpp = callPackage ../development/libraries/websocket++ { };
@@ -30613,6 +30656,8 @@ with pkgs;
 
   ponymix = callPackage ../applications/audio/ponymix { };
 
+  popcorntime = callPackage ../applications/video/popcorntime {};
+
   pothos = libsForQt5.callPackage ../applications/radio/pothos { };
 
   potrace = callPackage ../applications/graphics/potrace {};
@@ -32777,11 +32822,13 @@ with pkgs;
     miniupnpc = miniupnpc_2;
     withGui = true;
     boost = boost175;
+    inherit (darwin) autoSignDarwinBinariesHook;
   };
   elementsd = callPackage ../applications/blockchains/elements {
     miniupnpc = miniupnpc_2;
     withGui = false;
     boost = boost175;
+    inherit (darwin) autoSignDarwinBinariesHook;
   };
 
   ergo = callPackage ../applications/blockchains/ergo { };
@@ -35911,6 +35958,8 @@ with pkgs;
   musly = callPackage ../applications/audio/musly { };
 
   mynewt-newt = callPackage ../tools/package-management/mynewt-newt { };
+
+  mynewt-newtmgr = callPackage ../tools/misc/mynewt-newtmgr { };
 
   mysides = callPackage ../os-specific/darwin/mysides { };
 
