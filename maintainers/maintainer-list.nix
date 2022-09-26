@@ -8591,6 +8591,13 @@
       fingerprint = "D709 03C8 0BE9 ACDC 14F0  3BFB 77BF E531 397E DE94";
     }];
   };
+  meain = {
+    email = "mail@meain.io";
+    matrix = "@meain:matrix.org";
+    github = "meain";
+    githubId = 14259816;
+    name = "Abin Simon";
+  };
   meatcar = {
     email = "nixpkgs@denys.me";
     github = "meatcar";
@@ -10555,6 +10562,12 @@
     github = "pjones";
     githubId = 3737;
     name = "Peter Jones";
+  };
+  pkharvey = {
+    email = "kayharvey@protonmail.com";
+    github = "pkharvey";
+    githubId = 50750875;
+    name = "Paul Harvey";
   };
   pkmx = {
     email = "pkmx.tw@gmail.com";
@@ -14469,6 +14482,12 @@
     email = "nix@x3ro.dev";
     github = "x3rAx";
     githubId = 2268851;
+  };
+  xanderio = {
+    name = "Alexander Sieg";
+    email = "alex@xanderio.de";
+    github = "xanderio";
+    githubId = 6298052;
   };
   xaverdh = {
     email = "hoe.dom@gmx.de";
