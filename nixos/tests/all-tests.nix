@@ -198,7 +198,6 @@ in {
   ferm = handleTest ./ferm.nix {};
   firefox = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox; };
   firefox-esr    = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr; }; # used in `tested` job
-  firefox-esr-91 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-91; };
   firefox-esr-102 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-102; };
   firejail = handleTest ./firejail.nix {};
   firewall = handleTest ./firewall.nix {};
@@ -208,6 +207,7 @@ in {
   fluidd = handleTest ./fluidd.nix {};
   fontconfig-default-fonts = handleTest ./fontconfig-default-fonts.nix {};
   freeswitch = handleTest ./freeswitch.nix {};
+  freshrss = handleTest ./freshrss.nix {};
   frr = handleTest ./frr.nix {};
   fsck = handleTest ./fsck.nix {};
   ft2-clone = handleTest ./ft2-clone.nix {};
@@ -649,6 +649,9 @@ in {
   user-home-mode = handleTest ./user-home-mode.nix {};
   uwsgi = handleTest ./uwsgi.nix {};
   v2ray = handleTest ./v2ray.nix {};
+  varnish60 = handleTest ./varnish.nix { package = pkgs.varnish60; };
+  varnish71 = handleTest ./varnish.nix { package = pkgs.varnish71; };
+  varnish72 = handleTest ./varnish.nix { package = pkgs.varnish72; };
   vault = handleTest ./vault.nix {};
   vault-dev = handleTest ./vault-dev.nix {};
   vault-postgresql = handleTest ./vault-postgresql.nix {};
