@@ -244,6 +244,8 @@ with pkgs;
 
   asn = callPackage ../applications/networking/asn { };
 
+  asnmap = callPackage ../tools/security/asnmap { };
+
   astrolog = callPackage ../applications/science/astronomy/astrolog { };
 
   atkinson-hyperlegible = callPackage ../data/fonts/atkinson-hyperlegible { };
@@ -2853,6 +2855,8 @@ with pkgs;
     inherit (androidenv.androidPkgs_9_0) platform-tools;
   };
 
+  amoco = callPackage ../tools/security/amoco {};
+
   anbox = callPackage ../os-specific/linux/anbox { };
 
   androidenv = callPackage ../development/mobile/androidenv {
@@ -3971,7 +3975,9 @@ with pkgs;
 
   fx_cast_bridge = callPackage ../tools/misc/fx_cast { };
 
-  fzf = callPackage ../tools/misc/fzf { };
+  fzf = callPackage ../tools/misc/fzf {
+    buildGoModule = buildGo119Module;
+  };
 
   fzf-obc = callPackage ../shells/bash/fzf-obc { };
 
@@ -4155,6 +4161,8 @@ with pkgs;
   humioctl = callPackage ../applications/logging/humioctl {};
 
   huniq = callPackage ../tools/text/huniq { };
+
+  hunt = callPackage ../tools/misc/hunt { };
 
   hyprland = callPackage ../applications/window-managers/hyprland {
     wlroots = wlroots.overrideAttrs (_: {
@@ -7971,6 +7979,8 @@ with pkgs;
 
   joplin-desktop = callPackage ../applications/misc/joplin-desktop { };
 
+  jot = callPackage ../applications/misc/jot { };
+
   journaldriver = callPackage ../tools/misc/journaldriver {
     openssl = openssl_1_1;
   };
@@ -7996,6 +8006,8 @@ with pkgs;
   jiq = callPackage ../development/tools/misc/jiq { };
 
   jql = callPackage ../development/tools/jql { };
+
+  jqp = callPackage ../development/tools/jqp { };
 
   jo = callPackage ../development/tools/jo { };
 
@@ -8990,6 +9002,8 @@ with pkgs;
   mfcuk = callPackage ../tools/security/mfcuk { };
 
   mfoc = callPackage ../tools/security/mfoc { };
+
+  microbin = callPackage ../servers/microbin { };
 
   microdnf = callPackage ../tools/package-management/microdnf { };
 
@@ -10109,6 +10123,8 @@ with pkgs;
   pk2cmd = callPackage ../tools/misc/pk2cmd { };
 
   plantuml = callPackage ../tools/misc/plantuml { };
+
+  plantuml-c4 = callPackage ../tools/misc/plantuml/plantuml-c4.nix { };
 
   plantuml-server = callPackage ../tools/misc/plantuml-server { };
 
@@ -22732,7 +22748,8 @@ with pkgs;
   quicklispPackages = quicklispPackagesSBCL;
 
   # Alternative lisp-modules implementation
-  lispPackages_new = callPackage ../development/lisp-modules-new/lisp-packages.nix {};
+  lispPackages_new = recurseIntoAttrs (callPackage ../development/lisp-modules-new/lisp-packages.nix {});
+
 
   ### DEVELOPMENT / PERL MODULES
 
@@ -24606,6 +24623,7 @@ with pkgs;
   tgt = callPackage ../tools/networking/tgt { };
 
   lkl = callPackage ../applications/virtualization/lkl { };
+  lklWithFirewall = callPackage ../applications/virtualization/lkl { firewallSupport = true; };
 
   inherit (callPackages ../os-specific/linux/kernel-headers { })
     linuxHeaders makeLinuxHeaders;
@@ -27797,9 +27815,7 @@ with pkgs;
 
   fritzprofiles = with python3.pkgs; toPythonApplication fritzprofiles;
 
-  fsv = callPackage ../applications/misc/fsv {
-    autoreconfHook = buildPackages.autoreconfHook269;
-  };
+  fsv = callPackage ../applications/misc/fsv { };
 
   ft2-clone = callPackage ../applications/audio/ft2-clone {
     inherit (darwin.apple_sdk.frameworks) CoreAudio CoreMIDI CoreServices Cocoa;
@@ -28999,6 +29015,12 @@ with pkgs;
 
   inkscape-extensions = recurseIntoAttrs (callPackages ../applications/graphics/inkscape/extensions.nix {});
 
+  inlyne = callPackage ../applications/misc/inlyne {
+    inherit (xorg) libX11 libXcursor libXi libXrandr libxcb;
+    inherit (darwin) libobjc;
+    inherit (darwin.apple_sdk.frameworks) AppKit ApplicationServices CoreFoundation CoreGraphics CoreServices CoreText CoreVideo Foundation Metal QuartzCore Security;
+  };
+
   inspectrum = callPackage ../applications/radio/inspectrum { };
 
   inputplug = callPackage ../tools/X11/inputplug { };
@@ -29100,10 +29122,7 @@ with pkgs;
 
   k3sup = callPackage ../applications/networking/cluster/k3sup {};
 
-  kconf = callPackage ../applications/networking/cluster/kconf {
-    # pinned due to build failure or vendoring problems. When unpinning double check with: nix-build -A $name.go-modules --rebuild
-    buildGoModule = buildGo117Module;
-  };
+  kconf = callPackage ../applications/networking/cluster/kconf { };
 
   kail = callPackage ../tools/networking/kail {  };
 
@@ -29250,10 +29269,7 @@ with pkgs;
 
   kubebuilder = callPackage ../applications/networking/cluster/kubebuilder { };
 
-  kuttl = callPackage ../applications/networking/cluster/kuttl {
-    # pinned due to build failure or vendoring problems. When unpinning double check with: nix-build -A $name.go-modules --rebuild
-    buildGoModule = buildGo117Module;
-  };
+  kuttl = callPackage ../applications/networking/cluster/kuttl { };
 
   kubectl-doctor = callPackage ../applications/networking/cluster/kubectl-doctor {
     # pinned due to build failure or vendoring problems. When unpinning double check with: nix-build -A $name.go-modules --rebuild
@@ -30035,7 +30051,9 @@ with pkgs;
 
   nerd-font-patcher = callPackage ../applications/misc/nerd-font-patcher { };
 
-  newsflash = callPackage ../applications/networking/feedreaders/newsflash { };
+  newsflash = callPackage ../applications/networking/feedreaders/newsflash {
+    webkitgtk = webkitgtk_5_0;
+  };
 
   nicotine-plus = callPackage ../applications/networking/soulseek/nicotine-plus { };
 
@@ -31775,10 +31793,7 @@ with pkgs;
 
   toxic = callPackage ../applications/networking/instant-messengers/toxic { };
 
-  toxiproxy = callPackage ../development/tools/toxiproxy {
-    # pinned due to build failure or vendoring problems. When unpinning double check with: nix-build -A $name.go-modules --rebuild
-    buildGoModule = buildGo117Module;
-  };
+  toxiproxy = callPackage ../development/tools/toxiproxy { };
 
   tqsl = callPackage ../applications/radio/tqsl {
     openssl = openssl_1_1;
@@ -37197,10 +37212,7 @@ with pkgs;
 
   zfs-replicate = python3Packages.callPackage ../tools/backup/zfs-replicate { };
 
-  zrepl = callPackage ../tools/backup/zrepl {
-    # pinned due to build failure or vendoring problems. When unpinning double check with: nix-build -A $name.go-modules --rebuild
-    buildGoModule = buildGo117Module;
-  };
+  zrepl = callPackage ../tools/backup/zrepl { };
 
   uhubctl = callPackage ../tools/misc/uhubctl {};
 
