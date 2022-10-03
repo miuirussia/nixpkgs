@@ -1,5 +1,5 @@
 diff --git a/pkgs/os-specific/linux/zfs/default.nix b/pkgs/os-specific/linux/zfs/default.nix
-index 5e92e63553d..19181d96d3f 100644
+index 5e92e63553d..63b400bcddd 100644
 --- a/pkgs/os-specific/linux/zfs/default.nix
 +++ b/pkgs/os-specific/linux/zfs/default.nix
 @@ -16,7 +16,7 @@
@@ -11,7 +11,16 @@ index 5e92e63553d..19181d96d3f 100644
  }:
  
  let
-@@ -47,7 +47,8 @@ let
+@@ -36,7 +36,7 @@ let
+   stdenv' = if kernel == null then stdenv else kernel.stdenv;
+ 
+   common = { version
+-    , sha256
++    , hash
+     , extraPatches ? []
+     , rev ? "zfs-${version}"
+     , isUnstable ? false
+@@ -47,9 +47,10 @@ let
        name = "zfs-${configFile}-${version}${optionalString buildKernel "-${kernel.version}"}";
  
        src = fetchFromGitHub {
@@ -19,8 +28,11 @@ index 5e92e63553d..19181d96d3f 100644
 +        #owner = "openzfs";
 +        owner = "tonyhutter";
          repo = "zfs";
-         inherit rev sha256;
+-        inherit rev sha256;
++        inherit rev hash;
        };
+ 
+       patches = extraPatches;
 @@ -216,28 +217,29 @@ in {
    # to be adapted
    zfsStable = common {
@@ -33,10 +45,10 @@ index 5e92e63553d..19181d96d3f 100644
      # this package should point to the latest release.
 -    version = "2.1.5";
 +    version = "2.1.6";
-+    rev = "c5bdc6ca0e235302f4326fabd8eeeaa23399bdcb";
++    rev = "6a6bd493988c75331deab06e5352a9bed035a87d";
  
 -    sha256 = "sha256-a9rmuPO8R8UfxdHvwjfFuYRGn97a1MPmLZRvr3l0swE=";
-+    sha256 = "sha256-86s09kTr7nHuk9DGyGwWiCy47aRLWn1XbgMHyb7vFGc=";
++    hash = "sha256-gd5WlNtnoSiVj4sKUGf0WhR7Z1GPebwu3Z1mkNsoC/I=";
    };
  
    zfsUnstable = common {
@@ -53,10 +65,10 @@ index 5e92e63553d..19181d96d3f 100644
 -    version = "2.1.5";
 -    # rev = "0000000000000000000000000000000000000000";
 +    version = "2.1.6";
-+    rev = "c5bdc6ca0e235302f4326fabd8eeeaa23399bdcb";
++    rev = "6a6bd493988c75331deab06e5352a9bed035a87d";
  
 -    sha256 = "sha256-a9rmuPO8R8UfxdHvwjfFuYRGn97a1MPmLZRvr3l0swE=";
-+    sha256 = "sha256-86s09kTr7nHuk9DGyGwWiCy47aRLWn1XbgMHyb7vFGc=";
++    hash = "sha256-gd5WlNtnoSiVj4sKUGf0WhR7Z1GPebwu3Z1mkNsoC/I=";
  
      isUnstable = true;
    };
