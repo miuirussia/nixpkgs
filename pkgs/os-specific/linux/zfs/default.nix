@@ -36,7 +36,7 @@ let
   stdenv' = if kernel == null then stdenv else kernel.stdenv;
 
   common = { version
-    , hash
+    , sha256
     , extraPatches ? []
     , rev ? "zfs-${version}"
     , isUnstable ? false
@@ -47,10 +47,9 @@ let
       name = "zfs-${configFile}-${version}${optionalString buildKernel "-${kernel.version}"}";
 
       src = fetchFromGitHub {
-        #owner = "openzfs";
-        owner = "tonyhutter";
+        owner = "openzfs";
         repo = "zfs";
-        inherit rev hash;
+        inherit rev sha256;
       };
 
       patches = extraPatches;
@@ -222,9 +221,8 @@ in {
 
     # this package should point to the latest release.
     version = "2.1.6";
-    rev = "6a6bd493988c75331deab06e5352a9bed035a87d";
 
-    hash = "sha256-gd5WlNtnoSiVj4sKUGf0WhR7Z1GPebwu3Z1mkNsoC/I=";
+    sha256 = "sha256-gd5WlNtnoSiVj4sKUGf0WhR7Z1GPebwu3Z1mkNsoC/I=";
   };
 
   zfsUnstable = common {
@@ -237,9 +235,9 @@ in {
     # zfs-<version>-staging branch, because this is tested by the OpenZFS
     # maintainers.
     version = "2.1.6";
-    rev = "6a6bd493988c75331deab06e5352a9bed035a87d";
+    # rev = "0000000000000000000000000000000000000000";
 
-    hash = "sha256-gd5WlNtnoSiVj4sKUGf0WhR7Z1GPebwu3Z1mkNsoC/I=";
+    sha256 = "sha256-gd5WlNtnoSiVj4sKUGf0WhR7Z1GPebwu3Z1mkNsoC/I=";
 
     isUnstable = true;
   };
