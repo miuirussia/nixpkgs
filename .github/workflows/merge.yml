@@ -44,11 +44,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push changes
         run: |
+          set -x
+
           cd ./nixpkgs-final
 
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
 
-          git add .
-          git commit -m "Automatic merge from NixOS/nixpkgs"
-          git push origin nixpkgs-unstable
+          STATUS=$(git status -s)
+          if [ -n "$STATUS" ]; then
+              git add .
+              git commit -m "$(date) automatic merge"
+              git push origin nixpkgs-unstable
+          fi
