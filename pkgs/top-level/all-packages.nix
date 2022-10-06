@@ -2382,6 +2382,8 @@ with pkgs;
 
   clair = callPackage ../tools/admin/clair { };
 
+  clairvoyance = callPackage ../tools/security/clairvoyance { };
+
   cloud-sql-proxy = callPackage ../tools/misc/cloud-sql-proxy { };
 
   cloudfox = callPackage ../tools/security/cloudfox { };
@@ -3693,6 +3695,8 @@ with pkgs;
   dirb = callPackage ../tools/networking/dirb { };
 
   direnv = callPackage ../tools/misc/direnv { };
+
+  dirstalk = callPackage ../tools/security/dirstalk { };
 
   h = callPackage ../tools/misc/h { };
 
@@ -14694,6 +14698,7 @@ with pkgs;
   cargo-hack = callPackage ../development/tools/rust/cargo-hack { };
   cargo-license = callPackage ../development/tools/rust/cargo-license { };
   cargo-llvm-lines = callPackage ../development/tools/rust/cargo-llvm-lines { };
+  cargo-lock = callPackage ../development/tools/rust/cargo-lock { };
   cargo-outdated = callPackage ../development/tools/rust/cargo-outdated {
     inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
@@ -26797,6 +26802,8 @@ with pkgs;
   arion = callPackage ../applications/virtualization/arion { };
 
   arkade = callPackage ../applications/networking/cluster/arkade { };
+
+  artem = callPackage ../applications/graphics/artem { };
 
   asuka = callPackage ../applications/networking/browsers/asuka {
     inherit (darwin.apple_sdk.frameworks) Security;
