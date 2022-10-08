@@ -8808,7 +8808,9 @@ with pkgs;
 
   lidarr = callPackage ../servers/lidarr { };
 
-  limesuite = callPackage ../applications/radio/limesuite { };
+  limesuite = callPackage ../applications/radio/limesuite {
+    inherit (darwin.apple_sdk.frameworks) GLUT;
+  };
 
   limesurvey = callPackage ../servers/limesurvey { };
 
@@ -9401,6 +9403,9 @@ with pkgs;
     buildGoModule = buildGo119Module;
   };
   nomad_1_3 = callPackage ../applications/networking/cluster/nomad/1.3.nix {
+    buildGoModule = buildGo119Module;
+  };
+  nomad_1_4 = callPackage ../applications/networking/cluster/nomad/1.4.nix {
     buildGoModule = buildGo119Module;
   };
 
@@ -21919,13 +21924,24 @@ with pkgs;
 
   snowcrash = callPackage ../tools/security/snowcrash { };
 
-  soapyairspy = callPackage ../applications/radio/soapyairspy { };
+  soapyairspy = callPackage ../applications/radio/soapyairspy {
+    inherit (darwin) libobjc;
+    inherit (darwin.apple_sdk.frameworks) IOKit Security;
+  };
 
-  soapyaudio = callPackage ../applications/radio/soapyaudio { };
+  soapyaudio = callPackage ../applications/radio/soapyaudio {
+    inherit (darwin.apple_sdk.frameworks) Accelerate CoreAudio;
+  };
 
-  soapybladerf = callPackage ../applications/radio/soapybladerf { };
+  soapybladerf = callPackage ../applications/radio/soapybladerf {
+    inherit (darwin) libobjc;
+    inherit (darwin.apple_sdk.frameworks) IOKit Security;
+  };
 
-  soapyhackrf = callPackage ../applications/radio/soapyhackrf { };
+  soapyhackrf = callPackage ../applications/radio/soapyhackrf {
+    inherit (darwin) libobjc;
+    inherit (darwin.apple_sdk.frameworks) IOKit Security;
+  };
 
   soapysdr = callPackage ../applications/radio/soapysdr { };
 
@@ -21951,7 +21967,10 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) IOKit Security;
   };
 
-  soapyuhd = callPackage ../applications/radio/soapyuhd { };
+  soapyuhd = callPackage ../applications/radio/soapyuhd {
+    inherit (darwin) libobjc;
+    inherit (darwin.apple_sdk.frameworks) IOKit Security;
+  };
 
   social-engineer-toolkit = callPackage ../tools/security/social-engineer-toolkit { };
 
@@ -29331,10 +29350,7 @@ with pkgs;
 
   kuttl = callPackage ../applications/networking/cluster/kuttl { };
 
-  kubectl-doctor = callPackage ../applications/networking/cluster/kubectl-doctor {
-    # pinned due to build failure or vendoring problems. When unpinning double check with: nix-build -A $name.go-modules --rebuild
-    buildGoModule = buildGo117Module;
-  };
+  kubectl-doctor = callPackage ../applications/networking/cluster/kubectl-doctor { };
 
   kubectl-example = callPackage ../applications/networking/cluster/kubectl-example { };
 
@@ -36449,6 +36465,8 @@ with pkgs;
 
   qdl = callPackage ../tools/misc/qdl { };
 
+  qperf = callPackage ../os-specific/linux/qperf { };
+
   rates = callPackage ../tools/misc/rates {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -36898,6 +36916,12 @@ with pkgs;
   wmutils-opt = callPackage ../tools/X11/wmutils-opt { };
 
   wordpress = callPackage ../servers/web-apps/wordpress { };
+
+  wordpressPackages = ( callPackage ../servers/web-apps/wordpress/packages {
+    plugins = lib.importJSON ../servers/web-apps/wordpress/packages/plugins.json;
+    themes = lib.importJSON ../servers/web-apps/wordpress/packages/themes.json;
+    languages = lib.importJSON ../servers/web-apps/wordpress/packages/languages.json;
+  });
 
   wprecon = callPackage ../tools/security/wprecon { };
 
