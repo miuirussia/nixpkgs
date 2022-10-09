@@ -1317,6 +1317,8 @@ with pkgs;
 
   godspeed = callPackage ../tools/networking/godspeed { };
 
+  guestfs-tools = callPackage ../tools/virtualization/guestfs-tools { };
+
   fwbuilder = libsForQt5.callPackage ../tools/security/fwbuilder { };
 
   headsetcontrol = callPackage ../tools/audio/headsetcontrol { };
@@ -1494,7 +1496,7 @@ with pkgs;
 
   dosbox-staging = callPackage ../applications/emulators/dosbox-staging { };
 
-  duckstation = libsForQt5.callPackage ../applications/emulators/duckstation {};
+  duckstation = qt6Packages.callPackage ../applications/emulators/duckstation {};
 
   dynamips = callPackage ../applications/emulators/dynamips { };
 
@@ -6637,6 +6639,8 @@ with pkgs;
 
   freetube = callPackage ../applications/video/freetube { };
 
+  freeze = callPackage ../tools/security/freeze { };
+
   freqtweak = callPackage ../applications/audio/freqtweak {
     wxGTK = wxGTK31-gtk2;
   };
@@ -8946,6 +8950,8 @@ with pkgs;
     sasl = gsasl;
   };
 
+  matrix-sdk-crypto-nodejs = callPackage ../development/libraries/matrix-sdk-crypto-nodejs { };
+
   email = callPackage ../tools/networking/email { };
 
   maim = callPackage ../tools/graphics/maim {};
@@ -9484,6 +9490,8 @@ with pkgs;
   pulsemixer = callPackage ../tools/audio/pulsemixer { };
 
   pwsafe = callPackage ../applications/misc/pwsafe { };
+
+  napi-rs-cli = callPackage ../development/tools/napi-rs-cli { };
 
   neil = callPackage ../development/tools/neil { };
 
@@ -13450,6 +13458,7 @@ with pkgs;
   flutterPackages =
     recurseIntoAttrs (callPackage ../development/compilers/flutter { });
   flutter = flutterPackages.stable;
+  flutter2 = flutterPackages.v2;
 
   fnm = callPackage ../development/tools/fnm {
     inherit (darwin.apple_sdk.frameworks) DiskArbitration Foundation Security;
@@ -17364,6 +17373,11 @@ with pkgs;
   simpleTpmPk11 = callPackage ../tools/security/simple-tpm-pk11 { };
 
   slimerjs = callPackage ../development/tools/slimerjs {};
+
+  slint-lsp = callPackage ../development/tools/misc/slint-lsp {
+    inherit (xorg) libXcursor libXi;
+    inherit (darwin.apple_sdk.frameworks) AppKit CoreGraphics CoreServices CoreText Foundation OpenGL;
+  };
 
   sloccount = callPackage ../development/tools/misc/sloccount { };
 
@@ -21556,7 +21570,7 @@ with pkgs;
       inherit buildPackages;
       cmake = cmake.overrideAttrs (attrs: {
         patches = attrs.patches ++ [
-          ../development/libraries/qt-6/cmake.patch
+          ../development/libraries/qt-6/patches/cmake.patch
         ];
       });
     });
@@ -23485,7 +23499,11 @@ with pkgs;
 
   onlyoffice-documentserver = callPackage ../servers/onlyoffice-documentserver { };
 
-  outline = callPackage ../servers/web-apps/outline { };
+  outline = callPackage ../servers/web-apps/outline (lib.fix (super: {
+    yarn2nix-moretea = yarn2nix-moretea.override { inherit (super) nodejs yarn; };
+    yarn = yarn.override { inherit (super) nodejs; };
+    nodejs = nodejs-16_x;
+  }));
 
   openbgpd = callPackage ../servers/openbgpd { };
 
@@ -24587,8 +24605,6 @@ with pkgs;
 
   iproute2 = callPackage ../os-specific/linux/iproute { };
 
-  iproute_mptcp = callPackage ../os-specific/linux/iproute/mptcp.nix { };
-
   iputils = hiPrio (callPackage ../os-specific/linux/iputils { });
   # hiPrio for collisions with inetutils (ping)
 
@@ -24744,10 +24760,6 @@ with pkgs;
 
   linuxPackages_testing_bcachefs = linuxKernel.packages.linux_testing_bcachefs;
   linux_testing_bcachefs = linuxKernel.kernels.linux_testing_bcachefs;
-
-  # kernel with mtcp support
-  linuxPackages_mptcp = linuxKernel.packageAliases.linux_mptcp;
-  linux_mptcp = linuxPackages_mptcp.kernel;
 
   # Realtime kernel
   linuxPackages-rt = linuxKernel.packageAliases.linux_rt_default;
@@ -24936,8 +24948,6 @@ with pkgs;
   nettools = if stdenv.isLinux
     then callPackage ../os-specific/linux/net-tools { }
     else unixtools.nettools;
-
-  nettools_mptcp = callPackage ../os-specific/linux/net-tools/mptcp.nix { };
 
   nftables = callPackage ../os-specific/linux/nftables { };
 
@@ -27136,7 +27146,7 @@ with pkgs;
 
   calculix = callPackage ../applications/science/math/calculix {};
 
-  calibre = libsForQt5.callPackage ../applications/misc/calibre { };
+  calibre = qt6Packages.callPackage ../applications/misc/calibre { };
 
   calibre-web = callPackage ../servers/calibre-web { };
 
@@ -27888,6 +27898,8 @@ with pkgs;
   };
 
   freebayes = callPackage ../applications/science/biology/freebayes { };
+
+  freefilesync = callPackage ../applications/networking/freefilesync { };
 
   freewheeling = callPackage ../applications/audio/freewheeling { };
 
@@ -29354,6 +29366,8 @@ with pkgs;
 
   kubectl-example = callPackage ../applications/networking/cluster/kubectl-example { };
 
+  kubectl-images = callPackage ../applications/networking/cluster/kubectl-images { };
+
   kubectl-node-shell = callPackage ../applications/networking/cluster/kubectl-node-shell { };
 
   kubectl-tree = callPackage ../applications/networking/cluster/kubectl-tree { };
@@ -30553,6 +30567,10 @@ with pkgs;
   osmium-tool = callPackage ../applications/misc/osmium-tool { };
 
   owamp = callPackage ../applications/networking/owamp { };
+
+  owofetch = callPackage ../tools/misc/owofetch {
+    inherit (darwin.apple_sdk.frameworks) Foundation DiskArbitration;
+  };
 
   vgmplay-libvgm = callPackage ../applications/audio/vgmplay-libvgm { };
 
@@ -36085,6 +36103,10 @@ with pkgs;
   kops = kops_1_24;
 
   lguf-brightness = callPackage ../misc/lguf-brightness { };
+
+  lighthouse = callPackage ../applications/blockchains/lighthouse {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   lilypond = callPackage ../misc/lilypond { guile = guile_1_8; };
 
