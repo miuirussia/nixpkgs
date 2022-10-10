@@ -731,7 +731,9 @@ with pkgs;
 
   graph-easy = callPackage ../tools/graphics/graph-easy { };
 
-  mangal = callPackage ../applications/misc/mangal { };
+  mangal = callPackage ../applications/misc/mangal {
+    buildGoModule = buildGo119Module;
+  };
 
   graphw00f = callPackage ../tools/security/graphw00f { };
 
@@ -1106,6 +1108,8 @@ with pkgs;
 
   acpica-tools = callPackage ../tools/system/acpica-tools { };
 
+  acquire = with python3Packages; toPythonApplication acquire;
+
   act = callPackage ../development/tools/misc/act { };
 
   actdiag = with python3.pkgs; toPythonApplication actdiag;
@@ -1140,7 +1144,7 @@ with pkgs;
   aefs = callPackage ../tools/filesystems/aefs { };
 
   aegisub = callPackage ../applications/video/aegisub ({
-    wxGTK = wxGTK31;
+    wxGTK = wxGTK32;
     inherit (darwin.apple_sdk.frameworks) CoreText CoreFoundation AppKit Carbon IOKit Cocoa;
   } // (config.aegisub or {}));
 
@@ -4197,7 +4201,9 @@ with pkgs;
     });
   };
 
-  hysteria = callPackage ../tools/networking/hysteria { };
+  hysteria = callPackage ../tools/networking/hysteria {
+    buildGoModule = buildGo119Module;
+  };
 
   hyx = callPackage ../tools/text/hyx { };
 
@@ -6082,7 +6088,9 @@ with pkgs;
 
   tridactyl-native = callPackage ../tools/networking/tridactyl-native { };
 
-  trivy = callPackage ../tools/admin/trivy { };
+  trivy = callPackage ../tools/admin/trivy {
+    buildGoModule = buildGo119Module;
+  };
 
   trompeloeil = callPackage ../development/libraries/trompeloeil { };
 
@@ -6290,6 +6298,8 @@ with pkgs;
   exa = callPackage ../tools/misc/exa {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+
+  exactaudiocopy = callPackage ../applications/audio/exact-audio-copy { };
 
   exempi = callPackage ../development/libraries/exempi {
     stdenv = if stdenv.isDarwin then stdenv
@@ -7445,7 +7455,9 @@ with pkgs;
 
   gvolicon = callPackage ../tools/audio/gvolicon {};
 
-  gvproxy = callPackage ../tools/networking/gvproxy { };
+  gvproxy = callPackage ../tools/networking/gvproxy {
+    buildGoModule = buildGo118Module; # fails to build with 1.19
+  };
 
   gzip = callPackage ../tools/compression/gzip { };
 
@@ -9834,7 +9846,9 @@ with pkgs;
   opae = callPackage ../development/libraries/opae { };
 
   opentelemetry-collector = callPackage ../tools/misc/opentelemetry-collector { };
-  opentelemetry-collector-contrib = callPackage ../tools/misc/opentelemetry-collector/contrib.nix { };
+  opentelemetry-collector-contrib = callPackage ../tools/misc/opentelemetry-collector/contrib.nix {
+    buildGoModule = buildGo119Module;
+  };
 
   opentracing-cpp = callPackage ../development/libraries/opentracing-cpp { };
 
@@ -9890,6 +9904,8 @@ with pkgs;
   overcommit = callPackage ../development/tools/overcommit { };
 
   overmind = callPackage ../applications/misc/overmind { };
+
+  oxker = callPackage ../applications/misc/oxker { };
 
   ovh-ttyrec = callPackage ../tools/misc/ovh-ttyrec { };
 
@@ -11674,7 +11690,9 @@ with pkgs;
 
   teip = callPackage ../tools/text/teip { };
 
-  telegraf = callPackage ../servers/monitoring/telegraf { };
+  telegraf = callPackage ../servers/monitoring/telegraf {
+    buildGoModule = buildGo119Module;
+  };
 
   teleport = callPackage ../servers/teleport {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
@@ -17608,7 +17626,9 @@ with pkgs;
 
   vtable-dumper = callPackage ../development/tools/misc/vtable-dumper { };
 
-  wails = callPackage ../development/tools/wails { };
+  wails = callPackage ../development/tools/wails {
+    buildGoModule = buildGo119Module;
+  };
 
   whatsapp-for-linux = callPackage ../applications/networking/instant-messengers/whatsapp-for-linux { };
 
@@ -19690,7 +19710,7 @@ with pkgs;
 
   libdwarf = callPackage ../development/libraries/libdwarf { };
   dwarfdump = libdwarf.bin;
-  libdwarf_0_4 = callPackage ../development/libraries/libdwarf/0.4.nix { };
+  libdwarf_20210528 = callPackage ../development/libraries/libdwarf/20210528.nix { };
 
   libe57format = callPackage ../development/libraries/libe57format { };
 
@@ -21245,9 +21265,10 @@ with pkgs;
 
   inherit (callPackages ../development/libraries/libressl { })
     libressl_3_4
-    libressl_3_5;
+    libressl_3_5
+    libressl_3_6;
 
-  libressl = libressl_3_5;
+  libressl = libressl_3_6;
 
   boringssl = callPackage ../development/libraries/boringssl { };
 
@@ -21819,6 +21840,10 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) AppKit;
   };
 
+  sigdigger = libsForQt5.callPackage ../applications/radio/sigdigger { };
+
+  sigutils = callPackage ../applications/radio/sigutils { };
+
   sblim-sfcc = callPackage ../development/libraries/sblim-sfcc {};
 
   selinux-sandbox = callPackage ../os-specific/linux/selinux-sandbox { };
@@ -22050,6 +22075,10 @@ with pkgs;
   spirv-cross = callPackage ../tools/graphics/spirv-cross { };
 
   splat = callPackage ../applications/radio/splat { };
+
+  suscan = callPackage ../applications/radio/suscan { };
+
+  suwidgets = libsForQt5.callPackage ../applications/radio/suwidgets { };
 
   sratom = callPackage ../development/libraries/audio/sratom { };
 
@@ -23190,14 +23219,9 @@ with pkgs;
   grafana-agent = callPackage ../servers/monitoring/grafana-agent { };
 
   grafana-loki = callPackage ../servers/monitoring/loki { };
+  promtail = callPackage ../servers/monitoring/loki/promtail.nix { };
 
   mimir = callPackage ../servers/monitoring/mimir { };
-
-  promtail = grafana-loki.overrideAttrs (o: {
-    pname = "promtail";
-    subPackages = ["clients/cmd/promtail"];
-    CGO_ENABLED = 1;
-  });
 
   grafana_reporter = callPackage ../servers/monitoring/grafana-reporter { };
 
@@ -24655,6 +24679,8 @@ with pkgs;
 
   libaio = callPackage ../os-specific/linux/libaio { };
 
+  libajantv2 = callPackage ../development/libraries/libajantv2 {};
+
   libargon2 = callPackage ../development/libraries/libargon2 { };
 
   libatasmart = callPackage ../os-specific/linux/libatasmart { };
@@ -25046,6 +25072,7 @@ with pkgs;
 
   gotop = callPackage ../tools/system/gotop {
     inherit (darwin.apple_sdk.frameworks) IOKit;
+    buildGoModule = buildGo119Module;
   };
 
   go-migrate = callPackage ../development/tools/go-migrate { };
@@ -26837,7 +26864,9 @@ with pkgs;
 
   argocd = callPackage ../applications/networking/cluster/argocd { };
 
-  argocd-autopilot = callPackage ../applications/networking/cluster/argocd-autopilot { };
+  argocd-autopilot = callPackage ../applications/networking/cluster/argocd-autopilot {
+    buildGoModule = buildGo119Module;
+  };
 
   argo-rollouts = callPackage ../applications/networking/cluster/argo-rollouts { };
 
@@ -27622,7 +27651,9 @@ with pkgs;
 
   elementary-planner = callPackage ../applications/office/elementary-planner { };
 
-  elf-dissector = libsForQt5.callPackage ../applications/misc/elf-dissector { };
+  elf-dissector = libsForQt5.callPackage ../applications/misc/elf-dissector {
+    libdwarf = libdwarf_20210528;
+  };
 
   elfx86exts = callPackage ../applications/misc/elfx86exts { };
 
@@ -28729,7 +28760,9 @@ with pkgs;
 
   haunt = callPackage ../applications/misc/haunt { };
 
-  hugo = callPackage ../applications/misc/hugo { };
+  hugo = callPackage ../applications/misc/hugo {
+    buildGoModule = buildGo119Module;
+  };
 
   gatekeeper = callPackage ../applications/networking/cluster/gatekeeper { };
 
@@ -31937,7 +31970,8 @@ with pkgs;
   tree = callPackage ../tools/system/tree {};
 
   treesheets = callPackage ../applications/office/treesheets {
-    wxGTK = wxGTK31-gtk3;
+    wxGTK = wxGTK32;
+    inherit (darwin.apple_sdk.frameworks) Cocoa;
   };
 
   tremc = callPackage ../applications/networking/p2p/tremc { };
@@ -32468,7 +32502,9 @@ with pkgs;
   wsjtx = qt5.callPackage ../applications/radio/wsjtx { };
 
   wxhexeditor = callPackage ../applications/editors/wxhexeditor {
-    wxGTK = wxGTK31;
+    inherit (darwin.apple_sdk.frameworks) Cocoa;
+    inherit (llvmPackages) openmp;
+    wxGTK = wxGTK32;
   };
 
   xa = callPackage ../development/compilers/xa/xa.nix { };
@@ -33005,7 +33041,9 @@ with pkgs;
 
   ergo = callPackage ../applications/blockchains/ergo { };
 
-  erigon = callPackage ../applications/blockchains/erigon.nix { };
+  erigon = callPackage ../applications/blockchains/erigon.nix {
+    buildGoModule = buildGo119Module;
+  };
 
   exodus = callPackage ../applications/blockchains/exodus { };
 
@@ -36870,7 +36908,7 @@ with pkgs;
 
   wasm-pack = callPackage ../development/tools/wasm-pack {
     inherit (darwin.apple_sdk.frameworks) Security;
-    libressl = libressl_3_4;
+    libressl = libressl_3_5;
   };
 
   wasynth = callPackage ../development/tools/wasynth { };
@@ -37159,7 +37197,7 @@ with pkgs;
 
   simplenote = callPackage ../applications/misc/simplenote { };
 
-  hy = python3Packages.hy.withPackages (python-packages: [ ]);
+  hy = with python3Packages; toPythonApplication hy;
 
   wmic-bin = callPackage ../servers/monitoring/plugins/wmic-bin.nix { };
 
@@ -37344,7 +37382,9 @@ with pkgs;
 
   webwormhole = callPackage ../tools/networking/webwormhole { };
 
-  werf = callPackage ../applications/networking/cluster/werf { };
+  werf = callPackage ../applications/networking/cluster/werf {
+    buildGoModule = buildGo119Module;
+  };
 
   wifi-password = callPackage ../os-specific/darwin/wifi-password {};
 
