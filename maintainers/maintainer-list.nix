@@ -6507,6 +6507,12 @@
     githubId = 297653;
     name = "Joe Salisbury";
   };
+  john-shaffer = {
+    email = "jdsha@proton.me";
+    github = "john-shaffer";
+    githubId = 53870456;
+    name = "John Shaffer";
+  };
   johanot = {
     email = "write@ownrisk.dk";
     github = "johanot";
@@ -9554,6 +9560,13 @@
     github = "nerdypepper";
     githubId = 23743547;
     name = "Akshay Oppiliappan";
+  };
+  ners = {
+    name = "ners";
+    email = "ners@gmx.ch";
+    matrix = "@ners:ners.ch";
+    github = "ners";
+    githubId = 50560955;
   };
   nessdoor = {
     name = "Tomas Antonio Lopez";

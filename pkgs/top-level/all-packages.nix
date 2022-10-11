@@ -1074,7 +1074,7 @@ with pkgs;
 
   _1password-gui = callPackage ../applications/misc/1password-gui { };
 
-  _1password-gui-beta = callPackage ../applications/misc/1password-gui/beta.nix { };
+  _1password-gui-beta = callPackage ../applications/misc/1password-gui { channel = "beta"; };
 
   _6tunnel = callPackage ../tools/networking/6tunnel { };
 
@@ -1500,7 +1500,7 @@ with pkgs;
 
   dosbox-staging = callPackage ../applications/emulators/dosbox-staging { };
 
-  duckstation = qt6Packages.callPackage ../applications/emulators/duckstation {};
+  duckstation = libsForQt5.callPackage ../applications/emulators/duckstation {};
 
   dynamips = callPackage ../applications/emulators/dynamips { };
 
@@ -3580,6 +3580,8 @@ with pkgs;
   crudini = callPackage ../tools/misc/crudini { };
 
   csv2odf = callPackage ../applications/office/csv2odf { };
+
+  csv2parquet = callPackage ../tools/misc/csv2parquet { };
 
   csvdiff = callPackage ../tools/text/csvdiff { };
 
@@ -11075,6 +11077,8 @@ with pkgs;
 
   sg3_utils = callPackage ../tools/system/sg3_utils { };
 
+  sget = callPackage ../tools/security/sget { };
+
   sha1collisiondetection = callPackage ../tools/security/sha1collisiondetection { };
 
   shadowsocks-libev = callPackage ../tools/networking/shadowsocks-libev { };
@@ -12049,6 +12053,8 @@ with pkgs;
 
   twitterBootstrap = callPackage ../development/web/twitter-bootstrap {};
 
+  twspace-dl = callPackage ../tools/misc/twspace-dl { };
+
   twtxt = python3Packages.callPackage ../applications/networking/twtxt { };
 
   twurl = callPackage ../tools/misc/twurl { };
@@ -12933,10 +12939,7 @@ with pkgs;
 
   zfs-autobackup = callPackage ../tools/backup/zfs-autobackup { };
 
-  zfsbackup = callPackage ../tools/backup/zfsbackup {
-    # pinned due to build failure or vendoring problems. When unpinning double check with: nix-build -A $name.go-modules --rebuild
-    buildGoModule = buildGo117Module;
-  };
+  zfsbackup = callPackage ../tools/backup/zfsbackup { };
 
   zfstools = callPackage ../tools/filesystems/zfstools { };
 
@@ -16832,6 +16835,8 @@ with pkgs;
 
   insomnia = callPackage ../development/web/insomnia { };
 
+  ihp-new = callPackage ../development/web/ihp-new { };
+
   iozone = callPackage ../development/tools/misc/iozone { };
 
   itstool = callPackage ../development/tools/misc/itstool { };
@@ -18578,8 +18583,6 @@ with pkgs;
     pythonPackages = python3Packages;
     autoreconfHook = buildPackages.autoreconfHook269;
   };
-
-  gdal_2 = callPackage ../development/libraries/gdal/2.4.nix { };
 
   gdcm = callPackage ../development/libraries/gdcm {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices Cocoa;
@@ -23309,6 +23312,8 @@ with pkgs;
 
   janus-gateway = callPackage ../servers/janus-gateway { };
 
+  janusgraph = callPackage ../servers/nosql/janusgraph { };
+
   jboss = callPackage ../servers/http/jboss { };
 
   jboss_mysql_jdbc = callPackage ../servers/http/jboss/jdbc/mysql { };
@@ -24226,9 +24231,7 @@ with pkgs;
 
   xwayland = callPackage ../servers/x11/xorg/xwayland.nix { };
 
-  yaws = callPackage ../servers/http/yaws {
-    erlang = erlangR21;
-  };
+  yaws = callPackage ../servers/http/yaws { };
 
   youtrack = callPackage ../servers/jetbrains/youtrack.nix { };
 
@@ -26055,6 +26058,8 @@ with pkgs;
 
   libratbag = callPackage ../os-specific/linux/libratbag { };
 
+  librist = callPackage ../development/libraries/librist { };
+
   libre-baskerville = callPackage ../data/fonts/libre-baskerville { };
 
   libre-bodoni = callPackage ../data/fonts/libre-bodoni { };
@@ -26418,6 +26423,10 @@ with pkgs;
   spdx-license-list-data = callPackage ../data/misc/spdx-license-list-data { };
 
   stdmanpages = callPackage ../data/documentation/std-man-pages { };
+
+  star-history = callPackage ../tools/misc/star-history {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   starfetch = callPackage ../tools/misc/starfetch { };
 
@@ -26836,6 +26845,8 @@ with pkgs;
 
   ao = libfive;
 
+  apache-directory-server = callPackage ../servers/apache-directory-server {};
+
   apache-directory-studio = callPackage ../applications/networking/apache-directory-studio {};
 
   apkeep = callPackage ../tools/misc/apkeep {
@@ -26914,16 +26925,10 @@ with pkgs;
   };
   audaciousQt5 = audacious;
 
-  audacity-gtk2 = callPackage ../applications/audio/audacity { wxGTK = wxGTK31-gtk2; };
-  audacity-gtk3 = callPackage ../applications/audio/audacity { wxGTK = wxGTK31-gtk3; };
-  audacity =
-    if stdenv.isDarwin then
-      callPackage ../applications/audio/audacity {
-        inherit (darwin.apple_sdk.frameworks) AppKit AudioToolbox AudioUnit Carbon Cocoa CoreAudio CoreAudioKit CoreServices;
-        suil = suil-qt5;
-      }
-    else
-      audacity-gtk2;
+  audacity = callPackage ../applications/audio/audacity {
+    inherit (darwin.apple_sdk.frameworks) AppKit AudioToolbox AudioUnit Carbon CoreAudio CoreAudioKit CoreServices;
+    suil = suil-qt5;
+  };
 
   audio-recorder = callPackage ../applications/audio/audio-recorder { };
 
@@ -29798,7 +29803,7 @@ with pkgs;
 
   mediainfo-gui = callPackage ../applications/misc/mediainfo-gui { };
 
-  mediathekview = callPackage ../applications/video/mediathekview { jre = adoptopenjdk-hotspot-bin-16; };
+  mediathekview = callPackage ../applications/video/mediathekview { jre = temurin-bin-17; };
 
   megapixels = callPackage ../applications/graphics/megapixels { };
 
@@ -31104,6 +31109,9 @@ with pkgs;
   };
 
   qutebrowser = libsForQt5.callPackage ../applications/networking/browsers/qutebrowser { };
+  qutebrowser-qt6 = callPackage ../applications/networking/browsers/qutebrowser {
+    inherit (qt6Packages) qtbase qtwebengine wrapQtAppsHook qtwayland;
+  };
 
   qxw = callPackage ../applications/editors/qxw {};
 
