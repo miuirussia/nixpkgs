@@ -4766,6 +4766,8 @@ with pkgs;
 
   spacevim = callPackage ../applications/editors/spacevim { };
 
+  srvc = callPackage ../applications/version-management/srvc { };
+
   ssmsh = callPackage ../tools/admin/ssmsh { };
 
   stacs = callPackage ../tools/security/stacs { };
@@ -8622,7 +8624,9 @@ with pkgs;
   nodejs-slim-16_x = callPackage ../development/web/nodejs/v16.nix {
     enableNpm = false;
   };
-  nodejs-16_x-openssl_1_1 = callPackage ../development/web/nodejs/v16.nix { };
+  nodejs-16_x-openssl_1_1 = callPackage ../development/web/nodejs/v16.nix {
+    openssl = openssl_1_1;
+  };
   nodejs-18_x = callPackage ../development/web/nodejs/v18.nix { };
   nodejs-slim-18_x = callPackage ../development/web/nodejs/v18.nix {
     enableNpm = false;
