@@ -6945,7 +6945,9 @@ with pkgs;
 
   git-chglog = callPackage ../applications/version-management/git-and-tools/git-chglog { };
 
-  git-cinnabar = callPackage ../applications/version-management/git-and-tools/git-cinnabar { };
+  git-cinnabar = callPackage ../applications/version-management/git-and-tools/git-cinnabar {
+    inherit (darwin.apple_sdk.frameworks) CoreServices;
+  };
 
   git-cliff = callPackage ../applications/version-management/git-and-tools/git-cliff {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -19997,6 +19999,7 @@ with pkgs;
   libfreeaptx = callPackage ../development/libraries/libfreeaptx { };
 
   libfreefare = callPackage ../development/libraries/libfreefare {
+    inherit (darwin.apple_sdk.frameworks) IOKit Security;
     inherit (darwin) libobjc;
   };
 
@@ -27978,6 +27981,7 @@ with pkgs;
   fehlstart = callPackage ../applications/misc/fehlstart { };
 
   fetchmail = callPackage ../applications/misc/fetchmail { };
+  fetchmail_7 = callPackage ../applications/misc/fetchmail/v7.nix { };
 
   ff2mpv = callPackage ../applications/misc/ff2mpv { };
 
