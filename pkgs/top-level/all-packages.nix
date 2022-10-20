@@ -5818,6 +5818,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
+  diffsitter = callPackage ../tools/text/diffsitter { };
+
   diffstat = callPackage ../tools/text/diffstat { };
 
   difftastic = callPackage ../tools/text/difftastic { };
@@ -14935,9 +14937,7 @@ with pkgs;
   cargo-udeps = callPackage ../development/tools/rust/cargo-udeps {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security SystemConfiguration;
   };
-  cargo-ui = callPackage ../development/tools/rust/cargo-ui {
-    inherit (darwin.apple_sdk.frameworks);
-  };
+  cargo-ui = darwin.apple_sdk_11_0.callPackage ../development/tools/rust/cargo-ui { };
 
   cargo-tauri = callPackage ../development/tools/rust/cargo-tauri { };
 
@@ -16623,7 +16623,9 @@ with pkgs;
 
   dive = callPackage ../development/tools/dive { };
 
-  dioxus-cli = callPackage ../development/tools/rust/dioxus-cli { };
+  dioxus-cli = callPackage ../development/tools/rust/dioxus-cli {
+    inherit (darwin.apple_sdk.frameworks) CoreServices;
+  };
 
   doclifter = callPackage ../development/tools/misc/doclifter { };
 
@@ -33852,11 +33854,7 @@ with pkgs;
 
   frozen-bubble = callPackage ../games/frozen-bubble { };
 
-  fsg = callPackage ../games/fsg {
-    wxGTK = wxGTK28.override {
-      unicode = false;
-    };
-  };
+  fsg = callPackage ../games/fsg { };
 
   galaxis = callPackage ../games/galaxis { };
 
