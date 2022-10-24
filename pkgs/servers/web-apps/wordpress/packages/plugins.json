@@ -18,10 +18,10 @@
     "version": "2.21.08.31"
   },
   "breeze": {
-    "path": "breeze/tags/2.0.9",
-    "rev": "2786857",
-    "sha256": "0nn3kalwb50kyd563jiixc134hiygkbzs8zkxgsbgmsi511vfzkz",
-    "version": "2.0.9"
+    "path": "breeze/tags/2.0.10",
+    "rev": "2799885",
+    "sha256": "00d36s6ws8bd8qj33nq090lplw2fqj9zz1yzfky4w74lyabih0hw",
+    "version": "2.0.10"
   },
   "co-authors-plus": {
     "path": "co-authors-plus/tags/3.5.2",
@@ -48,10 +48,10 @@
     "version": "1.0.1"
   },
   "gutenberg": {
-    "path": "gutenberg/tags/14.3.0",
-    "rev": "2797654",
-    "sha256": "0gf9spzsljhvmvhhqcgdcbrh95y2j0idmxjxsqnv2hk0miaka00d",
-    "version": "14.3.0"
+    "path": "gutenberg/tags/14.3.1",
+    "rev": "2800224",
+    "sha256": "1irs8slis4vax8l5pnal6zlaxs6487xh84kq1c89azf9raqx4h0z",
+    "version": "14.3.1"
   },
   "jetpack": {
     "path": "jetpack/tags/11.4",
@@ -72,10 +72,10 @@
     "version": "5.0.18"
   },
   "mailpoet": {
-    "path": "mailpoet/tags/3.100.2",
-    "rev": "2797181",
-    "sha256": "04vxwxdvpp80hh381xb88g81i9ps1imvvax5nljjx7nywwc5p9ci",
-    "version": "3.100.2"
+    "path": "mailpoet/tags/3.101.0",
+    "rev": "2800580",
+    "sha256": "050ip4vd514nlfw69ax9x8acszlcsqzd7zw5bdvy1xk3dlva6fkb",
+    "version": "3.101.0"
   },
   "opengraph": {
     "path": "opengraph/tags/1.11.0",
@@ -100,6 +100,18 @@
     "rev": "2798010",
     "sha256": "1flggxd6hw0ps3b0y32a2aj9g3zfpzbaiwzx1zn2s7zpxn508y1b",
     "version": "5.3.1"
+  },
+  "wordpress-seo": {
+    "path": "wordpress-seo/tags/19.8",
+    "rev": "2796969",
+    "sha256": "0vnj7b37s9rra2m957baz8ki4z6x6acl76wgx8yj2063823q0pl2",
+    "version": "19.8"
+  },
+  "webp-express": {
+    "path": "webp-express/tags/0.25.5",
+    "rev": "2728620",
+    "sha256": "0m8hbz72kvzlrcb5jnyfka90xfk1dg602rwmf22xnawzbw52532p",
+    "version": "0.25.5"
   },
   "worker": {
     "path": "worker/tags/4.9.14",
