@@ -8463,6 +8463,8 @@ with pkgs;
 
   lottieconverter = callPackage ../tools/misc/lottieconverter { };
 
+  loudgain = callPackage ../tools/audio/loudgain/default.nix { };
+
   lpcnetfreedv = callPackage ../development/libraries/lpcnetfreedv { };
 
   lsd = callPackage ../tools/misc/lsd { };
@@ -10472,6 +10474,8 @@ with pkgs;
   projectm = libsForQt5.callPackage ../applications/audio/projectm { };
 
   proot = callPackage ../tools/system/proot { };
+
+  protoscope = callPackage ../development/tools/protoscope { };
 
   prototypejs = callPackage ../development/libraries/prototypejs { };
 
@@ -21048,6 +21052,7 @@ with pkgs;
     boost = boost175;
   };
 
+  manticoresearch = callPackage ../servers/search/manticoresearch { };
 
   marisa = callPackage ../development/libraries/marisa {};
 
@@ -24325,10 +24330,7 @@ with pkgs;
 
   spring-boot-cli = callPackage ../development/tools/spring-boot-cli { };
 
-  squid = callPackage ../servers/squid {
-    # https://bugs.squid-cache.org/show_bug.cgi?id=5133
-    openssl = openssl_1_1;
-  };
+  squid = callPackage ../servers/squid { };
 
   duckling-proxy = callPackage ../servers/duckling-proxy { };
 
@@ -26182,6 +26184,10 @@ with pkgs;
   gyre-fonts = callPackage ../data/fonts/gyre {};
 
   hack-font = callPackage ../data/fonts/hack { };
+
+  hackgen-font = callPackage ../data/fonts/hackgen { };
+
+  hackgen-nf-font = callPackage ../data/fonts/hackgen/nerdfont.nix { };
 
   helvetica-neue-lt-std = callPackage ../data/fonts/helvetica-neue-lt-std { };
 
