@@ -1481,6 +1481,12 @@
     githubId = 35324;
     name = "Badi' Abdul-Wahid";
   };
+  baduhai = {
+    email = "baduhai@pm.me";
+    github = "baduhai";
+    githubId = 31864305;
+    name = "William";
+  };
   baitinq = {
     email = "manuelpalenzuelamerino@gmail.com";
     name = "Baitinq";
@@ -5883,6 +5889,12 @@
     github = "ingenieroariel";
     githubId = 54999;
     name = "Ariel Nunez";
+  };
+  iopq = {
+    email = "iop_jr@yahoo.com";
+    github = "iopq";
+    githubId = 1817528;
+    name = "Igor Polyakov";
   };
   irenes = {
     name = "Irene Knapp";
@@ -13304,6 +13316,12 @@
     github = "tasmo";
     githubId = 102685;
     name = "Thomas Friese";
+  };
+  taylor1791 = {
+    email = "nixpkgs@tayloreverding.com";
+    github = "taylor1791";
+    githubId = 555003;
+    name = "Taylor Everding";
   };
   tazjin = {
     email = "mail@tazj.in";
