@@ -29,6 +29,8 @@ jobs:
             trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= s3.kdevlab.com:PhuKrzVfCsS0T1R4FnslJy2qUBul9oQ2CTSO/fg/llM= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
       - name: Merge upstream
         run: |
+          set -x
+
           pushd ./nixpkgs-original
           git apply -v ../nixpkgs-final/patches/*.patch
           popd
@@ -40,7 +42,8 @@ jobs:
           cp -f ./nixpkgs-original/{.editorconfig,.gitattributes,.gitignore,.version,CONTRIBUTING.md,COPYING,README.md,default.nix,flake.nix} ./nixpkgs-final
           (cd ./nixpkgs-final/pkgs/desktops/gnome/extensions && ./update-extensions.py)
           (cd ./nixpkgs-final/pkgs/applications/editors/vscode && ./update-vscode.sh)
-          (cd ./nixpkgs-final && nix build .#tree-sitter.passthru.updater.update-all-grammars --no-link --print-out-paths)
+          $(cd ./nixpkgs-final && nix build .#tree-sitter.passthru.updater.update-all-grammars --no-link --print-out-paths)
+          (cd ./nixpkgs-final/pkgs/applications/editors/vim/plugins && GITHUB_API_TOKEN=${{ secrets.GITHUB_TOKEN }} ./update.py)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push changes
