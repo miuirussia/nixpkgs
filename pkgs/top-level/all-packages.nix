@@ -21599,7 +21599,9 @@ with pkgs;
 
   boringssl = callPackage ../development/libraries/boringssl { };
 
-  wolfssl = callPackage ../development/libraries/wolfssl { };
+  wolfssl = callPackage ../development/libraries/wolfssl {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   openssl = openssl_3;
 
@@ -25681,7 +25683,6 @@ with pkgs;
   swiftdefaultapps = callPackage ../os-specific/darwin/swiftdefaultapps { };
 
   sysdig = callPackage ../os-specific/linux/sysdig {
-    openssl = openssl_1_1;
     kernel = null;
   }; # sysdig is a client, for a driver look at linuxPackagesFor
 
@@ -35862,6 +35863,10 @@ with pkgs;
   symbiyosys = callPackage ../applications/science/logic/symbiyosys {};
 
   symfpu = callPackage ../applications/science/logic/symfpu {};
+
+  uhdm = callPackage ../applications/science/logic/uhdm {};
+
+  surelog = callPackage ../applications/science/logic/surelog {};
 
   mcy = callPackage ../applications/science/logic/mcy {};
 
