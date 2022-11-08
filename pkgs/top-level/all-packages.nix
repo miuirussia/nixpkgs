@@ -1357,7 +1357,7 @@ with pkgs;
 
   kanata = callPackage ../tools/system/kanata { };
 
-  kanata-with-cmd = callPackage ../tools/system/kanata { withCmd = true; };
+  kanata-with-cmd = kanata.override { withCmd = true; };
 
   ksmbd-tools = callPackage ../os-specific/linux/ksmbd-tools { };
 
@@ -17302,7 +17302,10 @@ with pkgs;
   modd = callPackage ../development/tools/modd { };
 
   mold = callPackage ../development/tools/mold {
-    inherit (llvmPackages) stdenv;
+    # C++20 is required, aarch64-linux has gcc 9 by default
+    stdenv = if stdenv.isLinux && stdenv.isAarch64
+      then llvmPackages_12.libcxxStdenv
+      else llvmPackages.stdenv;
   };
 
   msgpack-tools = callPackage ../development/tools/msgpack-tools { };
@@ -28497,7 +28500,9 @@ with pkgs;
     fftw = fftwSinglePrec;
   };
 
-  gurk-rs = callPackage ../applications/networking/instant-messengers/gurk-rs { };
+  gurk-rs = callPackage ../applications/networking/instant-messengers/gurk-rs {
+    inherit (darwin.apple_sdk.frameworks) Cocoa;
+  };
 
   gjay = callPackage ../applications/audio/gjay { };
 
@@ -31935,9 +31940,7 @@ with pkgs;
     autoreconfHook = buildPackages.autoreconfHook269;
   };
 
-  spotify-unwrapped = callPackage ../applications/audio/spotify { };
-
-  spotify = callPackage ../applications/audio/spotify/wrapper.nix { };
+  spotify = callPackage ../applications/audio/spotify { };
 
   spotifywm = callPackage ../applications/audio/spotifywm { };
 
@@ -33173,7 +33176,9 @@ with pkgs;
 
   xmenu = callPackage ../applications/misc/xmenu { };
 
-  xmlcopyeditor = callPackage ../applications/editors/xmlcopyeditor { };
+  xmlcopyeditor = callPackage ../applications/editors/xmlcopyeditor {
+    inherit (darwin.apple_sdk.frameworks) Cocoa;
+  };
 
   xmp = callPackage ../applications/audio/xmp { };
 
@@ -35450,11 +35455,11 @@ with pkgs;
 
   or-tools = callPackage ../development/libraries/science/math/or-tools {
     python = python3;
-    # or-tools builds with -std=c++17, so abseil-cpp must
+    # or-tools builds with -std=c++20, so abseil-cpp must
     # also be built that way
-    abseil-cpp = abseil-cpp.override {
+    abseil-cpp = abseil-cpp_202111.override {
       static = true;
-      cxxStandard = "17";
+      cxxStandard = "20";
     };
   };
 
@@ -36054,7 +36059,7 @@ with pkgs;
 
   msieve = callPackage ../applications/science/math/msieve { };
 
-  weka = callPackage ../applications/science/math/weka { };
+  weka = callPackage ../applications/science/math/weka { jre = openjdk11; };
 
   yad = callPackage ../tools/misc/yad { };
 
