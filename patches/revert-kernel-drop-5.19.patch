@@ -15,8 +15,8 @@ index bfcfa874add..713b566439e 100644
 --- a/pkgs/os-specific/linux/kernel/hardened/patches.json
 +++ b/pkgs/os-specific/linux/kernel/hardened/patches.json
 @@ -39,6 +39,16 @@
-         "sha256": "0zymcp88654qk896djvc2ngdksvhkzh1ndhfk1dn5qqrqhha01wh",
-         "version": "5.15.76"
+         "sha256": "1yg9myqcv4kn2p7c9ap0z6xxh2qjsab2nbxf5z388skr6cgq8bql",
+         "version": "5.15.77"
      },
 +    "5.19": {
 +        "patch": {
