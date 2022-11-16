@@ -2083,6 +2083,16 @@ let
         };
       };
 
+      redhat.vscode-xml = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vscode-xml";
+          publisher = "redhat";
+          version = "0.22.0";
+          sha256 = "sha256-7QOw0EVcfa7MFnZAHAsUtDZHXD5AFlW54f1qaN3h+2U=";
+        };
+        meta.license = lib.licenses.epl20;
+      };
+
       redhat.vscode-yaml = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "vscode-yaml";
@@ -2605,8 +2615,8 @@ let
         mktplcRef = {
           name = "shellcheck";
           publisher = "timonwong";
-          version = "0.19.3";
-          sha256 = "0l8fbim19jgcdgxxgidnhdczxvhls920vrffwrac8k1y34lgfl3v";
+          version = "0.26.3";
+          sha256 = "GlyOLc2VrRnA50MkaG83qa0yLUyJYwueqEO+ZeAStYs=";
         };
         nativeBuildInputs = [ jq moreutils ];
         postInstall = ''

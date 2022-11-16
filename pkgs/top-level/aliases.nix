@@ -83,6 +83,7 @@ mapAliases ({
   antimicro = throw "antimicro has been removed as it was broken, see antimicrox instead"; # Added 2020-08-06
   antimicroX = antimicrox; # Added 2021-10-31
   apple-music-electron = throw "'apple-music-electron' is end of life and has been removed, you can use 'cider' instead"; # Added 2022-10-02
+  appleseed = throw "appleseed has been removed, because it was unmaintained"; # Added 2022-05-26
   arangodb_3_3 = throw "arangodb_3_3 went end of life and has been removed"; # Added 2022-10-08
   arangodb_3_4 = throw "arangodb_3_4 went end of life and has been removed"; # Added 2022-10-08
   arangodb_3_5 = throw "arangodb_3_5 went end of life and has been removed"; # Added 2022-10-08
@@ -173,6 +174,7 @@ mapAliases ({
   calibre-py3 = throw "calibre-py3 has been removed from nixpkgs, as calibre's default python version is now 3. Please use calibre as replacement"; # Added 2021-01-13
   callPackage_i686 = pkgsi686Linux.callPackage;
   cantarell_fonts = throw "'cantarell_fonts' has been renamed to/replaced by 'cantarell-fonts'"; # Converted to throw 2022-02-22
+  cask = emacs.pkgs.cask; # Added 2022-11-12
   cargo-download = throw "cargo-download has been removed from nixpkgs as it is unmaintained, use cargo-clone instead"; # Added 2022-10-11
   cargo-tree = throw "cargo-tree has been removed, use the builtin `cargo tree` command instead"; # Added 2020-08-20
   casperjs = throw "casperjs has been removed, it was abandoned by upstream and broken";
@@ -627,6 +629,7 @@ mapAliases ({
   icu59 = throw "icu59 has been removed, use a more recent version instead"; # Added 2022-05-14
   icu65 = throw "icu65 has been removed, use a more recent version instead"; # Added 2022-05-14
   idea = throw "'idea' has been renamed to/replaced by 'jetbrains'"; # Converted to throw 2022-02-22
+  ike = throw "ike has been removed, because it was unmaintained"; # Added 2022-05-26
   imapproxy = throw "imapproxy has been removed because it did not support a supported openssl version"; # added 2021-12-15
   imagemagick7Big = imagemagickBig; # Added 2021-02-22
   imagemagick7 = imagemagick; # Added 2021-02-22
@@ -802,11 +805,9 @@ mapAliases ({
   linux-rt_5_4 = linuxKernel.kernels.linux_rt_5_4;
   linuxPackages_4_14 = linuxKernel.packages.linux_4_14;
   linuxPackages_4_19 = linuxKernel.packages.linux_4_19;
-  linuxPackages_4_4 = linuxKernel.packages.linux_4_4;
   linuxPackages_4_9 = linuxKernel.packages.linux_4_9;
   linuxPackages_5_10 = linuxKernel.packages.linux_5_10;
   linuxPackages_5_15 = linuxKernel.packages.linux_5_15;
-  linuxPackages_5_16 = linuxKernel.packages.linux_5_16;
   linuxPackages_5_17 = linuxKernel.packages.linux_5_17;
   linuxPackages_5_18 = linuxKernel.packages.linux_5_18;
   linuxPackages_5_19 = linuxKernel.packages.linux_5_19;
@@ -823,11 +824,9 @@ mapAliases ({
   linuxPackages_rt_5_4 = linuxKernel.packages.linux_rt_5_4;
   linux_4_14 = linuxKernel.kernels.linux_4_14;
   linux_4_19 = linuxKernel.kernels.linux_4_19;
-  linux_4_4 = linuxKernel.kernels.linux_4_4;
   linux_4_9 = linuxKernel.kernels.linux_4_9;
   linux_5_10 = linuxKernel.kernels.linux_5_10;
   linux_5_15 = linuxKernel.kernels.linux_5_15;
-  linux_5_16 = linuxKernel.kernels.linux_5_16;
   linux_5_17 = linuxKernel.kernels.linux_5_17;
   linux_5_18 = linuxKernel.kernels.linux_5_18;
   linux_5_19 = linuxKernel.kernels.linux_5_19;

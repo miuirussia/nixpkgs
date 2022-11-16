@@ -284,6 +284,8 @@ self: super: with self; {
 
   aioqsw = callPackage ../development/python-modules/aioqsw { };
 
+  aioquic = callPackage ../development/python-modules/aioquic { };
+
   aiorecollect = callPackage ../development/python-modules/aiorecollect { };
 
   aioredis = callPackage ../development/python-modules/aioredis { };
@@ -341,6 +343,8 @@ self: super: with self; {
   aiovlc = callPackage ../development/python-modules/aiovlc { };
 
   aiowatttime = callPackage ../development/python-modules/aiowatttime { };
+
+  aioweenect = callPackage ../development/python-modules/aioweenect { };
 
   aiowebostv = callPackage ../development/python-modules/aiowebostv { };
 
@@ -514,8 +518,6 @@ self: super: with self; {
 
   appdirs = callPackage ../development/python-modules/appdirs { };
 
-  appleseed = toPythonModule (pkgs.appleseed.override { python3 = self.python; });
-
   applicationinsights = callPackage ../development/python-modules/applicationinsights { };
 
   appnope = callPackage ../development/python-modules/appnope { };
@@ -666,6 +668,8 @@ self: super: with self; {
 
   async-lru = callPackage ../development/python-modules/async-lru { };
 
+  async-modbus = callPackage ../development/python-modules/async-modbus { };
+
   asyncclick = callPackage ../development/python-modules/asyncclick { };
 
   asynccmd = callPackage ../development/python-modules/asynccmd { };
@@ -681,6 +685,8 @@ self: super: with self; {
   asyncio-throttle = callPackage ../development/python-modules/asyncio-throttle { };
 
   asyncpg = callPackage ../development/python-modules/asyncpg { };
+
+  asyncserial = callPackage ../development/python-modules/asyncserial { };
 
   asyncsleepiq = callPackage ../development/python-modules/asyncsleepiq { };
 
@@ -1070,9 +1076,15 @@ self: super: with self; {
 
   pad4pi = callPackage ../development/python-modules/pad4pi { };
 
-  pulumi = callPackage ../development/python-modules/pulumi { };
+  pulumi = callPackage ../development/python-modules/pulumi { inherit (pkgs) pulumi; };
 
   pulumi-aws = callPackage ../development/python-modules/pulumi-aws { };
+
+  pulumi-aws-native = pkgs.pulumiPackages.pulumi-aws-native.sdks.python;
+
+  pulumi-azure-native = pkgs.pulumiPackages.pulumi-azure-native.sdks.python;
+
+  pulumi-random = pkgs.pulumiPackages.pulumi-random.sdks.python;
 
   backcall = callPackage ../development/python-modules/backcall { };
 
@@ -1564,6 +1576,8 @@ self: super: with self; {
 
   connection-pool = callPackage ../development/python-modules/connection-pool { };
 
+  connio = callPackage ../development/python-modules/connio { };
+
   coqpit = callPackage ../development/python-modules/coqpit { };
 
   coqui-trainer = callPackage ../development/python-modules/coqui-trainer {};
@@ -1783,8 +1797,6 @@ self: super: with self; {
   clldutils = callPackage ../development/python-modules/clldutils { };
 
   cloudflare = callPackage ../development/python-modules/cloudflare { };
-
-  cloudflare-dyndns = callPackage ../applications/networking/cloudflare-dyndns { };
 
   cloudpickle = callPackage ../development/python-modules/cloudpickle { };
 
@@ -5720,6 +5732,8 @@ self: super: with self; {
 
   misaka = callPackage ../development/python-modules/misaka { };
 
+  misoc = callPackage ../development/python-modules/misoc { };
+
   mistletoe = callPackage ../development/python-modules/mistletoe { };
 
   mistune = callPackage ../development/python-modules/mistune { };
@@ -5949,6 +5963,10 @@ self: super: with self; {
 
   mygpoclient = callPackage ../development/python-modules/mygpoclient { };
 
+  myhdl = callPackage ../development/python-modules/myhdl {
+    inherit (pkgs) ghdl verilog;
+  };
+
   myhome = callPackage ../development/python-modules/myhome { };
 
   myjwt = callPackage ../development/python-modules/myjwt { };
@@ -6132,6 +6150,8 @@ self: super: with self; {
   niapy = callPackage ../development/python-modules/niapy { };
 
   nibabel = callPackage ../development/python-modules/nibabel { };
+
+  nibe = callPackage ../development/python-modules/nibe { };
 
   nidaqmx = callPackage ../development/python-modules/nidaqmx { };
 
@@ -8030,6 +8050,8 @@ self: super: with self; {
 
   pylru = callPackage ../development/python-modules/pylru { };
 
+  pylsqpack = callPackage ../development/python-modules/pylsqpack { };
+
   pyls-black = callPackage ../development/python-modules/pyls-black { };
 
   pyls-flake8 = callPackage ../development/python-modules/pyls-flake8 { };
@@ -8041,6 +8063,8 @@ self: super: with self; {
   pyls-spyder = callPackage ../development/python-modules/pyls-spyder { };
 
   pylsp-mypy = callPackage ../development/python-modules/pylsp-mypy { };
+
+  pylpsd = callPackage ../development/python-modules/pylpsd { };
 
   PyLTI = callPackage ../development/python-modules/pylti { };
 
@@ -8810,6 +8834,8 @@ self: super: with self; {
   pytest-ordering = callPackage ../development/python-modules/pytest-ordering { };
 
   pytest-param-files = callPackage ../development/python-modules/pytest-param-files { };
+
+  pytest-plt = callPackage ../development/python-modules/pytest-plt { };
 
   pytest-pylint = callPackage ../development/python-modules/pytest-pylint { };
 
@@ -10098,6 +10124,8 @@ self: super: with self; {
     pythonSupport = true;
   }));
 
+  serialio = callPackage ../development/python-modules/serialio { };
+
   serpent = callPackage ../development/python-modules/serpent { };
 
   serpy = callPackage ../development/python-modules/serpy { };
@@ -10361,6 +10389,8 @@ self: super: with self; {
   socialscan = callPackage ../development/python-modules/socialscan { };
 
   socid-extractor =  callPackage ../development/python-modules/socid-extractor { };
+
+  sockio = callPackage ../development/python-modules/sockio { };
 
   sockjs = callPackage ../development/python-modules/sockjs { };
 
@@ -11201,6 +11231,8 @@ self: super: with self; {
 
   tox = callPackage ../development/python-modules/tox { };
 
+  tplink-omada-client = callPackage ../development/python-modules/tplink-omada-client { };
+
   tpm2-pytss = callPackage ../development/python-modules/tpm2-pytss { };
 
   tqdm = callPackage ../development/python-modules/tqdm { };
@@ -11469,6 +11501,8 @@ self: super: with self; {
   umalqurra = callPackage ../development/python-modules/umalqurra { };
 
   umap-learn = callPackage ../development/python-modules/umap-learn { };
+
+  umodbus = callPackage ../development/python-modules/umodbus { };
 
   u-msgpack-python = callPackage ../development/python-modules/u-msgpack-python { };
 
