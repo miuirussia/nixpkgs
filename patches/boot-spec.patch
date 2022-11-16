@@ -27,7 +27,7 @@ new file mode 100644
 index 0000000000000..c38f675cea27b
 --- /dev/null
 +++ b/nixos/modules/system/activation/bootspec.nix
-@@ -0,0 +1,56 @@
+@@ -0,0 +1,57 @@
 +# Note that these schemas are defined by RFC-0125.
 +# This document is considered a stable API, and is depended upon by external tooling.
 +# Changes to the structure of the document, or the semantics of the values should go through an RFC.

@@ -3,8 +3,15 @@
 # Changes to the structure of the document, or the semantics of the values should go through an RFC.
 #
 # See: https://github.com/NixOS/rfcs/pull/125
-{ config, pkgs, lib, children }:
+{ config, pkgs, lib }:
 let
+  inherit (lib) mapAttrs;
+
+  children =
+    mapAttrs
+      (childName: childConfig: childConfig.configuration.system.build.toplevel)
+      config.specialisation;
+
   schemas = {
     v1 = rec {
       filename = "boot.v1.json";
