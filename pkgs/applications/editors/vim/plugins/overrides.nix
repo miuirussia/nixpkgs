@@ -471,20 +471,14 @@ self: super: {
     dependencies = with self; [ lush-nvim ];
   });
 
-  himalaya-vim = buildVimPluginFrom2Nix {
-    pname = "himalaya-vim";
-    inherit (himalaya) src version;
-    dependencies = with self; [ himalaya ];
-    configurePhase = ''
-      cd vim
+  himalaya-vim = super.himalaya-vim.overrideAttrs (old: {
+    postPatch = ''
       substituteInPlace plugin/himalaya.vim \
-        --replace 'if !executable("himalaya")' 'if v:false'
+        --replace "if !executable('himalaya')" "if v:false"
+      substituteInPlace autoload/himalaya/request.vim \
+        --replace "'himalaya" "'${himalaya}/bin/himalaya"
     '';
-    postFixup = ''
-      mkdir -p $out/bin
-      ln -s ${himalaya}/bin/himalaya $out/bin/himalaya
-    '';
-  };
+  });
 
   jedi-vim = super.jedi-vim.overrideAttrs (old: {
     # checking for python3 support in vim would be neat, too, but nobody else seems to care
@@ -1316,6 +1310,7 @@ self: super: {
       "coc-smartf"
       "coc-snippets"
       "coc-solargraph"
+      "coc-spell-checker"
       "coc-sqlfluff"
       "coc-stylelint"
       "coc-sumneko-lua"
