@@ -5784,15 +5784,7 @@ with pkgs;
 
   davfs2 = callPackage ../tools/filesystems/davfs2 { };
 
-  dbeaver = callPackage ../applications/misc/dbeaver {
-    jdk = jdk11; # AlgorithmId.md5WithRSAEncryption_oid was removed in jdk15
-
-    # TODO: remove once maven uses JDK 11
-    # error: org/eclipse/tycho/core/p2/P2ArtifactRepositoryLayout has been compiled by a more recent version of the Java Runtime (class file version 55.0), this version of the Java Runtime only recognizes class file versions up to 52.0
-    maven = maven.override {
-      jdk = jdk11;
-    };
-  };
+  dbeaver = callPackage ../applications/misc/dbeaver { };
 
   dbench = callPackage ../development/tools/misc/dbench { };
 
@@ -17583,6 +17575,8 @@ with pkgs;
   premake = premake4;
 
   privacyidea = callPackage ../applications/misc/privacyidea { };
+
+  process-compose = callPackage ../applications/misc/process-compose { };
 
   process-viewer = callPackage ../applications/misc/process-viewer {
     inherit (darwin.apple_sdk.frameworks) DiskArbitration Foundation IOKit;
@@ -29978,7 +29972,7 @@ with pkgs;
 
   kupfer = callPackage ../applications/misc/kupfer { };
 
-  kvirc = libsForQt514.callPackage ../applications/networking/irc/kvirc { };
+  kvirc = libsForQt515.callPackage ../applications/networking/irc/kvirc { };
 
   lame = callPackage ../development/libraries/lame { };
 
@@ -30793,7 +30787,7 @@ with pkgs;
 
   yambar = callPackage ../applications/misc/yambar { };
 
-  polyphone = libsForQt514.callPackage ../applications/audio/polyphone { };
+  polyphone = libsForQt5.callPackage ../applications/audio/polyphone { };
 
   portfolio = callPackage ../applications/office/portfolio {
     jre = openjdk11;
