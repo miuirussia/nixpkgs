@@ -790,6 +790,7 @@ with pkgs;
   mysql-shell = callPackage ../development/tools/mysql-shell {
     inherit (darwin) cctools developer_cmds DarwinTools;
     inherit (darwin.apple_sdk.frameworks) CoreServices;
+    antlr = antlr4_10;
     boost = boost177; # Configure checks for specific version.
     protobuf = protobuf3_19;
     icu =  icu69;
@@ -2702,6 +2703,11 @@ with pkgs;
   };
 
   gmnitohtml = callPackage ../applications/misc/gmnitohtml { };
+
+  go2tv = darwin.apple_sdk_11_0.callPackage ../applications/video/go2tv {
+    inherit (darwin.apple_sdk_11_0.frameworks) Carbon Cocoa Kernel UserNotifications;
+  };
+  go2tv-lite = go2tv.override { withGui = false; };
 
   goimapnotify = callPackage ../tools/networking/goimapnotify { };
 
@@ -5840,6 +5846,8 @@ with pkgs;
 
   dd_rescue = callPackage ../tools/system/dd_rescue { };
 
+  ddh = callPackage ../tools/system/ddh { };
+
   ddrescue = callPackage ../tools/system/ddrescue { };
 
   ddrescueview = callPackage ../tools/system/ddrescueview { };
@@ -6458,11 +6466,7 @@ with pkgs;
 
   exactaudiocopy = callPackage ../applications/audio/exact-audio-copy { };
 
-  exempi = callPackage ../development/libraries/exempi {
-    stdenv = if stdenv.isDarwin then stdenv
-             else gcc9Stdenv;
-    boost  = if stdenv.isDarwin then boost else boost15x;
-  };
+  exempi = callPackage ../development/libraries/exempi { };
 
   executor = with python3Packages; toPythonApplication executor;
 
@@ -7198,7 +7202,9 @@ with pkgs;
 
   github-backup = callPackage ../tools/misc/github-backup { };
 
-  github-runner = callPackage ../development/tools/continuous-integration/github-runner { };
+  github-runner = callPackage ../development/tools/continuous-integration/github-runner {
+     inherit (darwin) autoSignDarwinBinariesHook;
+  };
 
   gitkraken = callPackage ../applications/version-management/gitkraken { };
 
@@ -11452,9 +11458,6 @@ with pkgs;
   skytemple = callPackage ../applications/misc/skytemple {};
 
   sleuthkit = callPackage ../tools/system/sleuthkit {};
-
-  # Not updated upstream since 2018, doesn't support qt newer than 5.12
-  sleepyhead = libsForQt512.callPackage ../applications/misc/sleepyhead {};
 
   slides = callPackage ../applications/misc/slides { };
 
@@ -15785,6 +15788,16 @@ with pkgs;
   phpExtensions = php.extensions;
   phpPackages = php.packages;
 
+  # Import PHP82 interpreter, extensions and packages
+  php82 = callPackage ../development/interpreters/php/8.2.nix {
+    stdenv = if stdenv.cc.isClang then llvmPackages.stdenv else stdenv;
+    pcre2 = pcre2.override {
+      withJitSealloc = !stdenv.isDarwin;
+    };
+  };
+  php82Extensions = recurseIntoAttrs php82.extensions;
+  php82Packages = recurseIntoAttrs php82.packages;
+
   # Import PHP81 interpreter, extensions and packages
   php81 = callPackage ../development/interpreters/php/8.1.nix {
     stdenv = if stdenv.cc.isClang then llvmPackages.stdenv else stdenv;
@@ -18581,7 +18594,7 @@ with pkgs;
   cypress = callPackage ../development/web/cypress { };
 
   cyrus_sasl = callPackage ../development/libraries/cyrus-sasl {
-    libkrb5 = if stdenv.isFreeBSD then libheimdal else libkrb5;
+    libkrb5 = if stdenv.isFreeBSD then heimdal else libkrb5;
     openssl = openssl_1_1;
   };
 
@@ -19321,8 +19334,6 @@ with pkgs;
 
   gsl = callPackage ../development/libraries/gsl { };
 
-  gsl_1 = callPackage ../development/libraries/gsl/gsl-1_16.nix { };
-
   gsl-lite = callPackage ../development/libraries/gsl-lite { };
 
   gsm = callPackage ../development/libraries/gsm {};
@@ -19500,7 +19511,6 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security SystemConfiguration;
     autoreconfHook = buildPackages.autoreconfHook269;
   };
-  libheimdal = heimdal;
 
   harfbuzz = callPackage ../development/libraries/harfbuzz {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices CoreText;
@@ -22049,6 +22059,7 @@ with pkgs;
       inherit bison cups dconf harfbuzz libGL perl gtk3 ninja;
       inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-good gst-libav gst-vaapi;
       inherit buildPackages;
+      inherit libglvnd;
       cmake = cmake.overrideAttrs (attrs: {
         patches = attrs.patches ++ [
           ../development/libraries/qt-6/patches/cmake.patch
@@ -22540,6 +22551,8 @@ with pkgs;
   sphinx-autobuild = with python3Packages; toPythonApplication sphinx-autobuild;
 
   sphinx-serve = with python3Packages; toPythonApplication sphinx-serve;
+
+  inherit (python3Packages) sphinxHook;
 
   sphinxsearch = callPackage ../servers/search/sphinxsearch { };
 
@@ -23493,7 +23506,7 @@ with pkgs;
 
   inherit (callPackages ../servers/asterisk { })
     asterisk asterisk-stable asterisk-lts
-    asterisk_16 asterisk_18 asterisk_19;
+    asterisk_16 asterisk_18 asterisk_19 asterisk_20;
 
   asterisk-module-sccp = callPackage ../servers/asterisk/sccp { };
 
@@ -26593,6 +26606,8 @@ with pkgs;
   man-pages-posix = callPackage ../data/documentation/man-pages-posix { };
 
   manrope = callPackage ../data/fonts/manrope { };
+
+  martian-mono = callPackage ../data/fonts/martian-mono { };
 
   marwaita = callPackage ../data/themes/marwaita { };
 
@@ -30198,6 +30213,7 @@ with pkgs;
   lv2-cpp-tools = callPackage ../applications/audio/lv2-cpp-tools { };
 
   lxi-tools = callPackage ../tools/networking/lxi-tools { };
+  lxi-tools-gui = callPackage ../tools/networking/lxi-tools { withGui = true; };
 
   lynx = callPackage ../applications/networking/browsers/lynx { };
 
@@ -30970,7 +30986,7 @@ with pkgs;
 
   notepad-next = libsForQt5.callPackage ../applications/editors/notepad-next { };
 
-  notepadqq = libsForQt514.callPackage ../applications/editors/notepadqq { };
+  notepadqq = libsForQt5.callPackage ../applications/editors/notepadqq { };
 
   notmuch = callPackage ../applications/networking/mailreaders/notmuch {
     gmime = gmime3;
@@ -32520,6 +32536,10 @@ with pkgs;
   ttyper = callPackage ../applications/misc/ttyper { };
 
   tudu = callPackage ../applications/office/tudu { };
+
+  tumpa = callPackage ../applications/misc/tumpa {
+    inherit (pkgs.libsForQt5) wrapQtAppsHook;
+  };
 
   tuna = python3Packages.callPackage ../os-specific/linux/tuna { };
 
