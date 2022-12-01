@@ -5905,6 +5905,13 @@
     githubId = 40234257;
     name = "ilkecan bozdogan";
   };
+  imincik = {
+    email = "ivan.mincik@gmail.com";
+    matrix = "@imincik:matrix.org";
+    github = "imincik";
+    githubId = 476346;
+    name = "Ivan Mincik";
+  };
   not-my-segfault = {
     email = "michal@tar.black";
     matrix = "@michal:tar.black";
@@ -12718,6 +12725,13 @@
     github = "langston-barrett";
     githubId = 4294323;
     name = "Langston Barrett";
+  };
+  sielicki = {
+    name = "Nicholas Sielicki";
+    email = "nix@opensource.nslick.com";
+    github = "sielicki";
+    githubId = 4522995;
+    matrix = "@sielicki:matrix.org";
   };
   siers = {
     email = "veinbahs+nixpkgs@gmail.com";
