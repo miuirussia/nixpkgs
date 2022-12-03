@@ -25,7 +25,9 @@
     <itemizedlist spacing="compact">
       <listitem>
         <para>
-          Create the first release note entry in this section!
+          <link xlink:href="https://github.com/junegunn/fzf">fzf</link>,
+          a command line fuzzyfinder. Available as
+          <link linkend="opt-programs.fzf.fuzzyCompletion">programs.fzf</link>.
         </para>
       </listitem>
     </itemizedlist>
@@ -60,6 +62,16 @@
       </listitem>
       <listitem>
         <para>
+          <literal>services.sourcehut.dispatch</literal> and the
+          corresponding package
+          (<literal>sourcehut.dispatchsrht</literal>) have been removed
+          due to
+          <link xlink:href="https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/">upstream
+          deprecation</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The EC2 image module previously detected and automatically
           mounted ext3-formatted instance store devices and partitions
           in stage-1 (initramfs), storing <literal>/tmp</literal> on the
@@ -76,6 +88,15 @@
           swap-formatted instance store devices and partitions in
           stage-1 (initramfs). This behaviour has been removed. Users
           relying on this should provide their own implementation.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Qt 5.12 and 5.14 have been removed, as the corresponding
+          branches have been EOL upstream for a long time. This affected
+          under 10 packages in nixpkgs, largely unmaintained upstream as
+          well, however, out-of-tree package expressions may need to be
+          updated manually.
         </para>
       </listitem>
       <listitem>
@@ -109,6 +130,13 @@
           <link xlink:href="https://docs.getutm.app/">UTM</link>
           virtualisation
           <link xlink:href="https://search.nixos.org/packages?channel=unstable&amp;show=utm&amp;from=0&amp;size=1&amp;sort=relevance&amp;type=packages&amp;query=utm">package</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Resilio sync secret keys can now be provided using a secrets
+          file at runtime, preventing these secrets from ending up in
+          the Nix store.
         </para>
       </listitem>
     </itemizedlist>
