@@ -9,13 +9,6 @@ let
         "${config.system.boot.loader.kernelFile}";
       initrdPath = "${config.system.build.initialRamdisk}/" +
         "${config.system.boot.loader.initrdFile}";
-
-      bootSpec = import ./bootspec.nix {
-        inherit
-          config
-          pkgs
-          lib;
-      };
     in ''
       mkdir $out
 
@@ -86,8 +79,9 @@ let
 
       echo -n "${toString config.system.extraDependencies}" > $out/extra-dependencies
 
-      ${optionalString (!config.boot.isContainer) ''
-        ${bootSpec.writer}
+      ${optionalString (!config.boot.isContainer && config.boot.bootspec.enable) ''
+        ${config.boot.bootspec.writer}
+        ${config.boot.bootspec.validator} "$out/bootspec/${config.boot.bootspec.filename}"
       ''}
 
       ${config.system.extraSystemBuilderCmds}

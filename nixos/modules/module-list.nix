@@ -216,6 +216,7 @@
   ./programs/screen.nix
   ./programs/sedutil.nix
   ./programs/seahorse.nix
+  ./programs/skim.nix
   ./programs/slock.nix
   ./programs/shadow.nix
   ./programs/spacefm.nix
@@ -1236,6 +1237,7 @@
   ./services/x11/xserver.nix
   ./system/activation/activation-script.nix
   ./system/activation/specialisation.nix
+  ./system/activation/bootspec.nix
   ./system/activation/top-level.nix
   ./system/boot/binfmt.nix
   ./system/boot/emergency-mode.nix

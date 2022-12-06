@@ -2692,6 +2692,8 @@ with pkgs;
 
   brewtarget = libsForQt5.callPackage ../applications/misc/brewtarget { } ;
 
+  bootspec = callPackage ../tools/misc/bootspec { };
+
   # Derivation's result is not used by nixpkgs. Useful for validation for
   # regressions of bootstrapTools on hydra and on ofborg. Example:
   #     pkgsCross.aarch64-multiplatform.freshBootstrapTools.build
@@ -2931,6 +2933,8 @@ with pkgs;
   cue = callPackage ../development/tools/cue {
     buildGoModule = buildGo118Module; # tests fail with 1.19
   };
+
+  writeCueValidator = callPackage ../development/tools/cue/validator.nix { };
 
   cuelsp = callPackage ../development/tools/cuelsp {};
 
@@ -5105,6 +5109,8 @@ with pkgs;
 
   oci-cli = callPackage ../tools/admin/oci-cli { };
 
+  oci-seccomp-bpf-hook = callPackage ../os-specific/linux/oci-seccomp-bpf-hook { };
+
   ocrmypdf = with python3.pkgs; toPythonApplication ocrmypdf;
 
   ocrfeeder = callPackage ../applications/graphics/ocrfeeder { };
@@ -5114,6 +5120,8 @@ with pkgs;
   oneshot = callPackage ../tools/networking/oneshot { };
 
   orjail = callPackage ../tools/security/orjail { };
+
+  online-judge-template-generator = python3Packages.callPackage ../tools/misc/online-judge-template-generator { };
 
   online-judge-tools = with python3.pkgs; toPythonApplication online-judge-tools;
 
@@ -10848,7 +10856,7 @@ with pkgs;
 
   pympress = callPackage ../applications/office/pympress { };
 
-  pyocd = python3Packages.callPackage ../development/embedded/pyocd { };
+  pyocd = with python3Packages; toPythonApplication pyocd;
 
   pypass = with python3Packages; toPythonApplication pypass;
 
@@ -12055,6 +12063,8 @@ with pkgs;
 
   tayga = callPackage ../tools/networking/tayga { };
 
+  tcb = callPackage ../tools/security/tcb { };
+
   tcpcrypt = callPackage ../tools/security/tcpcrypt { };
 
   tcptraceroute = callPackage ../tools/networking/tcptraceroute { };
@@ -12647,6 +12657,8 @@ with pkgs;
   vkBasalt = callPackage ../tools/graphics/vkBasalt {
     vkBasalt32 = pkgsi686Linux.vkBasalt;
   };
+
+  vkmark = callPackage ../tools/graphics/vkmark { };
 
   vncrec = callPackage ../tools/video/vncrec { };
 
@@ -14688,6 +14700,8 @@ with pkgs;
     jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
+  jna = callPackage ../development/java-modules/jna { };
+
   javacard-devkit = pkgsi686Linux.callPackage ../development/compilers/javacard-devkit { };
 
   juniper = callPackage ../development/compilers/juniper { };
@@ -16517,7 +16531,8 @@ with pkgs;
     electron_18
     electron_19
     electron_20
-    electron_21;
+    electron_21
+    electron_22;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
 
@@ -16768,10 +16783,15 @@ with pkgs;
   bpftools = callPackage ../os-specific/linux/bpftools { };
 
   bcc = callPackage ../os-specific/linux/bcc {
-    python = pkgs.python3;
+    python = python3;
+    libbpf = libbpf_1;
+    llvmPackages = llvmPackages_14;
   };
 
-  bpftrace = callPackage ../os-specific/linux/bpftrace { };
+  bpftrace = callPackage ../os-specific/linux/bpftrace {
+    libbpf = libbpf_1;
+    llvmPackages = llvmPackages_14;
+  };
 
   bpm-tools = callPackage ../tools/audio/bpm-tools { };
 
@@ -17614,6 +17634,8 @@ with pkgs;
   };
 
   nailgun = callPackage ../development/tools/nailgun { };
+
+  nap = callPackage ../development/tools/nap { };
 
   nil = callPackage ../development/tools/nil { };
 
@@ -27967,6 +27989,8 @@ with pkgs;
 
   cozy-drive = callPackage ../applications/networking/cozy-drive {};
 
+  cplay-ng = callPackage ../applications/audio/cplay-ng { };
+
   cq-editor = libsForQt5.callPackage ../applications/graphics/cq-editor {
     python3Packages = python37Packages;
   };
@@ -31038,6 +31062,8 @@ with pkgs;
     gmime = gmime3;
     pythonPackages = python3Packages;
   };
+
+  notmuch-mailmover = callPackage ../applications/networking/mailreaders/notmuch/notmuch-mailmover.nix { };
 
   notejot = callPackage ../applications/misc/notejot { };
 
