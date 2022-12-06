@@ -1,0 +1,794 @@
+diff --git a/.github/CODEOWNERS b/.github/CODEOWNERS
+index 41d539dd5f1dd..32e0313cf8dbf 100644
+--- a/.github/CODEOWNERS
++++ b/.github/CODEOWNERS
+@@ -78,6 +78,8 @@
+ /nixos/doc/manual/man-nixos-option.xml                @nbp
+ /nixos/modules/installer/tools/nixos-option.sh        @nbp
+ /nixos/modules/system                                 @dasJ
++/nixos/modules/system/activation/bootspec.nix         @grahamc @cole-h @raitobezarius
++/nixos/modules/system/activation/bootspec.cue         @grahamc @cole-h @raitobezarius
+ 
+ # NixOS integration test driver
+ /nixos/lib/test-driver  @tfc
+diff --git a/doc/languages-frameworks/cuelang.section.md b/doc/languages-frameworks/cuelang.section.md
+new file mode 100644
+index 0000000000000..fe78c519e7695
+--- /dev/null
++++ b/doc/languages-frameworks/cuelang.section.md
+@@ -0,0 +1,93 @@
++# Cue (Cuelang) {#cuelang}
++
++[Cuelang](https://cuelang.org/) is a language to:
++
++- describe schemas and validate backward-compatibility
++- generate code and schemas in various formats (e.g. JSON Schema, OpenAPI)
++- do configuration akin to [Dhall Lang](https://dhall-lang.org/)
++- perform data validation
++
++## Cuelang schema quick start
++
++Cuelang schemas are similar to JSON, here is a quick cheatsheet:
++
++- Default types includes: `null`, `string`, `bool`, `bytes`, `number`, `int`, `float`, lists as `[...T]` where `T` is a type.
++- All structures, defined by: `myStructName: { <fields> }` are **open** -- they accept fields which are not specified.
++- Closed structures can be built by doing `myStructName: close({ <fields> })` -- they are strict in what they accept.
++- `#X` are **definitions**, referenced definitions are **recursively closed**, i.e. all its children structures are **closed**.
++- `&` operator is the [unification operator](https://cuelang.org/docs/references/spec/#unification) (similar to a type-level merging operator), `|` is the [disjunction operator](https://cuelang.org/docs/references/spec/#disjunction) (similar to a type-level union operator).
++- Values **are** types, i.e. `myStruct: { a: 3 }` is a valid type definition that only allows `3` as value.
++
++- Read <https://cuelang.org/docs/concepts/logic/> to learn more about the semantics.
++- Read <https://cuelang.org/docs/references/spec/> to learn about the language specification.
++
++## `writeCueValidator`
++
++Nixpkgs provides a `pkgs.writeCueValidator` helper, which will write a validation script based on the provided Cuelang schema.
++
++Here is an example:
++```
++pkgs.writeCueValidator
++  (pkgs.writeText ''
++    #Def1: {
++      field1: string
++    }
++  '')
++  { document = "#Def1"; }
++```
++
++- The first parameter is the Cue schema file.
++- The second paramter is an options parameter, currently, only: `document` can be passed.
++
++`document` : match your input data against this fragment of structure or definition, e.g. you may use the same schema file but differents documents based on the data you are validating.
++
++Another example, given the following `validator.nix` :
++```
++{ pkgs ? import <nixpkgs> {} }:
++let
++  genericValidator = version:
++  pkgs.writeCueValidator
++    (pkgs.writeText ''
++      #Version1: {
++        field1: string
++      }
++      #Version2: #Version1 & {
++        field1: "unused"
++      }''
++    )
++    { document = "#Version${toString version}"; };
++in
++{
++  validateV1 = genericValidator 1;
++  validateV2 = genericValidator 2;
++}
++```
++
++The result is a script that will validate the file you pass as the first argument against the schema you provided `writeCueValidator`.
++
++It can be any format that `cue vet` supports, i.e. YAML or JSON for example.
++
++Here is an example, named `example.json`, given the following JSON:
++```
++{ field1: "abc" }
++```
++
++You can run the result script (named `validate`) as the following:
++
++```console
++$ nix-build validator.nix
++$ ./result example.json
++$ ./result-2 example.json
++field1: conflicting values "unused" and "abc":
++    ./example.json:1:13
++    ../../../../../../nix/store/v64dzx3vr3glpk0cq4hzmh450lrwh6sg-schema.cue:5:11
++$ sed -i 's/"abc"/3/' example.json
++$ ./result example.json
++field1: conflicting values 3 and string (mismatched types int and string):
++    ./example.json:1:13
++    ../../../../../../nix/store/v64dzx3vr3glpk0cq4hzmh450lrwh6sg-schema.cue:5:11
++```
++
++**Known limitations**
++
++* The script will enforce **concrete** values and will not accept lossy transformations (strictness). You can add these options if you need them.
+diff --git a/doc/languages-frameworks/index.xml b/doc/languages-frameworks/index.xml
+index 3d5b2f738976d..7df241436ff5b 100644
+--- a/doc/languages-frameworks/index.xml
++++ b/doc/languages-frameworks/index.xml
+@@ -13,6 +13,7 @@
+  <xi:include href="coq.section.xml" />
+  <xi:include href="crystal.section.xml" />
+  <xi:include href="cuda.section.xml" />
++ <xi:include href="cuelang.section.xml" />
+  <xi:include href="dhall.section.xml" />
+  <xi:include href="dotnet.section.xml" />
+  <xi:include href="emscripten.section.xml" />
+diff --git a/nixos/doc/manual/development/bootspec.chapter.md b/nixos/doc/manual/development/bootspec.chapter.md
+new file mode 100644
+index 0000000000000..6c86b0dee568a
+--- /dev/null
++++ b/nixos/doc/manual/development/bootspec.chapter.md
+@@ -0,0 +1,36 @@
++# Experimental feature: Bootspec {#sec-experimental-bootspec}
++
++Bootspec is a experimental feature, introduced in the [RFC-0125 proposal](https://github.com/NixOS/rfcs/125), the reference implementation can be found [there](https://github.com/NixOS/nixpkgs/pull/172237) in order to standardize bootloader support
++and advanced boot workflows such as SecureBoot and potentially more.
++
++You can enable the creation of bootspec documents through [`boot.bootspec.enable = true`](options.html#opt-boot.bootspec.enable), which will prompt a warning until [RFC-0125](https://github.com/NixOS/rfcs/125) is officially merged.
++
++## Schema {#sec-experimental-bootspec-schema}
++
++The bootspec schema is versioned and validated against [a CUE schema file](https://cuelang.org/) which should considered as the source of truth for your applications.
++
++You will find the current version [here](../../../modules/system/activation/bootspec.cue).
++
++## Extensions mechanism {#sec-experimental-bootspec-extensions}
++
++Bootspec cannot account for all usecases.
++
++For this purpose, Bootspec offers a generic extension facility [`boot.bootspec.extensions`](options.html#opt-boot.bootspec.extensions) which can be used to inject any data needed for your usecases.
++
++An example for SecureBoot is to get the Nix store path to `/etc/os-release` in order to bake it into a unified kernel image:
++
++```nix
++{ config, lib, ... }: {
++  boot.bootspec.extensions = {
++    "org.secureboot.osRelease" = config.environment.etc."os-release".source;
++  };
++}
++```
++
++To reduce incompatibility and prevent names from clashing between applications, it is **highly recommended** to use a unique namespace for your extensions.
++
++## External bootloaders {#sec-experimental-bootspec-external-bootloaders}
++
++It is possible to enable your own bootloader through [`boot.loader.external.installHook`](options.html#opt-boot.loader.external.installHook) which can wrap an existing bootloader.
++
++Currently, there is no good story to compose existing bootloaders to enrich their features, e.g. SecureBoot, etc. It will be necessary to reimplement or reuse existing parts.
+diff --git a/nixos/doc/manual/development/development.xml b/nixos/doc/manual/development/development.xml
+index 624ee3931659b..949468c9021df 100644
+--- a/nixos/doc/manual/development/development.xml
++++ b/nixos/doc/manual/development/development.xml
+@@ -12,6 +12,7 @@
+  <xi:include href="../from_md/development/sources.chapter.xml" />
+  <xi:include href="../from_md/development/writing-modules.chapter.xml" />
+  <xi:include href="../from_md/development/building-parts.chapter.xml" />
++ <xi:include href="../from_md/development/bootspec.chapter.xml" />
+  <xi:include href="../from_md/development/what-happens-during-a-system-switch.chapter.xml" />
+  <xi:include href="../from_md/development/writing-documentation.chapter.xml" />
+  <xi:include href="../from_md/development/nixos-tests.chapter.xml" />
+diff --git a/nixos/doc/manual/from_md/development/bootspec.chapter.xml b/nixos/doc/manual/from_md/development/bootspec.chapter.xml
+new file mode 100644
+index 0000000000000..425516645eab5
+--- /dev/null
++++ b/nixos/doc/manual/from_md/development/bootspec.chapter.xml
+@@ -0,0 +1,73 @@
++<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="sec-experimental-bootspec">
++  <title>Experimental feature: Bootspec</title>
++  <para>
++    Bootspec is a experimental feature, introduced in the
++    <link xlink:href="https://github.com/NixOS/rfcs/125">RFC-0125
++    proposal</link>, the reference implementation can be found
++    <link xlink:href="https://github.com/NixOS/nixpkgs/pull/172237">there</link>
++    in order to standardize bootloader support and advanced boot
++    workflows such as SecureBoot and potentially more.
++  </para>
++  <para>
++    You can enable the creation of bootspec documents through
++    <link xlink:href="options.html#opt-boot.bootspec.enable"><literal>boot.bootspec.enable = true</literal></link>,
++    which will prompt a warning until
++    <link xlink:href="https://github.com/NixOS/rfcs/125">RFC-0125</link>
++    is officially merged.
++  </para>
++  <section xml:id="sec-experimental-bootspec-schema">
++    <title>Schema</title>
++    <para>
++      The bootspec schema is versioned and validated against
++      <link xlink:href="https://cuelang.org/">a CUE schema file</link>
++      which should considered as the source of truth for your
++      applications.
++    </para>
++    <para>
++      You will find the current version
++      <link xlink:href="../../../modules/system/activation/bootspec.cue">here</link>.
++    </para>
++  </section>
++  <section xml:id="sec-experimental-bootspec-extensions">
++    <title>Extensions mechanism</title>
++    <para>
++      Bootspec cannot account for all usecases.
++    </para>
++    <para>
++      For this purpose, Bootspec offers a generic extension facility
++      <link xlink:href="options.html#opt-boot.bootspec.extensions"><literal>boot.bootspec.extensions</literal></link>
++      which can be used to inject any data needed for your usecases.
++    </para>
++    <para>
++      An example for SecureBoot is to get the Nix store path to
++      <literal>/etc/os-release</literal> in order to bake it into a
++      unified kernel image:
++    </para>
++    <programlisting language="bash">
++{ config, lib, ... }: {
++  boot.bootspec.extensions = {
++    &quot;org.secureboot.osRelease&quot; = config.environment.etc.&quot;os-release&quot;.source;
++  };
++}
++</programlisting>
++    <para>
++      To reduce incompatibility and prevent names from clashing between
++      applications, it is <emphasis role="strong">highly
++      recommended</emphasis> to use a unique namespace for your
++      extensions.
++    </para>
++  </section>
++  <section xml:id="sec-experimental-bootspec-external-bootloaders">
++    <title>External bootloaders</title>
++    <para>
++      It is possible to enable your own bootloader through
++      <link xlink:href="options.html#opt-boot.loader.external.installHook"><literal>boot.loader.external.installHook</literal></link>
++      which can wrap an existing bootloader.
++    </para>
++    <para>
++      Currently, there is no good story to compose existing bootloaders
++      to enrich their features, e.g. SecureBoot, etc. It will be
++      necessary to reimplement or reuse existing parts.
++    </para>
++  </section>
++</chapter>
+diff --git a/nixos/modules/module-list.nix b/nixos/modules/module-list.nix
+index 9faa58409b19d..b3ce7e73a7bac 100644
+--- a/nixos/modules/module-list.nix
++++ b/nixos/modules/module-list.nix
+@@ -1237,6 +1237,7 @@
+   ./services/x11/xserver.nix
+   ./system/activation/activation-script.nix
+   ./system/activation/specialisation.nix
++  ./system/activation/bootspec.nix
+   ./system/activation/top-level.nix
+   ./system/boot/binfmt.nix
+   ./system/boot/emergency-mode.nix
+@@ -1252,6 +1253,7 @@
+   ./system/boot/loader/grub/grub.nix
+   ./system/boot/loader/grub/ipxe.nix
+   ./system/boot/loader/grub/memtest.nix
++  ./system/boot/loader/external/external.nix
+   ./system/boot/loader/init-script/init-script.nix
+   ./system/boot/loader/loader.nix
+   ./system/boot/loader/raspberrypi/raspberrypi.nix
+diff --git a/nixos/modules/system/activation/bootspec.cue b/nixos/modules/system/activation/bootspec.cue
+new file mode 100644
+index 0000000000000..3fc9ca381df77
+--- /dev/null
++++ b/nixos/modules/system/activation/bootspec.cue
+@@ -0,0 +1,17 @@
++#V1: {
++	init:           string
++	initrd?:        string
++	initrdSecrets?: string
++	kernel:         string
++	kernelParams: [...string]
++	label:    string
++	toplevel: string
++	specialisation?: {
++		[=~"^"]: #V1
++	}
++	extensions?: {...}
++}
++
++Document: {
++	v1: #V1
++}
+diff --git a/nixos/modules/system/activation/bootspec.nix b/nixos/modules/system/activation/bootspec.nix
+new file mode 100644
+index 0000000000000..da76bf9084af8
+--- /dev/null
++++ b/nixos/modules/system/activation/bootspec.nix
+@@ -0,0 +1,124 @@
++# Note that these schemas are defined by RFC-0125.
++# This document is considered a stable API, and is depended upon by external tooling.
++# Changes to the structure of the document, or the semantics of the values should go through an RFC.
++#
++# See: https://github.com/NixOS/rfcs/pull/125
++{ config
++, pkgs
++, lib
++, ...
++}:
++let
++  cfg = config.boot.bootspec;
++  children = lib.mapAttrs (childName: childConfig: childConfig.configuration.system.build.toplevel) config.specialisation;
++  schemas = {
++    v1 = rec {
++      filename = "boot.json";
++      json =
++        pkgs.writeText filename
++          (builtins.toJSON
++          {
++            v1 = {
++              kernel = "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}";
++              kernelParams = config.boot.kernelParams;
++              initrd = "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}";
++              initrdSecrets = "${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets";
++              label = "NixOS ${config.system.nixos.codeName} ${config.system.nixos.label} (Linux ${config.boot.kernelPackages.kernel.modDirVersion})";
++
++              inherit (cfg) extensions;
++            };
++          });
++
++      generator =
++        let
++          # NOTE: Be careful to not introduce excess newlines at the end of the
++          # injectors, as that may affect the pipes and redirects.
++
++          # Inject toplevel and init into the bootspec.
++          # This can only be done here because we *cannot* depend on $out
++          # referring to the toplevel, except by living in the toplevel itself.
++          toplevelInjector = lib.escapeShellArgs [
++            "${pkgs.jq}/bin/jq"
++            ''
++              .v1.toplevel = $toplevel |
++              .v1.init = $init
++            ''
++            "--sort-keys"
++            "--arg" "toplevel" "${placeholder "out"}"
++            "--arg" "init" "${placeholder "out"}/init"
++          ] + " < ${json}";
++
++          # We slurp all specialisations and inject them as values, such that
++          # `.specialisations.${name}` embeds the specialisation's bootspec
++          # document.
++          specialisationInjector =
++            let
++              specialisationLoader = (lib.mapAttrsToList
++                (childName: childToplevel: lib.escapeShellArgs [ "--slurpfile" childName "${childToplevel}/bootspec/${filename}" ])
++                children);
++            in
++            lib.escapeShellArgs [
++              "${pkgs.jq}/bin/jq"
++              "--sort-keys"
++              ".v1.specialisation = ($ARGS.named | map_values(. | first | .v1))"
++            ] + " ${lib.concatStringsSep " " specialisationLoader}";
++        in
++        ''
++          mkdir -p $out/bootspec
++
++          ${toplevelInjector} | ${specialisationInjector} > $out/bootspec/${filename}
++        '';
++
++      validator = pkgs.writeCueValidator ./bootspec.cue {
++        document = "Document"; # Universal validator for any version as long the schema is correctly set.
++      };
++    };
++  };
++in
++{
++  options.boot.bootspec = {
++    enable = lib.mkEnableOption (lib.mdDoc "Enable generation of RFC-0125 bootspec in $system/bootspec, e.g. /run/current-system/bootspec");
++
++    extensions = lib.mkOption {
++      type = lib.types.attrs;
++      default = { };
++      description = lib.mdDoc ''
++        User-defined data that extends the bootspec document.
++
++        To reduce incompatibility and prevent names from clashing
++        between applications, it is **highly recommended** to use a
++        unique namespace for your extensions.
++      '';
++    };
++
++    # This will be run as a part of the `systemBuilder` in ./top-level.nix. This
++    # means `$out` points to the output of `config.system.build.toplevel` and can
++    # be used for a variety of things (though, for now, it's only used to report
++    # the path of the `toplevel` itself and the `init` executable).
++    writer = lib.mkOption {
++      internal = true;
++      default = schemas.v1.generator;
++    };
++
++    validator = lib.mkOption {
++      internal = true;
++      default = schemas.v1.validator;
++    };
++
++    filename = lib.mkOption {
++      internal = true;
++      default = schemas.v1.filename;
++    };
++  };
++
++  config = lib.mkIf (cfg.enable) {
++    warnings = [
++      ''RFC-0125 is not merged yet, this is a feature preview of bootspec.
++        The schema is not definitive and features are not guaranteed to be stable until RFC-0125 is merged.
++        See:
++        - https://github.com/NixOS/nixpkgs/pull/172237 to track merge status in nixpkgs.
++        - https://github.com/NixOS/rfcs/pull/125 to track RFC status.
++      ''
++    ];
++  };
++}
+diff --git a/nixos/modules/system/activation/top-level.nix b/nixos/modules/system/activation/top-level.nix
+index 55ff98db53829..a12a565af1f75 100644
+--- a/nixos/modules/system/activation/top-level.nix
++++ b/nixos/modules/system/activation/top-level.nix
+@@ -79,6 +79,11 @@ let
+ 
+       echo -n "${toString config.system.extraDependencies}" > $out/extra-dependencies
+ 
++      ${optionalString (!config.boot.isContainer && config.boot.bootspec.enable) ''
++        ${config.boot.bootspec.writer}
++        ${config.boot.bootspec.validator} "$out/bootspec/${config.boot.bootspec.filename}"
++      ''}
++
+       ${config.system.extraSystemBuilderCmds}
+     '';
+ 
+diff --git a/nixos/modules/system/boot/loader/external/external.md b/nixos/modules/system/boot/loader/external/external.md
+new file mode 100644
+index 0000000000000..ba1dfd4d9b9af
+--- /dev/null
++++ b/nixos/modules/system/boot/loader/external/external.md
+@@ -0,0 +1,26 @@
++# External Bootloader Backends {#sec-bootloader-external}
++
++NixOS has support for several bootloader backends by default: systemd-boot, grub, uboot, etc.
++The built-in bootloader backend support is generic and supports most use cases.
++Some users may prefer to create advanced workflows around managing the bootloader and bootable entries.
++
++You can replace the built-in bootloader support with your own tooling using the "external" bootloader option.
++
++Imagine you have created a new package called FooBoot.
++FooBoot provides a program at `${pkgs.fooboot}/bin/fooboot-install` which takes the system closure's path as its only argument and configures the system's bootloader.
++
++You can enable FooBoot like this:
++
++```nix
++{ pkgs, ... }: {
++  boot.loader.external = {
++    enable = true;
++    installHook = "${pkgs.fooboot}/bin/fooboot-install";
++  };
++}
++```
++
++## Developing Custom Bootloader Backends
++
++Bootloaders should use [RFC-0125](https://github.com/NixOS/rfcs/pull/125)'s Bootspec format and synthesis tools to identify the key properties for bootable system generations.
++
+diff --git a/nixos/modules/system/boot/loader/external/external.nix b/nixos/modules/system/boot/loader/external/external.nix
+new file mode 100644
+index 0000000000000..5cf478e6c83cd
+--- /dev/null
++++ b/nixos/modules/system/boot/loader/external/external.nix
+@@ -0,0 +1,38 @@
++{ config, lib, pkgs, ... }:
++
++with lib;
++
++let
++  cfg = config.boot.loader.external;
++in
++{
++  meta = {
++    maintainers = with maintainers; [ cole-h grahamc raitobezarius ];
++    # Don't edit the docbook xml directly, edit the md and generate it:
++    # `pandoc external.md -t docbook --top-level-division=chapter --extract-media=media -f markdown+smart > external.xml`
++    doc = ./external.xml;
++  };
++
++  options.boot.loader.external = {
++    enable = mkEnableOption (lib.mdDoc "use an external tool to install your bootloader");
++
++    installHook = mkOption {
++      type = with types; path;
++      description = lib.mdDoc ''
++        The full path to a program of your choosing which performs the bootloader installation process.
++
++        The program will be called with an argument pointing to the output of the system's toplevel.
++      '';
++    };
++  };
++
++  config = mkIf cfg.enable {
++    boot.loader = {
++      grub.enable = mkDefault false;
++      systemd-boot.enable = mkDefault false;
++      supportsInitrdSecrets = mkDefault false;
++    };
++
++    system.build.installBootLoader = cfg.installHook;
++  };
++}
+diff --git a/nixos/modules/system/boot/loader/external/external.xml b/nixos/modules/system/boot/loader/external/external.xml
+new file mode 100644
+index 0000000000000..39ab2156bc8c6
+--- /dev/null
++++ b/nixos/modules/system/boot/loader/external/external.xml
+@@ -0,0 +1,41 @@
++<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="sec-bootloader-external">
++  <title>External Bootloader Backends</title>
++  <para>
++    NixOS has support for several bootloader backends by default:
++    systemd-boot, grub, uboot, etc. The built-in bootloader backend
++    support is generic and supports most use cases. Some users may
++    prefer to create advanced workflows around managing the bootloader
++    and bootable entries.
++  </para>
++  <para>
++    You can replace the built-in bootloader support with your own
++    tooling using the <quote>external</quote> bootloader option.
++  </para>
++  <para>
++    Imagine you have created a new package called FooBoot. FooBoot
++    provides a program at
++    <literal>${pkgs.fooboot}/bin/fooboot-install</literal> which takes
++    the system closure’s path as its only argument and configures the
++    system’s bootloader.
++  </para>
++  <para>
++    You can enable FooBoot like this:
++  </para>
++  <programlisting language="nix">
++{ pkgs, ... }: {
++  boot.loader.external = {
++    enable = true;
++    installHook = &quot;${pkgs.fooboot}/bin/fooboot-install&quot;;
++  };
++}
++</programlisting>
++  <section xml:id="developing-custom-bootloader-backends">
++    <title>Developing Custom Bootloader Backends</title>
++    <para>
++      Bootloaders should use
++      <link xlink:href="https://github.com/NixOS/rfcs/pull/125">RFC-0125</link>’s
++      Bootspec format and synthesis tools to identify the key properties
++      for bootable system generations.
++    </para>
++  </section>
++</chapter>
+diff --git a/nixos/tests/bootspec.nix b/nixos/tests/bootspec.nix
+new file mode 100644
+index 0000000000000..0d37d0e56574b
+--- /dev/null
++++ b/nixos/tests/bootspec.nix
+@@ -0,0 +1,143 @@
++{ system ? builtins.currentSystem,
++  config ? {},
++  pkgs ? import ../.. { inherit system config; }
++}:
++
++with import ../lib/testing-python.nix { inherit system pkgs; };
++with pkgs.lib;
++
++let
++  baseline = {
++    virtualisation.useBootLoader = true;
++  };
++  grub = {
++    boot.loader.grub.enable = true;
++  };
++  systemd-boot = {
++    boot.loader.systemd-boot.enable = true;
++  };
++  uefi = {
++    virtualisation.useEFIBoot = true;
++    boot.loader.efi.canTouchEfiVariables = true;
++    environment.systemPackages = [ pkgs.efibootmgr ];
++  };
++  standard = {
++    boot.bootspec.enable = true;
++
++    imports = [
++      baseline
++      systemd-boot
++      uefi
++    ];
++  };
++in
++{
++  basic = makeTest {
++    name = "systemd-boot-with-bootspec";
++    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
++
++    nodes.machine = standard;
++
++    testScript = ''
++      machine.start()
++      machine.wait_for_unit("multi-user.target")
++
++      machine.succeed("test -e /run/current-system/bootspec/boot.json")
++    '';
++  };
++
++  grub = makeTest {
++    name = "grub-with-bootspec";
++    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
++
++    nodes.machine = {
++      boot.bootspec.enable = true;
++
++      imports = [
++        baseline
++        grub
++        uefi
++      ];
++    };
++
++    testScript = ''
++      machine.start()
++      machine.wait_for_unit("multi-user.target")
++
++      machine.succeed("test -e /run/current-system/bootspec/boot.json")
++    '';
++  };
++
++  legacy-boot = makeTest {
++    name = "legacy-boot-with-bootspec";
++    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
++
++    nodes.machine = {
++      boot.bootspec.enable = true;
++
++      imports = [
++        baseline
++        grub
++      ];
++    };
++
++    testScript = ''
++      machine.start()
++      machine.wait_for_unit("multi-user.target")
++
++      machine.succeed("test -e /run/current-system/bootspec/boot.json")
++    '';
++  };
++
++  # Check that specialisations create corresponding entries in bootspec.
++  specialisation = makeTest {
++    name = "bootspec-with-specialisation";
++    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
++
++    nodes.machine = {
++      imports = [ standard ];
++      environment.systemPackages = [ pkgs.jq ];
++      specialisation.something.configuration = {};
++    };
++
++    testScript = ''
++      import json
++
++      machine.start()
++      machine.wait_for_unit("multi-user.target")
++
++      machine.succeed("test -e /run/current-system/bootspec/boot.json")
++      machine.succeed("test -e /run/current-system/specialisation/something/bootspec/boot.json")
++
++      sp_in_parent = json.loads(machine.succeed("jq -r '.v1.specialisation.something' /run/current-system/bootspec/boot.json"))
++      sp_in_fs = json.loads(machine.succeed("cat /run/current-system/specialisation/something/bootspec/boot.json"))
++
++      assert sp_in_parent == sp_in_fs['v1'], "Bootspecs of the same specialisation are different!"
++    '';
++  };
++
++  # Check that extensions are propagated.
++  extensions = makeTest {
++    name = "bootspec-with-extensions";
++    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
++
++    nodes.machine = { config, ... }: {
++      imports = [ standard ];
++      environment.systemPackages = [ pkgs.jq ];
++      boot.bootspec.extensions = {
++        osRelease = config.environment.etc."os-release".source;
++      };
++    };
++
++    testScript = ''
++      machine.start()
++      machine.wait_for_unit("multi-user.target")
++
++      current_os_release = machine.succeed("cat /etc/os-release")
++      bootspec_os_release = machine.succeed("cat $(jq -r '.v1.extensions.osRelease' /run/current-system/bootspec/boot.json)")
++
++      assert current_os_release == bootspec_os_release, "Filename referenced by extension has unexpected contents"
++    '';
++  };
++
++}
+diff --git a/pkgs/development/tools/cue/validator.nix b/pkgs/development/tools/cue/validator.nix
+new file mode 100644
+index 0000000000000..cddc3fe342b72
+--- /dev/null
++++ b/pkgs/development/tools/cue/validator.nix
+@@ -0,0 +1,17 @@
++{ cue, writeShellScript, lib }:
++# `document` must be a fragment of definition or structure that the input data will be matched against.
++# `document` must exist in the Cue schema file provided (`cueSchemaFile`).
++# The result is a script that can be used to validate the input data (JSON/YAML and more can be supported depending on Cue)
++# against the fragment described by `document` or the whole definition.
++# The script will be strict and enforce concrete values, i.e. partial documents are not supported.
++cueSchemaFile: { document ? null }:
++  writeShellScript "validate-using-cue"
++  ''${cue}/bin/cue \
++      --all-errors \
++      --strict \
++      vet \
++      --concrete \
++      "$1" \
++      ${cueSchemaFile} \
++      ${lib.optionalString (document != null) "-d \"${document}\""}
++  ''
+diff --git a/pkgs/tools/misc/bootspec/default.nix b/pkgs/tools/misc/bootspec/default.nix
+new file mode 100644
+index 0000000000000..789f438de50eb
+--- /dev/null
++++ b/pkgs/tools/misc/bootspec/default.nix
+@@ -0,0 +1,25 @@
++{ lib
++, rustPlatform
++, fetchFromGitHub
++}:
++rustPlatform.buildRustPackage rec {
++  pname = "bootspec";
++  version = "unstable-2022-12-05";
++
++  src = fetchFromGitHub {
++    owner = "DeterminateSystems";
++    repo = pname;
++    rev = "67a617ab6b99211daa92e748d27ead3f78127cf8";
++    hash = "sha256-GX6Tzs/ClTUV9OXLvPFw6uBhrpCWSMI+PfrViyFEIxs=";
++  };
++
++  cargoHash = "sha256-N/hbfjsuvwCc0mxOpeVVcTxb5cA024lyLSEpVcrS7kA=";
++
++  meta = with lib; {
++    description = "Implementation of RFC-0125's datatype and synthesis tooling";
++    homepage = "https://github.com/DeterminateSystems/bootspec";
++    license = licenses.mit;
++    maintainers = teams.determinatesystems.members;
++    platforms = platforms.unix;
++  };
++}
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index 8825c82a6480c..4f1e0b2a49031 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -2692,6 +2692,8 @@ with pkgs;
+ 
+   brewtarget = libsForQt5.callPackage ../applications/misc/brewtarget { } ;
+ 
++  bootspec = callPackage ../tools/misc/bootspec { };
++
+   # Derivation's result is not used by nixpkgs. Useful for validation for
+   # regressions of bootstrapTools on hydra and on ofborg. Example:
+   #     pkgsCross.aarch64-multiplatform.freshBootstrapTools.build
+@@ -2932,6 +2934,8 @@ with pkgs;
+     buildGoModule = buildGo118Module; # tests fail with 1.19
+   };
+ 
++  writeCueValidator = callPackage ../development/tools/cue/validator.nix { };
++
+   cuelsp = callPackage ../development/tools/cuelsp {};
+ 
+   cyclone-scheme = callPackage ../development/interpreters/cyclone { };
