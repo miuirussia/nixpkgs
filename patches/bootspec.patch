@@ -11,129 +11,18 @@ index 41d539dd5f1dd..32e0313cf8dbf 100644
  
  # NixOS integration test driver
  /nixos/lib/test-driver  @tfc
-diff --git a/doc/languages-frameworks/cuelang.section.md b/doc/languages-frameworks/cuelang.section.md
-new file mode 100644
-index 0000000000000..fe78c519e7695
---- /dev/null
-+++ b/doc/languages-frameworks/cuelang.section.md
-@@ -0,0 +1,93 @@
-+# Cue (Cuelang) {#cuelang}
-+
-+[Cuelang](https://cuelang.org/) is a language to:
-+
-+- describe schemas and validate backward-compatibility
-+- generate code and schemas in various formats (e.g. JSON Schema, OpenAPI)
-+- do configuration akin to [Dhall Lang](https://dhall-lang.org/)
-+- perform data validation
-+
-+## Cuelang schema quick start
-+
-+Cuelang schemas are similar to JSON, here is a quick cheatsheet:
-+
-+- Default types includes: `null`, `string`, `bool`, `bytes`, `number`, `int`, `float`, lists as `[...T]` where `T` is a type.
-+- All structures, defined by: `myStructName: { <fields> }` are **open** -- they accept fields which are not specified.
-+- Closed structures can be built by doing `myStructName: close({ <fields> })` -- they are strict in what they accept.
-+- `#X` are **definitions**, referenced definitions are **recursively closed**, i.e. all its children structures are **closed**.
-+- `&` operator is the [unification operator](https://cuelang.org/docs/references/spec/#unification) (similar to a type-level merging operator), `|` is the [disjunction operator](https://cuelang.org/docs/references/spec/#disjunction) (similar to a type-level union operator).
-+- Values **are** types, i.e. `myStruct: { a: 3 }` is a valid type definition that only allows `3` as value.
-+
-+- Read <https://cuelang.org/docs/concepts/logic/> to learn more about the semantics.
-+- Read <https://cuelang.org/docs/references/spec/> to learn about the language specification.
-+
-+## `writeCueValidator`
-+
-+Nixpkgs provides a `pkgs.writeCueValidator` helper, which will write a validation script based on the provided Cuelang schema.
-+
-+Here is an example:
-+```
-+pkgs.writeCueValidator
-+  (pkgs.writeText ''
-+    #Def1: {
-+      field1: string
-+    }
-+  '')
-+  { document = "#Def1"; }
-+```
-+
-+- The first parameter is the Cue schema file.
-+- The second paramter is an options parameter, currently, only: `document` can be passed.
-+
-+`document` : match your input data against this fragment of structure or definition, e.g. you may use the same schema file but differents documents based on the data you are validating.
-+
-+Another example, given the following `validator.nix` :
-+```
-+{ pkgs ? import <nixpkgs> {} }:
-+let
-+  genericValidator = version:
-+  pkgs.writeCueValidator
-+    (pkgs.writeText ''
-+      #Version1: {
-+        field1: string
-+      }
-+      #Version2: #Version1 & {
-+        field1: "unused"
-+      }''
-+    )
-+    { document = "#Version${toString version}"; };
-+in
-+{
-+  validateV1 = genericValidator 1;
-+  validateV2 = genericValidator 2;
-+}
-+```
-+
-+The result is a script that will validate the file you pass as the first argument against the schema you provided `writeCueValidator`.
-+
-+It can be any format that `cue vet` supports, i.e. YAML or JSON for example.
-+
-+Here is an example, named `example.json`, given the following JSON:
-+```
-+{ field1: "abc" }
-+```
-+
-+You can run the result script (named `validate`) as the following:
-+
-+```console
-+$ nix-build validator.nix
-+$ ./result example.json
-+$ ./result-2 example.json
-+field1: conflicting values "unused" and "abc":
-+    ./example.json:1:13
-+    ../../../../../../nix/store/v64dzx3vr3glpk0cq4hzmh450lrwh6sg-schema.cue:5:11
-+$ sed -i 's/"abc"/3/' example.json
-+$ ./result example.json
-+field1: conflicting values 3 and string (mismatched types int and string):
-+    ./example.json:1:13
-+    ../../../../../../nix/store/v64dzx3vr3glpk0cq4hzmh450lrwh6sg-schema.cue:5:11
-+```
-+
-+**Known limitations**
-+
-+* The script will enforce **concrete** values and will not accept lossy transformations (strictness). You can add these options if you need them.
-diff --git a/doc/languages-frameworks/index.xml b/doc/languages-frameworks/index.xml
-index 3d5b2f738976d..7df241436ff5b 100644
---- a/doc/languages-frameworks/index.xml
-+++ b/doc/languages-frameworks/index.xml
-@@ -13,6 +13,7 @@
-  <xi:include href="coq.section.xml" />
-  <xi:include href="crystal.section.xml" />
-  <xi:include href="cuda.section.xml" />
-+ <xi:include href="cuelang.section.xml" />
-  <xi:include href="dhall.section.xml" />
-  <xi:include href="dotnet.section.xml" />
-  <xi:include href="emscripten.section.xml" />
 diff --git a/nixos/doc/manual/development/bootspec.chapter.md b/nixos/doc/manual/development/bootspec.chapter.md
 new file mode 100644
-index 0000000000000..6c86b0dee568a
+index 0000000000000..96c12f24e7f1f
 --- /dev/null
 +++ b/nixos/doc/manual/development/bootspec.chapter.md
 @@ -0,0 +1,36 @@
 +# Experimental feature: Bootspec {#sec-experimental-bootspec}
 +
-+Bootspec is a experimental feature, introduced in the [RFC-0125 proposal](https://github.com/NixOS/rfcs/125), the reference implementation can be found [there](https://github.com/NixOS/nixpkgs/pull/172237) in order to standardize bootloader support
++Bootspec is a experimental feature, introduced in the [RFC-0125 proposal](https://github.com/NixOS/rfcs/pull/125), the reference implementation can be found [there](https://github.com/NixOS/nixpkgs/pull/172237) in order to standardize bootloader support
 +and advanced boot workflows such as SecureBoot and potentially more.
 +
-+You can enable the creation of bootspec documents through [`boot.bootspec.enable = true`](options.html#opt-boot.bootspec.enable), which will prompt a warning until [RFC-0125](https://github.com/NixOS/rfcs/125) is officially merged.
++You can enable the creation of bootspec documents through [`boot.bootspec.enable = true`](options.html#opt-boot.bootspec.enable), which will prompt a warning until [RFC-0125](https://github.com/NixOS/rfcs/pull/125) is officially merged.
 +
 +## Schema {#sec-experimental-bootspec-schema}
 +
@@ -178,7 +67,7 @@ index 624ee3931659b..949468c9021df 100644
   <xi:include href="../from_md/development/nixos-tests.chapter.xml" />
 diff --git a/nixos/doc/manual/from_md/development/bootspec.chapter.xml b/nixos/doc/manual/from_md/development/bootspec.chapter.xml
 new file mode 100644
-index 0000000000000..425516645eab5
+index 0000000000000..acf8ca76bf5cf
 --- /dev/null
 +++ b/nixos/doc/manual/from_md/development/bootspec.chapter.xml
 @@ -0,0 +1,73 @@
@@ -186,7 +75,7 @@ index 0000000000000..425516645eab5
 +  <title>Experimental feature: Bootspec</title>
 +  <para>
 +    Bootspec is a experimental feature, introduced in the
-+    <link xlink:href="https://github.com/NixOS/rfcs/125">RFC-0125
++    <link xlink:href="https://github.com/NixOS/rfcs/pull/125">RFC-0125
 +    proposal</link>, the reference implementation can be found
 +    <link xlink:href="https://github.com/NixOS/nixpkgs/pull/172237">there</link>
 +    in order to standardize bootloader support and advanced boot
@@ -196,7 +85,7 @@ index 0000000000000..425516645eab5
 +    You can enable the creation of bootspec documents through
 +    <link xlink:href="options.html#opt-boot.bootspec.enable"><literal>boot.bootspec.enable = true</literal></link>,
 +    which will prompt a warning until
-+    <link xlink:href="https://github.com/NixOS/rfcs/125">RFC-0125</link>
++    <link xlink:href="https://github.com/NixOS/rfcs/pull/125">RFC-0125</link>
 +    is officially merged.
 +  </para>
 +  <section xml:id="sec-experimental-bootspec-schema">
@@ -256,10 +145,10 @@ index 0000000000000..425516645eab5
 +  </section>
 +</chapter>
 diff --git a/nixos/modules/module-list.nix b/nixos/modules/module-list.nix
-index 9faa58409b19d..b3ce7e73a7bac 100644
+index 24dd30e157501..da56e7a8a692e 100644
 --- a/nixos/modules/module-list.nix
 +++ b/nixos/modules/module-list.nix
-@@ -1237,6 +1237,7 @@
+@@ -1241,6 +1241,7 @@
    ./services/x11/xserver.nix
    ./system/activation/activation-script.nix
    ./system/activation/specialisation.nix
@@ -267,7 +156,7 @@ index 9faa58409b19d..b3ce7e73a7bac 100644
    ./system/activation/top-level.nix
    ./system/boot/binfmt.nix
    ./system/boot/emergency-mode.nix
-@@ -1252,6 +1253,7 @@
+@@ -1256,6 +1257,7 @@
    ./system/boot/loader/grub/grub.nix
    ./system/boot/loader/grub/ipxe.nix
    ./system/boot/loader/grub/memtest.nix
@@ -716,29 +605,6 @@ index 0000000000000..0d37d0e56574b
 +  };
 +
 +}
-diff --git a/pkgs/development/tools/cue/validator.nix b/pkgs/development/tools/cue/validator.nix
-new file mode 100644
-index 0000000000000..cddc3fe342b72
---- /dev/null
-+++ b/pkgs/development/tools/cue/validator.nix
-@@ -0,0 +1,17 @@
-+{ cue, writeShellScript, lib }:
-+# `document` must be a fragment of definition or structure that the input data will be matched against.
-+# `document` must exist in the Cue schema file provided (`cueSchemaFile`).
-+# The result is a script that can be used to validate the input data (JSON/YAML and more can be supported depending on Cue)
-+# against the fragment described by `document` or the whole definition.
-+# The script will be strict and enforce concrete values, i.e. partial documents are not supported.
-+cueSchemaFile: { document ? null }:
-+  writeShellScript "validate-using-cue"
-+  ''${cue}/bin/cue \
-+      --all-errors \
-+      --strict \
-+      vet \
-+      --concrete \
-+      "$1" \
-+      ${cueSchemaFile} \
-+      ${lib.optionalString (document != null) "-d \"${document}\""}
-+  ''
 diff --git a/pkgs/tools/misc/bootspec/default.nix b/pkgs/tools/misc/bootspec/default.nix
 new file mode 100644
 index 0000000000000..789f438de50eb
@@ -771,10 +637,10 @@ index 0000000000000..789f438de50eb
 +  };
 +}
 diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
-index 8825c82a6480c..4f1e0b2a49031 100644
+index 888ab409ad537..4f0310d612178 100644
 --- a/pkgs/top-level/all-packages.nix
 +++ b/pkgs/top-level/all-packages.nix
-@@ -2692,6 +2692,8 @@ with pkgs;
+@@ -2694,6 +2694,8 @@ with pkgs;
  
    brewtarget = libsForQt5.callPackage ../applications/misc/brewtarget { } ;
  
@@ -783,12 +649,3 @@ index 8825c82a6480c..4f1e0b2a49031 100644
    # Derivation's result is not used by nixpkgs. Useful for validation for
    # regressions of bootstrapTools on hydra and on ofborg. Example:
    #     pkgsCross.aarch64-multiplatform.freshBootstrapTools.build
-@@ -2932,6 +2934,8 @@ with pkgs;
-     buildGoModule = buildGo118Module; # tests fail with 1.19
-   };
- 
-+  writeCueValidator = callPackage ../development/tools/cue/validator.nix { };
-+
-   cuelsp = callPackage ../development/tools/cuelsp {};
- 
-   cyclone-scheme = callPackage ../development/interpreters/cyclone { };
