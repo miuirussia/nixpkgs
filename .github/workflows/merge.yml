@@ -42,6 +42,7 @@ jobs:
           cp -f ./nixpkgs-original/{.editorconfig,.gitattributes,.gitignore,.version,CONTRIBUTING.md,COPYING,README.md,default.nix,flake.nix} ./nixpkgs-final
           (cd ./nixpkgs-final/pkgs/desktops/gnome/extensions && ./update-extensions.py)
           (cd ./nixpkgs-final/pkgs/applications/editors/vscode && ./update-vscode.sh)
+          $(nix build .#tree-sitter.passthru.updater.update-all-grammars --no-link --print-out-paths)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push changes
