@@ -323,7 +323,7 @@ index 55ff98db53829..a12a565af1f75 100644
 +++ b/nixos/modules/system/activation/top-level.nix
 @@ -79,6 +79,11 @@ let
  
-       echo -n "${toString config.system.extraDependencies}" > $out/extra-dependencies
+       echo -n "$extraDependencies" > $out/extra-dependencies
  
 +      ${optionalString (!config.boot.isContainer && config.boot.bootspec.enable) ''
 +        ${config.boot.bootspec.writer}
