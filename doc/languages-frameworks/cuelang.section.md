@@ -28,7 +28,7 @@ Nixpkgs provides a `pkgs.writeCueValidator` helper, which will write a validatio
 Here is an example:
 ```
 pkgs.writeCueValidator
-  (pkgs.writeText ''
+  (pkgs.writeText "schema.cue" ''
     #Def1: {
       field1: string
     }
@@ -47,7 +47,7 @@ Another example, given the following `validator.nix` :
 let
   genericValidator = version:
   pkgs.writeCueValidator
-    (pkgs.writeText ''
+    (pkgs.writeText "schema.cue" ''
       #Version1: {
         field1: string
       }
@@ -69,7 +69,7 @@ It can be any format that `cue vet` supports, i.e. YAML or JSON for example.
 
 Here is an example, named `example.json`, given the following JSON:
 ```
-{ field1: "abc" }
+{ "field1": "abc" }
 ```
 
 You can run the result script (named `validate`) as the following:
