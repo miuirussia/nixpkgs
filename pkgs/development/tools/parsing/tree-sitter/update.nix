@@ -25,7 +25,6 @@ let
     "tree-sitter-python"
     "tree-sitter-typescript"
     "tree-sitter-rust"
-    "tree-sitter-bash"
     "tree-sitter-php"
     "tree-sitter-java"
     "tree-sitter-scala"
@@ -82,6 +81,10 @@ let
   # If you need a grammar that already exists in the official orga,
   # make sure to give it a different name.
   otherGrammars = {
+    "tree-sitter-bash" = {
+      orga = "miuirussia";
+      repo = "tree-sitter-bash";
+    };
     "tree-sitter-beancount" = {
       orga = "polarmutex";
       repo = "tree-sitter-beancount";
