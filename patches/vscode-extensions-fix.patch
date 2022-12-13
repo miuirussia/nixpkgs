@@ -51,23 +51,23 @@ index 1c9c4be45..f6e1162cf 100644
  
 +  toExtensionJsonEntry = drv: rec {
 +    identifier = {
-+      id = "${drv.vscodeExtPublisher}.${drv.vscodeExtName}";
-+      uuid = drv.vscodeExtUniqueId;
++      id = "${drv.passthru.vscodeExtPublisher}.${drv.passthru.vscodeExtName}";
++      uuid = drv.passthru.vscodeExtUniqueId;
 +    };
 +
 +    version = drv.version;
 +
 +    location = {
 +      "$mid" = 1;
-+      fsPath = drv.outPath + "/share/vscode/extensions/${drv.vscodeExtUniqueId}";
++      fsPath = drv.outPath + "/share/vscode/extensions/${drv.passthru.vscodeExtUniqueId}";
 +      path = location.fsPath;
 +      scheme = "file";
 +    };
 +
 +    metadata = {
 +      id = identifier.uuid;
-+      publisherId = drv.vscodeExtPublisher;
-+      publisherDisplayName = drv.vscodeExtPublisher;
++      publisherId = drv.passthru.vscodeExtPublisher;
++      publisherDisplayName = drv.passthru.vscodeExtPublisher;
 +      targetPlatform = "undefined";
 +      isApplicationScoped = false;
 +      updated = false;
@@ -87,7 +87,7 @@ index 1c9c4be45..f6e1162cf 100644
    combinedExtensionsDrv = buildEnv {
      name = "vscode-extensions";
 -    paths = vscodeExtensions;
-+    paths = vscodeExtensions + [extensionJsonOutput];
++    paths = vscodeExtensions ++ [extensionJsonOutput];
    };
  
    extensionsFlag = lib.optionalString (vscodeExtensions != []) ''

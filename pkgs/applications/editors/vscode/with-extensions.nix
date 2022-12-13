@@ -1,4 +1,4 @@
-{ lib, stdenv, runCommand, buildEnv, vscode, makeWrapper
+{ lib, stdenv, runCommand, buildEnv, vscode, makeWrapper, writeText
 , vscodeExtensions ? [] }:
 
 /*
@@ -46,9 +46,44 @@ let
   wrappedPkgVersion = lib.getVersion vscode;
   wrappedPkgName = lib.removeSuffix "-${wrappedPkgVersion}" vscode.name;
 
+  toExtensionJsonEntry = drv: rec {
+    identifier = {
+      id = "${drv.passthru.vscodeExtPublisher}.${drv.passthru.vscodeExtName}";
+      uuid = drv.passthru.vscodeExtUniqueId;
+    };
+
+    version = drv.version;
+
+    location = {
+      "$mid" = 1;
+      fsPath = drv.outPath + "/share/vscode/extensions/${drv.passthru.vscodeExtUniqueId}";
+      path = location.fsPath;
+      scheme = "file";
+    };
+
+    metadata = {
+      id = identifier.uuid;
+      publisherId = drv.passthru.vscodeExtPublisher;
+      publisherDisplayName = drv.passthru.vscodeExtPublisher;
+      targetPlatform = "undefined";
+      isApplicationScoped = false;
+      updated = false;
+      isPreReleaseVersion = false;
+      installedTimestamp = 0;
+      preRelease = false;
+    };
+  };
+
+  extensionJson = builtins.toJSON(map toExtensionJsonEntry vscodeExtensions);
+  extensionJsonFile = writeText "extensions.json" extensionJson;
+  extensionJsonOutput = runCommand "vscode-extensions-json" {} ''
+    mkdir -p $out/share/vscode/extensions
+    cp ${extensionJsonFile} $out/share/vscode/extensions/extensions.json
+  '';
+
   combinedExtensionsDrv = buildEnv {
     name = "vscode-extensions";
-    paths = vscodeExtensions;
+    paths = vscodeExtensions ++ [extensionJsonOutput];
   };
 
   extensionsFlag = lib.optionalString (vscodeExtensions != []) ''
