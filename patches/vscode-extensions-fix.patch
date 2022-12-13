@@ -2,7 +2,7 @@ diff --git a/pkgs/applications/editors/vscode/extensions/vscode-utils.nix b/pkgs
 index 8f0112e5f..eccce67f2 100644
 --- a/pkgs/applications/editors/vscode/extensions/vscode-utils.nix
 +++ b/pkgs/applications/editors/vscode/extensions/vscode-utils.nix
-@@ -3,6 +3,8 @@ let
+@@ -3,9 +3,11 @@ let
    buildVscodeExtension = a@{
      name,
      src,
