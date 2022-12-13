@@ -1,0 +1,93 @@
+diff --git a/pkgs/applications/editors/vscode/extensions/vscode-utils.nix b/pkgs/applications/editors/vscode/extensions/vscode-utils.nix
+index 8f0112e5f..eccce67f2 100644
+--- a/pkgs/applications/editors/vscode/extensions/vscode-utils.nix
++++ b/pkgs/applications/editors/vscode/extensions/vscode-utils.nix
+@@ -3,6 +3,8 @@ let
+   buildVscodeExtension = a@{
+     name,
+     src,
++    vscodeExtPublisher,
++    vscodeExtName,
+     # Same as "Unique Identifier" on the extension's web page.
+     # For the moment, only serve as unique extension dir.
+     vscodeExtUniqueId,
+@@ -23,7 +25,9 @@ let
+ 
+     name = "vscode-extension-${name}";
+ 
+-    inherit vscodeExtUniqueId;
++    passthru = {
++      inherit vscodeExtPublisher vscodeExtName vscodeExtUniqueId;
++    };
+     inherit configurePhase buildPhase dontPatchELF dontStrip;
+ 
+     installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
+@@ -54,9 +58,12 @@ let
+   }: assert "" == name; assert null == src;
+   buildVscodeExtension ((removeAttrs a [ "mktplcRef" "vsix" ]) // {
+     name = "${mktplcRef.publisher}-${mktplcRef.name}-${mktplcRef.version}";
++    version = mktplcRef.version;
+     src = if (vsix != null)
+       then vsix
+       else fetchVsixFromVscodeMarketplace mktplcRef;
++    vscodeExtPublisher = mktplcRef.publisher;
++    vscodeExtName = mktplcRef.name;
+     vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
+   });
+ 
+diff --git a/pkgs/applications/editors/vscode/with-extensions.nix b/pkgs/applications/editors/vscode/with-extensions.nix
+index 1c9c4be45..f6e1162cf 100644
+--- a/pkgs/applications/editors/vscode/with-extensions.nix
++++ b/pkgs/applications/editors/vscode/with-extensions.nix
+@@ -1,4 +1,4 @@
+-{ lib, stdenv, runCommand, buildEnv, vscode, makeWrapper
++{ lib, stdenv, runCommand, buildEnv, vscode, makeWrapper, writeText
+ , vscodeExtensions ? [] }:
+ 
+ /*
+@@ -46,9 +46,44 @@ let
+   wrappedPkgVersion = lib.getVersion vscode;
+   wrappedPkgName = lib.removeSuffix "-${wrappedPkgVersion}" vscode.name;
+ 
++  toExtensionJsonEntry = drv: rec {
++    identifier = {
++      id = "${drv.vscodeExtPublisher}.${drv.vscodeExtName}";
++      uuid = drv.vscodeExtUniqueId;
++    };
++
++    version = drv.version;
++
++    location = {
++      "$mid" = 1;
++      fsPath = drv.outPath + "/share/vscode/extensions/${drv.vscodeExtUniqueId}";
++      path = location.fsPath;
++      scheme = "file";
++    };
++
++    metadata = {
++      id = identifier.uuid;
++      publisherId = drv.vscodeExtPublisher;
++      publisherDisplayName = drv.vscodeExtPublisher;
++      targetPlatform = "undefined";
++      isApplicationScoped = false;
++      updated = false;
++      isPreReleaseVersion = false;
++      installedTimestamp = 0;
++      preRelease = false;
++    };
++  };
++
++  extensionJson = builtins.toJSON(map toExtensionJsonEntry vscodeExtensions);
++  extensionJsonFile = writeText "extensions.json" extensionJson;
++  extensionJsonOutput = runCommand "vscode-extensions-json" {} ''
++    mkdir -p $out/share/vscode/extensions
++    cp ${extensionJsonFile} $out/share/vscode/extensions/extensions.json
++  '';
++
+   combinedExtensionsDrv = buildEnv {
+     name = "vscode-extensions";
+-    paths = vscodeExtensions;
++    paths = vscodeExtensions + [extensionJsonOutput];
+   };
+ 
+   extensionsFlag = lib.optionalString (vscodeExtensions != []) ''
