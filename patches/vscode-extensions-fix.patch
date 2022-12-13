@@ -10,7 +10,11 @@ index 8f0112e5f..eccce67f2 100644
 +    vscodeExtName,
      # Same as "Unique Identifier" on the extension's web page.
      # For the moment, only serve as unique extension dir.
-     vscodeExtUniqueId,
+-    vscodeExtUniqueId,
++    vscodeExtUniqueId ? "${vscodeExtPublisher}.${vscodeExtName}",
+     configurePhase ? ''
+       runHook preConfigure
+       runHook postConfigure
 @@ -23,7 +25,9 @@ let
  
      name = "vscode-extension-${name}";
@@ -22,7 +26,7 @@ index 8f0112e5f..eccce67f2 100644
      inherit configurePhase buildPhase dontPatchELF dontStrip;
  
      installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
-@@ -54,9 +58,12 @@ let
+@@ -54,9 +58,11 @@ let
    }: assert "" == name; assert null == src;
    buildVscodeExtension ((removeAttrs a [ "mktplcRef" "vsix" ]) // {
      name = "${mktplcRef.publisher}-${mktplcRef.name}-${mktplcRef.version}";
@@ -30,9 +34,9 @@ index 8f0112e5f..eccce67f2 100644
      src = if (vsix != null)
        then vsix
        else fetchVsixFromVscodeMarketplace mktplcRef;
+-    vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
 +    vscodeExtPublisher = mktplcRef.publisher;
 +    vscodeExtName = mktplcRef.name;
-     vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
    });
  
 diff --git a/pkgs/applications/editors/vscode/with-extensions.nix b/pkgs/applications/editors/vscode/with-extensions.nix
@@ -91,3 +95,30 @@ index 1c9c4be45..f6e1162cf 100644
    };
  
    extensionsFlag = lib.optionalString (vscodeExtensions != []) ''
+diff --git a/pkgs/applications/editors/vscode/extensions/rust-analyzer/default.nix b/pkgs/applications/editors/vscode/extensions/rust-analyzer/default.nix
+index c7088c9f2..9726fbf2c 100644
+--- a/pkgs/applications/editors/vscode/extensions/rust-analyzer/default.nix
++++ b/pkgs/applications/editors/vscode/extensions/rust-analyzer/default.nix
+@@ -68,7 +68,8 @@ vscode-utils.buildVscodeExtension {
+   inherit version vsix;
+   name = "${pname}-${version}";
+   src = "${vsix}/${pname}.zip";
+-  vscodeExtUniqueId = "${publisher}.${pname}";
++  vscodeExtPublisher = publisher;
++  vscodeExtName = pname;
+ 
+   nativeBuildInputs = lib.optionals setDefaultServerPath [ jq moreutils ];
+ 
+diff --git a/pkgs/applications/editors/vscode/extensions/vscode-lldb/default.nix b/pkgs/applications/editors/vscode/extensions/vscode-lldb/default.nix
+index f87ab4772..c6473e2a2 100644
+--- a/pkgs/applications/editors/vscode/extensions/vscode-lldb/default.nix
++++ b/pkgs/applications/editors/vscode/extensions/vscode-lldb/default.nix
+@@ -53,6 +53,8 @@ let
+ in stdenv.mkDerivation {
+   pname = "vscode-extension-${publisher}-${pname}";
+   inherit src version vscodeExtUniqueId;
++  vscodeExtPublisher = publisher;
++  vscodeExtName = pname;
+ 
+   installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
+ 

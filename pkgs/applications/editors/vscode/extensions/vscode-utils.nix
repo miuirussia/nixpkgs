@@ -7,7 +7,7 @@ let
     vscodeExtName,
     # Same as "Unique Identifier" on the extension's web page.
     # For the moment, only serve as unique extension dir.
-    vscodeExtUniqueId,
+    vscodeExtUniqueId ? "${vscodeExtPublisher}.${vscodeExtName}",
     configurePhase ? ''
       runHook preConfigure
       runHook postConfigure
@@ -64,7 +64,6 @@ let
       else fetchVsixFromVscodeMarketplace mktplcRef;
     vscodeExtPublisher = mktplcRef.publisher;
     vscodeExtName = mktplcRef.name;
-    vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
   });
 
   mktplcRefAttrList = [

@@ -53,6 +53,8 @@ let
 in stdenv.mkDerivation {
   pname = "vscode-extension-${publisher}-${pname}";
   inherit src version vscodeExtUniqueId;
+  vscodeExtPublisher = publisher;
+  vscodeExtName = pname;
 
   installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
 
