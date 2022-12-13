@@ -48,6 +48,7 @@ let
   ignoredTreeSitterOrgRepos = [
     "tree-sitter"
     "tree-sitter-cli"
+    "tree-sitter-bash"
     # this is the haskell language bindings, tree-sitter-haskell is the grammar
     "haskell-tree-sitter"
     # this is the ruby language bindings, tree-sitter-ruby is the grammar

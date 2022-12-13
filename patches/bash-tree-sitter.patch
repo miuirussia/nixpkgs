@@ -21,3 +21,15 @@ index 92a755e4da6..38065025f18 100644
      "tree-sitter-beancount" = {
        orga = "polarmutex";
        repo = "tree-sitter-beancount";
+diff --git a/pkgs/development/tools/parsing/tree-sitter/update.nix b/pkgs/development/tools/parsing/tree-sitter/update.nix
+index 38065025f18..0b4b93cc0f0 100644
+--- a/pkgs/development/tools/parsing/tree-sitter/update.nix
++++ b/pkgs/development/tools/parsing/tree-sitter/update.nix
+@@ -48,6 +48,7 @@ let
+   ignoredTreeSitterOrgRepos = [
+     "tree-sitter"
+     "tree-sitter-cli"
++    "tree-sitter-bash"
+     # this is the haskell language bindings, tree-sitter-haskell is the grammar
+     "haskell-tree-sitter"
+     # this is the ruby language bindings, tree-sitter-ruby is the grammar
