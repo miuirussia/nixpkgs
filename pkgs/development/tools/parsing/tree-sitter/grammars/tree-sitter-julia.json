@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/tree-sitter/tree-sitter-julia",
-  "rev": "91ba1c3c9b50f388d4b67518c04bc9a003ed3475",
-  "date": "2022-12-02T23:15:15-05:00",
-  "path": "/nix/store/ldhmjnnpr8gwrbhsn9b2svzgkngdimp7-tree-sitter-julia",
-  "sha256": "01gxc53bq2h5gjml3f2xm3p8pmbzzqlc4cccdpkz93jlyq6ibd9l",
+  "rev": "36b099e9ea577f64ba53323115028dadd2991d2c",
+  "date": "2022-12-14T01:05:27-05:00",
+  "path": "/nix/store/bmxprxza511z79p2yfginx7va8qvq0aq-tree-sitter-julia",
+  "sha256": "0gacbncgn41s9magw6ymjcjbs0pyqhpvhns6vam9ps1bnmxr9pmi",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
