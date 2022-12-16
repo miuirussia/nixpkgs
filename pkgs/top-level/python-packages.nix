@@ -198,6 +198,8 @@ self: super: with self; {
 
   aiohttp-jinja2 = callPackage ../development/python-modules/aiohttp-jinja2 { };
 
+  aiohttp-openmetrics = callPackage ../development/python-modules/aiohttp-openmetrics { };
+
   aiohttp-remotes = callPackage ../development/python-modules/aiohttp-remotes { };
 
   aiohttp-retry = callPackage ../development/python-modules/aiohttp-retry { };
@@ -1344,6 +1346,8 @@ self: super: with self; {
   bond-api = callPackage ../development/python-modules/bond-api { };
 
   bond-async = callPackage ../development/python-modules/bond-async { };
+
+  bonsai = callPackage ../development/python-modules/bonsai { };
 
   booleanoperations = callPackage ../development/python-modules/booleanoperations { };
 
@@ -4207,6 +4211,10 @@ self: super: with self; {
   });
 
   hepunits = callPackage ../development/python-modules/hepunits { };
+
+  here-routing = callPackage ../development/python-modules/here-routing { };
+
+  here-transit = callPackage ../development/python-modules/here-transit { };
 
   herepy = callPackage ../development/python-modules/herepy { };
 
