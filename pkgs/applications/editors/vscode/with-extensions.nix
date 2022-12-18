@@ -48,23 +48,23 @@ let
 
   toExtensionJsonEntry = drv: rec {
     identifier = {
-      id = "${drv.passthru.vscodeExtPublisher}.${drv.passthru.vscodeExtName}";
-      uuid = drv.passthru.vscodeExtUniqueId;
+      id = "${drv.vscodeExtPublisher}.${drv.vscodeExtName}";
+      uuid = "";
     };
 
     version = drv.version;
 
     location = {
       "$mid" = 1;
-      fsPath = drv.outPath + "/share/vscode/extensions/${drv.passthru.vscodeExtUniqueId}";
+      fsPath = drv.outPath + "/share/vscode/extensions/${drv.vscodeExtUniqueId}";
       path = location.fsPath;
       scheme = "file";
     };
 
     metadata = {
       id = identifier.uuid;
-      publisherId = drv.passthru.vscodeExtPublisher;
-      publisherDisplayName = drv.passthru.vscodeExtPublisher;
+      publisherId = "";
+      publisherDisplayName = drv.vscodeExtPublisher;
       targetPlatform = "undefined";
       isApplicationScoped = false;
       updated = false;
@@ -74,7 +74,7 @@ let
     };
   };
 
-  extensionJson = builtins.toJSON(map toExtensionJsonEntry vscodeExtensions);
+  extensionJson = builtins.toJSON (map toExtensionJsonEntry vscodeExtensions);
   extensionJsonFile = writeText "extensions.json" extensionJson;
   extensionJsonOutput = runCommand "vscode-extensions-json" {} ''
     mkdir -p $out/share/vscode/extensions
@@ -83,10 +83,10 @@ let
 
   combinedExtensionsDrv = buildEnv {
     name = "vscode-extensions";
-    paths = vscodeExtensions ++ [extensionJsonOutput];
+    paths = vscodeExtensions ++ [ extensionJsonOutput ];
   };
 
-  extensionsFlag = lib.optionalString (vscodeExtensions != []) ''
+  extensionsFlag = ''
     --add-flags "--extensions-dir ${combinedExtensionsDrv}/share/vscode/extensions"
   '';
 in

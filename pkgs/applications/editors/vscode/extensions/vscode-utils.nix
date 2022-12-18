@@ -3,11 +3,11 @@ let
   buildVscodeExtension = a@{
     name,
     src,
-    vscodeExtPublisher,
-    vscodeExtName,
     # Same as "Unique Identifier" on the extension's web page.
     # For the moment, only serve as unique extension dir.
-    vscodeExtUniqueId ? "${vscodeExtPublisher}.${vscodeExtName}",
+    vscodeExtPublisher,
+    vscodeExtName,
+    vscodeExtUniqueId,
     configurePhase ? ''
       runHook preConfigure
       runHook postConfigure
@@ -28,6 +28,7 @@ let
     passthru = {
       inherit vscodeExtPublisher vscodeExtName vscodeExtUniqueId;
     };
+
     inherit configurePhase buildPhase dontPatchELF dontStrip;
 
     installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
@@ -64,6 +65,7 @@ let
       else fetchVsixFromVscodeMarketplace mktplcRef;
     vscodeExtPublisher = mktplcRef.publisher;
     vscodeExtName = mktplcRef.name;
+    vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
   });
 
   mktplcRefAttrList = [
