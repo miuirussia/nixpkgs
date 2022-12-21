@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/sourcegraph/tree-sitter-jsonnet",
-  "rev": "768a384989391237c6d55ff3d878a0d1e0d2b4fa",
-  "date": "2022-12-13T11:25:22-05:00",
-  "path": "/nix/store/hkbb0z26y4ic06za3mh6r4amwvjxzyb8-tree-sitter-jsonnet",
-  "sha256": "1ghqp468pizibsy07d8klrrhq9b76jqhc60jy5rnbk341div88ci",
+  "rev": "505f5bd90053ae895aa3d6f2bac8071dd9abd8b2",
+  "date": "2022-12-19T21:45:54-05:00",
+  "path": "/nix/store/pmpam2wcxkmyfs1h0ssj2n0lwvngmqkc-tree-sitter-jsonnet",
+  "sha256": "1hiym39d0n8dxmar2bjm449nj546fiz1dklgns541yfc1k0b56jx",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
