@@ -1,0 +1,58 @@
+diff --git a/pkgs/applications/editors/gnome-builder/default.nix b/pkgs/applications/editors/gnome-builder/default.nix
+index 634fd79282d..383d428c895 100644
+--- a/pkgs/applications/editors/gnome-builder/default.nix
++++ b/pkgs/applications/editors/gnome-builder/default.nix
+@@ -129,10 +129,12 @@ stdenv.mkDerivation rec {
+   '';
+ 
+   checkPhase = ''
+-    export NO_AT_BRIDGE=1
+-    xvfb-run -s '-screen 0 800x600x24' dbus-run-session \
+-      --config-file=${dbus}/share/dbus-1/session.conf \
+-      meson test --print-errorlogs
++    env \
++      NO_AT_BRIDGE=1 \
++      GTK_A11Y=none \
++      xvfb-run -s '-screen 0 800x600x24' dbus-run-session \
++        --config-file=${dbus}/share/dbus-1/session.conf \
++        meson test --print-errorlogs
+   '';
+ 
+   pythonPath = with python3.pkgs; requiredPythonModules [ pygobject3 ];
+diff --git a/pkgs/development/libraries/gtksourceview/5.x.nix b/pkgs/development/libraries/gtksourceview/5.x.nix
+index 97cb693e354..d3ac8246d95 100644
+--- a/pkgs/development/libraries/gtksourceview/5.x.nix
++++ b/pkgs/development/libraries/gtksourceview/5.x.nix
+@@ -86,10 +86,12 @@ stdenv.mkDerivation rec {
+   checkPhase = ''
+     runHook preCheck
+ 
+-    XDG_DATA_DIRS="$XDG_DATA_DIRS:${shared-mime-info}/share" \
+-    xvfb-run -s '-screen 0 800x600x24' dbus-run-session \
+-      --config-file=${dbus}/share/dbus-1/session.conf \
+-      meson test --no-rebuild --print-errorlogs
++    env \
++      XDG_DATA_DIRS="$XDG_DATA_DIRS:${shared-mime-info}/share" \
++      GTK_A11Y=none \
++      xvfb-run -s '-screen 0 800x600x24' dbus-run-session \
++        --config-file=${dbus}/share/dbus-1/session.conf \
++        meson test --no-rebuild --print-errorlogs
+ 
+     runHook postCheck
+   '';
+diff --git a/pkgs/development/libraries/libshumate/default.nix b/pkgs/development/libraries/libshumate/default.nix
+index 2d7e6c5fb7a..4164ef4a46f 100644
+--- a/pkgs/development/libraries/libshumate/default.nix
++++ b/pkgs/development/libraries/libshumate/default.nix
+@@ -61,7 +61,10 @@ stdenv.mkDerivation rec {
+   checkPhase = ''
+     runHook preCheck
+ 
+-    HOME=$TMPDIR xvfb-run meson test --print-errorlogs
++    env \
++      HOME="$TMPDIR" \
++      GTK_A11Y=none \
++      xvfb-run meson test --print-errorlogs
+ 
+     runHook postCheck
+   '';
