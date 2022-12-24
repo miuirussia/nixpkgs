@@ -458,6 +458,8 @@ with pkgs;
 
   dsq = callPackage ../tools/misc/dsq { };
 
+  dtv-scan-tables = callPackage ../data/misc/dtv-scan-tables { };
+
   dufs = callPackage ../servers/http/dufs {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -971,7 +973,8 @@ with pkgs;
   makeShellWrapper = makeSetupHook
     { deps = [ dieHook ];
       substitutions = {
-        shell = targetPackages.runtimeShell;
+        # targetPackages.runtimeShell only exists when pkgs == targetPackages (when targetPackages is not  __raw)
+        shell = if targetPackages ? runtimeShell then targetPackages.runtimeShell else throw "makeWrapper/makeShellWrapper must be in nativeBuildInputs";
       };
       passthru = {
         tests = tests.makeWrapper;
@@ -1078,6 +1081,8 @@ with pkgs;
   makeGCOVReport = makeSetupHook
     { deps = [ lcov enableGCOVInstrumentation ]; }
     ../build-support/setup-hooks/make-coverage-analysis-report.sh;
+
+  makeHardcodeGsettingsPatch = callPackage ../build-support/make-hardcode-gsettings-patch { };
 
   # intended to be used like nix-build -E 'with import <nixpkgs> {}; enableDebugging fooPackage'
   enableDebugging = pkg: pkg.override { stdenv = stdenvAdapters.keepDebugInfo pkg.stdenv; };
@@ -2195,7 +2200,14 @@ with pkgs;
     callPackage ../applications/emulators/retroarch/wrapper.nix
       { inherit retroarch; };
 
-  retroarch = wrapRetroArch { retroarch = retroarchBare; };
+  retroarch = wrapRetroArch {
+    retroarch = retroarchBare.override {
+      withAssets = true;
+      withCoreInfo = true;
+    };
+  };
+
+  retroarch-assets = callPackage ../applications/emulators/retroarch/retroarch-assets.nix { };
 
   libretro = recurseIntoAttrs
     (callPackage ../applications/emulators/retroarch/cores.nix {
@@ -6015,6 +6027,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
   };
 
+  cask-server = libsForQt5.callPackage ../applications/misc/cask-server { };
+
   code-browser-qt = libsForQt5.callPackage ../applications/editors/code-browser { withQt = true; };
   code-browser-gtk2 = callPackage ../applications/editors/code-browser { withGtk2 = true; };
   code-browser-gtk = callPackage ../applications/editors/code-browser { withGtk3 = true; };
@@ -9435,6 +9449,8 @@ with pkgs;
 
   mars-mips = callPackage ../development/tools/mars-mips { };
 
+  maui-shell = libsForQt5.callPackage ../applications/window-managers/maui-shell { };
+
   mawk = callPackage ../tools/text/mawk { };
 
   mb2md = callPackage ../tools/text/mb2md { };
@@ -10646,7 +10662,10 @@ with pkgs;
 
   plantuml-server = callPackage ../tools/misc/plantuml-server { };
 
-  plan9port = callPackage ../tools/system/plan9port { };
+  plan9port = darwin.apple_sdk_11_0.callPackage ../tools/system/plan9port {
+    inherit (darwin.apple_sdk_11_0.frameworks) Carbon Cocoa IOKit Metal QuartzCore;
+    inherit (darwin) DarwinTools;
+  };
 
   platformioPackages = dontRecurseIntoAttrs (callPackage ../development/embedded/platformio { });
   platformio = platformioPackages.platformio-chrootenv;
@@ -10758,6 +10777,8 @@ with pkgs;
   poly2tri-c = callPackage ../development/libraries/poly2tri-c { };
 
   polypane = callPackage ../applications/networking/browsers/polypane { };
+
+  pomsky = callPackage ../tools/text/pomsky { };
 
   ponysay = callPackage ../tools/misc/ponysay { };
 
@@ -13566,6 +13587,8 @@ with pkgs;
 
   fishPlugins = recurseIntoAttrs (callPackage ../shells/fish/plugins { });
 
+  fzf-git-sh = callPackage ../shells/fzf-git-sh {};
+
   ion = callPackage ../shells/ion {
     inherit (darwin) Security;
   };
@@ -15760,7 +15783,9 @@ with pkgs;
   mbqn = callPackage ../development/interpreters/bqn/mlochbaum-bqn { };
 
   cbqn = cbqn-bootstrap.phase2;
+  cbqn-replxx = cbqn-bootstrap.phase2-replxx;
   cbqn-standalone = cbqn-bootstrap.phase0;
+  cbqn-standalone-replxx = cbqn-bootstrap.phase0-replxx;
 
   # Below, the classic self-bootstrapping process
   cbqn-bootstrap = lib.dontRecurseIntoAttrs {
@@ -15785,6 +15810,14 @@ with pkgs;
       mbqn-source = null;
     };
 
+    phase0-replxx = callPackage ../development/interpreters/bqn/cbqn {
+      inherit (cbqn-bootstrap) stdenv;
+      genBytecode = false;
+      bqn-path = null;
+      mbqn-source = null;
+      enableReplxx = true;
+    };
+
     phase1 = callPackage ../development/interpreters/bqn/cbqn {
       inherit (cbqn-bootstrap) mbqn-source stdenv;
       genBytecode = true;
@@ -15795,6 +15828,13 @@ with pkgs;
       inherit (cbqn-bootstrap) mbqn-source stdenv;
       genBytecode = true;
       bqn-path = "${buildPackages.cbqn-bootstrap.phase1}/bin/cbqn";
+    };
+
+    phase2-replxx = callPackage ../development/interpreters/bqn/cbqn {
+      inherit (cbqn-bootstrap) mbqn-source stdenv;
+      genBytecode = true;
+      bqn-path = "${buildPackages.cbqn-bootstrap.phase1}/bin/cbqn";
+      enableReplxx = true;
     };
   };
 
@@ -16476,6 +16516,8 @@ with pkgs;
   refurb = callPackage ../development/tools/refurb { };
 
   srandrd = callPackage ../tools/X11/srandrd { };
+
+  sratoolkit = callPackage ../applications/science/biology/sratoolkit { };
 
   srecord = callPackage ../development/tools/misc/srecord { };
 
@@ -17440,6 +17482,8 @@ with pkgs;
   help2man = callPackage ../development/tools/misc/help2man { };
 
   heroku = callPackage ../development/tools/heroku { };
+
+  highlight-assertions = callPackage ../development/tools/misc/highlight-assertions { };
 
   ccloud-cli = callPackage ../development/tools/ccloud-cli { };
 
@@ -19560,7 +19604,7 @@ with pkgs;
   grpc = callPackage ../development/libraries/grpc {
     # grpc builds with c++17 so abseil must also be built that way
     abseil-cpp = abseil-cpp_202206.override {
-      cxxStandard = "17";
+      cxxStandard = grpc.cxxStandard;
     };
   };
 
@@ -24095,6 +24139,9 @@ with pkgs;
   micronaut = callPackage ../development/tools/micronaut {};
 
   minio = callPackage ../servers/minio { };
+  # Keep around to allow people to migrate their data from the old legacy fs format
+  # https://github.com/minio/minio/releases/tag/RELEASE.2022-10-29T06-21-33Z
+  minio_legacy_fs = callPackage ../servers/minio/legacy_fs.nix { };
 
   mkchromecast = libsForQt5.callPackage ../applications/networking/mkchromecast { };
 
@@ -24351,9 +24398,7 @@ with pkgs;
   mariadb-connector-c_3_1 = callPackage ../servers/sql/mariadb/connector-c/3_1.nix { };
   mariadb-connector-c_3_2 = callPackage ../servers/sql/mariadb/connector-c/3_2.nix { };
 
-  mariadb-galera = callPackage ../servers/sql/mariadb/galera {
-    asio = asio_1_10;
-  };
+  mariadb-galera = callPackage ../servers/sql/mariadb/galera { };
 
   inherit (import ../servers/sql/mariadb pkgs)
     mariadb_104
@@ -24409,11 +24454,18 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
   };
 
-  mongodb-6_0 = callPackage ../servers/nosql/mongodb/6.0.nix {
+  mongodb-6_0 = darwin.apple_sdk_11_0.callPackage ../servers/nosql/mongodb/6.0.nix {
     sasl = cyrus_sasl;
     boost = boost178.override { enableShared = false; };
     inherit (darwin) cctools;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
+    stdenv = if stdenv.isDarwin then
+      darwin.apple_sdk_11_0.stdenv.override (old: {
+        hostPlatform = old.hostPlatform // { darwinMinVersion = "10.14"; };
+        buildPlatform = old.buildPlatform // { darwinMinVersion = "10.14"; };
+        targetPlatform = old.targetPlatform // { darwinMinVersion = "10.14"; };
+      }) else
+      if stdenv.cc.isClang then llvmPackages.stdenv else stdenv;
   };
 
   nginx-sso = callPackage ../servers/nginx-sso { };
@@ -25443,6 +25495,8 @@ with pkgs;
   };
 
   osxsnarf = callPackage ../os-specific/darwin/osxsnarf { };
+
+  plistwatch = callPackage ../os-specific/darwin/plistwatch { };
 
   power-calibrate = callPackage ../os-specific/linux/power-calibrate { };
 
@@ -29575,6 +29629,8 @@ with pkgs;
 
   slack-term = callPackage ../applications/networking/instant-messengers/slack-term { };
 
+  slweb = callPackage ../applications/misc/slweb { };
+
   singularity = callPackage ../applications/virtualization/singularity { };
 
   sonixd = callPackage ../applications/audio/sonixd { };
@@ -30384,6 +30440,8 @@ with pkgs;
 
   lscolors = callPackage ../applications/misc/lscolors { };
 
+  lswt = callPackage ../applications/misc/lswt { };
+
   luddite = with python3Packages; toPythonApplication luddite;
 
   goobook = with python3Packages; toPythonApplication goobook;
@@ -30811,6 +30869,7 @@ with pkgs;
   mpvScripts = recurseIntoAttrs {
     autoload = callPackage ../applications/video/mpv/scripts/autoload.nix {};
     convert = callPackage ../applications/video/mpv/scripts/convert.nix {};
+    inhibit-gnome = callPackage ../applications/video/mpv/scripts/inhibit-gnome.nix {};
     mpris = callPackage ../applications/video/mpv/scripts/mpris.nix {};
     mpv-playlistmanager = callPackage ../applications/video/mpv/scripts/mpv-playlistmanager.nix {};
     mpvacious = callPackage ../applications/video/mpv/scripts/mpvacious.nix {};
@@ -30914,6 +30973,8 @@ with pkgs;
   novnc = callPackage ../applications/networking/novnc { };
 
   nwg-bar = callPackage ../applications/misc/nwg-bar { };
+
+  nwg-dock = callPackage ../applications/misc/nwg-dock { };
 
   nwg-drawer = callPackage ../applications/misc/nwg-drawer { };
 
@@ -33229,6 +33290,8 @@ with pkgs;
 
   cl-wordle = callPackage ../games/cl-wordle { };
 
+  wordbook = callPackage ../applications/misc/wordbook { };
+
   wordnet = callPackage ../applications/misc/wordnet {
     inherit (darwin.apple_sdk.frameworks) Cocoa;
   };
@@ -33931,6 +33994,8 @@ with pkgs;
   scaleway-cli = callPackage ../tools/admin/scaleway-cli { };
 
   beancount = with python3.pkgs; toPythonApplication beancount;
+
+  beancount-black = with python3.pkgs; toPythonApplication beancount-black;
 
   beancount-language-server = callPackage ../development/tools/beancount-language-server {};
 
@@ -37231,7 +37296,9 @@ with pkgs;
 
   sticky = callPackage ../applications/misc/sticky { };
 
-  stork = callPackage ../applications/misc/stork { };
+  stork = darwin.apple_sdk_11_0.callPackage ../applications/misc/stork {
+    inherit (darwin.apple_sdk_11_0.frameworks) Security;
+  };
 
   superd = callPackage ../misc/superd { };
 
