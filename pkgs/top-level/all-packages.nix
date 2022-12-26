@@ -320,8 +320,6 @@ with pkgs;
 
   buf = callPackage ../development/tools/buf { };
 
-  buf-language-server = callPackage ../development/tools/buf-language-server { };
-
   cbfmt = callPackage ../development/tools/cbfmt { };
 
   cfn-nag = callPackage ../development/tools/cfn-nag { };
@@ -2696,6 +2694,8 @@ with pkgs;
   azure-cli = callPackage ../tools/admin/azure-cli { };
 
   azure-functions-core-tools = callPackage ../development/tools/azure-functions-core-tools { };
+
+  azure-static-sites-client = callPackage ../development/tools/azure-static-sites-client { };
 
   azure-storage-azcopy = callPackage ../development/tools/azcopy { };
 
@@ -5098,7 +5098,7 @@ with pkgs;
 
   nixel = callPackage ../tools/nix/nixel { };
 
-  nix-output-monitor = callPackage ../tools/nix/nix-output-monitor { haskellPackages = haskell.packages.ghc92; };
+  nix-output-monitor = callPackage ../tools/nix/nix-output-monitor { };
 
   nix-template = callPackage ../tools/package-management/nix-template {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -7853,9 +7853,7 @@ with pkgs;
 
   gvolicon = callPackage ../tools/audio/gvolicon {};
 
-  gvproxy = callPackage ../tools/networking/gvproxy {
-    buildGoModule = buildGo118Module; # fails to build with 1.19
-  };
+  gvproxy = callPackage ../tools/networking/gvproxy { };
 
   gzip = callPackage ../tools/compression/gzip { };
 
@@ -9857,9 +9855,6 @@ with pkgs;
 
   ngrep = callPackage ../tools/networking/ngrep { };
 
-  neuron-notes = haskell.lib.compose.justStaticExecutables
-    (haskellPackages.generateOptparseApplicativeCompletions [ "neuron" ] haskellPackages.neuron);
-
   ngrok = callPackage ../tools/networking/ngrok { };
 
   nifi = callPackage ../servers/web-apps/nifi { };
@@ -10464,10 +10459,6 @@ with pkgs;
   perceptualdiff = callPackage ../tools/graphics/perceptualdiff { };
 
   percona-xtrabackup = percona-xtrabackup_8_0;
-  percona-xtrabackup_2_4 = callPackage ../tools/backup/percona-xtrabackup/2_4.nix {
-    boost = boost159;
-    openssl = openssl_1_1;
-  };
   percona-xtrabackup_8_0 = callPackage ../tools/backup/percona-xtrabackup/8_0.nix {
     boost = boost177;
     openssl = openssl_1_1;
@@ -11249,6 +11240,8 @@ with pkgs;
 
   rhash = callPackage ../tools/security/rhash { };
 
+  rhoas = callPackage ../tools/admin/rhoas { };
+
   riemann_c_client = callPackage ../tools/misc/riemann-c-client { };
   riemann-tools = callPackage ../tools/misc/riemann-tools { };
 
@@ -11892,7 +11885,7 @@ with pkgs;
 
   squashfsTools = callPackage ../tools/filesystems/squashfs { };
 
-  squashfs-tools-ng = callPackage ../tools/filesystems/squashfs-tools-ng { };
+  squashfs-tools-ng = darwin.apple_sdk_11_0.callPackage ../tools/filesystems/squashfs-tools-ng { };
 
   squashfuse = callPackage ../tools/filesystems/squashfuse { };
 
@@ -12117,6 +12110,8 @@ with pkgs;
   tarsnap = callPackage ../tools/backup/tarsnap { };
 
   tarsnapper = callPackage ../tools/backup/tarsnapper { };
+
+  tarantool = callPackage ../servers/tarantool { };
 
   tarssh = callPackage ../servers/tarssh { };
 
@@ -12679,8 +12674,6 @@ with pkgs;
 
   verco = callPackage ../applications/version-management/verco { };
 
-  verible = callPackage ../development/tools/verible { };
-
   verilator = callPackage ../applications/science/electronics/verilator {};
 
   verilog = callPackage ../applications/science/electronics/verilog {
@@ -13098,6 +13091,8 @@ with pkgs;
   urlhunter = callPackage ../tools/security/urlhunter { };
 
   urlwatch = callPackage ../tools/networking/urlwatch { };
+
+  vals = callPackage ../tools/security/vals { };
 
   valum = callPackage ../development/web/valum { };
 
@@ -14448,12 +14443,12 @@ with pkgs;
 
   gnu-smalltalk = callPackage ../development/compilers/gnu-smalltalk { };
 
-  gccgo = gccgo6;
-  gccgo6 = wrapCC (gcc6.cc.override {
-    name = "gccgo6";
+  gccgo = wrapCC (gcc.cc.override {
+    name = "gccgo";
     langCC = true; #required for go.
     langC = true;
     langGo = true;
+    langJit = true;
     profiledCompiler = false;
   });
 
@@ -14505,13 +14500,11 @@ with pkgs;
 
   haskell = callPackage ./haskell-packages.nix { };
 
-  # Please update doc/languages-frameworks/haskell.section.md, “Our
-  # current default compiler is”, if you bump this:
   haskellPackages = dontRecurseIntoAttrs
     # Prefer native-bignum to avoid linking issues with gmp
     (if stdenv.hostPlatform.isStatic
-       then haskell.packages.native-bignum.ghc90
-       else haskell.packages.ghc90);
+       then haskell.packages.native-bignum.ghc92
+       else haskell.packages.ghc92);
 
   # haskellPackages.ghc is build->host (it exposes the compiler used to build the
   # set, similarly to stdenv.cc), but pkgs.ghc should be host->target to be more
@@ -14524,8 +14517,8 @@ with pkgs;
   ghc = targetPackages.haskellPackages.ghc or
     # Prefer native-bignum to avoid linking issues with gmp
     (if stdenv.targetPlatform.isStatic
-       then haskell.compiler.native-bignum.ghc90
-       else haskell.compiler.ghc90);
+       then haskell.compiler.native-bignum.ghc92
+       else haskell.compiler.ghc92);
 
   cabal-install = haskell.lib.compose.justStaticExecutables haskellPackages.cabal-install;
 
@@ -14836,8 +14829,6 @@ with pkgs;
   kotlin = callPackage ../development/compilers/kotlin { };
   kotlin-native = callPackage ../development/compilers/kotlin/native.nix { };
 
-  kotlin-language-server = callPackage ../development/tools/kotlin-language-server {};
-
   lazarus = callPackage ../development/compilers/fpc/lazarus.nix {
     fpc = fpc;
   };
@@ -15003,8 +14994,6 @@ with pkgs;
   mercury = callPackage ../development/compilers/mercury { };
 
   microscheme = callPackage ../development/compilers/microscheme { };
-
-  millet = callPackage ../development/tools/millet {};
 
   mint = callPackage ../development/compilers/mint { };
 
@@ -15413,6 +15402,7 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
   cargo-modules = callPackage ../development/tools/rust/cargo-modules { };
+  cargo-mommy = callPackage ../development/tools/rust/cargo-mommy { };
   cargo-msrv = callPackage ../development/tools/rust/cargo-msrv {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -15425,9 +15415,7 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
   cargo-readme = callPackage ../development/tools/rust/cargo-readme {};
-  cargo-semver-checks = callPackage ../development/tools/rust/cargo-semver-checks {
-    inherit (darwin.apple_sdk.frameworks) Security;
-  };
+  cargo-semver-checks = callPackage ../development/tools/rust/cargo-semver-checks { };
 
   cargo-show-asm = callPackage ../development/tools/rust/cargo-show-asm { };
 
@@ -15558,7 +15546,6 @@ with pkgs;
     coursier = coursier.override { jre = jdk8; };
   };
 
-  metals = callPackage ../development/tools/metals { };
   scalafix = callPackage ../development/tools/scalafix {
     jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
@@ -16584,7 +16571,47 @@ with pkgs;
 
   ansible-doctor = with python3.pkgs; toPythonApplication ansible-doctor;
 
-  ansible-language-server = callPackage ../development/tools/ansible-language-server { };
+  ### DEVELOPMENT / TOOLS / LANGUAGE-SERVERS
+
+  ansible-language-server = callPackage ../development/tools/language-servers/ansible-language-server { };
+
+  beancount-language-server = callPackage ../development/tools/language-servers/beancount-language-server { };
+
+  buf-language-server = callPackage ../development/tools/language-servers/buf-language-server { };
+
+  ccls = callPackage ../development/tools/language-servers/ccls {
+    llvmPackages = llvmPackages_latest;
+  };
+
+  fortls = python3.pkgs.callPackage ../development/tools/language-servers/fortls { };
+
+  fortran-language-server = python3.pkgs.callPackage ../development/tools/language-servers/fortran-language-server { };
+
+  gopls = callPackage ../development/tools/language-servers/gopls { };
+
+  jdt-language-server = callPackage ../development/tools/language-servers/jdt-language-server { };
+
+  jsonnet-language-server = callPackage ../development/tools/language-servers/jsonnet-language-server { };
+
+  kotlin-language-server = callPackage ../development/tools/language-servers/kotlin-language-server { };
+
+  metals = callPackage ../development/tools/language-servers/metals { };
+
+  millet = callPackage ../development/tools/language-servers/millet { };
+
+  nil = callPackage ../development/tools/language-servers/nil { };
+
+  rnix-lsp = callPackage ../development/tools/language-servers/rnix-lsp { nix = nixVersions.nix_2_9; };
+
+  sumneko-lua-language-server = darwin.apple_sdk_11_0.callPackage ../development/tools/language-servers/sumneko-lua-language-server {
+    inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation Foundation;
+  };
+
+  svls = callPackage ../development/tools/language-servers/svls { };
+
+  vala-language-server = callPackage ../development/tools/language-servers/vala-language-server { };
+
+  verible = callPackage ../development/tools/language-servers/verible { };
 
   ansible-later = with python3.pkgs; toPythonApplication ansible-later;
 
@@ -17072,10 +17099,6 @@ with pkgs;
 
   cpplint = callPackage ../development/tools/analysis/cpplint { };
 
-  ccls = callPackage ../development/tools/misc/ccls {
-    llvmPackages = llvmPackages_latest;
-  };
-
   credstash = with python3Packages; toPythonApplication credstash;
 
   creduce = callPackage ../development/tools/misc/creduce {
@@ -17314,8 +17337,6 @@ with pkgs;
   goreman = callPackage ../tools/system/goreman { };
 
   fprettify = callPackage ../development/tools/fprettify { };
-
-  fortran-language-server = python3.pkgs.callPackage ../development/tools/fortran-language-server { };
 
   framac = callPackage ../development/tools/analysis/frama-c { };
 
@@ -17749,8 +17770,6 @@ with pkgs;
 
   nap = callPackage ../development/tools/nap { };
 
-  nil = callPackage ../development/tools/nil { };
-
   ninja = callPackage ../development/tools/build-managers/ninja { };
 
   nimbo = with python3Packages; callPackage ../applications/misc/nimbo { };
@@ -17996,8 +18015,6 @@ with pkgs;
 
   rman = callPackage ../development/tools/misc/rman { };
 
-  rnix-lsp = callPackage ../development/tools/rnix-lsp { nix = nixVersions.nix_2_9; };
-
   rnginline = with python3Packages; toPythonApplication rnginline;
 
   rolespec = callPackage ../development/tools/misc/rolespec { };
@@ -18174,8 +18191,6 @@ with pkgs;
 
   svlint = callPackage ../development/tools/analysis/svlint { };
 
-  svls = callPackage ../development/tools/misc/svls { };
-
   swarm = callPackage ../development/tools/analysis/swarm { };
 
   swiftformat = callPackage ../development/tools/swiftformat { };
@@ -18301,8 +18316,6 @@ with pkgs;
   unused = callPackage ../development/tools/misc/unused { };
 
   vagrant = callPackage ../development/tools/vagrant {};
-
-  vala-language-server = callPackage ../development/tools/vala-language-server {};
 
   bashdb = callPackage ../development/tools/misc/bashdb { };
 
@@ -18992,6 +19005,7 @@ with pkgs;
   driversi686Linux = recurseIntoAttrs {
     inherit (pkgsi686Linux)
       amdvlk
+      intel-media-driver
       mesa
       vaapiIntel
       libvdpau-va-gl
@@ -20089,8 +20103,6 @@ with pkgs;
   jsonnet = callPackage ../development/compilers/jsonnet { };
 
   jsonnet-bundler = callPackage ../development/tools/jsonnet-bundler { };
-
-  jsonnet-language-server = callPackage ../development/tools/jsonnet-language-server { };
 
   jrsonnet = callPackage ../development/compilers/jrsonnet { };
 
@@ -22884,27 +22896,6 @@ with pkgs;
 
   sqlite-jdbc = callPackage ../servers/sql/sqlite/jdbc { };
 
-  sqlite-replication = sqlite.overrideAttrs (oldAttrs: rec {
-    name = "sqlite-${version}";
-    version = "3.27.2+replication3";
-    src = fetchFromGitHub {
-      owner = "CanonicalLtd";
-      repo = "sqlite";
-      rev = "version-${version}";
-      sha256 = "1aw1naa5y25ial251f74h039pgcz92p4b3994jvfzqpjlz06qwvw";
-    };
-    nativeBuildInputs = [ tcl ];
-    configureFlags = oldAttrs.configureFlags ++ [
-      "--enable-replication"
-      "--disable-amalgamation"
-      "--disable-tcl"
-    ];
-    preConfigure = ''
-      echo "D 2019-03-09T15:45:46" > manifest
-      echo -n "8250984a368079bb1838d48d99f8c1a6282e00bc" > manifest.uuid
-    '';
-  });
-
   dqlite = callPackage ../development/libraries/dqlite { };
 
   sqlcipher = callPackage ../development/libraries/sqlcipher { };
@@ -23717,8 +23708,8 @@ with pkgs;
     mod_tile = callPackage ../servers/http/apache-modules/mod_tile { };
 
     mod_wsgi  = self.mod_wsgi2;
-    mod_wsgi2 = callPackage ../servers/http/apache-modules/mod_wsgi { python = python2; ncurses = null; };
-    mod_wsgi3 = callPackage ../servers/http/apache-modules/mod_wsgi { python = python3; };
+    mod_wsgi2 = throw "mod_wsgi2 has been removed since Python 2 is EOL. Use mod_wsgi3 instead";
+    mod_wsgi3 = callPackage ../servers/http/apache-modules/mod_wsgi { };
 
     mod_itk = callPackage ../servers/http/apache-modules/mod_itk { };
 
@@ -25864,8 +25855,6 @@ with pkgs;
 
   gomodifytags = callPackage ../development/tools/gomodifytags { };
 
-  gopls = callPackage ../development/tools/gopls { };
-
   gops = callPackage ../development/tools/gops { };
 
   gore = callPackage ../development/tools/gore { };
@@ -26078,6 +26067,8 @@ with pkgs;
   setools = callPackage ../os-specific/linux/setools { };
 
   seturgent = callPackage ../os-specific/linux/seturgent { };
+
+  sgx-azure-dcap-client = callPackage ../os-specific/linux/sgx/azure-dcap-client { };
 
   sgx-sdk = callPackage ../os-specific/linux/sgx/sdk { };
 
@@ -26648,6 +26639,8 @@ with pkgs;
   flat-remix-gtk = callPackage ../data/themes/flat-remix-gtk { };
   flat-remix-gnome = callPackage ../data/themes/flat-remix-gnome { };
 
+  fluent-gtk-theme = callPackage ../data/themes/fluent-gtk-theme { };
+
   fluent-icon-theme = callPackage ../data/icons/fluent-icon-theme { };
 
   font-awesome_4 = (callPackage ../data/fonts/font-awesome { }).v4;
@@ -26767,8 +26760,6 @@ with pkgs;
   ipaexfont = callPackage ../data/fonts/ipaexfont {};
 
   iwona = callPackage ../data/fonts/iwona { };
-
-  jdt-language-server = callPackage ../development/tools/jdt-language-server {};
 
   jetbrains-mono = callPackage ../data/fonts/jetbrains-mono { };
 
@@ -27734,6 +27725,8 @@ with pkgs;
   avizo = callPackage ../applications/misc/avizo { };
 
   avocode = callPackage ../applications/graphics/avocode {};
+
+  ax25-tools = callPackage ../applications/radio/ax25-tools {};
 
   azpainter = callPackage ../applications/graphics/azpainter { };
 
@@ -32907,8 +32900,8 @@ with pkgs;
 
   vdpauinfo = callPackage ../tools/X11/vdpauinfo { };
 
-  vengi-tools = callPackage ../applications/graphics/vengi-tools {
-    inherit (darwin.apple_sdk.frameworks) Carbon CoreServices OpenCL;
+  vengi-tools = darwin.apple_sdk_11_0.callPackage ../applications/graphics/vengi-tools {
+    inherit (darwin.apple_sdk_11_0.frameworks) Carbon CoreServices OpenCL;
   };
 
   verbiste = callPackage ../applications/misc/verbiste {
@@ -33998,8 +33991,6 @@ with pkgs;
   beancount = with python3.pkgs; toPythonApplication beancount;
 
   beancount-black = with python3.pkgs; toPythonApplication beancount-black;
-
-  beancount-language-server = callPackage ../development/tools/beancount-language-server {};
 
   bean-add = callPackage ../applications/office/beancount/bean-add.nix { };
 
@@ -37540,10 +37531,6 @@ with pkgs;
   streamripper = callPackage ../applications/audio/streamripper { };
 
   sqsh = callPackage ../development/tools/sqsh { };
-
-  sumneko-lua-language-server = darwin.apple_sdk_11_0.callPackage ../development/tools/sumneko-lua-language-server {
-    inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation Foundation;
-  };
 
   sysz = callPackage  ../tools/misc/sysz { };
 

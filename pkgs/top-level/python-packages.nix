@@ -1443,6 +1443,8 @@ self: super: with self; {
 
   btrfsutil = callPackage ../development/python-modules/btrfsutil { };
 
+  btsmarthub_devicelist = callPackage ../development/python-modules/btsmarthub_devicelist { };
+
   btsocket = callPackage ../development/python-modules/btsocket { };
 
   bucketstore = callPackage ../development/python-modules/bucketstore { };
@@ -2492,6 +2494,8 @@ self: super: with self; {
   django-celery-beat = callPackage ../development/python-modules/django-celery-beat { };
 
   django-celery-email = callPackage ../development/python-modules/django-celery-email { };
+
+  django-celery-results = callPackage ../development/python-modules/django-celery-results { };
 
   django_classytags = callPackage ../development/python-modules/django_classytags { };
 
@@ -5890,6 +5894,8 @@ self: super: with self; {
 
   mongoengine = callPackage ../development/python-modules/mongoengine { };
 
+  mongoquery = callPackage ../development/python-modules/mongoquery { };
+
   monkeyhex = callPackage ../development/python-modules/monkeyhex { };
 
   monosat = pkgs.monosat.python {
@@ -6661,6 +6667,8 @@ self: super: with self; {
   packbits = callPackage ../development/python-modules/packbits { };
 
   packet-python = callPackage ../development/python-modules/packet-python { };
+
+  packvers = callPackage ../development/python-modules/packvers { };
 
   pafy = callPackage ../development/python-modules/pafy { };
 
