@@ -5595,6 +5595,8 @@ with pkgs;
 
   bfs = callPackage ../tools/system/bfs { };
 
+  bevelbar = callPackage ../tools/X11/bevelbar { };
+
   bgs = callPackage ../tools/X11/bgs { };
 
   bibclean = callPackage ../tools/typesetting/bibclean { };
@@ -7468,6 +7470,8 @@ with pkgs;
   git-latexdiff = callPackage ../tools/typesetting/git-latexdiff { };
 
   gitea = callPackage ../applications/version-management/gitea { };
+
+  forgejo = callPackage ../applications/version-management/forgejo {};
 
   gokart = callPackage ../development/tools/gokart { };
 
@@ -11727,7 +11731,8 @@ with pkgs;
 
   snallygaster = callPackage ../tools/security/snallygaster { };
 
-  snapcast = callPackage ../applications/audio/snapcast {
+  snapcast = darwin.apple_sdk_11_0.callPackage ../applications/audio/snapcast {
+    inherit (darwin.apple_sdk_11_0.frameworks) IOKit AudioToolbox;
     pulseaudioSupport = config.pulseaudio or stdenv.isLinux;
   };
 
@@ -12637,6 +12642,8 @@ with pkgs;
   v2ray-geoip = callPackage ../data/misc/v2ray-geoip { };
 
   vacuum = callPackage ../applications/networking/instant-messengers/vacuum {};
+
+  validator-nu = callPackage ../tools/text/validator-nu { };
 
   vampire = callPackage ../applications/science/logic/vampire {};
 
@@ -14043,7 +14050,7 @@ with pkgs;
   # This is not intended for use in nixpkgs but for providing a faster-running
   # compiler to nixpkgs users by building gcc with reproducibility-breaking
   # profile-guided optimizations
-  fastStdenv = overrideCC gccStdenv (wrapNonDeterministicGcc gccStdenv buildPackages.gcc10);
+  fastStdenv = overrideCC gccStdenv (wrapNonDeterministicGcc gccStdenv buildPackages.gcc_latest);
 
   wrapCCMulti = cc:
     if stdenv.targetPlatform.system == "x86_64-linux" then let
@@ -20058,11 +20065,11 @@ with pkgs;
     nodejs = nodejs-14_x;
   };
 
-  itk_5 = callPackage ../development/libraries/itk/5.x.nix {
+  itk_5_2 = callPackage ../development/libraries/itk/5.2.x.nix {
     inherit (darwin.apple_sdk.frameworks) Cocoa;
   };
 
-  itk-unstable = callPackage ../development/libraries/itk/unstable.nix {
+  itk_5 = callPackage ../development/libraries/itk/5.x.nix {
     inherit (darwin.apple_sdk.frameworks) Cocoa;
   };
 
@@ -23672,6 +23679,8 @@ with pkgs;
 
   alerta-server = callPackage ../servers/monitoring/alerta { };
 
+  allmark = callPackage ../servers/allmark {};
+
   alps = callPackage ../servers/alps { };
 
   apache-directory-server = callPackage ../servers/ldap/apache-directory-server {};
@@ -25537,7 +25546,7 @@ with pkgs;
   linuxPackages_custom_tinyconfig_kernel = let
     base = linuxPackages.kernel;
     tinyLinuxPackages = linuxKernel.customPackage {
-      inherit (base) version src;
+      inherit (base) version modDirVersion src;
       allowImportFromDerivation = false;
       configfile = linuxConfig {
         makeTarget = "tinyconfig";
@@ -27828,8 +27837,6 @@ with pkgs;
     enableVST2 = true;
   };
 
-  bevelbar = callPackage ../applications/window-managers/bevelbar { };
-
   bfcal = libsForQt5.callPackage ../applications/misc/bfcal { };
 
   bibletime = libsForQt5.callPackage ../applications/misc/bibletime { };
@@ -28440,7 +28447,7 @@ with pkgs;
 
   electrum = libsForQt5.callPackage ../applications/misc/electrum { };
 
-  electrum-grs = libsForQt5.callPackage ../applications/misc/electrum-grs { };
+  electrum-grs = libsForQt5.callPackage ../applications/misc/electrum/grs.nix { };
 
   electrum-ltc = libsForQt5.callPackage ../applications/misc/electrum/ltc.nix { };
 
@@ -30551,7 +30558,9 @@ with pkgs;
 
   media-downloader = callPackage ../applications/video/media-downloader { };
 
-  mediaelch = libsForQt5.callPackage ../applications/misc/mediaelch { };
+  mediaelch = mediaelch-qt5;
+  mediaelch-qt5 = libsForQt5.callPackage ../applications/misc/mediaelch { };
+  mediaelch-qt6 = qt6Packages.callPackage ../applications/misc/mediaelch { };
 
   mediainfo = callPackage ../applications/misc/mediainfo { };
 
@@ -34685,6 +34694,8 @@ with pkgs;
   naev = callPackage ../games/naev { };
 
   nanosaur = callPackage ../games/nanosaur { };
+
+  nanosaur2 = callPackage ../games/nanosaur2 { };
 
   nethack = callPackage ../games/nethack { };
 

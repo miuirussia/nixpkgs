@@ -201,6 +201,7 @@
   ./programs/nbd.nix
   ./programs/neovim.nix
   ./programs/nethoscope.nix
+  ./programs/nix-index.nix
   ./programs/nix-ld.nix
   ./programs/nm-applet.nix
   ./programs/nncp.nix
@@ -244,6 +245,7 @@
   ./programs/waybar.nix
   ./programs/weylus.nix
   ./programs/wireshark.nix
+  ./programs/xastir.nix
   ./programs/wshowkeys.nix
   ./programs/xfconf.nix
   ./programs/xfs_quota.nix
