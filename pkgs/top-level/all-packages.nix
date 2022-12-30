@@ -2175,9 +2175,7 @@ with pkgs;
 
   ares = darwin.apple_sdk_11_0.callPackage ../applications/emulators/bsnes/ares { };
 
-  bsnes-hd = callPackage ../applications/emulators/bsnes/bsnes-hd {
-    inherit (darwin.apple_sdk.frameworks) Cocoa OpenAL;
-  };
+  bsnes-hd = darwin.apple_sdk_11_0.callPackage ../applications/emulators/bsnes/bsnes-hd { };
 
   higan = callPackage ../applications/emulators/bsnes/higan { };
 
@@ -4775,7 +4773,9 @@ with pkgs;
 
   hunt = callPackage ../tools/misc/hunt { };
 
-  hypr = callPackage ../applications/window-managers/hyprwm/hypr { };
+  hypr = callPackage ../applications/window-managers/hyprwm/hypr {
+    cairo = cairo.override { xcbSupport = true; };
+  };
 
   hyprland = callPackage ../applications/window-managers/hyprwm/hyprland {
     stdenv = gcc11Stdenv;
@@ -8654,9 +8654,7 @@ with pkgs;
 
   kubergrunt = callPackage ../applications/networking/cluster/kubergrunt { };
 
-  kubo = callPackage ../applications/networking/kubo {
-    openssl = openssl_1_1;
-  };
+  kubo = callPackage ../applications/networking/kubo { };
 
   kubo-migrator-all-fs-repo-migrations = callPackage ../applications/networking/kubo-migrator/all-migrations.nix { };
   kubo-migrator-unwrapped = callPackage ../applications/networking/kubo-migrator/unwrapped.nix { };
@@ -8888,7 +8886,6 @@ with pkgs;
 
   mdbook-plantuml = callPackage ../tools/text/mdbook-plantuml {
     inherit (darwin.apple_sdk.frameworks) CoreServices;
-    openssl = openssl_1_1;
   };
 
   mdbook-admonish = callPackage ../tools/text/mdbook-admonish {
@@ -11077,6 +11074,8 @@ with pkgs;
 
   quilt = callPackage ../development/tools/quilt { };
 
+  raider = callPackage ../applications/misc/raider { };
+
   railway = callPackage ../development/tools/railway { };
 
   quota = if stdenv.isLinux then linuxquota else unixtools.quota;
@@ -11692,6 +11691,8 @@ with pkgs;
   };
 
   skydns = callPackage ../servers/skydns { };
+
+  sing-box = callPackage ../tools/networking/sing-box { };
 
   sipcalc = callPackage ../tools/networking/sipcalc { };
 
@@ -15079,7 +15080,7 @@ with pkgs;
 
   muonlang = callPackage ../development/compilers/muonlang { };
 
-  inherit (callPackages ../development/compilers/nim { openssl = openssl_1_1; })
+  inherit (callPackages ../development/compilers/nim { })
     nim-unwrapped nimble-unwrapped nim;
   nimPackages = recurseIntoAttrs nim.pkgs;
 
@@ -15880,7 +15881,7 @@ with pkgs;
     # On newer readline8 fails as:
     #  #<FOREIGN-VARIABLE "rl_readline_state" #x...>
     #   does not have the required size or alignment
-    readline = readline6;
+    readline = readline63;
   };
 
   clisp-tip = callPackage ../development/interpreters/clisp/hg.nix { };
@@ -16025,6 +16026,7 @@ with pkgs;
   lua51Packages = recurseIntoAttrs lua5_1.pkgs;
   lua52Packages = recurseIntoAttrs lua5_2.pkgs;
   lua53Packages = recurseIntoAttrs lua5_3.pkgs;
+  lua54Packages = recurseIntoAttrs lua5_4.pkgs;
   luajitPackages = recurseIntoAttrs luajit.pkgs;
 
   luaPackages = lua52Packages;
@@ -16536,9 +16538,7 @@ with pkgs;
 
   srelay = callPackage ../tools/networking/srelay { };
 
-  xidel = callPackage ../tools/text/xidel {
-    openssl = openssl_1_1;
-  };
+  xidel = callPackage ../tools/text/xidel { };
 
   asdf-vm = callPackage ../tools/misc/asdf-vm { };
 
@@ -18753,9 +18753,7 @@ with pkgs;
     openssl = openssl_1_1;
   };
 
-  nfd = callPackage ../servers/nfd {
-    openssl = openssl_1_1;
-  };
+  nfd = callPackage ../servers/nfd { };
 
   cddlib = callPackage ../development/libraries/cddlib {};
 
@@ -21263,9 +21261,7 @@ with pkgs;
 
   libstroke = callPackage ../development/libraries/libstroke { };
 
-  libstrophe = callPackage ../development/libraries/libstrophe {
-    openssl = openssl_1_1;
-  };
+  libstrophe = callPackage ../development/libraries/libstrophe { };
 
   libspatialaudio = callPackage ../development/libraries/libspatialaudio { };
 
@@ -22422,7 +22418,6 @@ with pkgs;
 
   quill = callPackage ../tools/security/quill {
     inherit (darwin.apple_sdk.frameworks) Security;
-    openssl = openssl_1_1;
   };
 
   qv2ray = libsForQt5.callPackage ../applications/networking/qv2ray {};
@@ -22455,7 +22450,6 @@ with pkgs;
   raylib = callPackage ../development/libraries/raylib { };
 
   readline = readline81;
-  readline6 = readline63;
 
   readline63 = callPackage ../development/libraries/readline/6.3.nix { };
 
@@ -24110,9 +24104,7 @@ with pkgs;
     nodejs = nodejs-14_x;
   };
 
-  lighttpd = callPackage ../servers/http/lighttpd {
-    openssl = openssl_1_1;
-  };
+  lighttpd = callPackage ../servers/http/lighttpd { };
 
   listmonk = callPackage ../servers/mail/listmonk { };
 
@@ -27736,8 +27728,8 @@ with pkgs;
   };
   audaciousQt5 = audacious;
 
-  audacity = callPackage ../applications/audio/audacity {
-    inherit (darwin.apple_sdk.frameworks) AppKit AudioToolbox AudioUnit Carbon CoreAudio CoreAudioKit CoreServices;
+  audacity = darwin.apple_sdk_11_0.callPackage ../applications/audio/audacity {
+    inherit (darwin.apple_sdk_11_0.frameworks) AppKit CoreAudioKit;
   };
 
   audio-recorder = callPackage ../applications/audio/audio-recorder { };
@@ -31390,6 +31382,8 @@ with pkgs;
     vm = callPackage ../applications/audio/open-music-kontrollers/vm.nix { };
   };
 
+  openrsync = darwin.apple_sdk_11_0.callPackage ../applications/networking/sync/openrsync { };
+
   openscad = libsForQt5.callPackage ../applications/graphics/openscad {};
 
   open-stage-control = callPackage ../applications/audio/open-stage-control { };
@@ -31711,6 +31705,8 @@ with pkgs;
   };
 
   premid = callPackage ../applications/misc/premid { };
+
+  process-cpp = callPackage ../development/libraries/process-cpp { };
 
   processing = callPackage ../applications/graphics/processing {
     jdk = oraclejdk8;
@@ -34149,6 +34145,8 @@ with pkgs;
   openrct2 = callPackage ../games/openrct2 { };
 
   osu-lazer = callPackage ../games/osu-lazer { };
+
+  osu-lazer-bin = callPackage ../games/osu-lazer-bin { };
 
   pro-office-calculator = libsForQt5.callPackage ../games/pro-office-calculator { };
 
