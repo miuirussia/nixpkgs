@@ -357,10 +357,7 @@ with pkgs;
 
   castget = callPackage ../applications/networking/feedreaders/castget { };
 
-  castxml = callPackage ../development/tools/castxml {
-    inherit (llvmPackages) libclang llvm;
-    inherit (python3.pkgs) sphinx;
-  };
+  castxml = callPackage ../development/tools/castxml { };
 
   catatonit = callPackage ../applications/virtualization/catatonit { };
 
@@ -2068,13 +2065,6 @@ with pkgs;
   melonDS = libsForQt5.callPackage ../applications/emulators/melonDS { };
 
   mgba = callPackage ../applications/emulators/mgba {
-    ffmpeg = ffmpeg_4;
-    lua = lua5_4;
-    inherit (libsForQt5)
-      qtbase
-      qtmultimedia
-      qttools
-      wrapQtAppsHook;
   };
 
   mupen64plus = callPackage ../applications/emulators/mupen64plus { };
@@ -4928,6 +4918,8 @@ with pkgs;
 
   linuxptp = callPackage ../os-specific/linux/linuxptp { };
 
+  linuxdoc-tools = callPackage ../tools/text/sgml/linuxdoc-tools { };
+
   lisgd = callPackage ../tools/inputmethods/lisgd { };
 
   lite = callPackage ../applications/editors/lite { };
@@ -6850,6 +6842,8 @@ with pkgs;
   embree = callPackage ../development/libraries/embree { };
   embree2 = callPackage ../development/libraries/embree/2.x.nix { };
 
+  emborg = python3Packages.callPackage ../development/python-modules/emborg { };
+
   emem = callPackage ../applications/misc/emem { };
 
   empty = callPackage ../tools/misc/empty { };
@@ -7361,9 +7355,12 @@ with pkgs;
 
   gaphor = python3Packages.callPackage ../tools/misc/gaphor { };
 
-  garage = callPackage ../tools/filesystems/garage {
+  inherit (callPackage ../tools/filesystems/garage {
     inherit (darwin.apple_sdk.frameworks) Security;
-  };
+  })
+    garage
+      garage_0_7 garage_0_8
+      garage_0_7_3 garage_0_8_0;
 
   garmin-plugin = callPackage ../applications/misc/garmin-plugin {};
 
@@ -12020,6 +12017,8 @@ with pkgs;
   strongswanTNC = strongswan.override { enableTNC = true; };
   strongswanNM  = strongswan.override { enableNetworkManager = true; };
 
+  stylish = callPackage ../applications/misc/stylish { };
+
   stylish-haskell = haskell.lib.compose.justStaticExecutables haskellPackages.stylish-haskell;
 
   su = shadow.su;
@@ -12541,7 +12540,7 @@ with pkgs;
 
   twurl = callPackage ../tools/misc/twurl { };
 
-  txr = callPackage ../tools/misc/txr { inherit (llvmPackages_latest) stdenv; };
+  txr = callPackage ../tools/text/txr { };
 
   txt2man = callPackage ../tools/misc/txt2man { };
 
@@ -13091,6 +13090,8 @@ with pkgs;
   ugarit-manifest-maker = callPackage ../tools/backup/ugarit-manifest-maker {
     inherit (chickenPackages_4) eggDerivation fetchegg;
   };
+
+  ulogd = callPackage ../os-specific/linux/ulogd { };
 
   unar = callPackage ../tools/archivers/unar {
     inherit (darwin.apple_sdk.frameworks) Foundation AppKit;
@@ -16018,7 +16019,7 @@ with pkgs;
 
   ### LUA interpreters
   luaInterpreters = callPackage ./../development/interpreters/lua-5 {};
-  inherit (luaInterpreters) lua5_1 lua5_2 lua5_2_compat lua5_3 lua5_3_compat lua5_4 lua5_4_compat luajit_2_1 luajit_2_0;
+  inherit (luaInterpreters) lua5_1 lua5_2 lua5_2_compat lua5_3 lua5_3_compat lua5_4 lua5_4_compat luajit_2_1 luajit_2_0 luajit_openresty;
 
   lua5 = lua5_2_compat;
   lua = lua5;
@@ -21727,7 +21728,7 @@ with pkgs;
 
   minizip = callPackage ../development/libraries/minizip { };
 
-  minizip2 = callPackage ../development/libraries/minizip2 { };
+  minizip-ng = callPackage ../development/libraries/minizip-ng { };
 
   mkvtoolnix = libsForQt5.callPackage ../applications/video/mkvtoolnix { };
 
@@ -34866,6 +34867,8 @@ with pkgs;
   prboom-plus = callPackage ../games/prboom-plus { };
 
   pysolfc = python3Packages.callPackage ../games/pysolfc { };
+
+  qq = callPackage ../applications/networking/instant-messengers/qq { };
 
   qqwing = callPackage ../games/qqwing { };
 
