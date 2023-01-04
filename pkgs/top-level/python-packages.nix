@@ -2590,6 +2590,8 @@ self: super: with self; {
 
   django-scopes = callPackage ../development/python-modules/django-scopes { };
 
+  django-scim2 = callPackage ../development/python-modules/django-scim2 { };
+
   djangoql = callPackage ../development/python-modules/djangoql { };
 
   django-ranged-response = callPackage ../development/python-modules/django-ranged-response { };
@@ -5073,6 +5075,8 @@ self: super: with self; {
 
   kivy-garden = callPackage ../development/python-modules/kivy-garden { };
 
+  kiwiki-client = callPackage ../development/python-modules/kiwiki-client { };
+
   kiwisolver = callPackage ../development/python-modules/kiwisolver { };
 
   klaus = callPackage ../development/python-modules/klaus { };
@@ -6330,6 +6334,8 @@ self: super: with self; {
   notify-py = callPackage ../development/python-modules/notify-py { };
 
   notify2 = callPackage ../development/python-modules/notify2 { };
+
+  notion-client = callPackage ../development/python-modules/notion-client { };
 
   notmuch = callPackage ../development/python-modules/notmuch {
     inherit (pkgs) notmuch;
@@ -8055,6 +8061,8 @@ self: super: with self; {
 
   pykakasi = callPackage ../development/python-modules/pykakasi { };
 
+  pykaleidescape = callPackage ../development/python-modules/pykaleidescape { };
+
   pykdl = callPackage ../development/python-modules/pykdl { };
 
   pykdtree = callPackage ../development/python-modules/pykdtree {
@@ -8987,6 +8995,8 @@ self: super: with self; {
   pytest-subtests = callPackage ../development/python-modules/pytest-subtests { };
 
   pytest-sugar = callPackage ../development/python-modules/pytest-sugar { };
+
+  pytest-tap = callPackage ../development/python-modules/pytest-tap { };
 
   pytest-test-utils = callPackage ../development/python-modules/pytest-test-utils { };
 
@@ -10102,6 +10112,8 @@ self: super: with self; {
   schiene = callPackage ../development/python-modules/schiene { };
 
   schwifty = callPackage ../development/python-modules/schwifty { };
+
+  scim2-filter-parser = callPackage ../development/python-modules/scim2-filter-parser { };
 
   scikit-bio = callPackage ../development/python-modules/scikit-bio { };
 
