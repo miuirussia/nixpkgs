@@ -1543,6 +1543,8 @@ with pkgs;
 
   ### APPLICATIONS/VERSION-MANAGEMENT
 
+  deepgit = callPackage ../applications/version-management/deepgit {};
+
   git = callPackage ../applications/version-management/git {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
     perlLibs = [perlPackages.LWP perlPackages.URI perlPackages.TermReadKey];
@@ -8852,6 +8854,8 @@ with pkgs;
 
   mautrix-facebook = callPackage ../servers/mautrix-facebook { };
 
+  mautrix-googlechat = callPackage ../servers/mautrix-googlechat { };
+
   mautrix-signal = recurseIntoAttrs (callPackage ../servers/mautrix-signal { });
 
   mautrix-telegram = recurseIntoAttrs (callPackage ../servers/mautrix-telegram { });
@@ -9566,6 +9570,8 @@ with pkgs;
   minijail = callPackage ../tools/system/minijail { };
 
   minijail-tools = python3.pkgs.callPackage ../tools/system/minijail/tools.nix { };
+
+  minilibx = callPackage ../development/libraries/minilibx { };
 
   minixml = callPackage ../development/libraries/minixml { };
 
@@ -10348,7 +10354,7 @@ with pkgs;
   oshka = callPackage ../development/tools/oshka {};
 
   osl = libsForQt5.callPackage ../development/compilers/osl {
-    boost = boost165;
+    boost = boost17x;
   };
 
   osqp = callPackage ../development/libraries/science/math/osqp { };
@@ -12822,6 +12828,8 @@ with pkgs;
 
   sentry-native = callPackage ../development/libraries/sentry-native { };
 
+  twilio-cli = callPackage ../development/tools/twilio-cli { };
+
   waifu2x-converter-cpp = callPackage ../tools/graphics/waifu2x-converter-cpp {
     inherit (darwin.apple_sdk.frameworks) OpenCL;
   };
@@ -12891,6 +12899,8 @@ with pkgs;
   wire = callPackage ../development/tools/wire { };
 
   wireguard-tools = callPackage ../tools/networking/wireguard-tools { };
+
+  wireproxy = callPackage ../tools/networking/wireproxy { };
 
   wiringpi = callPackage ../os-specific/linux/wiringpi { };
 
@@ -14489,7 +14499,7 @@ with pkgs;
 
   gnu-smalltalk = callPackage ../development/compilers/gnu-smalltalk { };
 
-  gccgo = wrapCC (gcc.cc.override {
+  gccgo = wrapCC ((if stdenv.hostPlatform.isMusl then gcc_latest else gcc).cc.override {
     name = "gccgo";
     langCC = true; #required for go.
     langC = true;
@@ -15578,7 +15588,8 @@ with pkgs;
   sbcl_2_2_9 = callPackage ../development/compilers/sbcl/2.x.nix { version = "2.2.9"; };
   sbcl_2_2_10 = callPackage ../development/compilers/sbcl/2.x.nix { version = "2.2.10"; };
   sbcl_2_2_11 = callPackage ../development/compilers/sbcl/2.x.nix { version = "2.2.11"; };
-  sbcl = sbcl_2_2_11;
+  sbcl_2_3_0 = callPackage ../development/compilers/sbcl/2.x.nix { version = "2.3.0"; };
+  sbcl = sbcl_2_3_0;
 
   roswell = callPackage ../development/tools/roswell { };
 
@@ -16282,6 +16293,8 @@ with pkgs;
   pip-audit = callPackage ../development/tools/pip-audit {};
 
   pipenv = callPackage ../development/tools/pipenv {};
+
+  pipx = with python3.pkgs; toPythonApplication pipx;
 
   pipewire = callPackage ../development/libraries/pipewire {
     # ffmpeg depends on SDL2 which depends on pipewire by default.
@@ -19614,6 +19627,8 @@ with pkgs;
 
   mpfi = callPackage ../development/libraries/mpfi { };
 
+  mpdecimal = callPackage ../development/libraries/mpdecimal { };
+
   mpfshell = callPackage ../development/tools/mpfshell { };
 
   # A GMP fork
@@ -20028,10 +20043,6 @@ with pkgs;
   imgui = callPackage ../development/libraries/imgui { };
 
   imtui = callPackage ../development/libraries/imtui { };
-
-  imlib = callPackage ../development/libraries/imlib {
-    libpng = libpng12;
-  };
 
   imv = callPackage ../applications/graphics/imv { };
 
@@ -21410,6 +21421,8 @@ with pkgs;
   libusbmuxd = callPackage ../development/libraries/libusbmuxd { };
 
   libusbsio = callPackage ../development/libraries/libusbsio { };
+
+  libucontext = callPackage ../development/libraries/libucontext { };
 
   libutempter = callPackage ../development/libraries/libutempter { };
 
@@ -23858,9 +23871,9 @@ with pkgs;
 
   clickhouse = callPackage ../servers/clickhouse {
     # upstream requires llvm12 as of v22.3.2.2
-    inherit (llvmPackages_13) clang-unwrapped lld llvm;
-    llvm-bintools = llvmPackages_13.bintools;
-    stdenv = llvmPackages_13.stdenv;
+    inherit (llvmPackages_14) clang-unwrapped lld llvm;
+    llvm-bintools = llvmPackages_14.bintools;
+    stdenv = llvmPackages_14.stdenv;
   };
 
   clickhouse-cli = with python3Packages; toPythonApplication clickhouse-cli;
@@ -24792,7 +24805,7 @@ with pkgs;
 
   deadpixi-sam-unstable = callPackage ../applications/editors/deadpixi-sam { };
 
-  samba4 = callPackage ../servers/samba/4.x.nix { };
+  samba4 = darwin.apple_sdk_11_0.callPackage ../servers/samba/4.x.nix { };
 
   samba = samba4;
 
@@ -27038,7 +27051,9 @@ with pkgs;
   nordzy-icon-theme = callPackage ../data/icons/nordzy-icon-theme { };
 
   inherit (callPackages ../data/fonts/noto-fonts {})
+    mkNoto
     noto-fonts
+    noto-fonts-lgc-plus
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
     noto-fonts-emoji
@@ -30107,6 +30122,8 @@ with pkgs;
 
   kdeltachat = libsForQt5.callPackage ../applications/networking/instant-messengers/kdeltachat { };
 
+  keet = callPackage ../applications/networking/instant-messengers/keet { };
+
   kepubify = callPackage ../tools/misc/kepubify { };
 
   kermit = callPackage ../tools/misc/kermit { };
@@ -30284,6 +30301,8 @@ with pkgs;
   kile-wl = callPackage ../applications/misc/kile-wl { };
 
   kiln = callPackage ../applications/misc/kiln { };
+
+  karmor = callPackage ../applications/networking/cluster/karmor {};
 
   kubernetes-code-generator = callPackage ../development/tools/kubernetes-code-generator {};
 
@@ -31007,6 +31026,8 @@ with pkgs;
   neocomp  = callPackage ../applications/window-managers/neocomp { };
 
   nerd-font-patcher = callPackage ../applications/misc/nerd-font-patcher { };
+
+  netmaker = callPackage ../applications/networking/netmaker {};
 
   newsflash = callPackage ../applications/networking/feedreaders/newsflash {
     webkitgtk = webkitgtk_5_0;
@@ -37877,7 +37898,7 @@ with pkgs;
 
   wmutils-opt = callPackage ../tools/X11/wmutils-opt { };
 
-  wordpress = callPackage ../servers/web-apps/wordpress { };
+  inherit (callPackage ../servers/web-apps/wordpress {}) wordpress wordpress6_1;
 
   wordpressPackages = ( callPackage ../servers/web-apps/wordpress/packages {
     plugins = lib.importJSON ../servers/web-apps/wordpress/packages/plugins.json;
@@ -37970,8 +37991,7 @@ with pkgs;
   xzoom = callPackage ../tools/X11/xzoom {};
 
   yabai = darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/yabai {
-    inherit (darwin.apple_sdk.frameworks) Cocoa Carbon ScriptingBridge;
-    inherit (darwin.apple_sdk_11_0.frameworks) SkyLight;
+    inherit (darwin.apple_sdk_11_0.frameworks) SkyLight Cocoa Carbon ScriptingBridge;
   };
 
   yacreader = libsForQt5.callPackage ../applications/graphics/yacreader { };
