@@ -3892,6 +3892,16 @@
     githubId = 15128988;
     name = "Maksim Dzabraev";
   };
+  e1mo = {
+    email = "nixpkgs@e1mo.de";
+    matrix = "@e1mo:chaos.jetzt";
+    github = "e1mo";
+    githubId = 61651268;
+    name = "Moritz Fromm";
+    keys = [{
+      fingerprint = "67BE E563 43B6 420D 550E  DF2A 6D61 7FD0 A85B AADA";
+    }];
+  };
   eadwu = {
     email = "edmund.wu@protonmail.com";
     github = "eadwu";
@@ -4637,10 +4647,11 @@
   };
   felipeqq2 = {
     name = "Felipe Silva";
-    email = "felipeqq2@outlook.com";
+    email = "nixpkgs@felipeqq2.rocks";
     github = "felipeqq2";
     githubId = 71830138;
     keys = [{ fingerprint = "F5F0 2BCE 3580 BF2B 707A  AA8C 2FD3 4A9E 2671 91B8"; }];
+    matrix = "@felipeqq2:pub.solar";
   };
   felixscheinost = {
     name = "Felix Scheinost";

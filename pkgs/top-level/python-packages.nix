@@ -5052,6 +5052,8 @@ self: super: with self; {
 
   keystone-engine = callPackage ../development/python-modules/keystone-engine { };
 
+  keyrings-passwordstore = callPackage ../development/python-modules/keyrings-passwordstore { };
+
   keystoneauth1 = callPackage ../development/python-modules/keystoneauth1 { };
 
   keyutils = callPackage ../development/python-modules/keyutils {
@@ -5144,6 +5146,8 @@ self: super: with self; {
   lc7001 = callPackage ../development/python-modules/lc7001 { };
 
   lcov_cobertura = callPackage ../development/python-modules/lcov_cobertura { };
+
+  ld2410-ble = callPackage ../development/python-modules/ld2410-ble { };
 
   ldap3 = callPackage ../development/python-modules/ldap3 { };
 
