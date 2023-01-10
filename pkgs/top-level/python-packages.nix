@@ -5664,7 +5664,7 @@ self: super: with self; {
 
   mayavi = pkgs.libsForQt5.callPackage ../development/python-modules/mayavi {
     inherit buildPythonPackage pythonOlder fetchPypi;
-    inherit (self) pyface pygments numpy vtk traitsui envisage apptools pyqt5;
+    inherit (self) pyface pygments numpy packaging vtk traitsui envisage apptools pyqt5;
   };
 
   mbddns = callPackage ../development/python-modules/mbddns { };
@@ -6288,6 +6288,8 @@ self: super: with self; {
   nocasedict = callPackage ../development/python-modules/nocasedict { };
 
   nocaselist = callPackage ../development/python-modules/nocaselist { };
+
+  nocturne = callPackage ../development/python-modules/nocturne { };
 
   nodeenv = callPackage ../development/python-modules/nodeenv { };
 
@@ -9460,6 +9462,8 @@ self: super: with self; {
 
   pyvicare = callPackage ../development/python-modules/pyvicare { };
 
+  PyVirtualDisplay = callPackage ../development/python-modules/PyVirtualDisplay { };
+
   pyvis = callPackage ../development/python-modules/pyvis { };
 
   pyvisa = callPackage ../development/python-modules/pyvisa { };
@@ -11205,6 +11209,8 @@ self: super: with self; {
     cudnnSupport = false;
   };
 
+  thefuzz = callPackage ../development/python-modules/thefuzz { };
+
   thermobeacon-ble = callPackage ../development/python-modules/thermobeacon-ble { };
 
   thermopro-ble = callPackage ../development/python-modules/thermopro-ble { };
@@ -11858,8 +11864,6 @@ self: super: with self; {
 
   virtkey = callPackage ../development/python-modules/virtkey { };
 
-  virtual-display = callPackage ../development/python-modules/virtual-display { };
-
   virtualenv = callPackage ../development/python-modules/virtualenv { };
 
   virtualenv-clone = callPackage ../development/python-modules/virtualenv-clone { };
@@ -11904,8 +11908,8 @@ self: super: with self; {
 
   vt-py = callPackage ../development/python-modules/vt-py { };
 
-  vtk = toPythonModule (pkgs.vtk.override {
-    pythonInterpreter = python;
+  vtk = toPythonModule (pkgs.vtk_9.override {
+    inherit python;
     enablePython = true;
   });
 
