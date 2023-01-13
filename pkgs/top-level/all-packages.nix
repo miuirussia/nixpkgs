@@ -1469,6 +1469,8 @@ with pkgs;
 
   steamtinkerlaunch = callPackage ../tools/games/steamtinkerlaunch {};
 
+  supermin = callPackage ../tools/virtualization/supermin { };
+
   sx-go = callPackage ../tools/security/sx-go { };
 
   systeroid = callPackage ../tools/system/systeroid { };
@@ -35423,6 +35425,8 @@ with pkgs;
 
   arcanPackages = recurseIntoAttrs (callPackage ../desktops/arcan { });
 
+  budgie = recurseIntoAttrs (callPackage ../desktops/budgie { });
+
   cdesktopenv = callPackage ../desktops/cdesktopenv { };
 
   cinnamon = recurseIntoAttrs (callPackage ../desktops/cinnamon { });
@@ -38489,4 +38493,6 @@ with pkgs;
   alsa-scarlett-gui = callPackage ../applications/audio/alsa-scarlett-gui { };
 
   tuner = callPackage ../applications/audio/tuner { };
+
+  jfrog-cli = callPackage ../tools/misc/jfrog-cli { };
 }
