@@ -10,12 +10,20 @@
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </para>
-    <itemizedlist spacing="compact">
+    <itemizedlist>
       <listitem>
         <para>
           Cinnamon has been updated to 5.6, see
           <link xlink:href="https://github.com/NixOS/nixpkgs/pull/201328#issue-1449910204">the
           pull request</link> for what is changed.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>nixos-rebuild</literal> now supports an extra
+          <literal>--specialisation</literal> option that can be used to
+          change specialisation for <literal>switch</literal> and
+          <literal>test</literal> commands.
         </para>
       </listitem>
     </itemizedlist>
@@ -62,6 +70,13 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://github.com/hzeller/gmrender-resurrect">gmediarender</link>,
+          a simple, headless UPnP/DLNA renderer. Available as
+          <link xlink:href="options.html#opt-services.gmediarender.enable">services.gmediarender</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://github.com/StevenBlack/hosts">stevenblack-blocklist</link>,
           A unified hosts file with base extensions for blocking
           unwanted websites. Available as
@@ -97,6 +112,14 @@
           a userspace logging daemon for netfilter/iptables related
           logging. Available as
           <link xlink:href="options.html#opt-services.ulogd.enable">services.ulogd</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://photoprism.app/">photoprism</link>,
+          a AI-Powered Photos App for the Decentralized Web. Available
+          as
+          <link xlink:href="options.html#opt-services.photoprism.enable">services.photoprism</link>.
         </para>
       </listitem>
     </itemizedlist>
@@ -216,6 +239,17 @@
       </listitem>
       <listitem>
         <para>
+          <literal>llvmPackages_rocm.llvm</literal> will not contain
+          <literal>clang</literal> or <literal>compiler-rt</literal>.
+          <literal>llvmPackages_rocm.clang</literal> will not contain
+          <literal>llvm</literal>.
+          <literal>llvmPackages_rocm.clangNoCompilerRt</literal> has
+          been removed in favor of using
+          <literal>llvmPackages_rocm.clang-unwrapped</literal>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           The Nginx module now validates the syntax of config files at
           build time. For more complex configurations (using
           <literal>include</literal> with out-of-store files notably)
@@ -271,6 +305,14 @@
           that it configures the NixOS boot process, not the Nix daemon.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          Deprecated <literal>xlibsWrapper</literal> transitional
+          package has been removed in favour of direct use of its
+          constitutents: <literal>xorg.libX11</literal>,
+          <literal>freetype</literal> and others.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-23.05-notable-changes">
@@ -303,6 +345,24 @@
           try an alternative program like <literal>usbmuxd2</literal>.
           Available as
           <link linkend="opt-services.usbmuxd.package">services.usbmuxd.package</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          A few openssh options have been moved from extraConfig to the
+          new freeform option <literal>settings</literal> and renamed as
+          follow:
+          <literal>services.openssh.kbdInteractiveAuthentication</literal>
+          to
+          <literal>services.openssh.settings.KbdInteractiveAuthentication</literal>,
+          <literal>services.openssh.passwordAuthentication</literal> to
+          <literal>services.openssh.settings.PasswordAuthentication</literal>,
+          <literal>services.openssh.useDns</literal> to
+          <literal>services.openssh.settings.UseDns</literal>,
+          <literal>services.openssh.permitRootLogin</literal> to
+          <literal>services.openssh.settings.PermitRootLogin</literal>,
+          <literal>services.openssh.logLevel</literal> to
+          <literal>services.openssh.settings.LogLevel</literal>.
         </para>
       </listitem>
       <listitem>
@@ -473,6 +533,13 @@
           <link xlink:href="options.html#opt-services.garage.package">services.garage.package</link>
           or upgrade accordingly
           <link xlink:href="options.html#opt-system.stateVersion">system.stateVersion</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>hip</literal> has been separated into
+          <literal>hip</literal>, <literal>hip-common</literal> and
+          <literal>hipcc</literal>.
         </para>
       </listitem>
       <listitem>
