@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/zealot128/tree-sitter-pug",
-  "rev": "148608f3a88708829ac4e79ff9cb1c4a618e01b7",
-  "date": "2023-01-15T14:07:44+01:00",
-  "path": "/nix/store/rgi8a260kl94x1pxiqgs2q5gf6ij9lyd-tree-sitter-pug",
-  "sha256": "1jc4bgzc0sv4dm3ci1r2s53w092kvp9h8y6fn6dy6xdnxxv0jif0",
+  "rev": "26f6ac805e11e19c4492089f24aa44fe71be7c1f",
+  "date": "2023-01-20T22:49:33+01:00",
+  "path": "/nix/store/9mrd8wi2n04vgwihc4738vgh21vn2rra-tree-sitter-pug",
+  "sha256": "0202a4xc23b91frvc3nxqxhdkz9xzmi41lfvagmp41vqravj6hi9",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

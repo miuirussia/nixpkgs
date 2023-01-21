@@ -1571,6 +1571,8 @@ self: super: with self; {
 
   catboost = callPackage ../development/python-modules/catboost { };
 
+  catppuccin = callPackage ../development/python-modules/catppuccin { };
+
   cattrs = callPackage ../development/python-modules/cattrs { };
 
   cbeams = callPackage ../misc/cbeams { };
@@ -5785,6 +5787,8 @@ self: super: with self; {
 
   mesa = callPackage ../development/python-modules/mesa { };
 
+  meshcat = callPackage ../development/python-modules/meshcat { };
+
   meshio = callPackage ../development/python-modules/meshio { };
 
   meshlabxml = callPackage ../development/python-modules/meshlabxml { };
@@ -7170,6 +7174,8 @@ self: super: with self; {
 
   pylddwrap = callPackage ../development/python-modules/pylddwrap { };
 
+  pyngrok = callPackage ../development/python-modules/pyngrok { };
+
   pynndescent = callPackage ../development/python-modules/pynndescent { };
 
   pynobo = callPackage ../development/python-modules/pynobo { };
@@ -8192,6 +8198,8 @@ self: super: with self; {
   pylibftdi = callPackage ../development/python-modules/pylibftdi {
     inherit (pkgs) libusb1;
   };
+
+  pylibjpeg-libjpeg = callPackage ../development/python-modules/pylibjpeg-libjpeg { };
 
   pyliblo = callPackage ../development/python-modules/pyliblo { };
 
@@ -11331,6 +11339,8 @@ self: super: with self; {
     py = python.override { x11Support=true; };
   };
 
+  tidalapi = callPackage ../development/python-modules/tidalapi { };
+
   tidyexc = callPackage ../development/python-modules/tidyexc { };
 
   tidylib = callPackage ../development/python-modules/pytidylib { };
@@ -11429,16 +11439,27 @@ self: super: with self; {
     cudaSupport = pkgs.config.cudaSupport or false;
     inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices;
     inherit (pkgs.darwin) libobjc;
+    inherit (pkgs.llvmPackages_rocm) openmp;
   };
 
   torch-bin = callPackage ../development/python-modules/torch/bin.nix { };
 
   torchWithCuda = self.torch.override {
+    magma = pkgs.magma-cuda;
     cudaSupport = true;
   };
 
   torchWithoutCuda = self.torch.override {
     cudaSupport = false;
+  };
+
+  torchWithRocm = self.torch.override {
+    magma = pkgs.magma-hip;
+    rocmSupport = true;
+  };
+
+  torchWithoutRocm = self.torch.override {
+    rocmSupport = false;
   };
 
   torch-tb-profiler = callPackage ../development/python-modules/torch-tb-profiler/default.nix { };
@@ -12391,6 +12412,8 @@ self: super: with self; {
   yara-python = callPackage ../development/python-modules/yara-python { };
 
   yarg = callPackage ../development/python-modules/yarg { };
+
+  yark = callPackage ../development/python-modules/yark { };
 
   yarl = callPackage ../development/python-modules/yarl { };
 
