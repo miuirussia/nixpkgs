@@ -2,12 +2,13 @@
 # Do not edit!
 
 {
-  version = "2023.2.0";
+  version = "2023.2.1";
   components = {
     "3_day_blinds" = ps: with ps; [
     ];
     "abode" = ps: with ps; [
-    ]; # missing inputs: jaraco.abode
+      jaraco-abode
+    ];
     "accuweather" = ps: with ps; [
       accuweather
     ];
@@ -2969,7 +2970,8 @@
       pyqvrpro
     ];
     "qwikswitch" = ps: with ps; [
-    ]; # missing inputs: pyqwikswitch
+      pyqwikswitch
+    ];
     "rachio" = ps: with ps; [
       pyturbojpeg
       aiohttp-cors
@@ -4427,6 +4429,7 @@
   };
   # components listed in tests/components for which all dependencies are packaged
   supportedComponentsWithTests = [
+    "abode"
     "accuweather"
     "acmeda"
     "adax"
@@ -4897,6 +4900,7 @@
     "qingping"
     "qld_bushfire"
     "qnap_qsw"
+    "qwikswitch"
     "rachio"
     "radarr"
     "radio_browser"
