@@ -13840,6 +13840,8 @@ with pkgs;
 
   any-nix-shell = callPackage ../shells/any-nix-shell { };
 
+  nix-your-shell = callPackage ../shells/nix-your-shell { };
+
   bash = lowPrio (callPackage ../shells/bash/5.nix {
     binutils = stdenv.cc.bintools;
   });
@@ -22723,13 +22725,7 @@ with pkgs;
 
   prospector = callPackage ../development/tools/prospector { };
 
-  # https://github.com/protocolbuffers/protobuf/issues/10418
-  # protobuf versions have to match between build-time and run-time
-  # Using "targetPlatform" in the check makes sure that the version of
-  # pkgsCross.armv7l-hf-multiplatform.buildPackages.protobuf matches the
-  # version of pkgsCross.armv7l-hf-multiplatform.protobuf
-  protobuf = if stdenv.targetPlatform.is32bit then protobuf3_20 else
-    protobuf3_21;
+  protobuf = protobuf3_21;
 
   protobuf3_21 = callPackage ../development/libraries/protobuf/3.21.nix { };
   protobuf3_20 = callPackage ../development/libraries/protobuf/3.20.nix { };
@@ -32116,7 +32112,9 @@ with pkgs;
 
   pavucontrol = callPackage ../applications/audio/pavucontrol { };
 
-  paraview = libsForQt5.callPackage ../applications/graphics/paraview { };
+  paraview = libsForQt5.callPackage ../applications/graphics/paraview {
+    python3 = python39;
+  };
 
   parlatype = callPackage ../applications/audio/parlatype { };
 
