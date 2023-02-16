@@ -853,6 +853,8 @@ self: super: with self; {
 
   awslambdaric = callPackage ../development/python-modules/awslambdaric { };
 
+  awswrangler = callPackage ../development/python-modules/awswrangler { };
+
   axis = callPackage ../development/python-modules/axis { };
 
   azure-appconfiguration = callPackage ../development/python-modules/azure-appconfiguration { };
@@ -4240,8 +4242,6 @@ self: super: with self; {
 
   handout = callPackage ../development/python-modules/handout { };
 
-  hangups = callPackage ../development/python-modules/hangups { };
-
   hap-python = callPackage ../development/python-modules/hap-python { };
 
   hass-nabucasa = callPackage ../development/python-modules/hass-nabucasa { };
@@ -4335,6 +4335,10 @@ self: super: with self; {
   hiredis = callPackage ../development/python-modules/hiredis { };
 
   hiro = callPackage ../development/python-modules/hiro { };
+
+  hist = callPackage ../development/python-modules/hist { };
+
+  histoprint = callPackage ../development/python-modules/histoprint { };
 
   hiyapyco = callPackage ../development/python-modules/hiyapyco { };
 
@@ -5458,8 +5462,6 @@ self: super: with self; {
 
   lightgbm = callPackage ../development/python-modules/lightgbm { };
 
-  lightning = callPackage ../development/python-modules/lightning { };
-
   lightning-utilities  = callPackage ../development/python-modules/lightning-utilities { };
 
   lightparam = callPackage ../development/python-modules/lightparam { };
@@ -6191,6 +6193,8 @@ self: super: with self; {
   myst-nb = callPackage ../development/python-modules/myst-nb { };
 
   myst-parser = callPackage ../development/python-modules/myst-parser { };
+
+  n3fit = callPackage ../development/python-modules/n3fit { };
 
   nad-receiver = callPackage ../development/python-modules/nad-receiver { };
 
@@ -7267,6 +7271,8 @@ self: super: with self; {
 
   pyorthanc = callPackage ../development/python-modules/pyorthanc { };
 
+  pyoutbreaksnearme = callPackage ../development/python-modules/pyoutbreaksnearme { };
+
   pyoverkiz = callPackage ../development/python-modules/pyoverkiz { };
 
   pyownet = callPackage ../development/python-modules/pyownet { };
@@ -8059,8 +8065,6 @@ self: super: with self; {
 
   pyflume = callPackage ../development/python-modules/pyflume { };
 
-  pyflunearyou = callPackage ../development/python-modules/pyflunearyou { };
-
   pyfma = callPackage ../development/python-modules/pyfma { };
 
   pyfribidi = callPackage ../development/python-modules/pyfribidi { };
@@ -8308,8 +8312,6 @@ self: super: with self; {
   pylru = callPackage ../development/python-modules/pylru { };
 
   pylsqpack = callPackage ../development/python-modules/pylsqpack { };
-
-  pyls-black = callPackage ../development/python-modules/pyls-black { };
 
   pyls-flake8 = callPackage ../development/python-modules/pyls-flake8 { };
 
@@ -9853,6 +9855,8 @@ self: super: with self; {
 
   rapidfuzz-capi = callPackage ../development/python-modules/rapidfuzz-capi { };
 
+  rapt-ble = callPackage ../development/python-modules/rapt-ble { };
+
   rarfile = callPackage ../development/python-modules/rarfile {
     inherit (pkgs) libarchive;
   };
@@ -9942,6 +9946,8 @@ self: super: with self; {
   remi = callPackage ../development/python-modules/remi { };
 
   remote-pdb = callPackage ../development/python-modules/remote-pdb { };
+
+  remotezip = callPackage ../development/python-modules/remotezip { };
 
   renault-api = callPackage ../development/python-modules/renault-api { };
 
@@ -11896,6 +11902,8 @@ self: super: with self; {
   uharfbuzz = callPackage ../development/python-modules/uharfbuzz {
     inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices;
   };
+
+  uhi = callPackage ../development/python-modules/uhi { };
 
   ujson = callPackage ../development/python-modules/ujson { };
 
