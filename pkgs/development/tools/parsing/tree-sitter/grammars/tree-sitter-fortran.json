@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/stadelmanma/tree-sitter-fortran",
-  "rev": "069bd7c864fe2dee1115140cc2621d140b16a643",
-  "date": "2023-02-12T16:27:04-05:00",
-  "path": "/nix/store/sgjzc9gxcqn0pcgyadaq98f89gq9v457-tree-sitter-fortran",
-  "sha256": "0g3p7y0zdcn4ildrdf2zs7ic3plp7ph48kwm78lp4m58f9qw1nvr",
+  "rev": "0f6ad1a0ec8bbd263b5b9af17ba31e3cb75369e8",
+  "date": "2023-02-15T21:45:10-05:00",
+  "path": "/nix/store/6nmscqrxzpxf91ypp3n147jih1rzzjgj-tree-sitter-fortran",
+  "sha256": "1vaiiqiy9grh6d62fksza2vxz15m375rc7jjbiw3jb7m51nvb3v6",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
