@@ -226,6 +226,8 @@ with pkgs;
 
   quickemu = callPackage ../development/quickemu { };
 
+  quickgui = callPackage ../applications/virtualization/quickgui { };
+
   adcli = callPackage ../os-specific/linux/adcli { };
 
   aether = callPackage ../applications/networking/aether { };
@@ -3095,7 +3097,7 @@ with pkgs;
 
   cuelsp = callPackage ../development/tools/cuelsp {};
 
-  cyclondds = callPackage ../development/libraries/cyclondds { };
+  cyclonedds = callPackage ../development/libraries/cyclonedds { };
 
   cyclone-scheme = callPackage ../development/interpreters/cyclone { };
 
@@ -3812,8 +3814,6 @@ with pkgs;
   bozohttpd-minimal = callPackage ../servers/http/bozohttpd { minimal = true; };
 
   bpb = callPackage ../tools/security/bpb { inherit (darwin.apple_sdk.frameworks) Security; };
-
-  bpytop = callPackage ../tools/system/bpytop { };
 
   brasero-original = lowPrio (callPackage ../tools/cd-dvd/brasero { });
 
@@ -6818,7 +6818,7 @@ with pkgs;
   mozillavpn = qt6Packages.callPackage ../tools/networking/mozillavpn { };
 
   mozwire = callPackage ../tools/networking/mozwire {
-    inherit (darwin.apple_sdk.frameworks) Security;
+    inherit (darwin.apple_sdk.frameworks) CoreServices Security;
   };
 
   pax = callPackage ../tools/archivers/pax {
@@ -9069,6 +9069,8 @@ with pkgs;
   matrix-appservice-discord = callPackage ../servers/matrix-appservice-discord { };
 
   matrix-corporal = callPackage ../servers/matrix-corporal { };
+
+  matrix-hookshot = callPackage ../servers/matrix-synapse/matrix-hookshot {};
 
   mautrix-facebook = callPackage ../servers/mautrix-facebook { };
 
@@ -16455,7 +16457,7 @@ with pkgs;
 
   love_0_10 = callPackage ../development/interpreters/love/0.10.nix { };
   love_11 = callPackage ../development/interpreters/love/11.nix { };
-  love = love_0_10;
+  love = love_11;
 
   wabt = callPackage ../development/tools/wabt { };
 
@@ -17087,6 +17089,10 @@ with pkgs;
   vala-language-server = callPackage ../development/tools/language-servers/vala-language-server { };
 
   verible = callPackage ../development/tools/language-servers/verible { };
+
+  zls = callPackage ../development/tools/language-servers/zls {
+    zig = zig_0_10;
+  };
 
   ansible-later = with python3.pkgs; toPythonApplication ansible-later;
 
@@ -18910,10 +18916,6 @@ with pkgs;
   yq-go = callPackage ../development/tools/yq-go { };
 
   ytt = callPackage ../development/tools/ytt {};
-
-  zls = callPackage ../development/tools/zls {
-    zig = zig_0_9;
-  };
 
   zydis = callPackage ../development/libraries/zydis { };
 
@@ -26599,8 +26601,6 @@ with pkgs;
 
   rtw88-firmware = callPackage ../os-specific/linux/firmware/rtw88-firmware { };
 
-  rtw89-firmware = callPackage ../os-specific/linux/firmware/rtw89-firmware { };
-
   rvvm = callPackage ../applications/virtualization/rvvm { };
 
   s3ql = callPackage ../tools/backup/s3ql { };
@@ -32768,9 +32768,7 @@ with pkgs;
 
   rtl-ais = callPackage ../applications/radio/rtl-ais { };
 
-  # librtlsdr is a friendly fork with additional features
   rtl-sdr = callPackage ../applications/radio/rtl-sdr { };
-  librtlsdr = callPackage ../development/libraries/librtlsdr { };
 
   rubyripper = callPackage ../applications/audio/rubyripper {};
 
@@ -33619,6 +33617,7 @@ with pkgs;
 
   unison = callPackage ../applications/networking/sync/unison {
     enableX11 = config.unison.enableX11 or true;
+    inherit (darwin.apple_sdk.frameworks) Cocoa;
   };
 
   unpaper = callPackage ../tools/graphics/unpaper { };
@@ -35448,7 +35447,7 @@ with pkgs;
     python = python3;
   };
 
-  mrrescue = callPackage ../games/mrrescue { };
+  mrrescue = callPackage ../games/mrrescue { love = love_0_10; };
 
   mudlet = libsForQt5.callPackage ../games/mudlet {
     lua = lua5_1;
@@ -35559,7 +35558,7 @@ with pkgs;
 
   openxray = callPackage ../games/openxray { };
 
-  orthorobot = callPackage ../games/orthorobot { };
+  orthorobot = callPackage ../games/orthorobot { love = love_0_10; };
 
   pacvim = callPackage ../games/pacvim { };
 
@@ -37857,6 +37856,8 @@ with pkgs;
   nar-serve = callPackage ../tools/nix/nar-serve { };
 
   neo = callPackage ../applications/misc/neo { };
+
+  networkd-dispatcher = callPackage ../tools/networking/networkd-dispatcher { };
 
   nixVersions = recurseIntoAttrs (callPackage ../tools/package-management/nix {
     storeDir = config.nix.storeDir or "/nix/store";
