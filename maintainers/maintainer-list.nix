@@ -2467,6 +2467,12 @@
     githubId = 3471749;
     name = "Claudio Bley";
   };
+  cbrewster = {
+    email = "cbrewster@hey.com";
+    github = "cbrewster";
+    githubId = 9086315;
+    name = "Connor Brewster";
+  };
   cburstedde = {
     email = "burstedde@ins.uni-bonn.de";
     github = "cburstedde";
@@ -3403,6 +3409,12 @@
     github = "davidarmstronglewis";
     githubId = 6754950;
     name = "David Armstrong Lewis";
+  };
+  davidcromp = {
+    email = "davidcrompton1192@gmail.com";
+    github = "DavidCromp";
+    githubId = 10701143;
+    name = "David Crompton";
   };
   davidrusu = {
     email = "davidrusu.me@gmail.com";
@@ -7163,6 +7175,12 @@
     github = "joepie91";
     githubId = 1663259;
   };
+  joerdav = {
+    email = "joe.davidson.21111@gmail.com";
+    github = "joerdav";
+    name = "Joe Davidson";
+    githubId = 19927761;
+  };
   joesalisbury = {
     email = "salisbury.joseph@gmail.com";
     github = "JosephSalisbury";
@@ -9197,6 +9215,12 @@
     github = "mattchrist";
     githubId = 952712;
     name = "Matt Christ";
+  };
+  matthew-levan = {
+    email = "matthew@coeli.network";
+    github = "matthew-levan";
+    githubId = 91502660;
+    name = "Matthew LeVan";
   };
   matthewcroughan = {
     email = "matt@croughan.sh";

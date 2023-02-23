@@ -3441,6 +3441,8 @@ with pkgs;
 
   goku = callPackage ../os-specific/darwin/goku { };
 
+  grandperspective = callPackage ../os-specific/darwin/grandperspective { };
+
   grb = callPackage ../applications/misc/grb { };
 
   kerf   = kerf_1; /* kerf2 is WIP */
@@ -3496,6 +3498,8 @@ with pkgs;
   wiimms-iso-tools = callPackage ../tools/filesystems/wiimms-iso-tools { };
 
   waypoint = callPackage ../applications/networking/cluster/waypoint { };
+
+  xc = callPackage ../development/tools/xc { };
 
   xcodeenv = callPackage ../development/mobile/xcodeenv { };
 
@@ -5985,13 +5989,9 @@ with pkgs;
   cirrusgo = callPackage ../tools/security/cirrusgo { };
 
   inherit (callPackage ../applications/networking/remote/citrix-workspace { })
-    citrix_workspace_21_09_0
-    citrix_workspace_21_12_0
-    citrix_workspace_22_05_0
-    citrix_workspace_22_07_0
-    citrix_workspace_22_12_0
+    citrix_workspace_23_02_0
   ;
-  citrix_workspace = citrix_workspace_22_12_0;
+  citrix_workspace = citrix_workspace_23_02_0;
 
   cmigemo = callPackage ../tools/text/cmigemo { };
 
@@ -8635,7 +8635,7 @@ with pkgs;
 
   jitterentropy = callPackage ../development/libraries/jitterentropy { };
 
-  jl = haskellPackages.callPackage ../development/tools/jl { };
+  jl = haskellPackages.jl;
 
   jless = callPackage ../development/tools/jless {
     inherit (darwin.apple_sdk.frameworks) AppKit;
@@ -9210,6 +9210,8 @@ with pkgs;
   nats-top = callPackage ../tools/system/nats-top { };
 
   natscli = callPackage ../tools/system/natscli { };
+
+  nsc = callPackage ../tools/system/nsc { };
 
   nbench = callPackage ../tools/misc/nbench { };
 
@@ -12543,7 +12545,7 @@ with pkgs;
 
   textadept = callPackage ../applications/editors/textadept { };
 
-  texworks = libsForQt5.callPackage ../applications/editors/texworks { };
+  texworks = qt6Packages.callPackage ../applications/editors/texworks { };
 
   tf2pulumi = callPackage ../development/tools/tf2pulumi { };
 
@@ -17051,6 +17053,8 @@ with pkgs;
   }));
 
   ansible-doctor = with python3.pkgs; toPythonApplication ansible-doctor;
+
+  phpunit = callPackage ../development/tools/misc/phpunit { };
 
   ### DEVELOPMENT / TOOLS / LANGUAGE-SERVERS
 
@@ -29298,9 +29302,7 @@ with pkgs;
 
   karlender = callPackage ../applications/office/karlender { };
 
-  keepassx = callPackage ../applications/misc/keepassx { };
-  keepassx2 = callPackage ../applications/misc/keepassx/2.0.nix { };
-  keepassxc = libsForQt5.callPackage ../applications/misc/keepassx/community.nix {
+  keepassxc = libsForQt5.callPackage ../applications/misc/keepassxc {
     inherit (darwin.apple_sdk_11_0.frameworks) LocalAuthentication;
     stdenv = if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
   };
@@ -31736,7 +31738,10 @@ with pkgs;
 
   open-policy-agent = callPackage ../development/tools/open-policy-agent { };
 
-  openmm = callPackage ../development/libraries/science/chemistry/openmm { };
+  openmm = callPackage ../development/libraries/science/chemistry/openmm {
+    stdenv = if stdenv.targetPlatform.isAarch64 then gcc9Stdenv else gcc11Stdenv;
+    gfortran = if stdenv.targetPlatform.isAarch64 then gfortran9 else gfortran11;
+  };
 
   openshift = callPackage ../applications/networking/cluster/openshift { };
 
@@ -33522,10 +33527,7 @@ with pkgs;
 
   transcribe = callPackage ../applications/audio/transcribe { };
 
-  transmission = callPackage ../applications/networking/p2p/transmission {
-    # https://github.com/NixOS/nixpkgs/issues/207047
-    openssl = openssl_legacy;
-  };
+  transmission = callPackage ../applications/networking/p2p/transmission { };
   libtransmission = transmission.override {
     installLib = true;
     enableDaemon = false;
@@ -36419,11 +36421,11 @@ with pkgs;
 
   nest-mpi = callPackage ../applications/science/biology/nest { withMpi = true; };
 
-  neuron = callPackage ../applications/science/biology/neuron { python = null; };
+  neuron = callPackage ../applications/science/biology/neuron { };
 
   neuron-mpi = neuron.override {useMpi = true; };
 
-  neuron-full = neuron-mpi.override { python = python2; };
+  neuron-full = neuron-mpi.override { useCore = true; useRx3d = true; };
 
   mrbayes = callPackage ../applications/science/biology/mrbayes { };
 
@@ -39142,12 +39144,11 @@ with pkgs;
 
   btcdeb = callPackage ../applications/blockchains/btcdeb { };
 
-  jami = callPackages ../applications/networking/instant-messengers/jami {
+  jami = qt6Packages.callPackage ../applications/networking/instant-messengers/jami {
     # TODO: remove once `udev` is `systemdMinimal` everywhere.
     udev = systemdMinimal;
     jack = libjack2;
   };
-  inherit (jami) jami-daemon jami-client;
 
   jitsi-meet-electron = callPackage ../applications/networking/instant-messengers/jitsi-meet-electron { };
 
