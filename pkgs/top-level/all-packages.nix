@@ -238,6 +238,8 @@ with pkgs;
 
   althttpd = callPackage ../servers/althttpd { };
 
+  amqpcat = callPackage ../development/tools/amqpcat { };
+
   anders = callPackage ../applications/science/logic/anders { };
 
   ankisyncd = callPackage ../servers/ankisyncd {
@@ -385,6 +387,8 @@ with pkgs;
   catppuccin-kde = callPackage ../data/themes/catppuccin-kde { };
 
   btdu = callPackage ../tools/misc/btdu { };
+
+  ccal = callPackage ../tools/misc/ccal { };
 
   cereal = callPackage ../development/libraries/cereal { };
 
@@ -4553,6 +4557,8 @@ with pkgs;
   elpa = callPackage ../development/libraries/elpa { };
 
   enca = callPackage ../tools/text/enca { };
+
+  engage = callPackage ../tools/misc/engage { };
 
   ent = callPackage ../tools/misc/ent { };
 
@@ -8765,6 +8771,8 @@ with pkgs;
 
   kakoune-cr = callPackage ../tools/misc/kakoune-cr { crystal = crystal_1_2; };
 
+  kaniko = callPackage ../applications/networking/cluster/kaniko { };
+
   katana = callPackage ../tools/security/katana { };
 
   katriawm = callPackage ../applications/window-managers/katriawm { };
@@ -9294,6 +9302,10 @@ with pkgs;
   openipmi = callPackage ../tools/system/openipmi { };
 
   ox = callPackage ../applications/editors/ox { };
+
+  oxigraph = callPackage ../servers/oxigraph {
+    inherit (darwin.apple_sdk.frameworks) IOKit Security;
+  };
 
   file-rename = callPackage ../tools/filesystems/file-rename { };
 
@@ -11301,7 +11313,9 @@ with pkgs;
 
   qarte = libsForQt5.callPackage ../applications/video/qarte { };
 
-  qdrant = darwin.apple_sdk_11_0.callPackage ../servers/search/qdrant { };
+  qdrant = darwin.apple_sdk_11_0.callPackage ../servers/search/qdrant {
+    inherit (darwin.apple_sdk_11_0.frameworks) Security;
+  };
 
   qlcplus = libsForQt5.callPackage ../applications/misc/qlcplus { };
 
@@ -17167,7 +17181,8 @@ with pkgs;
     electron_19
     electron_20
     electron_21
-    electron_22;
+    electron_22
+    electron_23;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
 
@@ -24241,6 +24256,8 @@ with pkgs;
 
   _389-ds-base = callPackage ../servers/ldap/389 { };
 
+  _5etools = callPackage ../servers/web-apps/5etools {};
+
   adguardhome = callPackage ../servers/adguardhome {};
 
   alerta = callPackage ../servers/monitoring/alerta/client.nix { };
@@ -24542,6 +24559,8 @@ with pkgs;
   promtail = callPackage ../servers/monitoring/loki/promtail.nix { };
 
   mimir = callPackage ../servers/monitoring/mimir { };
+
+  phlare = callPackage ../servers/monitoring/phlare { };
 
   grafana_reporter = callPackage ../servers/monitoring/grafana-reporter { };
 
@@ -27025,6 +27044,8 @@ with pkgs;
   bakoma_ttf = callPackage ../data/fonts/bakoma-ttf { };
 
   barlow = callPackage ../data/fonts/barlow { };
+
+  base16-schemes = callPackage ../data/themes/base16-schemes { };
 
   bgnet = callPackage ../data/documentation/bgnet { };
 
@@ -30276,7 +30297,7 @@ with pkgs;
   meerk40t-camera = callPackage ../applications/misc/meerk40t/camera.nix { };
 
   musikcube = callPackage ../applications/audio/musikcube {
-    inherit (darwin.apple_sdk.frameworks) Cocoa SystemConfiguration;
+    inherit (darwin.apple_sdk.frameworks) Cocoa CoreAudio SystemConfiguration;
   };
 
   libmt32emu = callPackage ../applications/audio/munt/libmt32emu.nix { };
@@ -30953,7 +30974,7 @@ with pkgs;
 
   kubernetes-helm-wrapped = wrapHelm kubernetes-helm {};
 
-  kubernetes-helmPlugins = dontRecurseIntoAttrs (callPackage ../applications/networking/cluster/helm/plugins { });
+  kubernetes-helmPlugins = recurseIntoAttrs (callPackage ../applications/networking/cluster/helm/plugins { });
 
   chart-testing = callPackage ../applications/networking/cluster/helm/chart-testing { };
 
@@ -31426,7 +31447,7 @@ with pkgs;
 
   xmrig = darwin.apple_sdk_11_0.callPackage ../applications/misc/xmrig { };
 
-  xmrig-mo = callPackage ../applications/misc/xmrig/moneroocean.nix { };
+  xmrig-mo = darwin.apple_sdk_11_0.callPackage ../applications/misc/xmrig/moneroocean.nix { };
 
   xmrig-proxy = darwin.apple_sdk_11_0.callPackage ../applications/misc/xmrig/proxy.nix { };
 
@@ -32190,6 +32211,7 @@ with pkgs;
   osmscout-server = libsForQt5.callPackage ../applications/misc/osmscout-server { };
 
   palemoon = callPackage ../applications/networking/browsers/palemoon { };
+  palemoon-bin = callPackage ../applications/networking/browsers/palemoon/bin.nix { };
 
   pamix = callPackage ../applications/audio/pamix { };
 
@@ -35874,7 +35896,6 @@ with pkgs;
   };
 
   tengine = callPackage ../servers/http/tengine {
-    openssl = openssl_1_1;
     modules = with nginxModules; [ rtmp dav moreheaders modsecurity ];
   };
 
