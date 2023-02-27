@@ -4809,7 +4809,8 @@ with pkgs;
 
   ghdorker = callPackage ../tools/security/ghdorker { };
 
-  ghidra = callPackage ../tools/security/ghidra/build.nix { };
+  ghidra = if stdenv.isDarwin then darwin.apple_sdk_11_0.callPackage ../tools/security/ghidra/build.nix {}
+  else callPackage ../tools/security/ghidra/build.nix {};
 
   ghidra-bin = callPackage ../tools/security/ghidra { };
 
@@ -12021,6 +12022,8 @@ with pkgs;
 
   sing-geosite = callPackage ../data/misc/sing-geosite { };
 
+  sing-geoip = callPackage ../data/misc/sing-geoip { };
+
   sipcalc = callPackage ../tools/networking/sipcalc { };
 
   skribilo = callPackage ../tools/typesetting/skribilo {
@@ -14979,7 +14982,9 @@ with pkgs;
 
   fsharp = callPackage ../development/compilers/fsharp { };
 
-  fstar = callPackage ../development/compilers/fstar { };
+  fstar = callPackage ../development/compilers/fstar {
+    z3 = z3_4_8_5;
+  };
 
   dotnetPackages = recurseIntoAttrs (callPackage ./dotnet-packages.nix {});
 
@@ -37073,7 +37078,8 @@ with pkgs;
 
   inherit (callPackages ../applications/science/logic/z3 { python = python3; })
     z3_4_11
-    z3_4_8;
+    z3_4_8
+    z3_4_8_5;
   z3 = z3_4_8;
   z3-tptp = callPackage ../applications/science/logic/z3/tptp.nix {};
 
