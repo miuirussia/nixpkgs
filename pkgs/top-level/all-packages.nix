@@ -386,6 +386,8 @@ with pkgs;
 
   catppuccin-kde = callPackage ../data/themes/catppuccin-kde { };
 
+  catppuccin-kvantum = callPackage ../data/themes/catppuccin-kvantum { };
+
   catppuccin-papirus-folders = callPackage ../data/icons/catppuccin-papirus-folders { };
 
   btdu = callPackage ../tools/misc/btdu { };
@@ -3057,6 +3059,8 @@ with pkgs;
 
   go-cve-search = callPackage ../tools/security/go-cve-search { };
 
+  go-dork = callPackage ../tools/security/go-dork { };
+
   chkcrontab = callPackage ../tools/admin/chkcrontab { };
 
   claws = callPackage ../tools/misc/claws { };
@@ -4035,6 +4039,8 @@ with pkgs;
   clash-geoip = callPackage ../data/misc/clash-geoip { };
 
   clash-meta = callPackage ../tools/networking/clash-meta { };
+
+  clash-verge = callPackage ../applications/networking/clash-verge { };
 
   clevercsv = with python3Packages; toPythonApplication clevercsv;
 
@@ -5507,6 +5513,8 @@ with pkgs;
   shell-hist = callPackage ../tools/misc/shell-hist { };
 
   shellhub-agent = callPackage ../applications/networking/shellhub-agent { };
+
+  shellclear = callPackage ../tools/security/shellclear { };
 
   shellnoob = callPackage ../tools/security/shellnoob { };
 
@@ -12263,9 +12271,7 @@ with pkgs;
 
   ssldump = callPackage ../tools/networking/ssldump { };
 
-  sslsplit = callPackage ../tools/networking/sslsplit {
-    openssl = openssl_1_1;
-  };
+  sslsplit = callPackage ../tools/networking/sslsplit { };
 
   sstp = callPackage ../tools/networking/sstp {};
 
@@ -14113,6 +14119,10 @@ with pkgs;
   arachne-pnr = callPackage ../development/compilers/arachne-pnr { };
 
   asciigraph = callPackage ../tools/text/asciigraph { };
+
+  autocorrect = callPackage ../tools/text/autocorrect {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   as31 = callPackage ../development/compilers/as31 { };
 
@@ -17177,23 +17187,40 @@ with pkgs;
 
   aws-adfs = with python3Packages; toPythonApplication aws-adfs;
 
-  inherit (callPackages ../development/tools/electron { })
-    electron
-    electron_9
-    electron_10
-    electron_11
-    electron_12
-    electron_13
-    electron_14
-    electron_15
-    electron_16
-    electron_17
-    electron_18
-    electron_19
-    electron_20
-    electron_21
-    electron_22
-    electron_23;
+  inherit (callPackages ../development/tools/electron/binary { })
+    electron-bin
+    electron_9-bin
+    electron_10-bin
+    electron_11-bin
+    electron_12-bin
+    electron_13-bin
+    electron_14-bin
+    electron_15-bin
+    electron_16-bin
+    electron_17-bin
+    electron_18-bin
+    electron_19-bin
+    electron_20-bin
+    electron_21-bin
+    electron_22-bin
+    electron_23-bin;
+
+  electron = electron-bin;
+  electron_9 = electron_9-bin;
+  electron_10 = electron_10-bin;
+  electron_11 = electron_11-bin;
+  electron_12 = electron_12-bin;
+  electron_13 = electron_13-bin;
+  electron_14 = electron_14-bin;
+  electron_15 = electron_15-bin;
+  electron_16 = electron_16-bin;
+  electron_17 = electron_17-bin;
+  electron_18 = electron_18-bin;
+  electron_19 = electron_19-bin;
+  electron_20 = electron_20-bin;
+  electron_21 = electron_21-bin;
+  electron_22 = electron_22-bin;
+  electron_23 = electron_23-bin;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
 
@@ -18638,7 +18665,7 @@ with pkgs;
   slimerjs = callPackage ../development/tools/slimerjs {};
 
   slint-lsp = callPackage ../development/tools/misc/slint-lsp {
-    inherit (darwin.apple_sdk.frameworks) AppKit CoreGraphics CoreServices CoreText Foundation OpenGL;
+    inherit (darwin.apple_sdk_11_0.frameworks) AppKit CoreGraphics CoreServices CoreText Foundation OpenGL;
   };
 
   sloccount = callPackage ../development/tools/misc/sloccount { };
@@ -22117,6 +22144,8 @@ with pkgs;
 
   libwacom = callPackage ../development/libraries/libwacom { };
 
+  libwacom-surface = callPackage ../development/libraries/libwacom/surface.nix { };
+
   lightning = callPackage ../development/libraries/lightning { };
 
   lightlocker = callPackage ../misc/screensavers/light-locker { };
@@ -22314,6 +22343,8 @@ with pkgs;
   libmpeg2 = callPackage ../development/libraries/libmpeg2 { };
 
   mpeg2dec = libmpeg2;
+
+  mqtt-benchmark = callPackage ../tools/networking/mqtt-benchmark { };
 
   mqttui = callPackage ../tools/networking/mqttui {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -30091,6 +30122,8 @@ with pkgs;
 
   gosmore = callPackage ../applications/misc/gosmore { stdenv = gcc10StdenvCompat; };
 
+  gossa = callPackage ../applications/networking/gossa { };
+
   gpsbabel = libsForQt5.callPackage ../applications/misc/gpsbabel { };
 
   gpsbabel-gui = gpsbabel.override {
@@ -32916,9 +32949,11 @@ with pkgs;
 
   shfmt = callPackage ../tools/text/shfmt { };
 
+  shipments = callPackage ../applications/misc/shipments { };
+
   shortwave = callPackage ../applications/audio/shortwave { };
 
-  shotgun = callPackage ../tools/graphics/shotgun {};
+  shotgun = callPackage ../tools/graphics/shotgun { };
 
   shutter = callPackage ../applications/graphics/shutter { };
 
@@ -39111,6 +39146,8 @@ with pkgs;
   zfs-prune-snapshots = callPackage ../tools/backup/zfs-prune-snapshots {};
 
   zfs-replicate = python3Packages.callPackage ../tools/backup/zfs-replicate { };
+
+  zfxtop = callPackage ../tools/system/zfxtop { };
 
   zrepl = callPackage ../tools/backup/zrepl { };
 
