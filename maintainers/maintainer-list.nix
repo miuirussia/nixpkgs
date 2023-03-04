@@ -11677,6 +11677,12 @@
       fingerprint = "A3A3 65AE 16ED A7A0 C29C  88F1 9712 452E 8BE3 372E";
     }];
   };
+  pinkcreeper100 = {
+    email = "benmoreosm@gmail.com";
+    github = "pinkcreeper100";
+    githubId = 35699052;
+    name = "Oliver Samuel Morris";
+  };
   pinpox = {
     email = "mail@pablo.tools";
     github = "pinpox";
@@ -11931,6 +11937,12 @@
     github = "posch";
     githubId = 146413;
     name = "Tobias Poschwatta";
+  };
+  PowerUser64 = {
+    email = "blakelysnorth@gmail.com";
+    github = "PowerUser64";
+    githubId = 24578572;
+    name = "Blake North";
   };
   ppenguin = {
     name = "Jeroen Versteeg";
@@ -15964,6 +15976,15 @@
       fingerprint = "DA03 D6C6 3F58 E796 AD26  E99B 366A 2940 479A 06FC";
     }];
   };
+  williamvds = {
+    email = "nixpkgs@williamvds.me";
+    github = "williamvds";
+    githubId = 26379999;
+    name = "William Vigolo";
+    keys = [{
+      fingerprint = "9848 B216 BCBE 29BB 1C6A  E0D5 7A4D F5A8 CDBD 49C7";
+    }];
+  };
   willibutz = {
     email = "willibutz@posteo.de";
     github = "WilliButz";
@@ -16087,6 +16108,12 @@
     email = "wrobel.jakub@protonmail.com";
     github = "wr0belj";
     githubId = 40501814;
+  };
+  wraithm = {
+    name = "Matthew Wraith";
+    email = "wraithm@gmail.com";
+    github = "wraithm";
+    githubId = 1512913;
   };
   wrmilling = {
     name = "Winston R. Milling";
