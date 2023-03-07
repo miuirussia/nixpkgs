@@ -492,9 +492,7 @@ with pkgs;
 
   dsq = callPackage ../tools/misc/dsq { };
 
-  dtv-scan-tables_linuxtv = callPackage ../data/misc/dtv-scan-tables/linuxtv.nix { };
-  dtv-scan-tables_tvheadend = callPackage ../data/misc/dtv-scan-tables/tvheadend.nix { };
-  dtv-scan-tables = dtv-scan-tables_linuxtv;
+  dtv-scan-tables = callPackage ../data/misc/dtv-scan-tables { };
 
   dufs = callPackage ../servers/http/dufs {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -1362,7 +1360,7 @@ with pkgs;
 
   aioblescan = with python3Packages; toPythonApplication aioblescan;
 
-  aiodnsbrute = python3Packages.callPackage ../tools/security/aiodnsbrute { };
+  aiodnsbrute = callPackage ../tools/security/aiodnsbrute { };
 
   aircrack-ng = callPackage ../tools/networking/aircrack-ng { };
 
@@ -1922,6 +1920,10 @@ with pkgs;
   };
 
   git-sizer = callPackage ../applications/version-management/git-sizer { };
+
+  git-stack = callPackage ../applications/version-management/git-stack {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
 
   git-standup = callPackage ../applications/version-management/git-standup { };
 
@@ -5943,6 +5945,8 @@ with pkgs;
 
   cdi2iso = callPackage ../tools/cd-dvd/cdi2iso { };
 
+  cdist = python3Packages.callPackage ../tools/admin/cdist { };
+
   cdimgtools = callPackage ../tools/cd-dvd/cdimgtools { };
 
   cdpr = callPackage ../tools/networking/cdpr { };
@@ -6757,7 +6761,7 @@ with pkgs;
 
   dtc = callPackage ../development/compilers/dtc { };
 
-  dt-schema = python3Packages.callPackage ../development/tools/dt-schema { };
+  dt-schema = with python3Packages; toPythonApplication dtschema;
 
   dub = callPackage ../development/tools/build-managers/dub { };
 
@@ -7426,6 +7430,8 @@ with pkgs;
 
   fdk-aac-encoder = callPackage ../applications/audio/fdkaac { };
 
+  fead = callPackage ../applications/misc/fead { };
+
   feedgnuplot = callPackage ../tools/graphics/feedgnuplot { };
 
   fbcat = callPackage ../tools/misc/fbcat { };
@@ -7742,6 +7748,8 @@ with pkgs;
   git-latexdiff = callPackage ../tools/typesetting/git-latexdiff { };
 
   gitea = callPackage ../applications/version-management/gitea { };
+
+  gitea-actions-runner = callPackage ../development/tools/continuous-integration/gitea-actions-runner { };
 
   forgejo = callPackage ../applications/version-management/forgejo {};
 
@@ -9290,6 +9298,8 @@ with pkgs;
   netdata = callPackage ../tools/system/netdata {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation IOKit;
   };
+  # Exposed here so the bots can auto-upgrade it
+  netdata-go-plugins = callPackage ../tools/system/netdata/go.d.plugin.nix {};
 
   netsurf = recurseIntoAttrs (callPackage ../applications/networking/browsers/netsurf { });
   netsurf-browser = netsurf.browser;
@@ -12896,6 +12906,8 @@ with pkgs;
   };
   ttfautohint-nox = ttfautohint.override { enableGUI = false; };
 
+  ttop = callPackage ../tools/system/ttop { };
+
   tty-clock = callPackage ../tools/misc/tty-clock { };
 
   tty-share = callPackage ../applications/misc/tty-share { };
@@ -13026,7 +13038,7 @@ with pkgs;
 
   unrtf = callPackage ../tools/text/unrtf { };
 
-  unrpa = with python38Packages; toPythonApplication unrpa;
+  unrpa = with python3Packages; toPythonApplication unrpa;
 
   untex = callPackage ../tools/text/untex { };
 
@@ -15171,6 +15183,7 @@ with pkgs;
   graalvm-ce = graalvm11-ce;
   graalvm11-ce = graalvmCEPackages.graalvm11-ce;
   graalvm17-ce = graalvmCEPackages.graalvm17-ce;
+  graalvm19-ce = graalvmCEPackages.graalvm19-ce;
   buildGraalvmNativeImage = (callPackage ../build-support/build-graalvm-native-image {
     graalvmDrv = graalvm-ce;
   }).override;
@@ -17000,6 +17013,8 @@ with pkgs;
   jython = callPackage ../development/interpreters/jython {};
 
   gImageReader = callPackage ../applications/misc/gImageReader { };
+
+  gimme-aws-creds = callPackage ../tools/admin/gimme-aws-creds { };
 
   guile_1_8 = callPackage ../development/interpreters/guile/1.8.nix { };
 
@@ -19665,6 +19680,8 @@ with pkgs;
   eigen = callPackage ../development/libraries/eigen {};
 
   eigen2 = callPackage ../development/libraries/eigen/2.0.nix {};
+
+  eigenmath = callPackage ../applications/science/math/eigenmath { };
 
   vapoursynth = callPackage ../development/libraries/vapoursynth {
     inherit (darwin.apple_sdk.frameworks) ApplicationServices;
@@ -25916,6 +25933,8 @@ with pkgs;
 
   disk_indicator = callPackage ../os-specific/linux/disk-indicator { };
 
+  displaycal = callPackage ../applications/graphics/displaycal { };
+
   displaylink = callPackage ../os-specific/linux/displaylink {
     inherit (linuxPackages) evdi;
   };
@@ -30560,9 +30579,7 @@ with pkgs;
 
   wbg = callPackage ../applications/misc/wbg { };
 
-  hikari = callPackage ../applications/window-managers/hikari {
-    wlroots = wlroots_0_14;
-  };
+  hikari = callPackage ../applications/window-managers/hikari { };
 
   i3 = callPackage ../applications/window-managers/i3 {
     xcb-util-cursor = if stdenv.isDarwin then xcb-util-cursor-HEAD else xcb-util-cursor;
@@ -33544,7 +33561,7 @@ with pkgs;
     tesseract3
     tesseract4
     tesseract5;
-  tesseract = tesseract3;
+  tesseract = tesseract5;
 
   tetraproc = callPackage ../applications/audio/tetraproc { };
 
@@ -34902,9 +34919,7 @@ with pkgs;
 
   taro = callPackage ../applications/blockchains/taro { };
 
-  inherit (callPackages ../applications/blockchains/teos {
-    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
-  })
+  inherit (callPackages ../applications/blockchains/teos { })
     teos
     teos-watchtower-plugin;
 
@@ -38678,9 +38693,7 @@ with pkgs;
 
   tvbrowser = callPackage ../applications/misc/tvbrowser { };
 
-  tvheadend = callPackage ../servers/tvheadend {
-    dtv-scan-tables = dtv-scan-tables_tvheadend;
-  };
+  tvheadend = callPackage ../servers/tvheadend { };
 
   twiggy = callPackage ../development/tools/twiggy { };
 

@@ -2144,6 +2144,8 @@ self: super: with self; {
 
   csvw = callPackage ../development/python-modules/csvw { };
 
+  ctap-keyring-device = callPackage ../development/python-modules/ctap-keyring-device { };
+
   cu2qu = callPackage ../development/python-modules/cu2qu { };
 
   cucumber-tag-expressions = callPackage ../development/python-modules/cucumber-tag-expressions { };
@@ -2230,6 +2232,8 @@ self: super: with self; {
   dash-table = callPackage ../development/python-modules/dash-table { };
 
   dask = callPackage ../development/python-modules/dask { };
+
+  dask-awkward = callPackage ../development/python-modules/dask-awkward { };
 
   dask-gateway = callPackage ../development/python-modules/dask-gateway { };
 
@@ -2896,6 +2900,8 @@ self: super: with self; {
 
   dtlssocket = callPackage ../development/python-modules/dtlssocket { };
 
+  dtschema = callPackage ../development/python-modules/dtschema { };
+
   ducc0 = callPackage ../development/python-modules/ducc0 { };
 
   duckdb = callPackage ../development/python-modules/duckdb {
@@ -3161,6 +3167,8 @@ self: super: with self; {
 
   et_xmlfile = callPackage ../development/python-modules/et_xmlfile { };
 
+  evaluate = callPackage ../development/python-modules/evaluate { };
+
   ev3dev2 = callPackage ../development/python-modules/ev3dev2 { };
 
   evdev = callPackage ../development/python-modules/evdev { };
@@ -3189,6 +3197,8 @@ self: super: with self; {
   exceptiongroup = callPackage ../development/python-modules/exceptiongroup { };
 
   exchangelib = callPackage ../development/python-modules/exchangelib { };
+
+  execnb = callPackage ../development/python-modules/execnb { };
 
   execnet = callPackage ../development/python-modules/execnet { };
 
@@ -3275,6 +3285,8 @@ self: super: with self; {
 
   faraday-plugins = callPackage ../development/python-modules/faraday-plugins { };
 
+  fastai = callPackage ../development/python-modules/fastai { };
+
   fastapi = callPackage ../development/python-modules/fastapi { };
 
   fastapi-mail = callPackage ../development/python-modules/fastapi-mail { };
@@ -3288,6 +3300,8 @@ self: super: with self; {
   fastcore = callPackage ../development/python-modules/fastcore { };
 
   fastdiff = callPackage ../development/python-modules/fastdiff { };
+
+  fastdownload = callPackage ../development/python-modules/fastdownload { };
 
   fastdtw = callPackage ../development/python-modules/fastdtw { };
 
@@ -6296,6 +6310,8 @@ self: super: with self; {
 
   nbconvert = callPackage ../development/python-modules/nbconvert { };
 
+  nbdev = callPackage ../development/python-modules/nbdev { };
+
   nbdime = callPackage ../development/python-modules/nbdime { };
 
   nbformat = callPackage ../development/python-modules/nbformat { };
@@ -6644,6 +6660,8 @@ self: super: with self; {
   ofxtools = callPackage ../development/python-modules/ofxtools { };
 
   oemthermostat = callPackage ../development/python-modules/oemthermostat { };
+
+  okta = callPackage ../development/python-modules/okta { };
 
   olefile = callPackage ../development/python-modules/olefile { };
 
@@ -9152,7 +9170,9 @@ self: super: with self; {
 
   pytest-localserver = callPackage ../development/python-modules/pytest-localserver { };
 
-  pytest-logdog = callPackage ../development/python-modules/pytest-logdog{ };
+  pytest-logdog = callPackage ../development/python-modules/pytest-logdog { };
+
+  pytest-md-report = callPackage ../development/python-modules/pytest-md-report { };
 
   pytest-metadata = callPackage ../development/python-modules/pytest-metadata { };
 
@@ -9193,6 +9213,8 @@ self: super: with self; {
   pytest-randomly = callPackage ../development/python-modules/pytest-randomly { };
 
   pytest-random-order = callPackage ../development/python-modules/pytest-random-order { };
+
+  pytest-recording = callPackage ../development/python-modules/pytest-recording { };
 
   pytest-regressions = callPackage ../development/python-modules/pytest-regressions { };
 
@@ -11488,6 +11510,10 @@ self: super: with self; {
 
   textacy = callPackage ../development/python-modules/textacy { };
 
+  textnets = callPackage ../development/python-modules/textnets {
+    en_core_web_sm = spacy_models.en_core_web_sm;
+  };
+
   texttable = callPackage ../development/python-modules/texttable { };
 
   text-unidecode = callPackage ../development/python-modules/text-unidecode { };
@@ -11984,6 +12010,8 @@ self: super: with self; {
   ukpostcodeparser = callPackage ../development/python-modules/ukpostcodeparser { };
 
   ukrainealarm = callPackage ../development/python-modules/ukrainealarm { };
+
+  ulid-transform = callPackage ../development/python-modules/ulid-transform { };
 
   ultraheat-api = callPackage ../development/python-modules/ultraheat-api { };
 
