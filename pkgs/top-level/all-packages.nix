@@ -5301,6 +5301,8 @@ with pkgs;
 
   mpd-mpris = callPackage ../tools/audio/mpd-mpris { };
 
+  mpd-sima = python3Packages.callPackage ../tools/audio/mpd-sima { };
+
   mpris-scrobbler = callPackage ../tools/audio/mpris-scrobbler { };
 
   mq-cli = callPackage ../tools/system/mq-cli { };
@@ -5314,6 +5316,8 @@ with pkgs;
   n2n = callPackage ../tools/networking/n2n { };
 
   nextdns = callPackage ../applications/networking/nextdns { };
+
+  nexttrace = callPackage ../tools/networking/nexttrace { };
 
   ngadmin = callPackage ../applications/networking/ngadmin { };
 
@@ -15577,7 +15581,7 @@ with pkgs;
   ocsigen-i18n = callPackage ../development/tools/ocaml/ocsigen-i18n { };
 
   opa = callPackage ../development/compilers/opa {
-    ocamlPackages = ocaml-ng.ocamlPackages_4_05;
+    ocamlPackages = ocaml-ng.ocamlPackages_4_14_unsafe_string;
   };
 
   opaline = callPackage ../development/tools/ocaml/opaline { };
@@ -18003,6 +18007,8 @@ with pkgs;
 
   flex_2_5_35 = callPackage ../development/tools/parsing/flex/2.5.35.nix { };
   flex = callPackage ../development/tools/parsing/flex { };
+
+  re-flex = callPackage ../development/tools/parsing/re-flex { };
 
   flexibee = callPackage ../applications/office/flexibee { };
 
@@ -26615,6 +26621,8 @@ with pkgs;
   gotests = callPackage ../development/tools/gotests { };
 
   gotestsum = callPackage ../development/tools/gotestsum { };
+
+  gqlgenc = callPackage ../development/tools/gqlgenc { };
 
   impl = callPackage ../development/tools/impl { };
 
@@ -37262,7 +37270,7 @@ with pkgs;
     jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
   tlaps = callPackage ../applications/science/logic/tlaplus/tlaps.nix {
-    inherit (ocaml-ng.ocamlPackages_4_05) ocaml;
+    inherit (ocaml-ng.ocamlPackages_4_14_unsafe_string) ocaml;
   };
   tlaplusToolbox = callPackage ../applications/science/logic/tlaplus/toolbox.nix {};
 
