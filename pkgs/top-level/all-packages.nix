@@ -402,7 +402,9 @@ with pkgs;
 
   cewl = callPackage ../tools/security/cewl { };
 
-  checkov = callPackage ../development/tools/analysis/checkov { };
+  checkov = callPackage ../development/tools/analysis/checkov {
+    python3 = python311;
+  };
 
   chrysalis = callPackage ../applications/misc/chrysalis { };
 
@@ -459,6 +461,8 @@ with pkgs;
   coost = callPackage ../development/libraries/coost { };
 
   crc = callPackage ../applications/networking/cluster/crc { };
+
+  confy = callPackage ../applications/misc/confy { };
 
   coordgenlibs  = callPackage ../development/libraries/coordgenlibs { };
 
@@ -623,6 +627,8 @@ with pkgs;
   enum4linux = callPackage ../tools/security/enum4linux { };
 
   enum4linux-ng = python3Packages.callPackage ../tools/security/enum4linux-ng { };
+
+  enumerepo = callPackage ../tools/security/enumerepo {};
 
   erosmb = callPackage ../tools/security/erosmb { };
 
@@ -1457,7 +1463,9 @@ with pkgs;
     libgamemode32 = pkgsi686Linux.gamemode.lib;
   };
 
-  gamescope = callPackage ../applications/window-managers/gamescope { };
+  gamescope = callPackage ../applications/window-managers/gamescope {
+    wlroots = wlroots_0_16;
+  };
 
   gay = callPackage ../tools/misc/gay {  };
 
@@ -1590,6 +1598,8 @@ with pkgs;
   smbscan = callPackage ../tools/security/smbscan { };
 
   spectre-cli = callPackage ../tools/security/spectre-cli { };
+
+  speedtest-go = callPackage ../tools/networking/speedtest-go { };
 
   speedtest-rs = callPackage ../tools/networking/speedtest-rs { };
 
@@ -5619,6 +5629,8 @@ with pkgs;
 
   step-cli = callPackage ../tools/security/step-cli { };
 
+  step-kms-plugin = callPackage ../tools/security/step-kms-plugin { };
+
   string-machine = callPackage ../applications/audio/string-machine { };
 
   stripe-cli = callPackage ../tools/admin/stripe-cli {
@@ -5682,6 +5694,8 @@ with pkgs;
   rsbep = callPackage ../tools/backup/rsbep { };
 
   rsbkb = callPackage ../tools/text/rsbkb { };
+
+  rsign2 = callPackage ../tools/security/rsign2 { };
 
   rsyslog = callPackage ../tools/system/rsyslog {
     withHadoop = false; # Currently Broken
@@ -6756,6 +6770,8 @@ with pkgs;
 
   driftctl = callPackage ../applications/networking/cluster/driftctl { };
 
+  eks-node-viewer = callPackage ../applications/networking/cluster/eks-node-viewer { };
+
   drill = callPackage ../tools/networking/drill {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -7651,7 +7667,7 @@ with pkgs;
   })
     garage
       garage_0_7 garage_0_8
-      garage_0_7_3 garage_0_8_0;
+      garage_0_7_3 garage_0_8_2;
 
   garmin-plugin = callPackage ../applications/misc/garmin-plugin { };
 
@@ -10784,6 +10800,8 @@ with pkgs;
 
   payload_dumper = callPackage ../tools/archivers/payload_dumper { };
 
+  payload-dumper-go = callPackage ../tools/archivers/payload-dumper-go { };
+
   p2pvc = callPackage ../applications/video/p2pvc { };
 
   p3x-onenote = callPackage ../applications/office/p3x-onenote { };
@@ -11488,7 +11506,9 @@ with pkgs;
 
   raider = callPackage ../applications/misc/raider { };
 
-  railway = callPackage ../development/tools/railway { };
+  railway = callPackage ../development/tools/railway {
+    inherit (darwin.apple_sdk.frameworks) CoreServices Security;
+  };
 
   quota = if stdenv.isLinux then linuxquota else unixtools.quota;
 
@@ -12145,6 +12165,8 @@ with pkgs;
   slirp4netns = callPackage ../tools/networking/slirp4netns { };
 
   slowlorust = callPackage ../tools/networking/slowlorust { };
+
+  slsa-verifier = callPackage ../tools/security/slsa-verifier { };
 
   slsnif = callPackage ../tools/misc/slsnif { };
 
@@ -17270,9 +17292,10 @@ with pkgs;
     antlr4_8
     antlr4_9
     antlr4_10
-    antlr4_11;
+    antlr4_11
+    antlr4_12;
 
-  antlr4 = antlr4_11;
+  antlr4 = antlr4_12;
 
   antlr = antlr4;
 
@@ -18293,6 +18316,8 @@ with pkgs;
 
   kubeprompt = callPackage ../development/tools/kubeprompt { };
 
+  kubernetes-polaris = callPackage ../tools/security/kubernetes-polaris { };
+
   kubescape = callPackage ../tools/security/kubescape { };
 
   kubesec = callPackage ../tools/security/kubesec { };
@@ -19158,6 +19183,8 @@ with pkgs;
   allegro5 = callPackage ../development/libraries/allegro/5.nix { };
 
   amdvlk = callPackage ../development/libraries/amdvlk { };
+
+  amf-headers = callPackage ../development/libraries/amf-headers { };
 
   aml = callPackage ../development/libraries/aml { };
 
@@ -22820,6 +22847,8 @@ with pkgs;
 
   openvdb = callPackage ../development/libraries/openvdb { };
 
+  openvr = callPackage ../development/libraries/openvr { };
+
   inherit (callPackages ../development/libraries/libressl { })
     libressl_3_4
     libressl_3_5
@@ -24186,6 +24215,8 @@ with pkgs;
   zita-alsa-pcmi = callPackage ../development/libraries/audio/zita-alsa-pcmi { };
 
   zita-resampler = callPackage ../development/libraries/audio/zita-resampler { };
+
+  zix = callPackage ../development/libraries/audio/zix { };
 
   zz = callPackage ../development/compilers/zz { };
 
@@ -26813,8 +26844,8 @@ with pkgs;
   # Building with `xen` instead of `xen-slim` is possible, but makes no sense.
   qemu_xen = lowPrio (qemu.override { hostCpuOnly = true; xenSupport = true; xen = xen-slim; });
   qemu_xen-light = lowPrio (qemu.override { hostCpuOnly = true; xenSupport = true; xen = xen-light; });
-  qemu_xen_4_10 = lowPrio (qemu.override { hostCpuOnly = true; xenSupport = true; xen = xen_4_10-slim; });
-  qemu_xen_4_10-light = lowPrio (qemu.override { hostCpuOnly = true; xenSupport = true; xen = xen_4_10-light; });
+  qemu_xen_4_15 = lowPrio (qemu.override { hostCpuOnly = true; xenSupport = true; xen = xen_4_15-slim; });
+  qemu_xen_4_15-light = lowPrio (qemu.override { hostCpuOnly = true; xenSupport = true; xen = xen_4_15-light; });
 
   qemu_test = lowPrio (qemu.override { hostCpuOnly = true; nixosTestRunner = true; });
 
@@ -29930,9 +29961,7 @@ with pkgs;
 
   fbida = callPackage ../applications/graphics/fbida { };
 
-  fclones = callPackage ../tools/misc/fclones {
-    inherit (darwin.apple_sdk.frameworks) AppKit;
-  };
+  fclones = callPackage ../tools/misc/fclones { };
 
   fcp = callPackage ../tools/misc/fcp { };
 
@@ -30154,7 +30183,7 @@ with pkgs;
 
   hydrus = python3Packages.callPackage ../applications/graphics/hydrus {
     inherit miniupnpc swftools;
-    inherit (qt5) wrapQtAppsHook;
+    inherit (qt6) wrapQtAppsHook qtbase qtcharts;
   };
 
   jetbrains = (recurseIntoAttrs (callPackages ../applications/editors/jetbrains {
@@ -30378,6 +30407,8 @@ with pkgs;
   hacksaw = callPackage ../tools/misc/hacksaw { };
 
   hakuneko = callPackage ../tools/misc/hakuneko { };
+
+  halp = callPackage ../tools/misc/halp { };
 
   manga-cli = callPackage ../tools/misc/manga-cli { };
 
@@ -31124,6 +31155,8 @@ with pkgs;
   kubectl = callPackage ../applications/networking/cluster/kubernetes/kubectl.nix { };
   kubectl-convert = kubectl.convert;
 
+  kubernetes-metrics-server = callPackage ../applications/networking/cluster/kubernetes-metrics-server { };
+
   kubemqctl = callPackage ../applications/networking/cluster/kubemqctl { };
 
   kubent = callPackage ../applications/networking/cluster/kubent { };
@@ -31379,6 +31412,8 @@ with pkgs;
   };
 
   lls = callPackage ../applications/networking/lls { };
+
+  localsend = callPackage ../applications/networking/localsend { };
 
   lmms = libsForQt5.callPackage ../applications/audio/lmms {
     lame = null;
@@ -31682,6 +31717,8 @@ with pkgs;
   mod-arpeggiator-lv2 = callPackage ../applications/audio/mod-arpeggiator-lv2 { };
 
   mod-distortion = callPackage ../applications/audio/mod-distortion { };
+
+  monitorcontrol = callPackage ../applications/misc/monitorcontrol { };
 
   xmr-stak = callPackage ../applications/misc/xmr-stak { };
 
@@ -32270,6 +32307,8 @@ with pkgs;
     # https://github.com/NixOS/nixpkgs/issues/201254
     stdenv = if stdenv.isLinux && stdenv.isAarch64 && stdenv.cc.isGNU then gcc12Stdenv else stdenv;
   };
+
+  nimdow = callPackage ../applications/window-managers/nimdow { };
 
   nomacs = libsForQt5.callPackage ../applications/graphics/nomacs { };
 
@@ -34026,6 +34065,8 @@ with pkgs;
   };
   neovim = wrapNeovim neovim-unwrapped { };
 
+  neovim-gtk = callPackage ../applications/editors/neovim/neovim-gtk.nix { };
+
   neovim-qt-unwrapped = libsForQt5.callPackage ../applications/editors/neovim/neovim-qt.nix { };
   neovim-qt = libsForQt5.callPackage ../applications/editors/neovim/qt.nix { };
 
@@ -34510,9 +34551,9 @@ with pkgs;
   xen-slim = xenPackages.xen-slim;
   xen-light = xenPackages.xen-light;
 
-  xen_4_10 = xenPackages.xen_4_10-vanilla;
-  xen_4_10-slim = xenPackages.xen_4_10-slim;
-  xen_4_10-light = xenPackages.xen_4_10-light;
+  xen_4_15 = xenPackages.xen_4_15-vanilla;
+  xen_4_15-slim = xenPackages.xen_4_15-slim;
+  xen_4_15-light = xenPackages.xen_4_15-light;
 
   xkbset = callPackage ../tools/X11/xkbset { };
 
@@ -38292,7 +38333,9 @@ with pkgs;
 
   dnadd = callPackage ../tools/nix/dnadd { };
 
-  nix-eval-jobs = callPackage ../tools/package-management/nix-eval-jobs { };
+  nix-eval-jobs = callPackage ../tools/package-management/nix-eval-jobs {
+    nix = nixVersions.nix_2_14;
+  };
 
   nix-doc = callPackage ../tools/package-management/nix-doc { };
 
@@ -38821,6 +38864,8 @@ with pkgs;
   unicode-paracode = callPackage ../tools/misc/unicode { };
 
   unixcw = libsForQt5.callPackage ../applications/radio/unixcw { };
+
+  valent = callPackage ../applications/misc/valent { };
 
   vault = callPackage ../tools/security/vault { };
 
@@ -39406,7 +39451,9 @@ with pkgs;
 
   stayrtr = callPackage ../servers/stayrtr { };
 
-  sunshine = callPackage ../servers/sunshine { };
+  sunshine = callPackage ../servers/sunshine {
+    ffmpeg_5-full = ffmpeg_5-full.override { nv-codec-headers = nv-codec-headers-11; };
+  };
 
   sentencepiece = callPackage ../development/libraries/sentencepiece { };
 

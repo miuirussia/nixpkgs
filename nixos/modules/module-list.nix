@@ -377,6 +377,8 @@
   ./services/continuous-integration/jenkins/default.nix
   ./services/continuous-integration/jenkins/job-builder.nix
   ./services/continuous-integration/jenkins/slave.nix
+  ./services/continuous-integration/woodpecker/agent.nix
+  ./services/continuous-integration/woodpecker/server.nix
   ./services/databases/aerospike.nix
   ./services/databases/cassandra.nix
   ./services/databases/clickhouse.nix
@@ -1273,6 +1275,7 @@
   ./services/x11/window-managers/bspwm.nix
   ./services/x11/window-managers/katriawm.nix
   ./services/x11/window-managers/metacity.nix
+  ./services/x11/window-managers/nimdow.nix
   ./services/x11/window-managers/none.nix
   ./services/x11/window-managers/twm.nix
   ./services/x11/window-managers/windowlab.nix
