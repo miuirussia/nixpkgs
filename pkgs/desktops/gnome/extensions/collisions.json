@@ -56,6 +56,10 @@
       "gnome-trash@gnome-trash.b00f.gitlab.com",
       "gnome-trash@b00f.github.io"
     ],
+    "true-color-invert": [
+      "true-color-invert@jackkenney",
+      "true-color-window-invert@lynet101"
+    ],
     "volume-scroller": [
       "volume_scroller@trflynn89.pm.me",
       "volume_scroller@noskoski"
@@ -123,6 +127,10 @@
       "wireguard-indicator@gregos.me",
       "wireguard-indicator@atareao.es"
     ],
+    "true-color-invert": [
+      "true-color-invert@jackkenney",
+      "true-color-window-invert@lynet101"
+    ],
     "volume-scroller": [
       "volume_scroller@trflynn89.pm.me",
       "volume_scroller@noskoski"
@@ -177,6 +185,10 @@
       "wireguard-indicator@gregos.me",
       "wireguard-indicator@atareao.es"
     ],
+    "true-color-invert": [
+      "true-color-invert@jackkenney",
+      "true-color-window-invert@lynet101"
+    ],
     "volume-scroller": [
       "volume_scroller@trflynn89.pm.me",
       "volume_scroller@noskoski"
@@ -218,6 +230,10 @@
     "wireguard-indicator": [
       "wireguard-indicator@gregos.me",
       "wireguard-indicator@atareao.es"
+    ],
+    "true-color-invert": [
+      "true-color-invert@jackkenney",
+      "true-color-window-invert@lynet101"
     ],
     "volume-scroller": [
       "volume_scroller@trflynn89.pm.me",
