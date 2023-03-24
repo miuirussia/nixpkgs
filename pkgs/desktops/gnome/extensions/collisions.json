@@ -86,6 +86,10 @@
       "Hide_Activities@shay.shayel.org",
       "hide-activities-button@nmingori.gnome-shell-extensions.org"
     ],
+    "clipboard-indicator": [
+      "clipboard-indicator@tudmotu.com",
+      "clipboard-indicator@Dieg0Js.github.io"
+    ],
     "shutdowntimer": [
       "ShutdownTimer@neumann",
       "shutdown-timer-gnome-shell-extension",
