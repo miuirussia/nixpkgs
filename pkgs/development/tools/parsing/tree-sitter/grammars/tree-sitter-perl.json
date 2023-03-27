@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/ganezdragon/tree-sitter-perl",
-  "rev": "773da0fd9698aa31b3599476f6c95c95aade84b0",
-  "date": "2023-03-24T08:29:20+05:30",
-  "path": "/nix/store/1ldiw86964v9980ylqv1xzn90jfmda0l-tree-sitter-perl",
-  "sha256": "1nb1kr93z8j0ql5hlwf5ni1nlhp57d77dn1jazylhclv8hpz4slg",
+  "rev": "3d3a95ee6645d7bcd993e77b252ffd33fd297c8e",
+  "date": "2023-03-26T19:35:23+05:30",
+  "path": "/nix/store/iykgiz6hc1xbfsc91kz38w8xkh3vg9fb-tree-sitter-perl",
+  "sha256": "1sr40qgk55s9bfw09a62dhvxmmd0sb8947d9w2jpv49gsz2jbkk0",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
