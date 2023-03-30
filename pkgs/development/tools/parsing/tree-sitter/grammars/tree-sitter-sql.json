@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/derekstride/tree-sitter-sql",
-  "rev": "2f534b4157f2d712ee791dea83fc343250d7eda7",
-  "date": "2023-03-22T17:11:49-04:00",
-  "path": "/nix/store/a17xvzsjxi755n8nxwggw0p8gyj0gjz2-tree-sitter-sql",
-  "sha256": "1q3a5fm538ygya5l4v6b1lad3bxdyvyfnmr3nvyzk8r5ldbv9mhj",
+  "rev": "89a01df5be48593c3e3ce6440362a38ac0ad6186",
+  "date": "2023-03-29T20:45:57+02:00",
+  "path": "/nix/store/p0m90mgd6jb6ps0qna7lvkx28jwamfy7-tree-sitter-sql",
+  "sha256": "1lspqqdb0c6dwzi4rfac16jqjn7hmgy2llir19zxgdpag9rkkbdm",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
