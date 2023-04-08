@@ -4152,7 +4152,7 @@
   };
   dylanmtaylor = {
     email = "dylan@dylanmtaylor.com";
-    github = "dylamtaylor";
+    github = "dylanmtaylor";
     githubId = 277927;
     name = "Dylan Taylor";
   };
@@ -10566,6 +10566,12 @@
     github = "illdefined";
     githubId = 772914;
     name = "Mikael Voss";
+  };
+  mwdomino = {
+    email = "matt@dominey.io";
+    github = "mwdomino";
+    githubId = 46284538;
+    name = "Matt Dominey";
   };
   mwolfe = {
     email = "corp@m0rg.dev";
