@@ -456,6 +456,8 @@ self: super: with self; {
 
   amqtt = callPackage ../development/python-modules/amqtt { };
 
+  ancp-bids = callPackage ../development/python-modules/ancp-bids { };
+
   android-backup = callPackage ../development/python-modules/android-backup { };
 
   androidtv = callPackage ../development/python-modules/androidtv { };
@@ -1585,6 +1587,10 @@ self: super: with self; {
 
   calmjs-parse = callPackage ../development/python-modules/calmjs-parse { };
 
+  calysto = callPackage ../development/python-modules/calysto { };
+
+  calysto-scheme = callPackage ../development/python-modules/calysto-scheme { };
+
   camel-converter = callPackage ../development/python-modules/camel-converter { };
 
   can = callPackage ../development/python-modules/can { };
@@ -2375,6 +2381,8 @@ self: super: with self; {
   deepdiff = callPackage ../development/python-modules/deepdiff { };
 
   deepdish = callPackage ../development/python-modules/deepdish { };
+
+  deepl = callPackage ../development/python-modules/deepl { };
 
   deepmerge = callPackage ../development/python-modules/deepmerge { };
 
@@ -3726,6 +3734,8 @@ self: super: with self; {
   funcparserlib = callPackage ../development/python-modules/funcparserlib { };
 
   funcsigs = callPackage ../development/python-modules/funcsigs { };
+
+  functiontrace = callPackage ../development/python-modules/functiontrace { };
 
   functools32 = callPackage ../development/python-modules/functools32 { };
 
@@ -8130,6 +8140,8 @@ self: super: with self; {
 
   pydevd = callPackage ../development/python-modules/pydevd { };
 
+  pydevtool = callPackage ../development/python-modules/pydevtool { };
+
   pydexcom = callPackage ../development/python-modules/pydexcom { };
 
   pydicom = callPackage ../development/python-modules/pydicom { };
@@ -10427,6 +10439,8 @@ self: super: with self; {
 
   rtoml = callPackage ../development/python-modules/rtoml { };
 
+  rtp = callPackage ../development/python-modules/rtp { };
+
   rtree = callPackage ../development/python-modules/rtree {
     inherit (pkgs) libspatialindex;
   };
@@ -11861,6 +11875,8 @@ self: super: with self; {
 
   torch-tb-profiler = callPackage ../development/python-modules/torch-tb-profiler/default.nix { };
 
+  torchaudio = callPackage ../development/python-modules/torchaudio { };
+
   torchaudio-bin = callPackage ../development/python-modules/torchaudio/bin.nix { };
 
   torchgpipe = callPackage ../development/python-modules/torchgpipe { };
@@ -12835,6 +12851,8 @@ self: super: with self; {
   yark = callPackage ../development/python-modules/yark { };
 
   yarl = callPackage ../development/python-modules/yarl { };
+
+  yasi = toPythonModule (callPackage ../development/python-modules/yasi { });
 
   yaspin = callPackage ../development/python-modules/yaspin { };
 
