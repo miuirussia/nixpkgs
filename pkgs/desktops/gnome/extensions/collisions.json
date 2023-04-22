@@ -306,6 +306,10 @@
     "workspace-indicator": [
       "workspace-indicator@gnome-shell-extensions.gcampax.github.com",
       "horizontal-workspace-indicator@tty2.io"
+    ],
+    "clipboard-indicator": [
+      "clipboard-indicator@tudmotu.com",
+      "clipboard-indicator@Dieg0Js.github.io"
     ]
   }
 }
