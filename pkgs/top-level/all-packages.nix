@@ -8963,8 +8963,6 @@ with pkgs;
 
   kibi = callPackage ../applications/editors/kibi { };
 
-  kio-admin = libsForQt5.callPackage ../tools/filesystems/kio-admin { };
-
   kio-fuse = libsForQt5.callPackage ../tools/filesystems/kio-fuse { };
 
   kismet = callPackage ../applications/networking/sniffers/kismet { };
@@ -9402,9 +9400,13 @@ with pkgs;
   nodejs-slim-19_x = callPackage ../development/web/nodejs/v19.nix {
     enableNpm = false;
   };
+  nodejs_20 = callPackage ../development/web/nodejs/v20.nix { };
+  nodejs-slim_20 = callPackage ../development/web/nodejs/v20.nix {
+    enableNpm = false;
+  };
   # Update this when adding the newest nodejs major version!
-  nodejs_latest = nodejs-19_x;
-  nodejs-slim_latest = nodejs-slim-19_x;
+  nodejs_latest = nodejs_20;
+  nodejs-slim_latest = nodejs-slim_20;
 
   buildNpmPackage = callPackage ../build-support/node/build-npm-package { };
 
@@ -10304,6 +10306,8 @@ with pkgs;
   nomad-driver-podman = callPackage ../applications/networking/cluster/nomad-driver-podman { };
 
   nomad-pack = callPackage ../applications/networking/cluster/nomad-pack { };
+
+  nova = callPackage ../applications/networking/cluster/nova { };
 
   nomino = callPackage ../tools/misc/nomino { };
 
@@ -14035,6 +14039,8 @@ with pkgs;
   zerotierone = callPackage ../tools/networking/zerotierone { };
 
   zerofree = callPackage ../tools/filesystems/zerofree { };
+
+  zet = callPackage ../tools/text/zet { };
 
   zfp = callPackage ../tools/compression/zfp { };
 
@@ -23482,14 +23488,6 @@ with pkgs;
 
   s2geometry = callPackage ../development/libraries/s2geometry { };
 
-  /*  This package references ghc844, which we no longer have. Unfortunately, I
-      have been unable to mark it as "broken" in a way that the ofBorg bot
-      recognizes. Since I don't want to merge code into master that generates
-      evaluation errors, I have no other idea but to comment it out entirely.
-
-  sad = callPackage ../applications/science/logic/sad { };
-  */
-
   safefile = callPackage ../development/libraries/safefile { };
 
   sbc = callPackage ../development/libraries/sbc { };
@@ -30077,8 +30075,6 @@ with pkgs;
 
   geoipupdate = callPackage ../applications/misc/geoipupdate { };
 
-  ghostwriter = libsForQt5.callPackage ../applications/editors/ghostwriter { };
-
   globe-cli = callPackage ../applications/misc/globe-cli { };
 
   gnss-sdr = callPackage ../applications/radio/gnss-sdr { };
@@ -30715,6 +30711,12 @@ with pkgs;
   gtk2fontsel = callPackage ../applications/misc/gtk2fontsel { };
 
   gtklock = callPackage ../tools/wayland/gtklock { };
+
+  gtklock-playerctl-module = callPackage ../tools/wayland/gtklock/playerctl-module.nix { };
+
+  gtklock-powerbar-module = callPackage ../tools/wayland/gtklock/powerbar-module.nix { };
+
+  gtklock-userinfo-module = callPackage ../tools/wayland/gtklock/userinfo-module.nix { };
 
   guardian-agent = callPackage ../tools/networking/guardian-agent { };
 
@@ -31536,6 +31538,8 @@ with pkgs;
   k9s = callPackage ../applications/networking/cluster/k9s { };
 
   ktunnel = callPackage ../applications/networking/cluster/ktunnel { };
+
+  ktop = callPackage ../applications/networking/cluster/ktop { };
 
   pinniped = callPackage ../applications/networking/cluster/pinniped { };
 
@@ -35689,7 +35693,7 @@ with pkgs;
   angband = callPackage ../games/angband { };
 
   anki = callPackage ../games/anki {
-    inherit (darwin.apple_sdk.frameworks) CoreAudio;
+    inherit (darwin.apple_sdk.frameworks) AVKit CoreAudio;
   };
   anki-bin = callPackage ../games/anki/bin.nix { };
 
@@ -37857,7 +37861,9 @@ with pkgs;
     guile = guile_2_0;
   };
 
-  gerbv = callPackage ../applications/science/electronics/gerbv { };
+  gerbv = callPackage ../applications/science/electronics/gerbv {
+    cairo = cairo.override { x11Support = true; };
+  };
 
   gtkwave = callPackage ../applications/science/electronics/gtkwave { };
 
