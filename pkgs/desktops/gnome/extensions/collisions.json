@@ -310,6 +310,10 @@
     "clipboard-indicator": [
       "clipboard-indicator@tudmotu.com",
       "clipboard-indicator@Dieg0Js.github.io"
+    ],
+    "virtualbox-applet": [
+      "vbox-applet@gs.eros2.info",
+      "vbox-applet@buba98"
     ]
   }
 }

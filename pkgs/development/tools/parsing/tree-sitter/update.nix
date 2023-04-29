@@ -366,6 +366,10 @@ let
       orga = "JoranHonig";
       repo = "tree-sitter-solidity";
     };
+    "tree-sitter-nu" = {
+      orga = "LhKipp";
+      repo = "tree-sitter-nu";
+    };
   };
 
   allGrammars =
