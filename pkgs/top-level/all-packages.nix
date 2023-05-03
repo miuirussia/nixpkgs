@@ -338,9 +338,7 @@ with pkgs;
 
   breakpad = callPackage ../development/misc/breakpad { };
 
-  brev-cli = callPackage ../development/misc/brev-cli {
-    buildGoModule = buildGo118Module; # build fails with 1.19
-  };
+  brev-cli = callPackage ../development/misc/brev-cli { };
 
   buf = callPackage ../development/tools/buf { };
 
@@ -4890,6 +4888,8 @@ with pkgs;
 
   fuzzel = callPackage ../applications/misc/fuzzel { };
 
+  fuzzylite = callPackage ../development/libraries/fuzzylite { };
+
   flashfocus = callPackage ../misc/flashfocus { };
 
   qt-video-wlr = libsForQt5.callPackage ../applications/misc/qt-video-wlr { };
@@ -6841,7 +6841,7 @@ with pkgs;
   };
 
   doggo = callPackage ../tools/networking/doggo {
-    buildGoModule = buildGo118Module; # build fails with 1.19
+    buildGoModule = buildGo119Module; # build fails with 1.20
   };
 
   dosfstools = callPackage ../tools/filesystems/dosfstools { };
@@ -12992,6 +12992,8 @@ with pkgs;
 
   tran = callPackage ../tools/networking/tran { };
 
+  trayscale = callPackage ../applications/networking/trayscale { };
+
   tpmmanager = libsForQt5.callPackage ../applications/misc/tpmmanager { };
 
   tpm-quote-tools = callPackage ../tools/security/tpm-quote-tools { };
@@ -15526,9 +15528,8 @@ with pkgs;
   lizardfs = callPackage ../tools/filesystems/lizardfs { };
 
   lobster = callPackage ../development/compilers/lobster {
-    inherit (darwin) cf-private;
     inherit (darwin.apple_sdk.frameworks)
-      Cocoa AudioToolbox OpenGL Foundation ForceFeedback;
+      CoreFoundation Cocoa AudioToolbox OpenGL Foundation ForceFeedback;
   };
 
   lld = llvmPackages.lld;
@@ -16068,11 +16069,11 @@ with pkgs;
     inherit (darwin) apple_sdk;
   };
 
-  rust_1_68 = callPackage ../development/compilers/rust/1_68.nix {
+  rust_1_69 = callPackage ../development/compilers/rust/1_69.nix {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security SystemConfiguration;
     llvm_15 = llvmPackages_15.libllvm;
   };
-  rust = rust_1_68;
+  rust = rust_1_69;
 
   mrustc = callPackage ../development/compilers/mrustc { };
   mrustc-minicargo = callPackage ../development/compilers/mrustc/minicargo.nix { };
@@ -16080,8 +16081,8 @@ with pkgs;
     openssl = openssl_1_1;
   };
 
-  rustPackages_1_68 = rust_1_68.packages.stable;
-  rustPackages = rustPackages_1_68;
+  rustPackages_1_69 = rust_1_69.packages.stable;
+  rustPackages = rustPackages_1_69;
 
   inherit (rustPackages) cargo cargo-auditable cargo-auditable-cargo-wrapper clippy rustc rustPlatform;
 
@@ -16213,6 +16214,7 @@ with pkgs;
   cargo-hf2 = callPackage ../development/tools/rust/cargo-hf2 {
     inherit (darwin.apple_sdk.frameworks) AppKit;
   };
+  cargo-info = callPackage ../development/tools/rust/cargo-info { };
   cargo-inspect = callPackage ../development/tools/rust/cargo-inspect {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -16746,9 +16748,7 @@ with pkgs;
 
   io = callPackage ../development/interpreters/io { };
 
-  ivy = callPackage ../development/interpreters/ivy {
-    buildGoModule = buildGo118Module; # tests fail with 1.19
-  };
+  ivy = callPackage ../development/interpreters/ivy { };
 
   j = callPackage ../development/interpreters/j {
     stdenv = clangStdenv;
@@ -17085,7 +17085,7 @@ with pkgs;
     inherit (darwin) libobjc;
   };
   defaultGemConfig = callPackage ../development/ruby-modules/gem-config {
-    inherit (darwin) DarwinTools cctools;
+    inherit (darwin) DarwinTools cctools autoSignDarwinBinariesHook;
     inherit (darwin.apple_sdk.frameworks) CoreServices;
   };
   bundix = callPackage ../development/ruby-modules/bundix { };
@@ -19960,6 +19960,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Accelerate CoreGraphics CoreVideo;
   };
 
+  eglexternalplatform = callPackage ../development/libraries/eglexternalplatform { };
+
   egl-wayland = callPackage ../development/libraries/egl-wayland { };
 
   elastix = callPackage ../development/libraries/science/biology/elastix {
@@ -22813,9 +22815,7 @@ with pkgs;
 
   mtxclient = callPackage ../development/libraries/mtxclient { };
 
-  mu = callPackage ../tools/networking/mu {
-    texinfo = texinfo4;
-  };
+  mu = callPackage ../tools/networking/mu { };
 
   mueval = callPackage ../development/tools/haskell/mueval { };
 
@@ -25806,6 +25806,7 @@ with pkgs;
   prometheus-bird-exporter = callPackage ../servers/monitoring/prometheus/bird-exporter.nix { };
   prometheus-bitcoin-exporter = callPackage ../servers/monitoring/prometheus/bitcoin-exporter.nix { };
   prometheus-blackbox-exporter = callPackage ../servers/monitoring/prometheus/blackbox-exporter.nix { };
+  prometheus-cloudflare-exporter = callPackage ../servers/monitoring/prometheus/cloudflare-exporter.nix { };
   prometheus-collectd-exporter = callPackage ../servers/monitoring/prometheus/collectd-exporter.nix { };
   prometheus-consul-exporter = callPackage ../servers/monitoring/prometheus/consul-exporter.nix { };
   prometheus-dnsmasq-exporter = callPackage ../servers/monitoring/prometheus/dnsmasq-exporter.nix { };
@@ -28999,6 +29000,8 @@ with pkgs;
 
   argo-rollouts = callPackage ../applications/networking/cluster/argo-rollouts { };
 
+  arianna = libsForQt5.callPackage ../applications/misc/arianna { };
+
   ario = callPackage ../applications/audio/ario { };
 
   arion = callPackage ../applications/virtualization/arion { };
@@ -31172,6 +31175,8 @@ with pkgs;
 
   i3-balance-workspace = python3Packages.callPackage ../applications/window-managers/i3/balance-workspace.nix { };
 
+  i3-cycle-focus = callPackage ../applications/window-managers/i3/cycle-focus.nix { };
+
   i3-easyfocus = callPackage ../applications/window-managers/i3/easyfocus.nix { };
 
   i3-layout-manager = callPackage ../applications/window-managers/i3/layout-manager.nix { };
@@ -32353,9 +32358,7 @@ with pkgs;
 
   normalize = callPackage ../applications/audio/normalize { };
 
-  norouter = callPackage ../tools/networking/norouter {
-    buildGoModule = buildGo118Module; # tests fail with 1.19
-  };
+  norouter = callPackage ../tools/networking/norouter { };
 
   nqptp = callPackage ../tools/networking/nqptp { };
 
@@ -36300,6 +36303,8 @@ with pkgs;
 
   manaplus = callPackage ../games/manaplus { stdenv = gcc11Stdenv; };
 
+  marble-marcher-ce = callPackage ../games/marble-marcher-ce { };
+
   mars = callPackage ../games/mars { };
 
   megaglest = callPackage ../games/megaglest { };
@@ -39790,6 +39795,8 @@ with pkgs;
   sequeler = callPackage ../applications/misc/sequeler { };
 
   sequelpro = callPackage ../applications/misc/sequelpro { };
+
+  serial-studio = libsForQt5.callPackage ../applications/misc/serial-studio { };
 
   snowsql = callPackage ../applications/misc/snowsql { };
 
