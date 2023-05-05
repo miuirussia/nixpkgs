@@ -284,6 +284,8 @@ self: super: with self; {
 
   aioopenssl = callPackage ../development/python-modules/aioopenssl { };
 
+  aiooss2 = callPackage ../development/python-modules/aiooss2 { };
+
   aiopg = callPackage ../development/python-modules/aiopg { };
 
   aioprocessing = callPackage ../development/python-modules/aioprocessing { };
@@ -2995,13 +2997,23 @@ self: super: with self; {
 
   durus = callPackage ../development/python-modules/durus {  };
 
+  dvc-azure = callPackage ../development/python-modules/dvc-azure {  };
+
   dvc-data = callPackage ../development/python-modules/dvc-data {  };
+
+  dvc-gs = callPackage ../development/python-modules/dvc-gs { };
 
   dvc-http = callPackage ../development/python-modules/dvc-http {  };
 
   dvc-objects = callPackage ../development/python-modules/dvc-objects {  };
 
   dvc-render = callPackage ../development/python-modules/dvc-render {  };
+
+  dvc-s3 = callPackage ../development/python-modules/dvc-s3 { };
+
+  dvc-ssh = callPackage ../development/python-modules/dvc-ssh { };
+
+  dvc-studio-client = callPackage ../development/python-modules/dvc-studio-client {  };
 
   dvc-task = callPackage ../development/python-modules/dvc-task {  };
 
@@ -4949,6 +4961,8 @@ self: super: with self; {
 
   iteration-utilities = callPackage ../development/python-modules/iteration-utilities { };
 
+  iterative-telemetry = callPackage ../development/python-modules/iterative-telemetry { };
+
   iterm2 = callPackage ../development/python-modules/iterm2 { };
 
   itsdangerous = callPackage ../development/python-modules/itsdangerous { };
@@ -5701,6 +5715,8 @@ self: super: with self; {
   lirc = toPythonModule (pkgs.lirc.override {
     python3 = python;
   });
+
+  lit = callPackage ../development/python-modules/lit { };
 
   littleutils = callPackage ../development/python-modules/littleutils { };
 
@@ -6500,6 +6516,8 @@ self: super: with self; {
 
   nclib = callPackage ../development/python-modules/nclib { };
 
+  ndeflib = callPackage ../development/python-modules/ndeflib { };
+
   ndg-httpsclient = callPackage ../development/python-modules/ndg-httpsclient { };
 
   ndindex = callPackage ../development/python-modules/ndindex { };
@@ -6563,6 +6581,8 @@ self: super: with self; {
   nextcord = callPackage ../development/python-modules/nextcord { };
 
   nextdns = callPackage ../development/python-modules/nextdns { };
+
+  nfcpy = callPackage ../development/python-modules/nfcpy { };
 
   nftables = toPythonModule (pkgs.nftables.override {
     python3 = python;
@@ -6881,6 +6901,8 @@ self: super: with self; {
   open-meteo = callPackage ../development/python-modules/open-meteo { };
 
   openai-triton = callPackage ../development/python-modules/openai-triton { llvmPackages = pkgs.llvmPackages_rocm; };
+
+  openai-triton-bin = callPackage ../development/python-modules/openai-triton/bin.nix { };
 
   openai-whisper = callPackage ../development/python-modules/openai-whisper {
     cudaSupport = pkgs.config.cudaSupport or false;
@@ -10428,8 +10450,6 @@ self: super: with self; {
 
   rlax = callPackage ../development/python-modules/rlax { };
 
-  rl-coach = callPackage ../development/python-modules/rl-coach { };
-
   rlp = callPackage ../development/python-modules/rlp { };
 
   rmcl = callPackage ../development/python-modules/rmcl { };
@@ -10561,8 +10581,6 @@ self: super: with self; {
   ruff-lsp = callPackage ../development/python-modules/ruff-lsp { };
 
   ruffus = callPackage ../development/python-modules/ruffus { };
-
-  runway-python = callPackage ../development/python-modules/runway-python { };
 
   ruuvitag-ble = callPackage ../development/python-modules/ruuvitag-ble { };
 
@@ -11974,7 +11992,9 @@ self: super: with self; {
     inherit (pkgs.llvmPackages_rocm) openmp;
   };
 
-  torch-bin = callPackage ../development/python-modules/torch/bin.nix { };
+  torch-bin = callPackage ../development/python-modules/torch/bin.nix {
+    openai-triton = self.openai-triton-bin;
+  };
 
   torchWithCuda = self.torch.override {
     magma = pkgs.magma-cuda;
