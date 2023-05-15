@@ -996,7 +996,7 @@
     name = "Stanislas Lange";
   };
   AngryAnt = {
-    name = "Emil Johansen";
+    name = "Emil \"AngryAnt\" Johansen";
     email = "git@eej.dk";
     matrix = "@angryant:envs.net";
     github = "AngryAnt";
@@ -6291,6 +6291,14 @@
     github = "higebu";
     githubId = 733288;
   };
+
+  hikari = {
+    email = "HikariNee@protonmail.com";
+    github = "HikariNee";
+    githubId = 72349937;
+    name = "Hikari";
+  };
+
   hiljusti = {
     name = "J.R. Hill";
     email = "hiljusti@so.dang.cool";
@@ -6303,6 +6311,7 @@
     githubId = 19825977;
     name = "Hiren Shah";
   };
+
   hiro98 = {
     email = "hiro@protagon.space";
     github = "vale981";
@@ -12647,9 +12656,9 @@
     githubId = 17690377;
   };
   ppom = {
-    name = "Paco Pompeani";
-    email = "paco@ecomail.io";
-    github = "aopom";
+    name = "ppom";
+    email = "ppom@ecomail.fr";
+    github = "ppom0";
     githubId = 38916722;
   };
   pradeepchhetri = {
@@ -15940,6 +15949,12 @@
     github = "Tomahna";
     githubId = 8577941;
     name = "Kevin Rauscher";
+  };
+  tomaskala = {
+    email = "public+nixpkgs@tomaskala.com";
+    github = "tomaskala";
+    githubId = 7727887;
+    name = "Tomas Kala";
   };
   tomberek = {
     email = "tomberek@gmail.com";

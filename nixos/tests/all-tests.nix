@@ -46,7 +46,7 @@ let
   inherit
     (rec {
       doRunTest = arg: ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest {
-        imports = [ arg ];
+        imports = [ arg readOnlyPkgs ];
       }).config.result;
       findTests = tree:
         if tree?recurseForDerivations && tree.recurseForDerivations
@@ -64,6 +64,23 @@ let
     runTest
     runTestOn
     ;
+
+  # Using a single instance of nixpkgs makes test evaluation faster.
+  # To make sure we don't accidentally depend on a modified pkgs, we make the
+  # related options read-only. We need to test the right configuration.
+  #
+  # If your service depends on a nixpkgs setting, first try to avoid that, but
+  # otherwise, you can remove the readOnlyPkgs import and test your service as
+  # usual.
+  readOnlyPkgs =
+    # TODO: We currently accept this for nixosTests, so that the `pkgs` argument
+    #       is consistent with `pkgs` in `pkgs.nixosTests`. Can we reinitialize
+    #       it with `allowAliases = false`?
+    # warnIf pkgs.config.allowAliases "nixosTests: pkgs includes aliases."
+    {
+      _class = "nixosTest";
+      node.pkgs = pkgs;
+    };
 
 in {
 
@@ -267,7 +284,7 @@ in {
   gitdaemon = handleTest ./gitdaemon.nix {};
   gitea = handleTest ./gitea.nix { giteaPackage = pkgs.gitea; };
   github-runner = handleTest ./github-runner.nix {};
-  gitlab = handleTest ./gitlab.nix {};
+  gitlab = runTest ./gitlab.nix;
   gitolite = handleTest ./gitolite.nix {};
   gitolite-fcgiwrap = handleTest ./gitolite-fcgiwrap.nix {};
   glusterfs = handleTest ./glusterfs.nix {};
@@ -415,6 +432,7 @@ in {
   man = handleTest ./man.nix {};
   mariadb-galera = handleTest ./mysql/mariadb-galera.nix {};
   mastodon = discoverTests (import ./web-apps/mastodon { inherit handleTestOn; });
+  pixelfed = discoverTests (import ./web-apps/pixelfed { inherit handleTestOn; });
   mate = handleTest ./mate.nix {};
   matomo = handleTest ./matomo.nix {};
   matrix-appservice-irc = handleTest ./matrix/appservice-irc.nix {};
@@ -671,6 +689,7 @@ in {
   sudo = handleTest ./sudo.nix {};
   swap-file-btrfs = handleTest ./swap-file-btrfs.nix {};
   swap-partition = handleTest ./swap-partition.nix {};
+  swap-random-encryption = handleTest ./swap-random-encryption.nix {};
   sway = handleTest ./sway.nix {};
   switchTest = handleTest ./switch-test.nix {};
   sympa = handleTest ./sympa.nix {};

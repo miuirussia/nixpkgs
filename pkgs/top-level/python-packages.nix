@@ -853,6 +853,10 @@ self: super: with self; {
 
   avro-python3 = callPackage ../development/python-modules/avro-python3 { };
 
+  aw-client = callPackage ../development/python-modules/aw-client { };
+
+  aw-core = callPackage ../development/python-modules/aw-core { };
+
   awacs = callPackage ../development/python-modules/awacs { };
 
   awesome-slugify = callPackage ../development/python-modules/awesome-slugify { };
@@ -868,6 +872,8 @@ self: super: with self; {
   aws-lambda-builders = callPackage ../development/python-modules/aws-lambda-builders { };
 
   aws-sam-translator = callPackage ../development/python-modules/aws-sam-translator { };
+
+  aws-secretsmanager-caching = callPackage ../development/python-modules/aws-secretsmanager-caching { };
 
   aws-xray-sdk = callPackage ../development/python-modules/aws-xray-sdk { };
 
@@ -2102,6 +2108,8 @@ self: super: with self; {
   crate = callPackage ../development/python-modules/crate { };
 
   crayons = callPackage ../development/python-modules/crayons { };
+
+  crc = callPackage ../development/python-modules/crc { };
 
   crc16 = callPackage ../development/python-modules/crc16 { };
 
@@ -3513,6 +3521,8 @@ self: super: with self; {
 
   findimports = callPackage ../development/python-modules/findimports { };
 
+  find-libpython = callPackage ../development/python-modules/find-libpython { };
+
   findpython = callPackage ../development/python-modules/findpython { };
 
   fingerprints = callPackage ../development/python-modules/fingerprints { };
@@ -3520,6 +3530,8 @@ self: super: with self; {
   finitude = callPackage ../development/python-modules/finitude { };
 
   fints = callPackage ../development/python-modules/fints { };
+
+  finvizfinance = callPackage ../development/python-modules/finvizfinance { };
 
   fiona = callPackage ../development/python-modules/fiona { };
 
@@ -4851,6 +4863,8 @@ self: super: with self; {
 
   inkex = callPackage ../development/python-modules/inkex { };
 
+  inlinestyler = callPackage ../development/python-modules/inlinestyler { };
+
   inotify = callPackage ../development/python-modules/inotify { };
 
   inotify-simple = callPackage ../development/python-modules/inotify-simple { };
@@ -4858,6 +4872,8 @@ self: super: with self; {
   inotifyrecursive = callPackage ../development/python-modules/inotifyrecursive { };
 
   inquirer = callPackage ../development/python-modules/inquirer { };
+
+  inquirerpy = callPackage ../development/python-modules/inquirerpy { };
 
   inscriptis = callPackage ../development/python-modules/inscriptis { };
 
@@ -5777,6 +5793,8 @@ self: super: with self; {
     inherit (pkgs) lmdb;
   };
 
+  lmfit = callPackage ../development/python-modules/lmfit { };
+
   lml = callPackage ../development/python-modules/lml { };
 
   lmnotify = callPackage ../development/python-modules/lmnotify { };
@@ -6288,6 +6306,8 @@ self: super: with self; {
   mohawk = callPackage ../development/python-modules/mohawk { };
 
   monai = callPackage ../development/python-modules/monai { };
+
+  monai-deploy = callPackage ../development/python-modules/monai-deploy { };
 
   monero = callPackage ../development/python-modules/monero { };
 
@@ -7346,6 +7366,8 @@ self: super: with self; {
 
   persim = callPackage ../development/python-modules/persim { };
 
+  persist-queue = callPackage ../development/python-modules/persist-queue { };
+
   persistent = callPackage ../development/python-modules/persistent { };
 
   persisting-theory = callPackage ../development/python-modules/persisting-theory { };
@@ -7357,6 +7379,8 @@ self: super: with self; {
   pexif = callPackage ../development/python-modules/pexif { };
 
   pexpect = callPackage ../development/python-modules/pexpect { };
+
+  pfzy = callPackage ../development/python-modules/pfzy { };
 
   pg8000 = callPackage ../development/python-modules/pg8000 { };
 
@@ -9175,6 +9199,10 @@ self: super: with self; {
     inherit (pkgs) cmake ninja qt5;
   });
 
+  pyside6 = toPythonModule (callPackage ../development/python-modules/pyside6 {
+    inherit (pkgs) cmake ninja qt6;
+  });
+
   pyside = callPackage ../development/python-modules/pyside {
     inherit (pkgs) mesa;
   };
@@ -9729,7 +9757,7 @@ self: super: with self; {
 
   python-mapnik = callPackage ../development/python-modules/python-mapnik rec {
     inherit (pkgs) pkg-config cairo icu libjpeg libpng libtiff libwebp proj zlib;
-    boost = pkgs.boost.override {
+    boost182 = pkgs.boost182.override {
       enablePython = true;
       inherit python;
     };
@@ -10953,6 +10981,10 @@ self: super: with self; {
     inherit (pkgs) cmake llvmPackages qt5;
   });
 
+  shiboken6 = toPythonModule (callPackage ../development/python-modules/shiboken6 {
+    inherit (pkgs) cmake llvmPackages qt6;
+  });
+
   shippai = callPackage ../development/python-modules/shippai { };
 
   shiv = callPackage ../development/python-modules/shiv { };
@@ -11535,6 +11567,8 @@ self: super: with self; {
 
   steamodd = callPackage ../development/python-modules/steamodd { };
 
+  steamship = callPackage ../development/python-modules/steamship { };
+
   stem = callPackage ../development/python-modules/stem { };
 
   stestr = callPackage ../development/python-modules/stestr { };
@@ -11710,6 +11744,8 @@ self: super: with self; {
   tailer = callPackage ../development/python-modules/tailer { };
 
   tailscale = callPackage ../development/python-modules/tailscale { };
+
+  takethetime = callPackage ../development/python-modules/takethetime { };
 
   tank-utility = callPackage ../development/python-modules/tank-utility { };
 
@@ -11980,6 +12016,8 @@ self: super: with self; {
   time-machine = callPackage ../development/python-modules/time-machine { };
 
   timeout-decorator = callPackage ../development/python-modules/timeout-decorator { };
+
+  timeslot = callPackage ../development/python-modules/timeslot { };
 
   timetagger = callPackage ../development/python-modules/timetagger { };
 
@@ -13007,6 +13045,8 @@ self: super: with self; {
   xml-marshaller = callPackage ../development/python-modules/xml-marshaller { };
 
   xmodem = callPackage ../development/python-modules/xmodem { };
+
+  xnatpy = callPackage ../development/python-modules/xnatpy { };
 
   xnd = callPackage ../development/python-modules/xnd { };
 
