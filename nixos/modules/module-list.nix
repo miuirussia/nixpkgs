@@ -249,6 +249,7 @@
   ./programs/thunar.nix
   ./programs/tmux.nix
   ./programs/traceroute.nix
+  ./programs/trippy.nix
   ./programs/tsm-client.nix
   ./programs/turbovnc.nix
   ./programs/udevil.nix
@@ -1213,6 +1214,7 @@
   ./services/web-apps/nifi.nix
   ./services/web-apps/node-red.nix
   ./services/web-apps/onlyoffice.nix
+  ./services/web-apps/openvscode-server.nix
   ./services/web-apps/openwebrx.nix
   ./services/web-apps/outline.nix
   ./services/web-apps/peering-manager.nix

@@ -264,6 +264,8 @@ with pkgs;
 
   asnmap = callPackage ../tools/security/asnmap { };
 
+  ast-grep = callPackage ../development/tools/misc/ast-grep { };
+
   astrolog = callPackage ../applications/science/astronomy/astrolog { };
 
   atkinson-hyperlegible = callPackage ../data/fonts/atkinson-hyperlegible { };
@@ -335,6 +337,8 @@ with pkgs;
   binserve = callPackage ../servers/binserve {
     inherit (darwin.apple_sdk.frameworks) CoreServices;
   };
+
+  bodyclose = callPackage ../development/tools/bodyclose { };
 
   bootstrap-studio = callPackage ../development/web/bootstrap-studio { };
 
@@ -1634,6 +1638,10 @@ with pkgs;
   mprocs = callPackage ../tools/misc/mprocs { };
 
   mpy-utils = python3Packages.callPackage ../tools/misc/mpy-utils { };
+
+  networkd-notify = python3Packages.callPackage ../tools/networking/networkd-notify {
+    systemd = pkgs.systemd;
+  };
 
   nominatim = callPackage ../servers/nominatim { };
 
@@ -4283,6 +4291,8 @@ with pkgs;
   kanshi = callPackage ../tools/wayland/kanshi { };
 
   oguri = callPackage  ../tools/wayland/oguri { };
+
+  shikane = callPackage ../tools/wayland/shikane { };
 
   shotman = callPackage ../tools/wayland/shotman { };
 
@@ -7221,7 +7231,7 @@ with pkgs;
 
   # The latest version used by elasticsearch, logstash, kibana and the the beats from elastic.
   # When updating make sure to update all plugins or they will break!
-  elk7Version = "7.17.4";
+  elk7Version = "7.17.9";
 
   elasticsearch7 = callPackage ../servers/search/elasticsearch/7.x.nix {
     util-linux = util-linuxMinimal;
@@ -8106,7 +8116,14 @@ with pkgs;
 
   grails = callPackage ../development/web/grails { jdk = null; };
 
-  graylog = callPackage ../tools/misc/graylog { };
+  graylog-3_3 = callPackage ../tools/misc/graylog/3.3.nix { };
+
+  graylog-4_0 = callPackage ../tools/misc/graylog/4.0.nix { };
+
+  graylog-4_3 = callPackage ../tools/misc/graylog/4.3.nix { };
+
+  graylog-5_0 = callPackage ../tools/misc/graylog/5.0.nix { };
+
   graylogPlugins = recurseIntoAttrs (
     callPackage ../tools/misc/graylog/plugins.nix { }
   );
@@ -11591,6 +11608,8 @@ with pkgs;
 
   qmk = callPackage ../tools/misc/qmk { };
 
+  qmk_hid = callPackage ../tools/misc/qmk_hid { };
+
   qmarkdowntextedit = libsForQt5.callPackage  ../development/libraries/qmarkdowntextedit { };
 
   qodem = callPackage ../tools/networking/qodem { };
@@ -13272,6 +13291,8 @@ with pkgs;
   unetbootin = libsForQt5.callPackage ../tools/cd-dvd/unetbootin { };
 
   unfs3 = callPackage ../servers/unfs3 { };
+
+  unixbench = callPackage ../development/tools/misc/unixbench { };
 
   unoconv = callPackage ../tools/text/unoconv { };
 
@@ -17474,25 +17495,24 @@ with pkgs;
 
   autoadb = callPackage ../misc/autoadb { };
 
-  ansible = ansible_2_14;
-  ansible_2_14 = python3Packages.toPythonApplication python3Packages.ansible-core;
-  ansible_2_13 = python3Packages.toPythonApplication (python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
-    version = "2.13.6";
+  ansible = ansible_2_15;
+  ansible_2_15 = python3Packages.toPythonApplication python3Packages.ansible-core;
+  ansible_2_14 = python3Packages.toPythonApplication (python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
+    version = "2.14.5";
     src = oldAttrs.src.override {
       inherit version;
-      hash = "sha256-Mf4yK2MpBnSo9zhhEN9QHwBEqkSJC+OrMTpuIluaKc8=";
+      hash = "sha256-jE7tds5Fi0o3M0oIAt8pSI7Pn4rzjDERBpyWsXsgVTA=";
     };
   }));
-  ansible_2_12 = python3Packages.toPythonApplication (python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
-    version = "2.12.10";
+  ansible_2_13 = python3Packages.toPythonApplication (python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
+    version = "2.13.9";
     src = oldAttrs.src.override {
       inherit version;
-      hash = "sha256-/rHfYXOM/B9eiTtCouwafeMpd9Z+hnB7Retj0MXDwjY=";
+      hash = "sha256-nDGeygqcU83m8XSBLd1xFO2x5dDrXh30e9DY/v7ax2w=";
     };
-    meta.changelog = "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${lib.versions.majorMinor version}.rst";
   }));
 
-  ansible-doctor = with python3.pkgs; toPythonApplication ansible-doctor;
+  ansible-doctor = callPackage ../tools/admin/ansible/doctor.nix { };
 
   phpunit = callPackage ../development/tools/misc/phpunit { };
 
@@ -17552,9 +17572,9 @@ with pkgs;
     zig = buildPackages.zig_0_10;
   };
 
-  ansible-later = with python3.pkgs; toPythonApplication ansible-later;
+  ansible-later = callPackage ../tools/admin/ansible/later.nix { };
 
-  ansible-lint = with python3.pkgs; toPythonApplication ansible-lint;
+  ansible-lint = callPackage ../tools/admin/ansible/lint.nix { };
 
   antlr2 = callPackage ../development/tools/parsing/antlr/2.7.7.nix { };
   antlr3_4 = callPackage ../development/tools/parsing/antlr/3.4.nix { };
@@ -21331,6 +21351,8 @@ with pkgs;
 
   libarchive-qt = libsForQt5.callPackage ../development/libraries/libarchive-qt { };
 
+  libasn1c = callPackage ../servers/osmocom/libasn1c/default.nix { };
+
   libasr = callPackage ../development/libraries/libasr { };
 
   libass = callPackage ../development/libraries/libass { };
@@ -22226,13 +22248,13 @@ with pkgs;
 
   libosmium = callPackage ../development/libraries/libosmium { };
 
-  libosmocore = callPackage ../applications/misc/libosmocore { };
+  libosmoabis = callPackage ../servers/osmocom/libosmoabis { };
 
-  libosmo-abis = callPackage ../development/libraries/libosmo-abis { };
+  libosmocore = callPackage ../servers/osmocom/libosmocore { };
 
-  libosmo-netif = callPackage ../development/libraries/libosmo-netif { };
+  libosmo-netif = callPackage ../servers/osmocom/libosmo-netif { };
 
-  libosmo-sccp = callPackage ../development/libraries/libosmo-sccp { };
+  libosmo-sccp = callPackage ../servers/osmocom/libosmo-sccp { };
 
   libosmscout = libsForQt5.callPackage ../development/libraries/libosmscout { };
 
@@ -23294,6 +23316,8 @@ with pkgs;
   oras = callPackage ../development/tools/oras { };
 
   orcania = callPackage ../development/libraries/orcania { };
+
+  orogene = callPackage ../development/tools/misc/orogene { };
 
   osm-gps-map = callPackage ../development/libraries/osm-gps-map { };
 
@@ -26034,6 +26058,7 @@ with pkgs;
 
   restic = callPackage ../tools/backup/restic { };
 
+  restic-integrity = callPackage ../applications/backup/restic-integrity { };
   restic-rest-server = callPackage ../tools/backup/restic/rest-server.nix { };
 
   restya-board = callPackage ../servers/web-apps/restya-board { };
@@ -29245,6 +29270,8 @@ with pkgs;
 
   jnetmap = callPackage ../applications/networking/jnetmap { };
 
+  jxplorer  = callPackage ../applications/networking/jxplorer {};
+
   join-desktop = callPackage ../applications/misc/join-desktop { };
 
   json-plot = callPackage ../applications/graphics/json-plot { };
@@ -30765,6 +30792,8 @@ with pkgs;
     inherit miniupnpc swftools;
     inherit (qt6) wrapQtAppsHook qtbase qtcharts;
   };
+
+  kemai = qt6Packages.callPackage ../applications/misc/kemai { };
 
   jetbrains = (recurseIntoAttrs (callPackages ../applications/editors/jetbrains {
     vmopts = config.jetbrains.vmopts or null;
@@ -32537,6 +32566,7 @@ with pkgs;
     mpvacious = callPackage ../applications/video/mpv/scripts/mpvacious.nix { };
     simple-mpv-webui = callPackage ../applications/video/mpv/scripts/simple-mpv-webui.nix { };
     sponsorblock = callPackage ../applications/video/mpv/scripts/sponsorblock.nix { };
+    thumbfast = callPackage ../applications/video/mpv/scripts/thumbfast.nix { };
     thumbnail = callPackage ../applications/video/mpv/scripts/thumbnail.nix { };
     uosc = callPackage ../applications/video/mpv/scripts/uosc.nix { };
     vr-reversal = callPackage ../applications/video/mpv/scripts/vr-reversal.nix { };
@@ -32879,6 +32909,8 @@ with pkgs;
 
   mlocate = callPackage ../tools/misc/mlocate { };
 
+  mlxbf-bootctl = callPackage ../tools/misc/mlxbf-bootctl { };
+
   plocate = callPackage ../tools/misc/plocate { };
 
   mypaint = callPackage ../applications/graphics/mypaint { };
@@ -33126,6 +33158,30 @@ with pkgs;
   };
 
   osmo = callPackage ../applications/office/osmo { };
+
+  osmo-bsc = callPackage ../servers/osmocom/osmo-bsc { };
+
+  osmo-bts = callPackage ../servers/osmocom/osmo-bts { };
+
+  osmo-ggsn = callPackage ../servers/osmocom/osmo-ggsn { };
+
+  osmo-hlr = callPackage ../servers/osmocom/osmo-hlr { };
+
+  osmo-hnbgw = callPackage ../servers/osmocom/osmo-hnbgw { };
+
+  osmo-hnodeb = callPackage ../servers/osmocom/osmo-hnodeb { };
+
+  osmo-iuh = callPackage ../servers/osmocom/osmo-iuh { };
+
+  osmo-mgw = callPackage ../servers/osmocom/osmo-mgw { };
+
+  osmo-msc = callPackage ../servers/osmocom/osmo-msc { };
+
+  osmo-pcu = callPackage ../servers/osmocom/osmo-pcu { };
+
+  osmo-sgsn = callPackage ../servers/osmocom/osmo-sgsn { };
+
+  osmo-sip-connector = callPackage ../servers/osmocom/osmo-sip-connector { };
 
   osmscout-server = libsForQt5.callPackage ../applications/misc/osmscout-server { };
 
@@ -33975,8 +34031,6 @@ with pkgs;
   myfitnesspal = with python3Packages; toPythonApplication myfitnesspal;
 
   insync = callPackage ../applications/networking/insync { };
-
-  insync-v3 = libsForQt5.callPackage ../applications/networking/insync/v3.nix { };
 
   libstrangle = callPackage ../tools/X11/libstrangle {
     stdenv = stdenv_32bit;
@@ -39244,7 +39298,9 @@ with pkgs;
 
   rucksack = callPackage ../development/tools/rucksack { };
 
-  ruff = callPackage ../development/tools/ruff { };
+  ruff = callPackage ../development/tools/ruff {
+    inherit (python3.pkgs) ruff-lsp;
+  };
 
   sam-ba = callPackage ../tools/misc/sam-ba { };
 
