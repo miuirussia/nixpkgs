@@ -19,7 +19,6 @@ let
     x86_64-darwin = "1q5fg7cm8d4iwvx8b589aqby5vw1b66y85dxgrq6sapz9cg2pvhz";
     aarch64-linux = "13vdqbhap9qd96y5n0immlwr61v8f7yvbwc9m0qas06f30b71f3z";
     aarch64-darwin = "01dc7hv13ngr0xv2cmd2likmdc2gz0jbmgashmkm12gdrjp4q968";
-    armv7l-linux = "0xliai5c3dd6qbgb9agvmn18n230zh4qxx3jjmaqn2851d6sx5xz";
   }.${system} or throwSystem;
 
   sourceRoot = if stdenv.isDarwin then "" else ".";
