@@ -285,6 +285,10 @@
       "vbox-applet@gs.eros2.info",
       "vbox-applet@buba98"
     ],
+    "panel-date-format": [
+      "panel-date-format@keiii.github.com",
+      "panel-date-format@atareao.es"
+    ],
     "battery-time": [
       "batime@martin.zurowietz.de",
       "batterytime@typeof.pw"
@@ -318,6 +322,10 @@
     "virtualbox-applet": [
       "vbox-applet@gs.eros2.info",
       "vbox-applet@buba98"
+    ],
+    "panel-date-format": [
+      "panel-date-format@keiii.github.com",
+      "panel-date-format@atareao.es"
     ]
   }
 }
