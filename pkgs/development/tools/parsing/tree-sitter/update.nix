@@ -145,6 +145,7 @@ let
     "tree-sitter-sql" = {
       orga = "derekstride";
       repo = "tree-sitter-sql";
+      branch = "gh-pages";
     };
     "tree-sitter-vim" = {
       orga = "vigoux";
