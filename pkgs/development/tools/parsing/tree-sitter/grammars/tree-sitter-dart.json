@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/usernobody14/tree-sitter-dart",
-  "rev": "398af69e3d9d52ffdce7393f2a94c6d70ef231ae",
-  "date": "2023-05-28T00:44:01-06:00",
-  "path": "/nix/store/8x1r1vsirs8h4yfbavgp1jz4nk0z5aiw-tree-sitter-dart",
-  "sha256": "1icvsrilblch6bafsfbblbvm8jxsia80vxgpigf1ddrdrdwjk5my",
+  "rev": "0033b223b5876b0db07da487dc799dcb63aedd1b",
+  "date": "2023-06-01T23:25:54-06:00",
+  "path": "/nix/store/0vlp944q874lpyxk7mw2v7c9wxsrp8vi-tree-sitter-dart",
+  "sha256": "12xklc41hksy867msxnybw0r06igw5a5618qnwbzyn0y67gb9xr8",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
