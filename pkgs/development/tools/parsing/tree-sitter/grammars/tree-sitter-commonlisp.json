@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/thehamsta/tree-sitter-commonlisp",
-  "rev": "c7e814975ab0d0d04333d1f32391c41180c58919",
-  "date": "2022-01-28T21:33:11+01:00",
-  "path": "/nix/store/1696bj1f92y8vqfk71cha8bzk9cx9rls-tree-sitter-commonlisp",
-  "sha256": "1hq3pwrp8509scgn983g0mi8pjy2q21pms30xlc3q7yyjxvpsw7b",
+  "rev": "5b83fc6c2e45df43333db605e87615cdf00eb164",
+  "date": "2023-06-04T01:18:01-07:00",
+  "path": "/nix/store/jprrkda1asi0b5s83svhwryyvhw0f8bw-tree-sitter-commonlisp",
+  "sha256": "1ivqa1y7n2ja6q6qh3973r2yj6whvgzdgpd22z9z2hr48rxi0icc",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

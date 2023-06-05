@@ -11813,6 +11813,12 @@
     githubId = 30825096;
     name = "Ning Zhang";
   };
+  oaksoaj = {
+    email = "oaksoaj@riseup.net";
+    name = "Oaksoaj";
+    github = "oaksoaj";
+    githubId = 103952141;
+  };
   obadz = {
     email = "obadz-nixos@obadz.com";
     github = "obadz";
@@ -11970,6 +11976,15 @@
     email = "virkony@gmail.com";
     github = "ony";
     githubId = 11265;
+  };
+  ooliver1 = {
+    name = "Oliver Wilkes";
+    email = "oliverwilkes2006@icloud.com";
+    github = "ooliver1";
+    githubId = 34910574;
+    keys = [{
+      fingerprint = "D055 8A23 3947 B7A0 F966  B07F 0B41 0348 9833 7273";
+    }];
   };
   opeik = {
     email = "sandro@stikic.com";
