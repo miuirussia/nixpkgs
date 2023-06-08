@@ -610,6 +610,8 @@ self: super: with self; {
 
   argparse-addons = callPackage ../development/python-modules/argparse-addons { };
 
+  argparse-dataclass = callPackage ../development/python-modules/argparse-dataclass { };
+
   args = callPackage ../development/python-modules/args { };
 
   aria2p = callPackage ../development/python-modules/aria2p { };
@@ -3528,7 +3530,7 @@ self: super: with self; {
 
   fenics = callPackage ../development/python-modules/fenics {
     hdf5 = pkgs.hdf5_1_10;
-    boost = pkgs.boost169;
+    boost = pkgs.boost172;
   };
 
   ffcv = callPackage ../development/python-modules/ffcv { };
@@ -5490,6 +5492,8 @@ self: super: with self; {
   });
 
   knack = callPackage ../development/python-modules/knack { };
+
+  kneed = callPackage ../development/python-modules/kneed { };
 
   kombu = callPackage ../development/python-modules/kombu { };
 
@@ -7754,6 +7758,8 @@ self: super: with self; {
 
   pyschemes = callPackage ../development/python-modules/pyschemes { };
 
+  pyschlage = callPackage ../development/python-modules/pyschlage { };
+
   pyshark = callPackage ../development/python-modules/pyshark { };
 
   pysiaalarm = callPackage ../development/python-modules/pysiaalarm { };
@@ -9196,7 +9202,7 @@ self: super: with self; {
 
   pyramid_exclog = callPackage ../development/python-modules/pyramid_exclog { };
 
-  pyramid_jinja2 = callPackage ../development/python-modules/pyramid_jinja2 { };
+  pyramid-jinja2 = callPackage ../development/python-modules/pyramid-jinja2 { };
 
   pyramid_mako = callPackage ../development/python-modules/pyramid_mako { };
 
