@@ -371,6 +371,10 @@ let
       orga = "LhKipp";
       repo = "tree-sitter-nu";
     };
+    "tree-sitter-cue" = {
+      orga = "eonpatapon";
+      repo = "tree-sitter-cue";
+    };
   };
 
   allGrammars =
