@@ -8274,6 +8274,8 @@ with pkgs;
 
   gptfdisk = callPackage ../tools/system/gptfdisk { };
 
+  gql = callPackage ../applications/version-management/gql { };
+
   grafterm = callPackage ../tools/misc/grafterm { };
 
   gradience = callPackage ../applications/misc/gradience { };
@@ -10782,7 +10784,7 @@ with pkgs;
   nylon = callPackage ../tools/networking/nylon { };
 
   nym = callPackage ../applications/networking/nym {
-    inherit (darwin.apple_sdk.frameworks) Security;
+    inherit (darwin.apple_sdk.frameworks) Security CoreServices;
   };
 
   nzbget = callPackage ../tools/networking/nzbget { };
@@ -11728,6 +11730,8 @@ with pkgs;
     inherit (darwin.apple_sdk_11_0.frameworks) Carbon Cocoa IOKit;
   };
 
+  rio = callPackage ../applications/terminal-emulators/rio { };
+
   rig = callPackage ../tools/misc/rig { };
 
   ripdrag = callPackage ../tools/misc/ripdrag { };
@@ -12296,9 +12300,7 @@ with pkgs;
     inherit (darwin.apple_sdk.libs) utmp;
   };
 
-  scrcpy = callPackage ../misc/scrcpy {
-    inherit (androidenv.androidPkgs_9_0) platform-tools;
-  };
+  scrcpy = callPackage ../misc/scrcpy { };
 
   screen-message = callPackage ../tools/X11/screen-message { };
 
@@ -16519,6 +16521,7 @@ with pkgs;
   };
   cargo-deb = callPackage ../development/tools/rust/cargo-deb { };
   cargo-deps = callPackage ../development/tools/rust/cargo-deps { };
+  cargo-docset = callPackage ../development/tools/rust/cargo-docset { };
   cargo-edit = callPackage ../development/tools/rust/cargo-edit {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -17112,7 +17115,7 @@ with pkgs;
   inherit (beam.interpreters)
     erlang erlang_26 erlang_25 erlang_24 erlang_23
     erlang_odbc erlang_javac erlang_odbc_javac
-    elixir elixir_1_14 elixir_1_13 elixir_1_12 elixir_1_11 elixir_1_10
+    elixir elixir_1_15 elixir_1_14 elixir_1_13 elixir_1_12 elixir_1_11 elixir_1_10
     elixir-ls;
 
   erlang_nox = beam_nox.interpreters.erlang;
@@ -19795,10 +19798,10 @@ with pkgs;
 
   aalib = callPackage ../development/libraries/aalib { };
 
-  abseil-cpp_202111 = callPackage ../development/libraries/abseil-cpp/202111.nix { };
   abseil-cpp_202103 = callPackage ../development/libraries/abseil-cpp/202103.nix { };
   abseil-cpp_202206 = callPackage ../development/libraries/abseil-cpp/202206.nix { };
-  abseil-cpp = abseil-cpp_202103;
+  abseil-cpp_202301 = callPackage ../development/libraries/abseil-cpp/202301.nix { };
+  abseil-cpp = abseil-cpp_202301;
 
   accountsservice = callPackage ../development/libraries/accountsservice { };
 
@@ -22500,6 +22503,8 @@ with pkgs;
 
   libmkv = callPackage ../development/libraries/libmkv { };
 
+  libnut = callPackage ../development/libraries/libnut { };
+
   libmms = callPackage ../development/libraries/libmms { };
 
   libmowgli = callPackage ../development/libraries/libmowgli { };
@@ -23795,9 +23800,15 @@ with pkgs;
 
   protobuf = protobuf3_21;
 
-  protobuf3_21 = callPackage ../development/libraries/protobuf/3.21.nix { };
-  protobuf3_20 = callPackage ../development/libraries/protobuf/3.20.nix { };
-  protobuf3_19 = callPackage ../development/libraries/protobuf/3.19.nix { };
+  protobuf3_21 = callPackage ../development/libraries/protobuf/3.21.nix {
+    abseil-cpp = abseil-cpp_202103;
+  };
+  protobuf3_20 = callPackage ../development/libraries/protobuf/3.20.nix {
+    abseil-cpp = abseil-cpp_202103;
+  };
+  protobuf3_19 = callPackage ../development/libraries/protobuf/3.19.nix {
+    abseil-cpp = abseil-cpp_202103;
+  };
 
   protobufc = callPackage ../development/libraries/protobufc { };
 
@@ -23835,6 +23846,8 @@ with pkgs;
   re2 = callPackage ../development/libraries/re2 { };
 
   qbs = libsForQt5.callPackage ../development/tools/build-managers/qbs { };
+
+  qdjango = libsForQt5.callPackage ../development/libraries/qdjango { };
 
   qimageblitz = callPackage ../development/libraries/qimageblitz { };
 
@@ -24786,7 +24799,12 @@ with pkgs;
 
   websocketpp = callPackage ../development/libraries/websocket++ { };
 
-  webrtc-audio-processing_1 = callPackage ../development/libraries/webrtc-audio-processing { stdenv = gcc10StdenvCompat; };
+  webrtc-audio-processing_1 = callPackage ../development/libraries/webrtc-audio-processing {
+    stdenv = gcc10StdenvCompat;
+    abseil-cpp = abseil-cpp.override {
+      cxxStandard = "14";
+    };
+  };
   webrtc-audio-processing_0_3 = callPackage ../development/libraries/webrtc-audio-processing/0.3.nix { };
   # bump when majoring of packages have updated
   webrtc-audio-processing = webrtc-audio-processing_0_3;
@@ -28700,6 +28718,8 @@ with pkgs;
 
   line-awesome = callPackage ../data/fonts/line-awesome { };
 
+  linearicons-free = callPackage ../data/fonts/linearicons-free { };
+
   linja-pi-pu-lukin = callPackage ../data/fonts/linja-pi-pu-lukin { };
 
   linja-sike = callPackage ../data/fonts/linja-sike { };
@@ -30899,6 +30919,8 @@ with pkgs;
 
   sherlock = callPackage ../tools/security/sherlock { };
 
+  stratovirt = callPackage ../applications/virtualization/stratovirt { };
+
   rhythmbox = callPackage ../applications/audio/rhythmbox { };
 
   puddletag = libsForQt5.callPackage ../applications/audio/puddletag { };
@@ -31572,6 +31594,8 @@ with pkgs;
 
   marker = callPackage ../applications/editors/marker { };
 
+  meek = callPackage ../tools/networking/meek { };
+
   meerk40t = callPackage ../applications/misc/meerk40t { };
 
   meerk40t-camera = callPackage ../applications/misc/meerk40t/camera.nix { };
@@ -32154,8 +32178,6 @@ with pkgs;
       # no idea how to fix the tests :(
       doCheck = false;
     });
-
-    abseil-cpp = abseil-cpp_202111;
   };
 
   kotatogram-desktop-with-webkit = callPackage ../applications/networking/instant-messengers/telegram/kotatogram-desktop/with-webkit.nix { };
@@ -32708,7 +32730,7 @@ with pkgs;
 
   mikmod = callPackage ../applications/audio/mikmod { };
 
-  miniaudicle = callPackage ../applications/audio/miniaudicle { stdenv = gcc10StdenvCompat; };
+  miniaudicle = callPackage ../applications/audio/miniaudicle { };
 
   minidsp = callPackage ../applications/audio/minidsp {
     inherit (darwin.apple_sdk.frameworks) AppKit IOKit;
@@ -34748,9 +34770,7 @@ with pkgs;
 
   taskopen = callPackage ../applications/misc/taskopen { };
 
-  telegram-desktop = qt6Packages.callPackage ../applications/networking/instant-messengers/telegram/telegram-desktop {
-    abseil-cpp = abseil-cpp_202206;
-  };
+  telegram-desktop = qt6Packages.callPackage ../applications/networking/instant-messengers/telegram/telegram-desktop { };
 
   telegram-bot-api = callPackage ../servers/telegram-bot-api { };
 
@@ -38233,7 +38253,7 @@ with pkgs;
     python = python3;
     # or-tools builds with -std=c++20, so abseil-cpp must
     # also be built that way
-    abseil-cpp = abseil-cpp_202111.override {
+    abseil-cpp = abseil-cpp_202206.override {
       static = true;
       cxxStandard = "20";
     };
@@ -40916,6 +40936,8 @@ with pkgs;
   tubekit = callPackage ../applications/networking/cluster/tubekit/wrapper.nix { };
 
   tubekit-unwrapped = callPackage ../applications/networking/cluster/tubekit { };
+
+  tuic = callPackage ../tools/networking/tuic { };
 
   resgate = callPackage ../servers/resgate { };
 

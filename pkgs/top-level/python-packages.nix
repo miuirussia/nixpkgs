@@ -3354,8 +3354,6 @@ self: super: with self; {
 
   evaluate = callPackage ../development/python-modules/evaluate { };
 
-  ev3dev2 = callPackage ../development/python-modules/ev3dev2 { };
-
   evdev = callPackage ../development/python-modules/evdev { };
 
   eve = callPackage ../development/python-modules/eve { };
@@ -5971,6 +5969,8 @@ self: super: with self; {
 
   lz4 = callPackage ../development/python-modules/lz4 { };
 
+  lzallright = callPackage ../development/python-modules/lzallright { };
+
   lzstring = callPackage ../development/python-modules/lzstring { };
 
   m2crypto = callPackage ../development/python-modules/m2crypto { };
@@ -8319,8 +8319,6 @@ self: super: with self; {
 
   pyblackbird = callPackage ../development/python-modules/pyblackbird { };
 
-  pyblock = toPythonModule (callPackage ../development/python-modules/pyblock { });
-
   pybluez = callPackage ../development/python-modules/pybluez {
     inherit (pkgs) bluez;
   };
@@ -9271,8 +9269,6 @@ self: super: with self; {
 
   pyregion = callPackage ../development/python-modules/pyregion { };
 
-  pyres = callPackage ../development/python-modules/pyres { };
-
   pyric = callPackage ../development/python-modules/pyric { };
 
   pyrisco = callPackage ../development/python-modules/pyrisco { };
@@ -9855,6 +9851,8 @@ self: super: with self; {
   python-etcd = callPackage ../development/python-modules/python-etcd { };
 
   python-ethtool = callPackage ../development/python-modules/python-ethtool { };
+
+  python-ev3dev2 = callPackage ../development/python-modules/python-ev3dev2 { };
 
   python_fedora = callPackage ../development/python-modules/python_fedora { };
 
@@ -12986,6 +12984,8 @@ self: super: with self; {
 
   wandb = callPackage ../development/python-modules/wandb { };
 
+  warble = callPackage ../development/python-modules/warble { };
+
   warcio = callPackage ../development/python-modules/warcio { };
 
   ward = callPackage ../development/python-modules/ward { };
@@ -13428,8 +13428,6 @@ self: super: with self; {
   })).python;
 
   zadnegoale = callPackage ../development/python-modules/zadnegoale { };
-
-  zake = callPackage ../development/python-modules/zake { };
 
   zamg = callPackage ../development/python-modules/zamg { };
 
