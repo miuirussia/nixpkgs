@@ -804,6 +804,14 @@ with pkgs;
   mkNugetSource = callPackage ../build-support/dotnet/make-nuget-source { };
   mkNugetDeps = callPackage ../build-support/dotnet/make-nuget-deps { };
 
+  buildDotnetGlobalTool = callPackage ../build-support/dotnet/build-dotnet-global-tool { };
+
+  fsautocomplete = callPackage ../development/tools/fsautocomplete { };
+
+  pbm = callPackage ../tools/admin/pbm { };
+
+  fable = callPackage ../development/tools/fable { };
+
   dotnetenv = callPackage ../build-support/dotnet/dotnetenv {
     dotnetfx = dotnetfx40;
   };
@@ -1570,6 +1578,8 @@ with pkgs;
   dwarfs = callPackage ../tools/filesystems/dwarfs { };
 
   etlegacy = callPackage ../games/etlegacy { lua = lua5_4; };
+
+  fscan = callPackage ../tools/security/fscan { };
 
   copier = callPackage ../tools/misc/copier { };
 
@@ -6339,6 +6349,8 @@ with pkgs;
 
   chain-bench = callPackage ../tools/security/chain-bench { };
 
+  chainsaw = callPackage ../tools/security/chainsaw { };
+
   checkinstall = callPackage ../tools/package-management/checkinstall { };
 
   checkmake = callPackage ../development/tools/checkmake { };
@@ -6767,7 +6779,7 @@ with pkgs;
   cudaPackages_11_6 = callPackage ./cuda-packages.nix { cudaVersion = "11.6"; };
   cudaPackages_11_7 = callPackage ./cuda-packages.nix { cudaVersion = "11.7"; };
   cudaPackages_11_8 = callPackage ./cuda-packages.nix { cudaVersion = "11.8"; };
-  cudaPackages_11 = cudaPackages_11_7;
+  cudaPackages_11 = cudaPackages_11_8;
 
   cudaPackages_12_0 = callPackage ./cuda-packages.nix { cudaVersion = "12.0"; };
   cudaPackages_12_1 = callPackage ./cuda-packages.nix { cudaVersion = "12.1"; };
@@ -11351,6 +11363,8 @@ with pkgs;
   };
 
   pfetch = callPackage ../tools/misc/pfetch { };
+
+  pfetch-rs = callPackage ../tools/misc/pfetch-rs { };
 
   pfstools = libsForQt5.callPackage ../tools/graphics/pfstools { };
 
@@ -23618,7 +23632,6 @@ with pkgs;
   };
 
   inherit (callPackages ../development/libraries/libressl { })
-    libressl_3_4
     libressl_3_6
     libressl_3_7;
 
@@ -25494,7 +25507,7 @@ with pkgs;
   clamsmtp = callPackage ../servers/mail/clamsmtp { };
 
   clickhouse = callPackage ../servers/clickhouse {
-    stdenv = llvmPackages_15.stdenv;
+    llvmPackages = llvmPackages_15;
   };
 
   clickhouse-cli = with python3Packages; toPythonApplication clickhouse-cli;
@@ -25575,8 +25588,6 @@ with pkgs;
   ejabberd = callPackage ../servers/xmpp/ejabberd { erlang = erlang_24; };
 
   exhaustive = callPackage ../development/tools/exhaustive { };
-
-  exhibitor = callPackage ../servers/exhibitor { };
 
   hyp = callPackage ../servers/http/hyp { };
 
@@ -35399,6 +35410,8 @@ with pkgs;
 
   warpd = callPackage ../applications/misc/warpd { };
 
+  watershot = callPackage ../applications/misc/watershot { };
+
   w3m = callPackage ../applications/networking/browsers/w3m { };
 
   # Should always be the version with the most features
@@ -40956,6 +40969,8 @@ with pkgs;
   zf = callPackage ../tools/misc/zf { };
 
   isolate = callPackage ../tools/security/isolate { };
+
+  tremotesf = libsForQt5.callPackage ../applications/networking/p2p/tremotesf { };
 
   reindeer = callPackage ../development/tools/reindeer { };
 
