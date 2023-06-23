@@ -1184,6 +1184,8 @@ with pkgs;
 
   closureInfo = callPackage ../build-support/closure-info.nix { };
 
+  sensible-utils = callPackage ../tools/misc/sensible-utils { };
+
   serverspec = callPackage ../tools/misc/serverspec { };
 
   setupSystemdUnits = callPackage ../build-support/setup-systemd-units.nix { };
@@ -10609,6 +10611,8 @@ with pkgs;
 
   notable = callPackage ../applications/misc/notable { };
 
+  npm-check = callPackage ../development/tools/npm-check { };
+
   nth = with python3Packages; toPythonApplication name-that-hash;
 
   ntlmrecon = callPackage ../tools/security/ntlmrecon { };
@@ -13801,9 +13805,8 @@ with pkgs;
 
   wasm-tools = callPackage ../tools/misc/wasm-tools { };
 
-  wasmedge = callPackage ../development/tools/wasmedge {
-    llvmPackages = llvmPackages_12;
-    inherit (darwin.apple_sdk.frameworks) Foundation;
+  wasmedge = darwin.apple_sdk_11_0.callPackage ../development/tools/wasmedge {
+    inherit (darwin.apple_sdk_11_0.frameworks) Foundation;
   };
 
   welkin = callPackage ../tools/graphics/welkin { };
@@ -16536,6 +16539,7 @@ with pkgs;
   cargo-deb = callPackage ../development/tools/rust/cargo-deb { };
   cargo-deps = callPackage ../development/tools/rust/cargo-deps { };
   cargo-docset = callPackage ../development/tools/rust/cargo-docset { };
+  cargo-duplicates = callPackage ../development/tools/rust/cargo-duplicates { };
   cargo-edit = callPackage ../development/tools/rust/cargo-edit {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -16547,6 +16551,7 @@ with pkgs;
   cargo-license = callPackage ../development/tools/rust/cargo-license { };
   cargo-llvm-cov = callPackage ../development/tools/rust/cargo-llvm-cov { };
   cargo-llvm-lines = callPackage ../development/tools/rust/cargo-llvm-lines { };
+  cargo-local-registry = callPackage ../development/tools/rust/cargo-local-registry { };
   cargo-lock = callPackage ../development/tools/rust/cargo-lock { };
   cargo-machete = callPackage ../development/tools/rust/cargo-machete { };
   cargo-outdated = callPackage ../development/tools/rust/cargo-outdated {
@@ -19527,6 +19532,8 @@ with pkgs;
 
   sqlmap = with python3Packages; toPythonApplication sqlmap;
 
+  src-cli = callPackage ../development/tools/misc/src-cli { };
+
   sselp = callPackage ../tools/X11/sselp{ };
 
   statix = callPackage ../tools/nix/statix { };
@@ -20388,8 +20395,8 @@ with pkgs;
     inherit (pkgsi686Linux)
       amdvlk
       intel-media-driver
+      intel-vaapi-driver
       mesa
-      vaapiIntel
       libvdpau-va-gl
       vaapiVdpau
       beignet
@@ -24667,7 +24674,7 @@ with pkgs;
 
   v8 = darwin.apple_sdk_11_0.callPackage ../development/libraries/v8 { };
 
-  vaapiIntel = callPackage ../development/libraries/vaapi-intel { };
+  intel-vaapi-driver = callPackage ../development/libraries/intel-vaapi-driver { };
 
   vaapi-intel-hybrid = callPackage ../development/libraries/vaapi-intel-hybrid { };
 
@@ -30944,8 +30951,8 @@ with pkgs;
 
   welle-io = libsForQt5.callPackage ../applications/radio/welle-io { };
 
-  wireshark = callPackage ../applications/networking/sniffers/wireshark {
-    inherit (darwin.apple_sdk.frameworks) ApplicationServices SystemConfiguration;
+  wireshark = qt6Packages.callPackage ../applications/networking/sniffers/wireshark {
+    inherit (darwin.apple_sdk_11_0.frameworks) ApplicationServices SystemConfiguration;
     libpcap = libpcap.override { withBluez = stdenv.isLinux; };
   };
   wireshark-qt = wireshark;
@@ -32085,8 +32092,11 @@ with pkgs;
 
   k3s_1_24 = callPackage ../applications/networking/cluster/k3s/1_24 { };
   k3s_1_25 = callPackage ../applications/networking/cluster/k3s/1_25 { };
-  k3s_1_26 = callPackage ../applications/networking/cluster/k3s/1_26 { };
-  k3s = k3s_1_26;
+  inherit (callPackage ../applications/networking/cluster/k3s { })
+    k3s_1_26
+    k3s_1_27
+  ;
+  k3s = k3s_1_27;
 
   k3sup = callPackage ../applications/networking/cluster/k3sup { };
 
@@ -33463,6 +33473,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
 
+  obs-cli = callPackage ../applications/misc/obs-cli { };
+
   obs-studio = qt6Packages.callPackage ../applications/video/obs-studio {
     ffmpeg_4 = ffmpeg-full;
   };
@@ -34427,7 +34439,7 @@ with pkgs;
 
   viber = callPackage ../applications/networking/instant-messengers/viber { };
 
-  wavebox = callPackage ../applications/networking/instant-messengers/wavebox { };
+  wavebox = libsForQt5.callPackage ../applications/networking/instant-messengers/wavebox { };
 
   sonic-pi = libsForQt5.callPackage ../applications/audio/sonic-pi { };
 
