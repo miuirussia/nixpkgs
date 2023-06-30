@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/winglang/wing",
+  "rev": "e71cac1105ea61997cd8ffece71d090d5f7cf351",
+  "date": "2023-06-29T19:04:59+00:00",
+  "path": "/nix/store/m231xyrxsgnij0qvy29b3ayv7n46pbir-wing",
+  "sha256": "1zs8sn7gbj3hwmw97q906qssia4h9gycnd95jvsdq40wvnlz2j3j",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

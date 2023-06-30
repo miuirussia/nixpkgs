@@ -151,6 +151,7 @@ in {
   cage = handleTest ./cage.nix {};
   cagebreak = handleTest ./cagebreak.nix {};
   calibre-web = handleTest ./calibre-web.nix {};
+  calibre-server = handleTest ./calibre-server.nix {};
   cassandra_3_0 = handleTest ./cassandra.nix { testPackage = pkgs.cassandra_3_0; };
   cassandra_3_11 = handleTest ./cassandra.nix { testPackage = pkgs.cassandra_3_11; };
   cassandra_4 = handleTest ./cassandra.nix { testPackage = pkgs.cassandra_4; };
@@ -646,6 +647,7 @@ in {
   pulseaudio = discoverTests (import ./pulseaudio.nix);
   qboot = handleTestOn ["x86_64-linux" "i686-linux"] ./qboot.nix {};
   qemu-vm-restrictnetwork = handleTest ./qemu-vm-restrictnetwork.nix {};
+  qemu-vm-volatile-root = runTest ./qemu-vm-volatile-root.nix;
   quorum = handleTest ./quorum.nix {};
   quake3 = handleTest ./quake3.nix {};
   qownnotes = handleTest ./qownnotes.nix {};
