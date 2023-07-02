@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/winglang/wing",
-  "rev": "9840f377f740fb0efa902ccdd4b9f386a50a1d2b",
-  "date": "2023-06-30T20:18:58+00:00",
-  "path": "/nix/store/5n25fdsbyd848hp6v2dfd7aijajdglli-wing",
-  "sha256": "17c91xd8qz4iqjvj3cai9jdv1sr66c797wfhhd7wlvdn8l1k3zj0",
+  "rev": "6689cfb9c2ee8c3aaa10446ec486d50ddd64c905",
+  "date": "2023-07-01T13:37:46+00:00",
+  "path": "/nix/store/3y51bfj96a2r44zv61z8pw5g6h450f2s-wing",
+  "sha256": "09s0krsqfv426a8f772n40ypw71z8kl4387qs6f2blmb1h78kdkk",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
