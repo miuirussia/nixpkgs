@@ -632,6 +632,12 @@
     githubId = 43479487;
     name = "Titouan Biteau";
   };
+  aldoborrero = {
+    email = "aldoborrero+nixos@pm.me";
+    github = "aldoborrero";
+    githubId = 82811;
+    name = "Aldo Borrero";
+  };
   aleksana = {
     email = "me@aleksana.moe";
     github = "Aleksanaa";
@@ -4485,12 +4491,6 @@
     github = "earldouglas";
     githubId = 424946;
     name = "James Earl Douglas";
-  };
-  earthengine = {
-    email = "earthengine@skiff.com";
-    github = "ee2500";
-    githubId = 134107129;
-    name = "EarthEngine";
   };
   ebbertd = {
     email = "daniel@ebbert.nrw";
@@ -9841,6 +9841,11 @@
       fingerprint = "1147 43F1 E707 6F3E 6F4B  2C96 B9A8 B592 F126 F8E8";
     }];
   };
+  mac-chaffee = {
+    name = "Mac Chaffee";
+    github = "mac-chaffee";
+    githubId = 7581860;
+  };
   maddiethecafebabe = {
     email = "maddie@cafebabe.date";
     github = "maddiethecafebabe";
@@ -10242,6 +10247,15 @@
     githubId = 95194;
     name = "Mauricio Scheffer";
   };
+  mawis = {
+    email = "m@tthias.eu";
+    github = "mawis";
+    githubId = 2042030;
+    name = "Matthias Wimmer";
+    keys = [{
+      fingerprint = "CAEC A12D CE23 37A6 6DFD  17B0 7AC7 631D 70D6 C898";
+    }];
+  };
   maxbrunet = {
     email = "max@brnt.mx";
     github = "maxbrunet";
@@ -10390,6 +10404,15 @@
     github = "mcbeth";
     githubId = 683809;
     name = "Jeffrey Brent McBeth";
+  };
+  mccurdyc = {
+    email = "mccurdyc22@gmail.com";
+    github = "mccurdyc";
+    githubId = 5546264;
+    name = "Colton J. McCurdy";
+    keys = [{
+      fingerprint = "D709 03C8 0BE9 ACDC 14F0  3BFB 77BF E531 397E DE94";
+    }];
   };
   mcmtroffaes = {
     email = "matthias.troffaes@gmail.com";
@@ -14932,6 +14955,11 @@
     githubId = 6224096;
     name = "Soner Sayakci";
   };
+  shymega = {
+    name = "Dom Rodriguez";
+    github = "shymega";
+    githubId = 1334592;
+  };
   siddharthist = {
     email = "langston.barrett@gmail.com";
     github = "langston-barrett";
@@ -15993,6 +16021,13 @@
     github = "telotortium";
     githubId = 1755789;
     name = "Robert Irelan";
+  };
+  tengkuizdihar = {
+    name = "Tengku Izdihar";
+    email = "tengkuizdihar@gmail.com";
+    matrix = "@tengkuizdihar:matrix.org";
+    github = "tengkuizdihar";
+    githubId = 22078730;
   };
   tennox = {
     email = "tennox+nix@txlab.io";

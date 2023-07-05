@@ -1637,7 +1637,11 @@ self: super: with self; {
 
   callee = callPackage ../development/python-modules/callee { };
 
+  calmjs = callPackage ../development/python-modules/calmjs { };
+
   calmjs-parse = callPackage ../development/python-modules/calmjs-parse { };
+
+  calmjs-types = callPackage ../development/python-modules/calmjs-types { };
 
   calysto = callPackage ../development/python-modules/calysto { };
 
@@ -2874,6 +2878,8 @@ self: super: with self; {
   djangorestframework-simplejwt = callPackage ../development/python-modules/djangorestframework-simplejwt { };
 
   django-reversion = callPackage ../development/python-modules/django-reversion { };
+
+  django-sekizai = callPackage ../development/python-modules/django-sekizai { };
 
   django-sesame = callPackage ../development/python-modules/django-sesame { };
 
@@ -4190,6 +4196,8 @@ self: super: with self; {
   goocalendar = callPackage ../development/python-modules/goocalendar { };
 
   goodwe = callPackage ../development/python-modules/goodwe { };
+
+  google = callPackage ../development/python-modules/google { };
 
   google-ai-generativelanguage = callPackage ../development/python-modules/google-ai-generativelanguage { };
 
@@ -5586,6 +5594,8 @@ self: super: with self; {
 
   language-tags = callPackage ../development/python-modules/language-tags { };
 
+  lanms-neo = callPackage ../development/python-modules/lanms-neo { };
+
   lark = callPackage ../development/python-modules/lark { };
 
   laspy = callPackage ../development/python-modules/laspy { };
@@ -6203,6 +6213,16 @@ self: super: with self; {
   md2gemini = callPackage ../development/python-modules/md2gemini { };
 
   mdformat = callPackage ../development/python-modules/mdformat { };
+  mdformat-admon = callPackage ../development/python-modules/mdformat-admon { };
+  mdformat-beautysh = callPackage ../development/python-modules/mdformat-beautysh { };
+  mdformat-footnote = callPackage ../development/python-modules/mdformat-footnote { };
+  mdformat-frontmatter = callPackage ../development/python-modules/mdformat-frontmatter { };
+  mdformat-gfm = callPackage ../development/python-modules/mdformat-gfm { };
+  mdformat-mkdocs = callPackage ../development/python-modules/mdformat-mkdocs { };
+  mdformat-nix-alejandra = callPackage ../development/python-modules/mdformat-nix-alejandra { };
+  mdformat-simple-breaks = callPackage ../development/python-modules/mdformat-simple-breaks { };
+  mdformat-tables = callPackage ../development/python-modules/mdformat-tables { };
+  mdformat-toc = callPackage ../development/python-modules/mdformat-toc { };
 
   mdit-py-plugins = callPackage ../development/python-modules/mdit-py-plugins { };
 
@@ -6912,9 +6932,11 @@ self: super: with self; {
 
   normality = callPackage ../development/python-modules/normality { };
 
+  nose = callPackage ../development/python-modules/nose { };
+
   nose2 = callPackage ../development/python-modules/nose2 { };
 
-  nose = callPackage ../development/python-modules/nose { };
+  nose3 = callPackage ../development/python-modules/nose3 { };
 
   nose-cov = callPackage ../development/python-modules/nose-cov { };
 
@@ -7198,6 +7220,8 @@ self: super: with self; {
   openrazer = callPackage ../development/python-modules/openrazer/pylib.nix { };
 
   openrazer-daemon = callPackage ../development/python-modules/openrazer/daemon.nix { };
+
+  openrgb-python = callPackage ../development/python-modules/openrgb-python { };
 
   openrouteservice = callPackage ../development/python-modules/openrouteservice { };
 
@@ -7616,6 +7640,8 @@ self: super: with self; {
 
   pgspecial = callPackage ../development/python-modules/pgspecial { };
 
+  pgvector = callPackage ../development/python-modules/pgvector { };
+
   phe = callPackage ../development/python-modules/phe { };
 
   phik = callPackage ../development/python-modules/phik { };
@@ -7797,6 +7823,8 @@ self: super: with self; {
 
   pycontrol4 = callPackage ../development/python-modules/pycontrol4 { };
 
+  pycookiecheat = callPackage ../development/python-modules/pycookiecheat { };
+
   pycoolmasternet-async = callPackage ../development/python-modules/pycoolmasternet-async { };
 
   pyfibaro = callPackage ../development/python-modules/pyfibaro { };
@@ -7880,6 +7908,8 @@ self: super: with self; {
   pyskyqremote = callPackage ../development/python-modules/pyskyqremote { };
 
   pysolcast = callPackage ../development/python-modules/pysolcast { };
+
+  pysubs2 = callPackage ../development/python-modules/pysubs2 { };
 
   pysqlitecipher = callPackage ../development/python-modules/pysqlitecipher { };
 
@@ -8056,6 +8086,8 @@ self: super: with self; {
   policyuniverse = callPackage ../development/python-modules/policyuniverse { };
 
   polyline = callPackage ../development/python-modules/polyline { };
+
+  Polygon3 = callPackage ../development/python-modules/Polygon3 { };
 
   pomegranate = callPackage ../development/python-modules/pomegranate { };
 
@@ -9703,6 +9735,8 @@ self: super: with self; {
 
   pytest-error-for-skips = callPackage ../development/python-modules/pytest-error-for-skips { };
 
+  pytest-examples = callPackage ../development/python-modules/pytest-examples { };
+
   pytest-expect = callPackage ../development/python-modules/pytest-expect { };
 
   pytest-factoryboy = callPackage ../development/python-modules/pytest-factoryboy { };
@@ -10349,8 +10383,6 @@ self: super: with self; {
 
   pywerview = callPackage ../development/python-modules/pywerview { };
 
-  pywick = callPackage ../development/python-modules/pywick { };
-
   pywilight = callPackage ../development/python-modules/pywilight { };
 
   pywinrm = callPackage ../development/python-modules/pywinrm { };
@@ -10500,8 +10532,6 @@ self: super: with self; {
 
   r2pipe = callPackage ../development/python-modules/r2pipe { };
 
-  rabbitpy = callPackage ../development/python-modules/rabbitpy { };
-
   rachiopy = callPackage ../development/python-modules/rachiopy { };
 
   radicale_infcloud = callPackage ../development/python-modules/radicale_infcloud {
@@ -10614,6 +10644,8 @@ self: super: with self; {
   redshift-connector = callPackage ../development/python-modules/redshift-connector { };
 
   reedsolo = callPackage ../development/python-modules/reedsolo { };
+
+  referencing = callPackage ../development/python-modules/referencing { };
 
   reflink = callPackage ../development/python-modules/reflink { };
 
@@ -10878,6 +10910,8 @@ self: super: with self; {
   rpcq = callPackage ../development/python-modules/rpcq { };
 
   rpdb = callPackage ../development/python-modules/rpdb { };
+
+  rpds-py = callPackage ../development/python-modules/rpds-py { };
 
   rpi-bad-power = callPackage ../development/python-modules/rpi-bad-power { };
 
@@ -11718,8 +11752,6 @@ self: super: with self; {
   sphinx-markdown-tables = callPackage ../development/python-modules/sphinx-markdown-tables { };
 
   sphinx-material = callPackage ../development/python-modules/sphinx-material { };
-
-  sphinx-navtree = callPackage ../development/python-modules/sphinx-navtree { };
 
   sphinx-mdinclude = callPackage ../development/python-modules/sphinx-mdinclude { };
 
@@ -13000,6 +13032,8 @@ self: super: with self; {
   viewstate = callPackage ../development/python-modules/viewstate { };
 
   vilfo-api-client = callPackage ../development/python-modules/vilfo-api-client { };
+
+  vina = callPackage ../applications/science/chemistry/autodock-vina/python-bindings.nix { };
 
   vincenty = callPackage ../development/python-modules/vincenty { };
 
