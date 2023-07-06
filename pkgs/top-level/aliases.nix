@@ -843,6 +843,7 @@ mapAliases ({
   lastfmsubmitd = throw "lastfmsubmitd was removed from nixpkgs as the project is abandoned"; # Added 2022-01-01
   latinmodern-math = lmmath;
   letsencrypt = throw "'letsencrypt' has been renamed to/replaced by 'certbot'"; # Converted to throw 2022-02-22
+  lfs = dysk; # Added 2023-07-03
   libGL_driver = throw "'libGL_driver' has been renamed to/replaced by 'mesa.drivers'"; # Converted to throw 2022-02-22
   libaudit = throw "'libaudit' has been renamed to/replaced by 'audit'"; # Converted to throw 2022-02-22
   libayatana-indicator-gtk2 = throw "'libayatana-indicator-gtk2' has been removed from nixpkgs, as gtk2 is deprecated"; # Added 2022-10-18
@@ -1537,12 +1538,14 @@ mapAliases ({
   scollector = throw "'scollector' has been renamed to/replaced by 'bosun'"; # Converted to throw 2022-02-22
   scribusUnstable = throw "'scribusUnstable' has been renamed to 'scribus'"; # Added 2022-05-13
   scrollkeeper = throw "'scrollkeeper' has been removed due to deprecated LibXML2 headers"; # Added 2022-11-08
+  rarian = throw "rarian has been removed as unused"; # Added 2023-07-05
   scyther = throw "scyther has been removed since it currently only supports Python 2, see https://github.com/cascremers/scyther/issues/20"; # Added 2021-10-07
   sdlmame = mame; # Added 2019-10-30
   seeks = throw "seeks has been removed from nixpkgs, as it was unmaintained"; # Added 2020-06-21
   sepolgen = throw "sepolgen was merged into selinux-python"; # Added 2021-11-11
   session-desktop-appimage = session-desktop;
   sequoia = sequoia-sq; # Added 2023-06-26
+  sexp = sexpp; # Added 2023-07-03
   sget = throw "sget has been removed from nixpkgs, as it is not supported upstream anymore see https://github.com/sigstore/sget/issues/145"; # Added 2023-05-26
   shared_mime_info = throw "'shared_mime_info' has been renamed to/replaced by 'shared-mime-info'"; # Converted to throw 2022-02-22
   inherit (libsForQt5.mauiPackages) shelf; # added 2022-05-17
