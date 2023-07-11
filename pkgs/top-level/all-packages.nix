@@ -6489,8 +6489,9 @@ with pkgs;
 
   inherit (callPackage ../applications/networking/remote/citrix-workspace { })
     citrix_workspace_23_02_0
+    citrix_workspace_23_07_0
   ;
-  citrix_workspace = citrix_workspace_23_02_0;
+  citrix_workspace = citrix_workspace_23_07_0;
 
   cmigemo = callPackage ../tools/text/cmigemo { };
 
@@ -7983,6 +7984,8 @@ with pkgs;
   foundationdb = foundationdb71;
 
   fuse-7z-ng = callPackage ../tools/filesystems/fuse-7z-ng { };
+
+  fuse-archive = callPackage ../tools/filesystems/fuse-archive { };
 
   fuse-overlayfs = callPackage ../tools/filesystems/fuse-overlayfs { };
 
@@ -13345,6 +13348,8 @@ with pkgs;
 
   tldr-hs = haskellPackages.tldr;
 
+  tlsclient = callPackage ../tools/admin/tlsclient { };
+
   tlsx = callPackage ../tools/security/tlsx { };
 
   tmate = callPackage ../tools/misc/tmate { };
@@ -16664,7 +16669,7 @@ with pkgs;
   cargo2junit = callPackage ../development/tools/rust/cargo2junit { };
 
   cargo-espflash = callPackage ../development/tools/rust/cargo-espflash {
-    inherit (darwin.apple_sdk.frameworks) Security;
+    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
 
   cargo-web = callPackage ../development/tools/rust/cargo-web {
@@ -27955,6 +27960,8 @@ with pkgs;
 
   pam_ccreds = callPackage ../os-specific/linux/pam_ccreds { };
 
+  pam_dp9ik = callPackage ../os-specific/linux/pam_dp9ik { };
+
   pam_gnupg = callPackage ../os-specific/linux/pam_gnupg { };
 
   pam_krb5 = callPackage ../os-specific/linux/pam_krb5 { };
@@ -35524,6 +35531,8 @@ with pkgs;
 
   viw = callPackage ../applications/editors/viw { };
 
+  virter = callPackage ../applications/virtualization/virter { };
+
   virt-viewer = callPackage ../applications/virtualization/virt-viewer { };
 
   virt-top = callPackage ../applications/virtualization/virt-top { };
@@ -38962,6 +38971,7 @@ with pkgs;
   tlaplus = callPackage ../applications/science/logic/tlaplus {
     jre = jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
+  tlaplus18 = callPackage ../applications/science/logic/tlaplus/tlaplus18.nix {};
   tlaps = callPackage ../applications/science/logic/tlaplus/tlaps.nix {
     inherit (ocaml-ng.ocamlPackages_4_14_unsafe_string) ocaml;
   };
