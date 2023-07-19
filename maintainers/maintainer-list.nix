@@ -4309,6 +4309,12 @@
     githubId = 10998835;
     name = "Doron Behar";
   };
+  dotemup = {
+    email = "dotemup.designs+nixpkgs@gmail.com";
+    github = "dotemup";
+    githubId = 11077277;
+    name = "Dote";
+  };
   dotlambda = {
     email = "rschuetz17@gmail.com";
     matrix = "@robert:funklause.de";
@@ -6010,6 +6016,12 @@
     github = "ghuntley";
     githubId = 127353;
     name = "Geoffrey Huntley";
+  };
+  gigglesquid = {
+    email = "jack.connors@protonmail.com";
+    github = "gigglesquid";
+    githubId = 3685154;
+    name = "Jack connors";
   };
   gila = {
     email = "jeffry.molanus@gmail.com";

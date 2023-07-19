@@ -921,6 +921,8 @@ with pkgs;
 
   fetchMavenArtifact = callPackage ../build-support/fetchmavenartifact { };
 
+  fetchpijul = callPackage ../build-support/fetchpijul { };
+
   inherit (callPackage ../build-support/node/fetch-yarn-deps { })
     prefetch-yarn-deps
     fetchYarnDeps;
@@ -18472,12 +18474,11 @@ with pkgs;
   bpftools = callPackage ../os-specific/linux/bpftools { };
 
   bcc = callPackage ../os-specific/linux/bcc {
-    python = python3;
-    llvmPackages = llvmPackages_14;
+    llvmPackages = llvmPackages_16;
   };
 
   bpftrace = callPackage ../os-specific/linux/bpftrace {
-    llvmPackages = llvmPackages_14;
+    llvmPackages = llvmPackages_16;
   };
 
   bpm-tools = callPackage ../tools/audio/bpm-tools { };
@@ -32014,6 +32015,8 @@ with pkgs;
 
   passky-desktop = callPackage ../applications/misc/passky-desktop { };
 
+  pat = callPackage ../applications/radio/pat { };
+
   pinboard = with python3Packages; toPythonApplication pinboard;
 
   pinboard-notes-backup = haskell.lib.compose.justStaticExecutables haskellPackages.pinboard-notes-backup;
@@ -35952,9 +35955,7 @@ with pkgs;
 
   xaos = libsForQt5.callPackage ../applications/graphics/xaos { };
 
-  xastir = callPackage ../applications/misc/xastir {
-    rastermagick = imagemagick6;
-  };
+  xastir = callPackage ../applications/misc/xastir { };
 
   xautomation = callPackage ../tools/X11/xautomation { };
 
@@ -36469,6 +36470,10 @@ with pkgs;
 
   go-exploitdb = callPackage ../tools/security/go-exploitdb { };
 
+  gridcoin-research = libsForQt5.callPackage ../applications/blockchains/gridcoin-research {
+    boost = boost179;
+  };
+
   groestlcoin  = libsForQt5.callPackage ../applications/blockchains/groestlcoin {
     stdenv = darwin.apple_sdk_11_0.stdenv;
     withGui = true;
@@ -36942,6 +36947,8 @@ with pkgs;
   chessx = libsForQt5.callPackage ../games/chessx { };
 
   chiaki = libsForQt5.callPackage ../games/chiaki { };
+
+  chiaki4deck = libsForQt5.callPackage ../games/chiaki4deck { };
 
   chromium-bsu = callPackage ../games/chromium-bsu { };
 
@@ -38000,6 +38007,8 @@ with pkgs;
   deepin = recurseIntoAttrs (callPackage ../desktops/deepin { });
 
   enlightenment = recurseIntoAttrs (callPackage ../desktops/enlightenment { });
+
+  expidus = recurseIntoAttrs (callPackage ../desktops/expidus {});
 
   gnome2 = recurseIntoAttrs (callPackage ../desktops/gnome-2 { });
 
