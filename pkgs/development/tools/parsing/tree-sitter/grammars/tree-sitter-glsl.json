@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/thehamsta/tree-sitter-glsl",
-  "rev": "7d76863f2126ed3b246fead68f9591760d546c94",
-  "date": "2023-07-13T23:25:31-03:00",
-  "path": "/nix/store/6axqjxjcsn51g69vq6mrqicahsfpmiir-tree-sitter-glsl",
-  "sha256": "15hjckaypsfdwwpxqi7s7gkm1qndxw3x98838ial2a3bpjmylhjz",
+  "rev": "2a56fb7bc8bb03a1892b4741279dd0a8758b7fb3",
+  "date": "2023-07-19T08:05:10-03:00",
+  "path": "/nix/store/092h59rarsqj2w6qhn06zc1n2avil7cb-tree-sitter-glsl",
+  "sha256": "17ixsi2m3k97n85k3wmnhggnj9b7z8j7sagi5jcp0k9a4nm96z2n",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
