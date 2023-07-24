@@ -16,10 +16,10 @@ let
 
   sha256 = {
     x86_64-linux = "1sfy6rcrayx661m96pyh96caycf6banjs5ksib48qsl6hxp76ks0";
-    x86_64-darwin = "0xkzvi7y45rxwnjxplg6wfs4994n6vdfqk6q7wjr96fgiymbpg5y";
-    aarch64-linux = "09qlmqnvq1bcal56kingn6wkzg83dhxkkj2p3gqlikz6s5klqrql";
-    aarch64-darwin = "17giphsqkxdfrz68vxkic84q4hn94plgr1lh72vy0q5pz5bbcpy2";
-    armv7l-linux = "1cp739i5002j2kmdh3rhh7p88gyvjrfwcr430g5dvhdp7mgkbwn1";
+    x86_64-darwin = "1c17d22njnzx8nkq7fabwh59f0w5bxkd2dskj7h0ijwb22g94gnd";
+    aarch64-linux = "0ax9z7nw2n6s7251f9yrvl0mwk7ndcxgyz4v9vk564nfik529mw8";
+    aarch64-darwin = "18rdsxb142r1aridngpqwr32hf18w2vk22g6c4s9q91sjzgzr08k";
+    armv7l-linux = "00bfdjw9x7czjl9vjx9dfvpiidgjp6a2kyfa594mc3i3g1mqhj0i";
   }.${system} or throwSystem;
 
   sourceRoot = lib.optionalString (!stdenv.isDarwin) ".";

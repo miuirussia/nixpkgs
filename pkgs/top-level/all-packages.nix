@@ -260,6 +260,8 @@ with pkgs;
 
   alterx = callPackage ../tools/security/alterx { };
 
+  asciicam = callPackage ../applications/video/asciicam { };
+
   asitop = pkgs.python3Packages.callPackage ../os-specific/darwin/asitop { };
 
   asn = callPackage ../applications/networking/asn { };
@@ -8266,6 +8268,8 @@ with pkgs;
 
   forgejo = callPackage ../applications/version-management/forgejo { };
 
+  forgejo-actions-runner = callPackage ../development/tools/continuous-integration/forgejo-actions-runner { };
+
   gokart = callPackage ../development/tools/gokart { };
 
   gl2ps = callPackage ../development/libraries/gl2ps { };
@@ -13745,6 +13749,8 @@ with pkgs;
   txtw = callPackage ../tools/misc/txtw { };
 
   tydra = callPackage ../tools/misc/tydra { };
+
+  typesense = callPackage ../servers/search/typesense { };
 
   typos = callPackage ../development/tools/typos { };
 
@@ -26435,10 +26441,7 @@ with pkgs;
 
   petidomo = callPackage ../servers/mail/petidomo { };
 
-  pict-rs = callPackage ../servers/web-apps/pict-rs {
-    inherit (darwin.apple_sdk.frameworks) Security;
-    ffmpeg = ffmpeg_4;
-  };
+  pict-rs = callPackage ../servers/web-apps/pict-rs { };
 
   pict-rs_0_3 = callPackage ../servers/web-apps/pict-rs/0.3.nix {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -33105,6 +33108,8 @@ with pkgs;
     electron = electron_9;
   };
 
+  markscribe = callPackage ../tools/text/markscribe { };
+
   magnetico = callPackage ../applications/networking/p2p/magnetico { };
 
   mastodon-bot = nodePackages.mastodon-bot;
@@ -34782,6 +34787,8 @@ with pkgs;
   slowhttptest = callPackage ../tools/security/slowhttptest { };
 
   slrn = callPackage ../applications/networking/newsreaders/slrn { };
+
+  smartcrop = callPackage ../tools/graphics/smartcrop { };
 
   sniffnet = callPackage ../applications/networking/sniffnet { };
 
@@ -37237,6 +37244,8 @@ with pkgs;
   galaxis = callPackage ../games/galaxis { };
 
   gambatte = callPackage ../games/gambatte { };
+
+  gambit-chess = callPackage ../games/gambit { };
 
   garden-of-coloured-lights = callPackage ../games/garden-of-coloured-lights { allegro = allegro4; };
 
