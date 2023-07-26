@@ -4,6 +4,7 @@
   "date": "2023-06-25T00:05:32+02:00",
   "path": "/nix/store/3j06cjbifdx4msk5vjvpzj2ykrpcdbba-tree-sitter-haskell",
   "sha256": "0zba3zy60yab4gy3rrx37l07ys3ybvqq5wadq63cv7yf4b88a8v5",
+  "hash": "sha256-ZSOF0CLOn82GwU3xgvFefmh/AD2j5zz8I0t5YPwfan0=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

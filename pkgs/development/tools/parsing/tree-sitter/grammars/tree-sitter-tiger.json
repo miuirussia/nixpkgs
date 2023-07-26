@@ -4,6 +4,7 @@
   "date": "2023-04-01T17:11:28+01:00",
   "path": "/nix/store/f8nmndxp42jf09lp1v2m3grj1h6f447y-tree-sitter-tiger",
   "sha256": "0riyjsqdk4kiyl58vanfg7k64n55czcncsjx696l3gph2dyfjxnb",
+  "hash": "sha256-y3bpfBPwvkFNMl1qZtlnpVhi5nnOqo0K9XGS2bCWPmY=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

@@ -4,6 +4,7 @@
   "date": "2023-06-09T23:29:41-04:00",
   "path": "/nix/store/8791ad93fs48q44b594z4rjcxb9sibvf-tree-sitter-scala",
   "sha256": "0n7vqv3hc93g6jsk9x65ihsi7q10fz11z1v70a7zqbydzxxw06vz",
+  "hash": "sha256-fxvAe//NL/yPAmeHH8J3IOATNYzF9DS1NG8kBsfG+1g=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

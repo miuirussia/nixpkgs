@@ -4,6 +4,7 @@
   "date": "2023-07-14T19:13:01+05:30",
   "path": "/nix/store/wwqsrdl1vjzgissq5x1aya3pwlmschiy-tree-sitter-perl",
   "sha256": "0nqj127pz857zkvi84dh5d69w8ih6qyj2bg452ynxwhw35gz6qpj",
+  "hash": "sha256-8mLzXxkc8m69KOQtIT02MCKeTCuwERT3/Kegf48IEls=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

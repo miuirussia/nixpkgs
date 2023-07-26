@@ -4,6 +4,7 @@
   "date": "2023-07-13T13:46:19-05:00",
   "path": "/nix/store/5zpxm9vbbqpwnq8ahbfkjwgw3ldfzgzw-tree-sitter-julia",
   "sha256": "1kcbcv73qzzc7ijv897njyd30y4jar1z2g3q8bnn5drqh3v9kydw",
+  "hash": "sha256-vPmZ9oA4t2LtQng88UNWkngwmpf2JLRlPOx/PM5mi80=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

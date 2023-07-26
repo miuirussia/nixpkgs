@@ -4,6 +4,7 @@
   "date": "2023-05-03T15:12:41-04:00",
   "path": "/nix/store/fp1hrlrvj29ndsyp7dbvg4bgmja891s6-tree-sitter-llvm",
   "sha256": "1d863cy214w26hlj22y60a4nw3j5qmr9a174f8vfgcc0lk9dzbh8",
+  "hash": "sha256-CK7f0qSAsec2cuQElXLFRQ5uiQLGCyEpNIKTIDwbBrU=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

@@ -4,6 +4,7 @@
   "date": "2023-07-25T02:22:51+02:00",
   "path": "/nix/store/7pm6y15p2fv122ngg0yvp4m9db97hw5n-tree-sitter-elm",
   "sha256": "1plcy04flp2ymypbnpa8qfygs9xfk1dmfvixjhshabk5w135hrs1",
+  "hash": "sha256-QWdYRuBlLgU1lD1uV1uYrif9vMNIXbuur15c6gjwjN4=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

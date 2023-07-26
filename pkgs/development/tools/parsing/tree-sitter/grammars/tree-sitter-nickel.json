@@ -4,6 +4,7 @@
   "date": "2023-06-30T12:17:41+02:00",
   "path": "/nix/store/bjmb99x4hdldkf6xhydcap40mp3qr2p1-tree-sitter-nickel",
   "sha256": "08rsarbf38rbhy1xwjxa9kvp67n76fff4fisfhq5dqj9v6k43ia5",
+  "hash": "sha256-RcVBptlJ4lYwdDo64pwzxx5z90yqS96Dhyuj4VZWOiM=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

@@ -4,6 +4,7 @@
   "date": "2023-07-24T13:53:26-04:00",
   "path": "/nix/store/pxhsd5yl8fmzpzw4ds3j0qj7glplhf6j-tree-sitter-fortran",
   "sha256": "0vrrxvpakv08vw4rvlspd8s5b37wvr9l06rqycjmk1hz4pbscq67",
+  "hash": "sha256-x2Cm1yUfhlkl8zgbQFPe/IxVNGpX050J3wjsqe7uOW8=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

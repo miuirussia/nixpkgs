@@ -4,6 +4,7 @@
   "date": "2023-07-10T15:57:45-04:00",
   "path": "/nix/store/ivsakk25vyv8zlilpifszaa1lkxijiqy-tree-sitter-php",
   "sha256": "1lz6hz9rw251a6zdy6vpbxalk7g07cqjdvjgxxz5j55dx9r1yxd0",
+  "hash": "sha256-oHUfcuqtFFl+70/uJjE74J1JVV93G9++UaEIntOH5tM=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

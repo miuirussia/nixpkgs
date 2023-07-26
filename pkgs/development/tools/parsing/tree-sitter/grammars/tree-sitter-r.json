@@ -4,6 +4,7 @@
   "date": "2022-11-10T09:19:03-08:00",
   "path": "/nix/store/x7rjhqp9qxh9xwq2l38jz5wbkbzz0vfl-tree-sitter-r",
   "sha256": "1n7yxi2wf9xj8snw0b85a5w40vhf7x1pwirnwfk78ilr6hhz4ix9",
+  "hash": "sha256-qUfyITSZRnSm4zZHfkM/Dm5AeFEFLcCtRrInx0Xs/tg=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

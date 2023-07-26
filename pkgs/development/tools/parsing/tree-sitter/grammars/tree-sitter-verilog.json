@@ -4,6 +4,7 @@
   "date": "2023-07-07T16:24:25-07:00",
   "path": "/nix/store/skj346knwyzsm802i59sx0xam7qaj7s9-tree-sitter-verilog",
   "sha256": "00pr3w4qf2s7lqp2pfa3yl6jzvs4a663adw1kfqs0wq5s1khhz2z",
+  "hash": "sha256-X3wIZ9AFc6Cxm4E3NYxRRO8vDfVDuSsupkcLhwkf+QI=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

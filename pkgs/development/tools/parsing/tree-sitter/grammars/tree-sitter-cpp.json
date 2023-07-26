@@ -4,6 +4,7 @@
   "date": "2023-07-24T00:21:14-04:00",
   "path": "/nix/store/7ndkc2zrjb4k4nf8mnpaawvaj3s26nj9-tree-sitter-cpp",
   "sha256": "0wqlbd6p6vi0a5yr4x95aqpcpfxl385skjv1gllyxhcvs22a124k",
+  "hash": "sha256-k4ighNCbwe4pfWHLqQsatLvLLlYldZJ9USBuc01bFHM=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

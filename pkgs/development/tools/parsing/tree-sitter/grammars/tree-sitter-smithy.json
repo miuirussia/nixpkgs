@@ -4,6 +4,7 @@
   "date": "2023-01-31T21:16:56+00:00",
   "path": "/nix/store/y5j99bx1b6h25k1lnzs6s4gkg0mhll06-tree-sitter-smithy",
   "sha256": "0k7gfpa3pcj1ji34k0kwk1xbadkgjadfg36xfwns1fmlwzmr7jnx",
+  "hash": "sha256-3cqT6+e0uqAtd92M55qSbza1eph8gklGlEGyO9R170w=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

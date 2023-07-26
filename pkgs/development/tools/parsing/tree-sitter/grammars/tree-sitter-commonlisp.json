@@ -4,6 +4,7 @@
   "date": "2023-06-17T07:20:59+03:00",
   "path": "/nix/store/k2lhjjqnwpp8372s626b2ficj5s6f7hq-tree-sitter-commonlisp",
   "sha256": "03cfswsx0fansfdkp32a4lxhagbwwfj01p5fybqv3ap47yg72c4r",
+  "hash": "sha256-mTBxnj/kqrHx8q7cAKTjfD0FOyVKjDub01Y50DXXjg0=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

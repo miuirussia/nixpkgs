@@ -4,6 +4,7 @@
   "date": "2023-07-11T11:08:25-04:00",
   "path": "/nix/store/dm7m3mswqhkp0rblndwib9in9cx6dlmj-tree-sitter-javascript",
   "sha256": "0vp7z57scpbcvyxpya06lnpz9f5kjdb66wjlkrp684xwjjgq1wxd",
+  "hash": "sha256-rfOAn5S8E2RunlRyY1aTs7j0r6UGKH+732xdpk/5524=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

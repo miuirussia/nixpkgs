@@ -4,6 +4,7 @@
   "date": "2023-06-28T14:34:24+00:00",
   "path": "/nix/store/kbvsn46ksr5w8vqmk3jc3zj5rmrpv03p-tree-sitter-cmake",
   "sha256": "0i8vsvkkas1fnn35na68gq5xq2y3xvhv2bk9q6x8c1bzsqm6rcsa",
+  "hash": "sha256-SrNsKtZ/BYa6wWkuseHuwwvcC37IKFuGtS5oNefWG0U=",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
