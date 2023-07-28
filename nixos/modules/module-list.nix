@@ -93,8 +93,8 @@
   ./hardware/tuxedo-keyboard.nix
   ./hardware/ubertooth.nix
   ./hardware/uinput.nix
+  ./hardware/usb-modeswitch.nix
   ./hardware/usb-storage.nix
-  ./hardware/usb-wwan.nix
   ./hardware/video/amdgpu-pro.nix
   ./hardware/video/bumblebee.nix
   ./hardware/video/capture/mwprocapture.nix
@@ -264,6 +264,7 @@
   ./programs/wayland/river.nix
   ./programs/wayland/sway.nix
   ./programs/wayland/waybar.nix
+  ./programs/wayland/wayfire.nix
   ./programs/weylus.nix
   ./programs/wireshark.nix
   ./programs/xastir.nix
@@ -1398,6 +1399,7 @@
   ./system/boot/systemd/oomd.nix
   ./system/boot/systemd/repart.nix
   ./system/boot/systemd/shutdown.nix
+  ./system/boot/systemd/sysupdate.nix
   ./system/boot/systemd/tmpfiles.nix
   ./system/boot/systemd/user.nix
   ./system/boot/systemd/userdbd.nix
