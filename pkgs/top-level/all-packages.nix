@@ -411,6 +411,8 @@ with pkgs;
 
   catatonit = callPackage ../applications/virtualization/catatonit { };
 
+  catppuccin-catwalk = callPackage ../development/tools/misc/catppuccin-catwalk { };
+
   catppuccin-gtk = callPackage ../data/themes/catppuccin-gtk { };
 
   catppuccin-kde = callPackage ../data/themes/catppuccin-kde { };
@@ -576,6 +578,8 @@ with pkgs;
   deadnix = callPackage ../development/tools/deadnix { };
 
   dec-decode = callPackage ../development/tools/dec-decode { };
+
+  devour-flake = callPackage ../tools/nix/devour-flake { };
 
   dnf5 = callPackage ../tools/package-management/dnf5 { };
 
@@ -4570,7 +4574,9 @@ with pkgs;
 
   cowsay = callPackage ../tools/misc/cowsay { };
 
-  czkawka = callPackage ../tools/misc/czkawka { };
+  czkawka = callPackage ../tools/misc/czkawka {
+    inherit (darwin.apple_sdk.frameworks) Foundation;
+  };
 
   cherrytree = callPackage ../applications/misc/cherrytree { };
 
@@ -9508,6 +9514,8 @@ with pkgs;
 
   klystrack = callPackage ../applications/audio/klystrack { };
 
+  knit = callPackage ../development/tools/build-managers/knit { };
+
   knockpy = callPackage ../tools/security/knockpy { };
 
   kool = callPackage ../development/tools/misc/kool { };
@@ -11976,6 +11984,8 @@ with pkgs;
   pstoedit = callPackage ../tools/graphics/pstoedit { };
 
   psutils = callPackage ../tools/typesetting/psutils { };
+
+  psudohash = callPackage ../tools/security/psudohash { };
 
   psensor = callPackage ../tools/system/psensor {
     libXNVCtrl = linuxPackages.nvidia_x11.settings.libXNVCtrl;
@@ -17511,6 +17521,8 @@ with pkgs;
 
   dhall-nixpkgs = haskell.lib.compose.justStaticExecutables haskellPackages.dhall-nixpkgs;
 
+  dhall-yaml = haskell.lib.compose.justStaticExecutables haskellPackages.dhall-yaml;
+
   dhallPackages = recurseIntoAttrs (callPackage ./dhall-packages.nix { });
 
   duktape = callPackage ../development/interpreters/duktape { };
@@ -21260,6 +21272,8 @@ with pkgs;
   graphia = libsForQt5.callPackage ../applications/science/misc/graphia { };
 
   graphinder = callPackage ../tools/security/graphinder { };
+
+  hnswlib = callPackage ../development/libraries/hnswlib { };
 
   httplib = callPackage ../development/libraries/httplib { };
 
@@ -27874,8 +27888,6 @@ with pkgs;
   linux_5_15_hardened = linuxKernel.kernels.linux_5_15_hardened;
   linuxPackages_6_1_hardened = linuxKernel.packages.linux_6_1_hardened;
   linux_6_1_hardened = linuxKernel.kernels.linux_6_1_hardened;
-  linuxPackages_6_3_hardened = linuxKernel.packages.linux_6_3_hardened;
-  linux_6_3_hardened = linuxKernel.kernels.linux_6_3_hardened;
   linuxPackages_6_4_hardened = linuxKernel.packages.linux_6_4_hardened;
   linux_6_4_hardened = linuxKernel.kernels.linux_6_4_hardened;
 
@@ -33599,6 +33611,7 @@ with pkgs;
   } // (config.mplayer or {}));
 
   mpv-unwrapped = darwin.apple_sdk_11_0.callPackage ../applications/video/mpv {
+    stdenv = if stdenv.isDarwin then swiftPackages.stdenv else stdenv;
     inherit lua;
   };
 
@@ -35338,8 +35351,6 @@ with pkgs;
 
   tektoncd-cli = callPackage ../applications/networking/cluster/tektoncd-cli { };
 
-  telegram-cli = callPackage ../applications/networking/instant-messengers/telegram/telegram-cli { };
-
   tg = python3Packages.callPackage ../applications/networking/instant-messengers/telegram/tg { };
 
   telepathy-gabble = callPackage ../applications/networking/instant-messengers/telepathy/gabble { };
@@ -35436,6 +35447,8 @@ with pkgs;
   ticker = callPackage ../applications/misc/ticker { };
 
   tickrs = callPackage ../applications/misc/tickrs { };
+
+  tijolo = callPackage ../applications/editors/tijolo { };
 
   tilemaker = callPackage ../applications/misc/tilemaker { };
 
@@ -37463,6 +37476,8 @@ with pkgs;
   hikounomizu = callPackage ../games/hikounomizu { };
 
   hyperrogue = callPackage ../games/hyperrogue { };
+
+  ibmcloud-cli = callPackage ../tools/admin/ibmcloud-cli { stdenv = stdenvNoCC; };
 
   icbm3d = callPackage ../games/icbm3d { };
 
@@ -40314,6 +40329,10 @@ with pkgs;
 
   alejandra = callPackage ../tools/nix/alejandra { };
 
+  nixci = callPackage ../tools/nix/nixci {
+    inherit (darwin.apple_sdk.frameworks) Security;
+  };
+
   nixfmt = haskellPackages.nixfmt.bin;
 
   nixpkgs-fmt = callPackage ../tools/nix/nixpkgs-fmt { };
@@ -41607,4 +41626,7 @@ with pkgs;
   waylyrics = callPackage ../applications/audio/waylyrics { };
 
   gitrs = callPackage ../tools/misc/gitrs { };
+
+  wttrbar = callPackage ../applications/misc/wttrbar { };
+
 }

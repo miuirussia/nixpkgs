@@ -4457,6 +4457,13 @@
       fingerprint = "7E38 89D9 B1A8 B381 C8DE  A15F 95EB 6DFF 26D1 CEB0";
     }];
   };
+  DrSensor = {
+    name = "Fahmi Akbar Wildana";
+    email = "sensorfied@gmail.com";
+    matrix = "@drsensor:matrix.org";
+    github = "DrSensor";
+    githubId = 4953069;
+  };
   drupol = {
     name = "Pol Dellaiera";
     email = "pol.dellaiera@protonmail.com";
@@ -8713,6 +8720,12 @@
     github = "kfollesdal";
     githubId = 546087;
     name = "Kristoffer K. Føllesdal";
+  };
+  khaneliman = {
+    email = "khaneliman12@gmail.com";
+    github = "khaneliman";
+    githubId = 1778670;
+    name = "Austin Horstman";
   };
   khaser = {
     email = "a-horohorin@mail.ru";
@@ -15727,6 +15740,13 @@
     githubId = 219362;
     name = "Sarah Brofeldt";
   };
+  srid = {
+    email = "srid@srid.ca";
+    matrix = "@srid:matrix.org";
+    github = "srid";
+    githubId = 3998;
+    name = "Sridhar Ratnakumar";
+  };
   srounce = {
     name = "Samuel Rounce";
     email = "me@samuelrounce.co.uk";
@@ -17551,6 +17571,12 @@
     keys = [{
       fingerprint = "AEF2 3487 66F3 71C6 89A7  3600 95A4 2FE8 3535 25F9";
     }];
+  };
+  vinetos = {
+    name = "vinetos";
+    email = "vinetosdev@gmail.com";
+    github = "vinetos";
+    githubId = 10145351;
   };
   vinnymeller = {
     email = "vinnymeller@proton.me";
