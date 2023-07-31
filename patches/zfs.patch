@@ -1,0 +1,47 @@
+From 814a7a595fe848ed4fa426e724cf1f8b038d6654 Mon Sep 17 00:00:00 2001
+From: toastal <toastal@posteo.net>
+Date: Mon, 31 Jul 2023 10:43:51 +0700
+Subject: [PATCH] =?UTF-8?q?zfsUnstable:=202.1.12=20=E2=86=92=202.1.13-unst?=
+ =?UTF-8?q?able-2023-07-26?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+https://github.com/openzfs/zfs/commits/zfs-2.1.13-staging
+
+With anecdote from a NixOS user that it’s working
+https://github.com/openzfs/zfs/pull/15125
+
+…working for me as well as I built+booted from this commit.
+---
+ pkgs/os-specific/linux/zfs/unstable.nix | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/pkgs/os-specific/linux/zfs/unstable.nix b/pkgs/os-specific/linux/zfs/unstable.nix
+index 832eb66c02e52..f3aa61eddf5d9 100644
+--- a/pkgs/os-specific/linux/zfs/unstable.nix
++++ b/pkgs/os-specific/linux/zfs/unstable.nix
+@@ -12,18 +12,19 @@ in
+ callPackage ./generic.nix args {
+   # check the release notes for compatible kernels
+   kernelCompatible = if stdenv'.isx86_64 || removeLinuxDRM
+-    then kernel.kernelOlder "6.4"
++    then kernel.kernelOlder "6.5"
+     else kernel.kernelOlder "6.2";
+ 
+-  latestCompatibleLinuxPackages = linuxKernel.packages.linux_6_1;
++  latestCompatibleLinuxPackages = linuxKernel.packages.linux_6_4;
+ 
+   # this package should point to a version / git revision compatible with the latest kernel release
+   # IMPORTANT: Always use a tagged release candidate or commits from the
+   # zfs-<version>-staging branch, because this is tested by the OpenZFS
+   # maintainers.
+-  version = "2.1.12";
++  version = "2.1.13-unstable-2023-07-26";
++  rev = "1abf68b7aea298d6335d64e2e2bcf24681c84a9e";
+ 
+-  sha256 = "eYUR5d4gpTrlFu6j1uL83DWL9uPGgAUDRdSEb73V5i4=";
++  sha256 = "o73OZv9liDJPTED4uAYEn6TG2Ek+74sqVuT7oGL8Rms=";
+ 
+   isUnstable = true;
+ }
