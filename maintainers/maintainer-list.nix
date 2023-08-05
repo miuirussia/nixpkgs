@@ -418,6 +418,12 @@
     githubId = 1250775;
     name = "Adolfo E. García Castro";
   };
+  adriandole = {
+    email = "adrian@dole.tech";
+    github = "adriandole";
+    githubId = 25236206;
+    name = "Adrian Dole";
+  };
   AdsonCicilioti = {
     name = "Adson Cicilioti";
     email = "adson.cicilioti@live.com";
@@ -2777,6 +2783,12 @@
     github = "avdv";
     githubId = 3471749;
     name = "Claudio Bley";
+  };
+  cbourjau = {
+    email = "christianb@posteo.de";
+    github = "cbourjau";
+    githubId = 3288058;
+    name = "Christian Bourjau";
   };
   cbrewster = {
     email = "cbrewster@hey.com";
@@ -6051,6 +6063,12 @@
       fingerprint = "D0CF 440A A703 E0F9 73CB  A078 82BB 70D5 41AE 2DB4";
     }];
   };
+  gerg-l = {
+    email = "gregleyda@proton.me";
+    github = "Gerg-L";
+    githubId = 88247690;
+    name = "Greg Leyda";
+  };
   geri1701 = {
     email = "geri@sdf.org";
     github = "geri1701";
@@ -7726,6 +7744,13 @@
     github = "jensbin";
     githubId = 1608697;
     name = "Jens Binkert";
+  };
+  jeremiahs = {
+    email = "jeremiah@secrist.xyz";
+    github = "JeremiahSecrist";
+    githubId = 26032621;
+    matrix = "@jeremiahs:matrix.org";
+    name = "Jeremiah Secrist";
   };
   jeremyschlatter = {
     email = "github@jeremyschlatter.com";
@@ -9900,6 +9925,15 @@
     github = "civodul";
     githubId = 1168435;
     name = "Ludovic Courtès";
+  };
+  ludovicopiero = {
+    email = "ludovicopiero@pm.me";
+    github = "ludovicopiero";
+    githubId = 44255157;
+    name = "Ludovico Piero";
+    keys = [{
+      fingerprint = "72CA 4F61 46C6 0DAB 6193  4D35 3911 DD27 6CFE 779C";
+    }];
   };
   lufia = {
     email = "lufia@lufia.org";
@@ -15527,6 +15561,12 @@
     github = "skykanin";
     githubId = 3789764;
     name = "skykanin";
+  };
+  slbtty = {
+    email = "shenlebantongying@gmail.com";
+    github = "shenlebantongying";
+    githubId = 20123683;
+    name = "Shenleban Tongying";
   };
   sleexyz = {
     email = "freshdried@gmail.com";
