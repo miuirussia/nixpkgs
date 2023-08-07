@@ -4180,6 +4180,8 @@ self: super: with self; {
 
   georss-wa-dfes-client = callPackage ../development/python-modules/georss-wa-dfes-client { };
 
+  getjump = callPackage ../development/python-modules/getjump { };
+
   getmac = callPackage ../development/python-modules/getmac { };
 
   getkey = callPackage ../development/python-modules/getkey { };
@@ -12170,6 +12172,8 @@ self: super: with self; {
 
   streamlabswater = callPackage ../development/python-modules/streamlabswater { };
 
+  streamlit = callPackage ../development/python-modules/streamlit { };
+
   streamz = callPackage ../development/python-modules/streamz { };
 
   strenum =  callPackage ../development/python-modules/strenum { };
@@ -12935,6 +12939,8 @@ self: super: with self; {
   txredisapi = callPackage ../development/python-modules/txredisapi { };
 
   txrequests = callPackage ../development/python-modules/txrequests { };
+
+  txtai = callPackage ../development/python-modules/txtai { };
 
   txtorcon = callPackage ../development/python-modules/txtorcon { };
 
