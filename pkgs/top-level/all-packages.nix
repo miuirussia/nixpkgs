@@ -4359,6 +4359,8 @@ with pkgs;
 
   buildpack = callPackage ../development/tools/buildpack { };
 
+  bonk = callPackage ../tools/misc/bonk { };
+
   bottom-rs = callPackage ../tools/misc/bottom-rs { };
 
   bsp-layout = callPackage ../tools/misc/bsp-layout { };
@@ -4616,6 +4618,8 @@ with pkgs;
   czkawka = callPackage ../tools/misc/czkawka {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
+
+  chayang = callPackage ../tools/wayland/chayang { };
 
   cherrytree = callPackage ../applications/misc/cherrytree { };
 
@@ -5543,6 +5547,8 @@ with pkgs;
     wlroots = pkgs.callPackage ../applications/window-managers/hyprwm/hyprland/wlroots.nix { };
     udis86 = pkgs.callPackage ../applications/window-managers/hyprwm/hyprland/udis86.nix { };
   };
+
+  hyprland-autoname-workspaces = callPackage ../applications/misc/hyprland-autoname-workspaces { };
 
   hyprland-per-window-layout = callPackage ../tools/wayland/hyprland-per-window-layout { };
 
@@ -12359,6 +12365,8 @@ with pkgs;
   rich-cli = callPackage ../misc/rich-cli { };
 
   richgo = callPackage ../development/tools/richgo {  };
+
+  risor = callPackage ../development/interpreters/risor { };
 
   rlci = callPackage ../development/interpreters/rlci { };
 
@@ -32269,6 +32277,8 @@ with pkgs;
 
   pixinsight = libsForQt5.callPackage ../applications/graphics/pixinsight { };
 
+  planner = callPackage ../applications/office/planner { };
+
   please-cli = callPackage ../applications/misc/please-cli { };
 
   protonup-qt = python3Packages.callPackage ../applications/misc/protonup-qt { };
@@ -32505,7 +32515,9 @@ with pkgs;
     texinfo = buildPackages.texinfo6_7; # Uses @setcontentsaftertitlepage, removed in 6.8.
   };
 
-  avalonia-ilspy = callPackage ../applications/misc/avalonia-ilspy { };
+  avalonia-ilspy = callPackage ../applications/misc/avalonia-ilspy {
+    inherit (darwin) autoSignDarwinBinariesHook;
+  };
 
   image-roll = callPackage ../applications/graphics/image-roll { };
 
@@ -32698,6 +32710,8 @@ with pkgs;
 
   joe = callPackage ../applications/editors/joe { };
 
+  johnny = callPackage ../applications/misc/johnny { };
+
   josm = callPackage ../applications/misc/josm { };
 
   js8call = qt5.callPackage ../applications/radio/js8call { };
@@ -32824,6 +32838,8 @@ with pkgs;
   kpt = callPackage ../applications/networking/cluster/kpt { };
 
   krabby = callPackage ../applications/misc/krabby { };
+
+  kraft = callPackage ../applications/virtualization/kraft { };
 
   krane = callPackage ../applications/networking/cluster/krane { };
 
