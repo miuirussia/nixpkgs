@@ -595,6 +595,12 @@ with pkgs;
 
   dsq = callPackage ../tools/misc/dsq { };
 
+  dt = callPackage ../tools/text/dt {
+    zigHook = zigHook.override {
+      zig = buildPackages.zig_0_11;
+    };
+  };
+
   dtv-scan-tables = callPackage ../data/misc/dtv-scan-tables { };
 
   dufs = callPackage ../servers/http/dufs {
@@ -4375,6 +4381,8 @@ with pkgs;
 
   bwbasic = callPackage ../development/interpreters/bwbasic { };
 
+  bws = callPackage ../tools/security/bws { };
+
   byobu = callPackage ../tools/misc/byobu {
     # Choices: [ tmux screen ];
     textual-window-manager = tmux;
@@ -5067,6 +5075,8 @@ with pkgs;
   eggdrop = callPackage ../tools/networking/eggdrop { };
 
   egglog = callPackage ../applications/science/logic/egglog { };
+
+  ego = callPackage ../tools/misc/ego { };
 
   ekam = callPackage ../development/tools/build-managers/ekam { };
 
@@ -5821,18 +5831,23 @@ with pkgs;
   # example of an error which this fixes
   # [Errno 8] Exec format error: './gdk3-scan'
   mesonEmulatorHook =
-    if (!stdenv.buildPlatform.canExecute stdenv.targetPlatform) then
-      makeSetupHook
-        {
-          name = "mesonEmulatorHook";
-          substitutions = {
-            crossFile = writeText "cross-file.conf" ''
+    makeSetupHook
+      {
+        name = "mesonEmulatorHook";
+        substitutions = {
+          crossFile = writeText "cross-file.conf" ''
               [binaries]
-              exe_wrapper = ${lib.escapeShellArg (stdenv.targetPlatform.emulator buildPackages)}
+              exe_wrapper = ${lib.escapeShellArg (stdenv.targetPlatform.emulator pkgs)}
             '';
-          };
-        } ../development/tools/build-managers/meson/emulator-hook.sh
-    else throw "mesonEmulatorHook has to be in a conditional to check if the target binaries can be executed i.e. (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)";
+        };
+      }
+      # The throw is moved into the `makeSetupHook` derivation, so that its
+      # outer level, but not its outPath can still be evaluated if the condition
+      # doesn't hold. This ensures that splicing still can work correctly.
+      (if (!stdenv.hostPlatform.canExecute stdenv.targetPlatform) then
+        ../development/tools/build-managers/meson/emulator-hook.sh
+       else
+         throw "mesonEmulatorHook may only be added to nativeBuildInputs when the target binaries can't be executed; however you are attempting to use it in a situation where ${stdenv.hostPlatform.config} can execute ${stdenv.targetPlatform.config}. Consider only adding mesonEmulatorHook according to a conditional based canExecute in your package expression.");
 
   meson-tools = callPackage ../misc/meson-tools { };
 
@@ -6901,6 +6916,8 @@ with pkgs;
 
   bbin = callPackage ../development/tools/bbin { };
 
+  blacken-docs = callPackage ../tools/misc/blacken-docs { };
+
   bore = callPackage ../tools/networking/bore {
     inherit (darwin) Libsystem;
     inherit (darwin.apple_sdk.frameworks) SystemConfiguration;
@@ -6932,6 +6949,8 @@ with pkgs;
   code-browser-qt = libsForQt5.callPackage ../applications/editors/code-browser { withQt = true; };
   code-browser-gtk2 = callPackage ../applications/editors/code-browser { withGtk2 = true; };
   code-browser-gtk = callPackage ../applications/editors/code-browser { withGtk3 = true; };
+
+  CertDump = callPackage ../tools/security/CertDump { };
 
   certstrap = callPackage ../tools/security/certstrap { };
 
@@ -10335,6 +10354,8 @@ with pkgs;
 
   linux-exploit-suggester = callPackage ../tools/security/linux-exploit-suggester { };
 
+  linux-gpib = callPackage ../applications/science/electronics/linux-gpib/user.nix { };
+
   linuxquota = callPackage ../tools/misc/linuxquota { };
 
   lipl = callPackage ../tools/misc/lipl { };
@@ -10969,6 +10990,8 @@ with pkgs;
   nomino = callPackage ../tools/misc/nomino { };
 
   nb = callPackage ../tools/misc/nb { };
+
+  nbqa = callPackage ../tools/misc/nbqa { };
 
   kb = callPackage ../tools/misc/kb { };
 
@@ -12402,6 +12425,8 @@ with pkgs;
 
   re-isearch = callPackage ../applications/search/re-isearch { };
 
+  reason-shell = callPackage ../applications/science/misc/reason-shell { };
+
   reaverwps = callPackage ../tools/networking/reaver-wps { };
 
   reaverwps-t6x = callPackage ../tools/networking/reaver-wps-t6x { };
@@ -13481,6 +13506,8 @@ with pkgs;
 
   tea = callPackage ../tools/misc/tea { };
 
+  teavpn2 = callPackage ../tools/networking/teavpn2 { };
+
   inherit (nodePackages) teck-programmer;
 
   ted = callPackage ../tools/typesetting/ted { };
@@ -14061,7 +14088,7 @@ with pkgs;
 
   v2ray-geoip = callPackage ../data/misc/v2ray-geoip { };
 
-  vacuum = callPackage ../applications/networking/instant-messengers/vacuum { };
+  vacuum = libsForQt5.callPackage ../applications/networking/instant-messengers/vacuum {};
 
   validator-nu = callPackage ../tools/text/validator-nu { };
 
@@ -14618,6 +14645,8 @@ with pkgs;
   weaviate = callPackage ../servers/search/weaviate { };
 
   webalizer = callPackage ../tools/networking/webalizer { };
+
+  webmesh = callPackage ../servers/webmesh { };
 
   wget = callPackage ../tools/networking/wget { };
 
@@ -15536,7 +15565,8 @@ with pkgs;
   gerbil = callPackage ../development/compilers/gerbil { };
   gerbil-unstable = callPackage ../development/compilers/gerbil/unstable.nix { };
   gerbil-support = callPackage ../development/compilers/gerbil/gerbil-support.nix { };
-  gerbilPackages-unstable = gerbil-support.gerbilPackages-unstable; # NB: don't recurseIntoAttrs for (unstable!) libraries
+  gerbilPackages-unstable = pkgs.gerbil-support.gerbilPackages-unstable; # NB: don't recurseIntoAttrs for (unstable!) libraries
+  glow-lang = pkgs.gerbilPackages-unstable.glow-lang;
 
   gbforth = callPackage ../development/compilers/gbforth { };
 
@@ -17108,6 +17138,8 @@ with pkgs;
   };
 
   devspace = callPackage ../development/tools/misc/devspace { };
+
+  leptosfmt = callPackage ../development/tools/rust/leptosfmt { };
 
   maturin = callPackage ../development/tools/rust/maturin {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -24901,8 +24933,6 @@ with pkgs;
 
   speech-tools = callPackage ../development/libraries/speech-tools { };
 
-  speedtest-exporter = callPackage ../development/libraries/speedtest-exporter { };
-
   speex = callPackage ../development/libraries/speex {
     fftw = fftwFloat;
   };
@@ -25416,6 +25446,8 @@ with pkgs;
   xcbutilxrm = callPackage ../servers/x11/xorg/xcb-util-xrm.nix { };
 
   xdo = callPackage ../tools/misc/xdo { };
+
+  xdiskusage = callPackage ../tools/misc/xdiskusage { };
 
   xed = callPackage ../development/libraries/xed { };
 
@@ -26903,6 +26935,7 @@ with pkgs;
   prometheus-gitlab-ci-pipelines-exporter = callPackage ../servers/monitoring/prometheus/gitlab-ci-pipelines-exporter.nix { };
   prometheus-graphite-exporter = callPackage ../servers/monitoring/prometheus/graphite-exporter.nix { };
   prometheus-haproxy-exporter = callPackage ../servers/monitoring/prometheus/haproxy-exporter.nix { };
+  prometheus-idrac-exporter = callPackage ../servers/monitoring/prometheus/idrac-exporter.nix { };
   prometheus-influxdb-exporter = callPackage ../servers/monitoring/prometheus/influxdb-exporter.nix { };
   prometheus-ipmi-exporter = callPackage ../servers/monitoring/prometheus/ipmi-exporter.nix { };
   prometheus-jitsi-exporter = callPackage ../servers/monitoring/prometheus/jitsi-exporter.nix { };
@@ -26944,7 +26977,6 @@ with pkgs;
   prometheus-smartctl-exporter = callPackage ../servers/monitoring/prometheus/smartctl-exporter { };
   prometheus-smokeping-prober = callPackage ../servers/monitoring/prometheus/smokeping-prober.nix { };
   prometheus-snmp-exporter = callPackage ../servers/monitoring/prometheus/snmp-exporter.nix { };
-  prometheus-speedtest-exporter = callPackage ../servers/monitoring/prometheus/speedtest-exporter.nix { };
   prometheus-statsd-exporter = callPackage ../servers/monitoring/prometheus/statsd-exporter.nix { };
   prometheus-surfboard-exporter = callPackage ../servers/monitoring/prometheus/surfboard-exporter.nix { };
   prometheus-sql-exporter = callPackage ../servers/monitoring/prometheus/sql-exporter.nix { };
@@ -33400,7 +33432,7 @@ with pkgs;
   mepo = callPackage ../applications/misc/mepo {
     inherit (gnome) zenity;
     zigHook = zigHook.override {
-      zig = buildPackages.zig_0_9;
+      zig = buildPackages.zig_0_10;
     };
   };
 
@@ -33954,6 +33986,8 @@ with pkgs;
   softmaker-office = callPackage ../applications/office/softmaker/softmaker_office.nix { };
 
   songrec = callPackage ../applications/audio/songrec { };
+
+  storj-uplink = callPackage ../applications/networking/sync/storj-uplink {};
 
   storrent = callPackage ../applications/networking/p2p/storrent { };
 
