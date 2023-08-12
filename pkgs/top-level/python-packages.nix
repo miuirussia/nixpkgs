@@ -736,9 +736,9 @@ self: super: with self; {
 
   asyauth = callPackage ../development/python-modules/asyauth { };
 
-  async_generator = callPackage ../development/python-modules/async_generator { };
-
   async-dns = callPackage ../development/python-modules/async-dns { };
+
+  async-generator = callPackage ../development/python-modules/async-generator { };
 
   async-interrupt = callPackage ../development/python-modules/async-interrupt { };
 
@@ -4444,6 +4444,8 @@ self: super: with self; {
   gpapi = callPackage ../development/python-modules/gpapi { };
 
   gpaw = callPackage ../development/python-modules/gpaw { };
+
+  gpib-ctypes = callPackage ../development/python-modules/gpib-ctypes { };
 
   gpiozero = callPackage ../development/python-modules/gpiozero { };
 
@@ -8216,6 +8218,8 @@ self: super: with self; {
 
   pyuca = callPackage ../development/python-modules/pyuca { };
 
+  pyunpack = callPackage ../development/python-modules/pyunpack { };
+
   pyutil = callPackage ../development/python-modules/pyutil { };
 
   pyzbar = callPackage ../development/python-modules/pyzbar { };
@@ -11515,6 +11519,8 @@ self: super: with self; {
   setuptools-gettext = callPackage ../development/python-modules/setuptools-gettext { };
 
   setuptools-git = callPackage ../development/python-modules/setuptools-git { };
+
+  setuptools-git-versioning = callPackage ../development/python-modules/setuptools-git-versioning { };
 
   setuptools-lint = callPackage ../development/python-modules/setuptools-lint { };
 
