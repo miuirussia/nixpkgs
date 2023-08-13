@@ -2365,8 +2365,6 @@ self: super: with self; {
 
   cytoolz = callPackage ../development/python-modules/cytoolz { };
 
-  d2to1 = callPackage ../development/python-modules/d2to1 { };
-
   dacite = callPackage ../development/python-modules/dacite { };
 
   daemonize = callPackage ../development/python-modules/daemonize { };
@@ -2422,6 +2420,8 @@ self: super: with self; {
   databricks-connect = callPackage ../development/python-modules/databricks-connect { };
 
   databricks-sql-connector = callPackage ../development/python-modules/databricks-sql-connector { };
+
+  dataclass-wizard = callPackage ../development/python-modules/dataclass-wizard { };
 
   dataclasses-json = callPackage ../development/python-modules/dataclasses-json { };
 
@@ -4238,6 +4238,8 @@ self: super: with self; {
   git-revise = callPackage ../development/python-modules/git-revise { };
 
   git-sweep = callPackage ../development/python-modules/git-sweep { };
+
+  git-url-parse = callPackage ../development/python-modules/git-url-parse { };
 
   gitdb = callPackage ../development/python-modules/gitdb { };
 
@@ -7233,6 +7235,8 @@ self: super: with self; {
   nxt-python = callPackage ../development/python-modules/nxt-python { };
 
   python-jwt = callPackage ../development/python-modules/python-jwt { };
+
+  python-ndn = callPackage ../development/python-modules/python-ndn { };
 
   python-nvd3 = callPackage ../development/python-modules/python-nvd3 { };
 
