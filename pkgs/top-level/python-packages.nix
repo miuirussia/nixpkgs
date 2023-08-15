@@ -456,7 +456,7 @@ self: super: with self; {
 
   amazon-ion = callPackage ../development/python-modules/amazon-ion { };
 
-  amazon_kclpy = callPackage ../development/python-modules/amazon_kclpy { };
+  amazon-kclpy = callPackage ../development/python-modules/amazon-kclpy { };
 
   ambee = callPackage ../development/python-modules/ambee { };
 
@@ -11267,6 +11267,8 @@ self: super: with self; {
   s3transfer = callPackage ../development/python-modules/s3transfer { };
 
   s3-credentials = callPackage ../development/python-modules/s3-credentials { };
+
+  sabctools = callPackage ../development/python-modules/sabctools { };
 
   sabyenc3 = callPackage ../development/python-modules/sabyenc3 { };
 

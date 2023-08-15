@@ -1776,6 +1776,8 @@ with pkgs;
 
   fabs = callPackage ../tools/backup/fabs { };
 
+  fm = callPackage ../applications/file-managers/fm { };
+
   fm-tune = callPackage ../applications/radio/fm-tune { };
 
   fwbuilder = libsForQt5.callPackage ../tools/security/fwbuilder { };
@@ -4523,6 +4525,8 @@ with pkgs;
                           { inherit (haskellPackages) alex happy Agda ghcWithPackages;
                           };
 
+  cel-go = callPackage ../development/interpreters/cel-go { };
+
   cfdyndns = callPackage ../applications/networking/dyndns/cfdyndns { };
 
   cf-terraforming = callPackage ../tools/misc/cf-terraforming { };
@@ -6962,7 +6966,7 @@ with pkgs;
   code-browser-gtk2 = callPackage ../applications/editors/code-browser { withGtk2 = true; };
   code-browser-gtk = callPackage ../applications/editors/code-browser { withGtk3 = true; };
 
-  CertDump = callPackage ../tools/security/CertDump { };
+  certdump = callPackage ../tools/security/certdump { };
 
   certstrap = callPackage ../tools/security/certstrap { };
 
@@ -18342,7 +18346,9 @@ with pkgs;
 
   pylyzer = callPackage ../development/tools/language-servers/pylyzer { };
 
-  rnix-lsp = callPackage ../development/tools/language-servers/rnix-lsp { };
+  rnix-lsp = callPackage ../development/tools/language-servers/rnix-lsp {
+    nix = nixVersions.nix_2_15;
+  };
 
   ruff-lsp = python3Packages.callPackage ../development/tools/language-servers/ruff-lsp { };
 
@@ -20685,6 +20691,8 @@ with pkgs;
 
   clanlib = callPackage ../development/libraries/clanlib { };
 
+  clap = callPackage ../development/libraries/clap { };
+
   classads = callPackage ../development/libraries/classads { };
 
   clfft = callPackage ../development/libraries/clfft { };
@@ -21642,7 +21650,7 @@ with pkgs;
 
   granted = callPackage ../tools/admin/granted { };
 
-  grantlee = callPackage ../development/libraries/grantlee { };
+  grantlee = libsForQt5.callPackage ../development/libraries/grantlee { };
 
   gsasl = callPackage ../development/libraries/gsasl { };
 
@@ -21810,6 +21818,8 @@ with pkgs;
   gtkspellmm = callPackage ../development/libraries/gtkspellmm { };
 
   gtk-layer-shell = callPackage ../development/libraries/gtk-layer-shell { };
+
+  gtk4-layer-shell = callPackage ../development/libraries/gtk4-layer-shell { };
 
   gts = callPackage ../development/libraries/gts { };
 
@@ -24054,6 +24064,8 @@ with pkgs;
 
   nvidia-optical-flow-sdk = callPackage ../development/libraries/nvidia-optical-flow-sdk { };
 
+  nvidia-system-monitor-qt = libsForQt5.callPackage ../tools/system/nvidia-system-monitor-qt { };
+
   nvitop = callPackage ../tools/system/nvitop { };
 
   nvtop = callPackage ../tools/system/nvtop { };
@@ -25426,10 +25438,7 @@ with pkgs;
   wlr-protocols = callPackage ../development/libraries/wlroots/protocols.nix { };
 
   wt = wt4;
-  inherit (callPackages ../development/libraries/wt {
-    boost = boost175;
-  })
-    wt3
+  inherit (libsForQt5.callPackage ../development/libraries/wt { })
     wt4;
 
   wxformbuilder = callPackage ../development/tools/wxformbuilder { };
@@ -27427,7 +27436,8 @@ with pkgs;
 
   tinyalsa = callPackage ../os-specific/linux/tinyalsa { };
 
-  inherit (callPackage ../os-specific/linux/alsa-project { })
+  alsa-project = callPackage ../os-specific/linux/alsa-project { };
+  inherit (alsa-project)
     alsa-firmware
     alsa-lib
     alsa-oss
@@ -31147,10 +31157,11 @@ with pkgs;
     emacs29-gtk3
     emacs29-nox
     emacs29-pgtk
-    emacs-macport
+    emacs28-macport
+    emacs29-macport
   ;
 
-  emacsMacport = emacs-macport;
+  emacs-macport = emacs28-macport;
   emacs = emacs28;
   emacs-gtk = emacs28-gtk3;
   emacs-nox = emacs28-nox;
@@ -32377,6 +32388,8 @@ with pkgs;
   protonup-qt = python3Packages.callPackage ../applications/misc/protonup-qt { };
 
   pmbootstrap = python3Packages.callPackage ../tools/misc/pmbootstrap { };
+
+  pokeget-rs = callPackage ../tools/misc/pokeget-rs { };
 
   popura = callPackage ../tools/networking/popura { };
 
@@ -34638,6 +34651,8 @@ with pkgs;
   pure-maps = libsForQt5.callPackage ../applications/misc/pure-maps { };
 
   pwdsafety = callPackage ../tools/security/pwdsafety { };
+
+  pwvucontrol = callPackage ../applications/audio/pwvucontrol { };
 
   pyload-ng = callPackage ../applications/networking/pyload-ng {};
 
@@ -40431,7 +40446,9 @@ with pkgs;
 
   nix-melt = callPackage ../tools/nix/nix-melt { };
 
-  nixos-option = callPackage ../tools/nix/nixos-option { };
+  nixos-option = callPackage ../tools/nix/nixos-option {
+    nix = nixVersions.nix_2_15;
+  };
 
   nix-pin = callPackage ../tools/package-management/nix-pin { };
 
@@ -40639,6 +40656,8 @@ with pkgs;
   qdl = callPackage ../tools/misc/qdl { };
 
   qperf = callPackage ../os-specific/linux/qperf { };
+
+  qzdl = libsForQt5.callPackage ../games/qzdl { };
 
   rates = callPackage ../tools/misc/rates {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -40987,6 +41006,8 @@ with pkgs;
   vault = callPackage ../tools/security/vault { };
 
   vault-medusa = callPackage ../tools/security/vault-medusa { };
+
+  vault-ssh-plus = callPackage ../tools/security/vault-ssh-plus { };
 
   vault-bin = callPackage ../tools/security/vault/vault-bin.nix { };
 
