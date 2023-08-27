@@ -2861,8 +2861,6 @@ with pkgs;
 
   ctpv = callPackage ../applications/file-managers/lf/ctpv.nix { };
 
-  llama = callPackage ../applications/file-managers/llama { };
-
   mc = callPackage ../applications/file-managers/mc {
     inherit (darwin) autoSignDarwinBinariesHook;
   };
@@ -2897,6 +2895,8 @@ with pkgs;
     mediaSupport = true;
     inherit lib udisks2 python3;
   };
+
+  walk = callPackage ../applications/file-managers/walk { };
 
   worker = callPackage ../applications/file-managers/worker { };
 
@@ -3329,6 +3329,8 @@ with pkgs;
   azure-static-sites-client = callPackage ../development/tools/azure-static-sites-client { };
 
   azure-storage-azcopy = callPackage ../development/tools/azcopy { };
+
+  bark = callPackage ../tools/audio/bark { };
 
   bashblog = callPackage ../tools/text/bashblog { };
 
@@ -4241,11 +4243,13 @@ with pkgs;
   bchunk = callPackage ../tools/cd-dvd/bchunk { };
 
   inherit (callPackages ../misc/logging/beats/7.x.nix { })
+    auditbeat7
     filebeat7
     heartbeat7
     metricbeat7
     packetbeat7;
 
+  auditbeat = auditbeat7;
   filebeat = filebeat7;
   heartbeat = heartbeat7;
   metricbeat = metricbeat7;
@@ -5861,6 +5865,8 @@ with pkgs;
 
   marlin-calc = callPackage ../tools/misc/marlin-calc { };
 
+  marp-cli = callPackage ../tools/typesetting/marp { };
+
   masscan = callPackage ../tools/security/masscan { };
 
   massren = callPackage ../tools/misc/massren { };
@@ -6209,6 +6215,8 @@ with pkgs;
   rare = python3Packages.callPackage ../games/rare { };
 
   reg = callPackage ../tools/virtualization/reg { };
+
+  retool = callPackage ../applications/misc/retool { };
 
   rex = callPackage ../tools/system/rex { };
 
@@ -7369,6 +7377,10 @@ with pkgs;
   di = callPackage ../tools/system/di { };
 
   diction = callPackage ../tools/text/diction { };
+
+  diffoci = callPackage ../tools/misc/diffoci {
+    buildGoModule = buildGo121Module;
+  };
 
   diffoscope = callPackage ../tools/misc/diffoscope {
     jdk = jdk8;
@@ -9031,6 +9043,8 @@ with pkgs;
   hdapsd = callPackage ../os-specific/linux/hdapsd { };
 
   hdaps-gl = callPackage ../tools/misc/hdaps-gl { };
+
+  hddfancontrol = callPackage ../tools/system/hddfancontrol { };
 
   hddtemp = callPackage ../tools/misc/hddtemp { };
 
@@ -10778,6 +10792,8 @@ with pkgs;
 
   modsecurity-crs = callPackage ../tools/security/modsecurity-crs { };
 
+  molecule = with python3Packages; toPythonApplication molecule;
+
   molly-guard = callPackage ../os-specific/linux/molly-guard { };
 
   molotov = callPackage ../applications/video/molotov { };
@@ -12309,6 +12325,7 @@ with pkgs;
   outils = callPackage ../tools/misc/outils { };
 
   mpi = openmpi; # this attribute should used to build MPI applications
+  mpiCheckPhaseHook = callPackage ../build-support/setup-hooks/mpi-check-hook { };
 
   ucc = callPackage ../development/libraries/ucc { };
 
@@ -12820,6 +12837,8 @@ with pkgs;
   safety-cli = with python3.pkgs; toPythonApplication safety;
 
   safe-rm = callPackage ../tools/system/safe-rm { };
+
+  safecloset = callPackage ../applications/misc/safecloset { };
 
   safeeyes = callPackage ../applications/misc/safeeyes { };
 
@@ -13735,6 +13754,8 @@ with pkgs;
   timetrap = callPackage ../applications/office/timetrap { };
 
   timetagger = callPackage ../servers/timetagger { };
+
+  timetagger_cli = callPackage ../tools/misc/timetagger_cli { };
 
   timezonemap = callPackage ../development/libraries/timezonemap { };
 
@@ -17207,6 +17228,7 @@ with pkgs;
   };
   cargo-readme = callPackage ../development/tools/rust/cargo-readme { };
   cargo-risczero = callPackage ../development/tools/rust/cargo-risczero { };
+  cargo-run-bin = callPackage ../development/tools/rust/cargo-run-bin {};
   cargo-semver-checks = callPackage ../development/tools/rust/cargo-semver-checks { };
 
   cargo-show-asm = callPackage ../development/tools/rust/cargo-show-asm { };
@@ -17709,6 +17731,8 @@ with pkgs;
     lfe lfe_2_1;
 
   expr = callPackage ../development/interpreters/expr { };
+
+  genemichaels = callPackage ../development/tools/rust/genemichaels { };
 
   gnudatalanguage = callPackage ../development/interpreters/gnudatalanguage {
     inherit (llvmPackages) openmp;
@@ -18470,6 +18494,8 @@ with pkgs;
 
   ruff-lsp = python3Packages.callPackage ../development/tools/language-servers/ruff-lsp { };
 
+  rune-languageserver = callPackage ../development/tools/language-servers/rune-languageserver { };
+
   svls = callPackage ../development/tools/language-servers/svls { };
 
   typst-lsp = callPackage ../development/tools/language-servers/typst-lsp { };
@@ -18553,7 +18579,8 @@ with pkgs;
     electron_22-bin
     electron_23-bin
     electron_24-bin
-    electron_25-bin;
+    electron_25-bin
+    electron_26-bin;
 
   electron = electron-bin;
   electron_9 = electron_9-bin;
@@ -18573,6 +18600,7 @@ with pkgs;
   electron_23 = electron_23-bin;
   electron_24 = electron_24-bin;
   electron_25 = electron_25-bin;
+  electron_26 = electron_26-bin;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
 
@@ -19280,6 +19308,8 @@ with pkgs;
   fundoc = callPackage ../development/tools/fundoc { };
 
   funzzy = callPackage ../development/tools/misc/funzzy { };
+
+  futuresql = libsForQt5.callPackage ../development/libraries/futuresql { };
 
   fzf-make = callPackage ../development/tools/misc/fzf-make { };
 
@@ -20497,6 +20527,7 @@ with pkgs;
   abseil-cpp_202103 = callPackage ../development/libraries/abseil-cpp/202103.nix { };
   abseil-cpp_202206 = callPackage ../development/libraries/abseil-cpp/202206.nix { };
   abseil-cpp_202301 = callPackage ../development/libraries/abseil-cpp/202301.nix { };
+  abseil-cpp_202308 = callPackage ../development/libraries/abseil-cpp/202308.nix { };
   abseil-cpp = abseil-cpp_202301;
 
   accountsservice = callPackage ../development/libraries/accountsservice { };
@@ -21576,6 +21607,7 @@ with pkgs;
   glfw-wayland = glfw.override {
     waylandSupport = true;
   };
+  glfw-wayland-minecraft = callPackage ../development/libraries/glfw/3.x-wayland-minecraft.nix {};
   glfw2 = callPackage ../development/libraries/glfw/2.x.nix { };
   glfw3 = callPackage ../development/libraries/glfw/3.x.nix {
     inherit (darwin.apple_sdk.frameworks) Carbon Cocoa Kernel OpenGL;
@@ -22082,7 +22114,7 @@ with pkgs;
 
   hwloc = callPackage ../development/libraries/hwloc { };
 
-  hydra_unstable = callPackage ../development/tools/misc/hydra/unstable.nix { nix = nixVersions.nix_2_16; };
+  hydra_unstable = callPackage ../development/tools/misc/hydra/unstable.nix { nix = nixVersions.nix_2_17; };
 
   hydra-cli = callPackage ../development/tools/misc/hydra-cli { };
 
@@ -22298,6 +22330,8 @@ with pkgs;
   libb64 = callPackage ../development/libraries/libb64 { };
 
   judy = callPackage ../development/libraries/judy { };
+
+  kcp = callPackage ../development/libraries/kcp { };
 
   kddockwidgets = libsForQt5.callPackage ../development/libraries/kddockwidgets { };
 
@@ -24242,8 +24276,30 @@ with pkgs;
   nvitop = callPackage ../tools/system/nvitop { };
 
   nvtop = callPackage ../tools/system/nvtop { };
-  nvtop-nvidia = callPackage ../tools/system/nvtop { amd = false; };
-  nvtop-amd = callPackage ../tools/system/nvtop { nvidia = false; };
+  nvtop-amd = (callPackage ../tools/system/nvtop {
+    amd = true;
+    intel = false;
+    msm = false;
+    nvidia = false;
+  }).overrideAttrs { pname = "nvtop-amd"; };
+  nvtop-intel = (callPackage ../tools/system/nvtop {
+    amd = false;
+    intel = true;
+    msm = false;
+    nvidia = false;
+  }).overrideAttrs { pname = "nvtop-intel"; };
+  nvtop-msm = (callPackage ../tools/system/nvtop {
+    amd = false;
+    intel = false;
+    msm = true;
+    nvidia = false;
+  }).overrideAttrs { pname = "nvtop-msm"; };
+  nvtop-nvidia = (callPackage ../tools/system/nvtop {
+    amd = false;
+    intel = false;
+    msm = false;
+    nvidia = true;
+  }).overrideAttrs { pname = "nvtop-nvidia"; };
 
   ocl-icd = callPackage ../development/libraries/ocl-icd { };
 
@@ -26992,6 +27048,8 @@ with pkgs;
   influxdb = callPackage ../servers/nosql/influxdb { };
   influxdb2-server = callPackage ../servers/nosql/influxdb2 { };
   influxdb2-cli = callPackage ../servers/nosql/influxdb2/cli.nix { };
+  influxdb2-token-manipulator = callPackage ../servers/nosql/influxdb2/token-manipulator.nix { };
+  influxdb2-provision = callPackage ../servers/nosql/influxdb2/provision.nix { };
   # For backwards compatibility with older versions of influxdb2,
   # which bundled the server and CLI into the same derivation. Will be
   # removed in a few releases.
@@ -27402,7 +27460,9 @@ with pkgs;
 
   systemd-journal2gelf = callPackage ../tools/system/systemd-journal2gelf { };
 
-  tailscale = callPackage ../servers/tailscale { };
+  tailscale = callPackage ../servers/tailscale {
+    buildGoModule = buildGo121Module;
+  };
 
   tailscale-systray = callPackage ../applications/misc/tailscale-systray { };
 
@@ -30216,6 +30276,8 @@ with pkgs;
 
   whitesur-icon-theme = callPackage ../data/icons/whitesur-icon-theme { };
 
+  whitesur-kde = callPackage ../data/themes/whitesur-kde { };
+
   wireless-regdb = callPackage ../data/misc/wireless-regdb { };
 
   work-sans  = callPackage ../data/fonts/work-sans { };
@@ -30462,8 +30524,6 @@ with pkgs;
   argocd-autopilot = callPackage ../applications/networking/cluster/argocd-autopilot { };
 
   argo-rollouts = callPackage ../applications/networking/cluster/argo-rollouts { };
-
-  arianna = libsForQt5.callPackage ../applications/misc/arianna { };
 
   ario = callPackage ../applications/audio/ario { };
 
@@ -32901,6 +32961,8 @@ with pkgs;
 
   inherit (nodePackages) imapnotify;
 
+  imdshift = callPackage ../tools/security/imdshift { };
+
   img2pdf = with python3Packages; toPythonApplication img2pdf;
 
   imgbrd-grabber = qt5.callPackage ../applications/graphics/imgbrd-grabber { };
@@ -35315,6 +35377,8 @@ with pkgs;
 
   SkypeExport = callPackage ../applications/networking/instant-messengers/SkypeExport { };
 
+  slingshot = callPackage ../tools/misc/slingshot { };
+
   slop = callPackage ../tools/misc/slop { };
 
   slowhttptest = callPackage ../tools/security/slowhttptest { };
@@ -37001,6 +37065,8 @@ with pkgs;
   };
 
   aperture = callPackage ../applications/blockchains/aperture { };
+
+  backdown = callPackage ../tools/misc/backdown { };
 
   balanceofsatoshis = callPackage ../tools/misc/balanceofsatoshis { };
 
@@ -39137,6 +39203,8 @@ with pkgs;
 
   bwa = callPackage ../applications/science/biology/bwa { };
 
+  bwa-mem2 = callPackage ../applications/science/biology/bwa-mem2 { };
+
   ### SCIENCE/MACHINE LEARNING
 
   nengo-gui = callPackage ../applications/science/machine-learning/nengo-gui { };
@@ -40545,6 +40613,8 @@ with pkgs;
 
   mysides = callPackage ../os-specific/darwin/mysides { };
 
+  narrowlink = callPackage ../tools/networking/narrowlink { };
+
   nar-serve = callPackage ../tools/nix/nar-serve { };
 
   neo = callPackage ../applications/misc/neo { };
@@ -40851,6 +40921,8 @@ with pkgs;
   sam-ba = callPackage ../tools/misc/sam-ba { };
 
   sndio = callPackage ../misc/sndio { };
+
+  SP800-90B_EntropyAssessment = callPackage ../tools/misc/SP800-90B_EntropyAssessment { };
 
   sticky = callPackage ../applications/misc/sticky { };
 
@@ -41222,6 +41294,8 @@ with pkgs;
 
   tup = callPackage ../development/tools/build-managers/tup { };
 
+  turtle-build = callPackage ../development/tools/build-managers/turtle-build { };
+
   tusk = callPackage ../applications/office/tusk { };
 
   trufflehog = callPackage ../tools/security/trufflehog { };
@@ -41250,7 +41324,9 @@ with pkgs;
 
   usb-reset = callPackage ../applications/misc/usb-reset { };
 
-  usql = callPackage ../applications/misc/usql { };
+  usql = callPackage ../applications/misc/usql {
+    buildGoModule = buildGo121Module;
+  };
 
   utf8cpp = callPackage ../development/libraries/utf8cpp { };
 
