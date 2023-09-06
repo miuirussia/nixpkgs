@@ -15,7 +15,7 @@ writeShellScript "update-vaultwarden" ''
 
   set -euxo pipefail
 
-  VAULTWARDEN_VERSION="1.29.2"
+  VAULTWARDEN_VERSION=$(curl --silent https://api.github.com/repos/dani-garcia/vaultwarden/releases/latest | jq -r '.tag_name')
   nix-update "vaultwarden" --version "$VAULTWARDEN_VERSION"
 
   URL="https://raw.githubusercontent.com/dani-garcia/vaultwarden/''${VAULTWARDEN_VERSION}/docker/Dockerfile.j2"
