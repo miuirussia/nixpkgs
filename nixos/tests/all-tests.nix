@@ -275,7 +275,6 @@ in {
   firefox-beta = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-beta; };
   firefox-devedition = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-devedition; };
   firefox-esr    = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr; }; # used in `tested` job
-  firefox-esr-102 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-102; };
   firefox-esr-115 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-115; };
   firejail = handleTest ./firejail.nix {};
   firewall = handleTest ./firewall.nix { nftables = false; };
@@ -485,6 +484,7 @@ in {
   miriway = handleTest ./miriway.nix {};
   misc = handleTest ./misc.nix {};
   mjolnir = handleTest ./matrix/mjolnir.nix {};
+  mobilizon = handleTest ./mobilizon.nix {};
   mod_perl = handleTest ./mod_perl.nix {};
   molly-brown = handleTest ./molly-brown.nix {};
   monica = handleTest ./web-apps/monica.nix {};

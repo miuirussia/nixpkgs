@@ -256,13 +256,6 @@ final: prev: {
     '';
   };
 
-  parcel = prev.parcel.override {
-    buildInputs = [ final.node-gyp-build ];
-    preRebuild = ''
-      sed -i -e "s|#!/usr/bin/env node|#! ${nodejs}/bin/node|" node_modules/node-gyp-build/bin.js
-    '';
-  };
-
   pnpm = prev.pnpm.override {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
 
@@ -308,12 +301,11 @@ final: prev: {
 
     src = fetchurl {
       url = "https://registry.npmjs.org/prisma/-/prisma-${version}.tgz";
-      hash = "sha256-0NxYp+W2KbR3xEV2OCXCIL3RqkvLfJHNKgl/PxapVbI=";
+      hash = "sha256-HiZtNHXkoSl3Q4cAerUs8c138AiDJJxzYNQT3I4+ea8=";
     };
     postInstall = with pkgs; ''
       wrapProgram "$out/bin/prisma" \
         --set PRISMA_SCHEMA_ENGINE_BINARY ${prisma-engines}/bin/schema-engine \
-        --set PRISMA_MIGRATION_ENGINE_BINARY ${prisma-engines}/bin/schema-engine \
         --set PRISMA_QUERY_ENGINE_BINARY ${prisma-engines}/bin/query-engine \
         --set PRISMA_QUERY_ENGINE_LIBRARY ${lib.getLib prisma-engines}/lib/libquery_engine.node \
         --set PRISMA_FMT_BINARY ${prisma-engines}/bin/prisma-fmt
