@@ -93,10 +93,12 @@ mapAliases {
   inherit (pkgs) markdownlint-cli2; # added 2023-08-22
   mdctl-cli = self."@medable/mdctl-cli"; # added 2023-08-21
   musescore-downloader = pkgs.dl-librescore; # added 2023-08-19
+  inherit (pkgs) near-cli; # added 2023-09-09
   node-inspector = throw "node-inspector was removed because it was broken"; # added 2023-08-21
   inherit (pkgs) npm-check-updates; # added 2023-08-22
   ocaml-language-server = throw "ocaml-language-server was removed because it was abandoned upstream"; # added 2023-09-04
   parcel-bundler = parcel; # added 2023-09-04
+  inherit (pkgs) quicktype; # added 2023-09-09
   inherit (pkgs) react-static; # added 2023-08-21
   readability-cli = pkgs.readability-cli; # Added 2023-06-12
   reveal-md = pkgs.reveal-md; # added 2023-07-31
@@ -107,6 +109,7 @@ mapAliases {
   ssb-server = throw "ssb-server was removed because it was broken"; # added 2023-08-21
   stf = throw "stf was removed because it was broken"; # added 2023-08-21
   surge = pkgs.surge-cli; # Added 2023-09-08
+  swagger = throw "swagger was removed because it was broken and abandoned upstream"; # added 2023-09-09
   thelounge = pkgs.thelounge; # Added 2023-05-22
   three = throw "three was removed because it was no longer needed"; # Added 2023-09-08
   inherit (pkgs) titanium; # added 2023-08-17
