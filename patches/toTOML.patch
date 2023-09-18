@@ -1,0 +1,95 @@
+From b2e537f3127260777fe612c229c0bd8db5e277ba Mon Sep 17 00:00:00 2001
+From: oxalica <oxalicc@pm.me>
+Date: Fri, 14 Jul 2023 11:53:23 +0800
+Subject: [PATCH] lib.generators: add toTOML
+
+---
+ lib/generators.nix | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ lib/tests/misc.nix | 19 +++++++++++++++++++
+ 2 files changed, 63 insertions(+)
+
+diff --git a/lib/generators.nix b/lib/generators.nix
+index a2dddedd2d3a7c..de2e71a8334ff8 100644
+--- a/lib/generators.nix
++++ b/lib/generators.nix
+@@ -234,6 +234,50 @@ rec {
+     */
+   toJSON = {}: builtins.toJSON;
+ 
++  toTOML = let
++    inherit (builtins) toJSON concatStringsSep isAttrs isList isFloat;
++    inherit (libStr) concatMapStringsSep isStringLike;
++    inherit (libAttr) mapAttrsToList;
++
++    # We use `toJSON` for serialization of string, numbers and booleans.
++    # The only incompatibility is that JSON allows `"\/"` while TOML does not.
++    # But `builtins.toJSON` does not escape `/` anyway, so it's fine.
++
++    inf = 1.0e308 * 10;
++
++    toTopLevel = obj:
++      concatStringsSep ""
++        (mapAttrsToList
++          (name: value: "${toJSON name}=${toInline value}\n")
++          obj);
++
++    toInline = obj:
++      # Exclude drvs here, or we'll easily get infinite recursion.
++      if isAttrs obj && !isStringLike obj then
++        "{${concatStringsSep ","
++          (mapAttrsToList
++            (name: value: "${toJSON name}=${toInline value}")
++            obj)
++        }}"
++      else if isList obj then
++        "[${concatMapStringsSep "," toInline obj}]"
++      else if obj == null then
++        throw "“null” is not supported by TOML"
++      else if !isFloat obj then
++        # Strings, integers and booleans.
++        toJSON obj
++      # Sanitize +-inf and NaN. They'll produce "null", which is invalid for TOML.
++      else if obj == inf then
++        "inf"
++      else if obj == -inf then
++        "-inf"
++      else if obj != obj then
++        "nan"
++      else
++        toJSON obj;
++
++  in
++    {}: toTopLevel;
+ 
+   /* YAML has been a strict superset of JSON since 1.2, so we
+     * use toJSON. Before it only had a few differences referring
+diff --git a/lib/tests/misc.nix b/lib/tests/misc.nix
+index ce980436c1bcb7..452bac2ad04a3f 100644
+--- a/lib/tests/misc.nix
++++ b/lib/tests/misc.nix
+@@ -820,6 +820,25 @@ runTests {
+       expected = builtins.toJSON val;
+   };
+ 
++  testToTOMLSimple =
++    let val = {
++      section = {
++        foo = "string\n\"";
++        "\"ba r\"" = [ true 4.2 ];
++        deep.nested = { };
++      };
++      list = [ { one = 1; } { two = 2; } ];
++      drv = { outPath = "/store/path"; };
++    };
++    in {
++      expr = generators.toTOML {} val;
++      expected = ''
++        "drv"="/store/path"
++        "list"=[{"one"=1},{"two"=2}]
++        "section"={"\"ba r\""=[true,4.2],"deep"={"nested"={}},"foo"="string\n\""}
++      '';
++  };
++
+   /* right now only invocation check */
+   testToYAMLSimple =
+     let val = {
