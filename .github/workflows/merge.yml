@@ -40,7 +40,6 @@ jobs:
           rsync -avu --delete ./nixpkgs-original/nixos/ ./nixpkgs-final/nixos
           rsync -avu --delete ./nixpkgs-original/pkgs/ ./nixpkgs-final/pkgs
           cp -f ./nixpkgs-original/{.editorconfig,.gitattributes,.gitignore,.version,CONTRIBUTING.md,COPYING,README.md,default.nix,flake.nix} ./nixpkgs-final
-          (cd ./nixpkgs-final/pkgs/desktops/gnome/extensions && ./update-extensions.py)
           (cd ./nixpkgs-final/pkgs/applications/editors/vscode && ./update-vscode.sh)
           (cd ./nixpkgs-final/pkgs/applications/editors/vscode && ./update-vscodium.sh)
           $(cd ./nixpkgs-final && nix-build . -A tree-sitter.passthru.updater.update-all-grammars --no-out-link)
