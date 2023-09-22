@@ -2778,8 +2778,6 @@ with pkgs;
 
   uae = callPackage ../applications/emulators/uae { };
 
-  uxn = callPackage ../applications/emulators/uxn { };
-
   vbam = callPackage ../applications/emulators/vbam { };
 
   vice = callPackage ../applications/emulators/vice { };
@@ -3751,8 +3749,6 @@ with pkgs;
 
   sedutil = callPackage ../tools/security/sedutil { };
 
-  elvish = callPackage ../shells/elvish { };
-
   emplace = callPackage ../tools/package-management/emplace { };
 
   enchive = callPackage ../tools/security/enchive { };
@@ -3832,8 +3828,6 @@ with pkgs;
   github-to-sqlite = with python3Packages; toPythonApplication github-to-sqlite;
 
   gistyc = with python3Packages; toPythonApplication gistyc;
-
-  gitter = callPackage  ../applications/networking/instant-messengers/gitter { };
 
   gjs = callPackage ../development/libraries/gjs { };
 
@@ -4013,10 +4007,6 @@ with pkgs;
   passExtensions = recurseIntoAttrs pass.extensions;
 
   pbpctrl = callPackage ../applications/audio/pbpctrl { };
-
-  pdepend = callPackage ../development/php-packages/pdepend { };
-
-  platformsh = callPackage ../misc/platformsh { };
 
   inherd-quake = callPackage ../applications/misc/inherd-quake {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
@@ -8938,7 +8928,9 @@ with pkgs;
 
   gssdp-tools = callPackage ../development/libraries/gssdp/tools.nix { };
 
-  grype = callPackage ../tools/security/grype { };
+  grype = callPackage ../tools/security/grype {
+    buildGoModule = buildGo121Module;
+   };
 
   gt5 = callPackage ../tools/system/gt5 { };
 
@@ -9714,8 +9706,6 @@ with pkgs;
 
   katana = callPackage ../tools/security/katana { };
 
-  katriawm = callPackage ../applications/window-managers/katriawm { };
-
   kbdd = callPackage ../applications/window-managers/kbdd { };
 
   kbs2 = callPackage ../tools/security/kbs2 {
@@ -9882,8 +9872,6 @@ with pkgs;
   lego = callPackage ../tools/admin/lego { };
 
   leocad = libsForQt5.callPackage ../applications/graphics/leocad { };
-
-  less = callPackage ../tools/misc/less { };
 
   lha = callPackage ../tools/archivers/lha { };
 
@@ -10804,8 +10792,6 @@ with pkgs;
 
   mfoc = callPackage ../tools/security/mfoc { };
 
-  mfoc-hardnested = callPackage ../tools/security/mfoc-hardnested { };
-
   microbin = callPackage ../servers/microbin { };
 
   microdnf = callPackage ../tools/package-management/microdnf { };
@@ -11691,9 +11677,7 @@ with pkgs;
 
   optifine = optifinePackages.optifine-latest;
 
-  optipng = callPackage ../tools/graphics/optipng {
-    libpng = libpng12;
-  };
+  optipng = callPackage ../tools/graphics/optipng { };
 
   olsrd = callPackage ../tools/networking/olsrd { };
 
@@ -11789,6 +11773,8 @@ with pkgs;
   page = callPackage ../tools/misc/page { };
 
   PageEdit = libsForQt5.callPackage ../applications/office/PageEdit { };
+
+  pagefind = libsForQt5.callPackage ../applications/misc/pagefind { };
 
   paging-calculator  = callPackage ../development/tools/paging-calculator { };
 
@@ -12566,8 +12552,6 @@ with pkgs;
   ratools = callPackage ../tools/networking/ratools { };
 
   ratt = callPackage ../applications/misc/ratt { };
-
-  rc = callPackage ../shells/rc { };
 
   rc-9front = callPackage ../shells/rc-9front { };
 
@@ -14300,6 +14284,8 @@ with pkgs;
 
   urdfdom-headers = callPackage ../development/libraries/urdfdom-headers { };
 
+  urlencode = callPackage ../tools/misc/urlencode {};
+
   uriparser = callPackage ../development/libraries/uriparser { };
 
   urlscan = callPackage ../applications/misc/urlscan { };
@@ -15403,8 +15389,6 @@ with pkgs;
   ksh = callPackage ../shells/ksh { };
 
   liquidprompt = callPackage ../shells/liquidprompt { };
-
-  mksh = callPackage ../shells/mksh { };
 
   murex = callPackage ../shells/murex { };
 
@@ -17172,6 +17156,22 @@ with pkgs;
   rustPackages = rustPackages_1_72;
 
   inherit (rustPackages) cargo cargo-auditable cargo-auditable-cargo-wrapper clippy rustc rustPlatform;
+
+  # https://github.com/NixOS/nixpkgs/issues/89426
+  rustc-wasm32 = (rustc.override {
+    stdenv = stdenv.override {
+      targetPlatform = stdenv.targetPlatform // {
+        parsed = {
+          cpu.name = "wasm32";
+          vendor.name = "unknown";
+          kernel.name = "unknown";
+          abi.name = "unknown";
+        };
+      };
+    };
+  }).overrideAttrs (old: {
+    configureFlags = old.configureFlags ++ ["--set=build.docs=false"];
+  });
 
   makeRustPlatform = callPackage ../development/compilers/rust/make-rust-platform.nix { };
 
@@ -28376,6 +28376,8 @@ with pkgs;
   linux_6_1_hardened = linuxKernel.kernels.linux_6_1_hardened;
   linuxPackages_6_4_hardened = linuxKernel.packages.linux_6_4_hardened;
   linux_6_4_hardened = linuxKernel.kernels.linux_6_4_hardened;
+  linuxPackages_6_5_hardened = linuxKernel.packages.linux_6_5_hardened;
+  linux_6_5_hardened = linuxKernel.kernels.linux_6_5_hardened;
 
   # Hardkernel (Odroid) kernels.
   linuxPackages_hardkernel_latest = linuxKernel.packageAliases.linux_hardkernel_latest;
@@ -30217,6 +30219,7 @@ with pkgs;
 
   inherit (callPackages ../data/fonts/pretendard { })
     pretendard
+    pretendard-gov
     pretendard-jp
     pretendard-std;
 
@@ -32491,8 +32494,6 @@ with pkgs;
 
   gnomecast = callPackage ../applications/video/gnomecast { };
 
-  celluloid = callPackage ../applications/video/celluloid { };
-
   gnome-recipes = callPackage ../applications/misc/gnome-recipes {
     inherit (gnome) gnome-autoar;
   };
@@ -33868,6 +33869,8 @@ with pkgs;
   meteo = callPackage ../applications/networking/weather/meteo { };
 
   meld = callPackage ../applications/version-management/meld { };
+
+  meli = callPackage ../applications/networking/mailreaders/meli { };
 
   melmatcheq.lv2 = callPackage ../applications/audio/melmatcheq.lv2 { };
 
@@ -36595,7 +36598,9 @@ with pkgs;
 
   waon = callPackage ../applications/audio/waon { };
 
-  warp = callPackage ../applications/networking/warp { };
+  warp = callPackage ../applications/networking/warp {
+    inherit (darwin.apple_sdk.frameworks) Security Foundation;
+  };
 
   warpd = callPackage ../applications/misc/warpd { };
 
@@ -40530,6 +40535,8 @@ with pkgs;
   faustlive = callPackage ../applications/audio/faust/faustlive.nix { };
 
   faustPhysicalModeling = callPackage ../applications/audio/faustPhysicalModeling  { };
+
+  flashprint = libsForQt5.callPackage ../applications/misc/flashprint { };
 
   flockit = callPackage ../tools/backup/flockit { };
 
