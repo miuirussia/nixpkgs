@@ -910,6 +910,8 @@ self: super: with self; {
 
   automate-home = callPackage ../development/python-modules/automate-home { };
 
+  automx2 = callPackage ../development/python-modules/automx2 { };
+
   autopage = callPackage ../development/python-modules/autopage { };
 
   autopep8 = callPackage ../development/python-modules/autopep8 { };
@@ -1914,6 +1916,8 @@ self: super: with self; {
   check-manifest = callPackage ../development/python-modules/check-manifest { };
 
   checkdmarc = callPackage ../development/python-modules/checkdmarc { };
+
+  checksumdir = callPackage ../development/python-modules/checksumdir { };
 
   cheetah3 = callPackage ../development/python-modules/cheetah3 { };
 
@@ -3263,6 +3267,8 @@ self: super: with self; {
   dtlssocket = callPackage ../development/python-modules/dtlssocket { };
 
   dtschema = callPackage ../development/python-modules/dtschema { };
+
+  dtw-python = callPackage ../development/python-modules/dtw-python { };
 
   ducc0 = callPackage ../development/python-modules/ducc0 { };
 
@@ -7543,7 +7549,7 @@ self: super: with self; {
     abseil-cpp = if stdenv.isLinux then
         pkgs.abseil-cpp_202301
       else
-        pkgs.abseil-cpp_202301.override { cxxStandard = "17"; };
+        pkgs.abseil-cpp_202301.override { cxxStandard = "14"; };
   };
 
   onnxconverter-common = callPackage ../development/python-modules/onnxconverter-common {
@@ -8184,6 +8190,8 @@ self: super: with self; {
     inherit (pkgs.xorg) libX11 libxcb;
   };
 
+  pillow-heif = callPackage ../development/python-modules/pillow-heif { };
+
   pillow-simd = callPackage ../development/python-modules/pillow-simd {
       inherit (pkgs) freetype libjpeg zlib libtiff libwebp tcl lcms2 tk;
       inherit (pkgs.xorg) libX11;
@@ -8310,6 +8318,8 @@ self: super: with self; {
   pyinstaller-versionfile = callPackage ../development/python-modules/pyinstaller-versionfile { };
 
   pyisy = callPackage ../development/python-modules/pyisy { };
+
+  pyixapi = callPackage ../development/python-modules/pyixapi { };
 
   pykrakenapi = callPackage ../development/python-modules/pykrakenapi { };
 
@@ -8538,6 +8548,8 @@ self: super: with self; {
   podcastparser = callPackage ../development/python-modules/podcastparser { };
 
   podcats = callPackage ../development/python-modules/podcats { };
+
+  podman = callPackage ../development/python-modules/podman { };
 
   poetry-core = callPackage ../development/python-modules/poetry-core { };
 
@@ -10344,6 +10356,8 @@ self: super: with self; {
   pytest-raisin = callPackage ../development/python-modules/pytest-raisin { };
 
   pytest-randomly = callPackage ../development/python-modules/pytest-randomly { };
+
+  pytest-reverse = callPackage ../development/python-modules/pytest-reverse { };
 
   pytest-random-order = callPackage ../development/python-modules/pytest-random-order { };
 
