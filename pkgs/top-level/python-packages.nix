@@ -224,6 +224,8 @@ self: super: with self; {
 
   aiohttp-apispec = callPackage ../development/python-modules/aiohttp-apispec { };
 
+  aiohttp-basicauth = callPackage ../development/python-modules/aiohttp-basicauth { };
+
   aiohttp-cors = callPackage ../development/python-modules/aiohttp-cors { };
 
   aiohttp-jinja2 = callPackage ../development/python-modules/aiohttp-jinja2 { };
@@ -317,6 +319,8 @@ self: super: with self; {
   aiopg = callPackage ../development/python-modules/aiopg { };
 
   aioprocessing = callPackage ../development/python-modules/aioprocessing { };
+
+  aioprometheus = callPackage ../development/python-modules/aioprometheus { };
 
   aiopulse = callPackage ../development/python-modules/aiopulse { };
 
@@ -4082,6 +4086,8 @@ self: super: with self; {
     inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices OpenGL;
   };
 
+  oelint-parser = callPackage ../development/python-modules/oelint-parser { };
+
   openllm = callPackage ../development/python-modules/openllm { };
 
   openllm-client = callPackage ../development/python-modules/openllm-client { };
@@ -4688,6 +4694,8 @@ self: super: with self; {
 
   gremlinpython = callPackage ../development/python-modules/gremlinpython { };
 
+  greynoise = callPackage ../development/python-modules/greynoise { };
+
   growattserver = callPackage ../development/python-modules/growattserver { };
 
   gridnet = callPackage ../development/python-modules/gridnet { };
@@ -5251,6 +5259,12 @@ self: super: with self; {
   incomfort-client = callPackage ../development/python-modules/incomfort-client { };
 
   incremental = callPackage ../development/python-modules/incremental { };
+
+  indexed-bzip2 = callPackage ../development/python-modules/indexed-bzip2 { };
+
+  indexed-gzip = callPackage ../development/python-modules/indexed-gzip { inherit (pkgs) zlib; };
+
+  indexed-zstd = callPackage ../development/python-modules/indexed-zstd { inherit (pkgs) zstd; };
 
   infinity = callPackage ../development/python-modules/infinity { };
 
@@ -9425,6 +9439,8 @@ self: super: with self; {
 
   pykaleidescape = callPackage ../development/python-modules/pykaleidescape { };
 
+  pykalman = callPackage ../development/python-modules/pykalman { };
+
   pykdl = callPackage ../development/python-modules/pykdl { };
 
   pykdtree = callPackage ../development/python-modules/pykdtree {
@@ -10766,6 +10782,8 @@ self: super: with self; {
 
   python-xmp-toolkit = callPackage ../development/python-modules/python-xmp-toolkit { };
 
+  python-xz = callPackage ../development/python-modules/python-xz { };
+
   python-zbar = callPackage ../development/python-modules/python-zbar { };
 
   pythran = callPackage ../development/python-modules/pythran {
@@ -11090,6 +11108,8 @@ self: super: with self; {
 
   quantiphy = callPackage ../development/python-modules/quantiphy { };
 
+  quantile-python = callPackage ../development/python-modules/quantile-python { };
+
   quantiphy-eval = callPackage ../development/python-modules/quantiphy-eval { };
 
   quantum-gateway = callPackage ../development/python-modules/quantum-gateway { };
@@ -11152,6 +11172,8 @@ self: super: with self; {
 
   rapidfuzz-capi = callPackage ../development/python-modules/rapidfuzz-capi { };
 
+  rapidgzip = callPackage ../development/python-modules/rapidgzip { inherit (pkgs) nasm; };
+
   rapt-ble = callPackage ../development/python-modules/rapt-ble { };
 
   rarfile = callPackage ../development/python-modules/rarfile {
@@ -11159,6 +11181,10 @@ self: super: with self; {
   };
 
   rasterio = callPackage ../development/python-modules/rasterio { };
+
+  ratarmountcore = callPackage ../development/python-modules/ratarmountcore { inherit (pkgs) zstd; };
+
+  ratarmount = callPackage ../development/python-modules/ratarmount { };
 
   ratelim = callPackage ../development/python-modules/ratelim { };
 
@@ -11172,7 +11198,7 @@ self: super: with self; {
 
   rawkit = callPackage ../development/python-modules/rawkit { };
 
-  ray = callPackage ../development/python-modules/ray { redis = pkgs.redis; };
+  ray = callPackage ../development/python-modules/ray { };
 
   razdel = callPackage ../development/python-modules/razdel { };
 
@@ -13912,6 +13938,8 @@ self: super: with self; {
   webob = callPackage ../development/python-modules/webob { };
 
   weboob = callPackage ../development/python-modules/weboob { };
+
+  webrtc-noise-gain = callPackage ../development/python-modules/webrtc-noise-gain { };
 
   webrtcvad = callPackage ../development/python-modules/webrtcvad { };
 
