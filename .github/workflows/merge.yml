@@ -44,7 +44,6 @@ jobs:
           (cd ./nixpkgs-final/pkgs/applications/editors/vscode && ./update-vscodium.sh)
           (cd ./nixpkgs-final && nix-build . -A tree-sitter.passthru.updater.update-all-grammars --no-out-link)
           (cd ./nixpkgs-final && ./pkgs/applications/networking/browsers/chromium/update.py)
-          nix-build ./nixpkgs-final/nixos/tests/chromium.nix -A ungoogled
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push changes
