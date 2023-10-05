@@ -29,12 +29,12 @@ update_vscodium () {
 VSCODIUM_VER=$(curl -Ls -w %{url_effective} -o /dev/null https://github.com/VSCodium/vscodium/releases/latest | awk -F'/' '{print $NF}')
 sed -i "s/version = \".*\"/version = \"${VSCODIUM_VER}\"/" "$ROOT/vscodium.nix"
 
-update_vscodium $VSCODIUM_VER linux-x64 x86_64-linux tar.gz
+update_vscodium $VSCODIUM_VER linux-x64 x86_64-linux tar.gz || echo "Failed to update linux-x64"
 
-update_vscodium $VSCODIUM_VER darwin-x64 x86_64-darwin zip
+update_vscodium $VSCODIUM_VER darwin-x64 x86_64-darwin zip || echo "Failed to update darwin-x64"
 
-update_vscodium $VSCODIUM_VER linux-arm64 aarch64-linux tar.gz
+update_vscodium $VSCODIUM_VER linux-arm64 aarch64-linux tar.gz || echo "Failed to update linux-arm64"
 
-update_vscodium $VSCODIUM_VER darwin-arm64 aarch64-darwin zip
+update_vscodium $VSCODIUM_VER darwin-arm64 aarch64-darwin zip || echo "Failed to update darwin-arm64"
 
-update_vscodium $VSCODIUM_VER linux-armhf armv7l-linux tar.gz
+update_vscodium $VSCODIUM_VER linux-armhf armv7l-linux tar.gz || echo "Failed to update linux-armhf"
