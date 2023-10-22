@@ -884,6 +884,7 @@
   ./services/networking/dae.nix
   ./services/networking/dante.nix
   ./services/networking/deconz.nix
+  ./services/networking/ddclient.nix
   ./services/networking/dhcpcd.nix
   ./services/networking/dnscache.nix
   ./services/networking/dnscrypt-proxy2.nix
@@ -1267,6 +1268,7 @@
   ./services/web-apps/mattermost.nix
   ./services/web-apps/mediawiki.nix
   ./services/web-apps/meme-bingo-web.nix
+  ./services/web-apps/microbin.nix
   ./services/web-apps/miniflux.nix
   ./services/web-apps/monica.nix
   ./services/web-apps/moodle.nix

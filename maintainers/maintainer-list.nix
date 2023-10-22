@@ -2608,12 +2608,6 @@
     githubId = 200617;
     name = "Ben Sima";
   };
-  bstrik = {
-    email = "dutchman55@gmx.com";
-    github = "bstrik";
-    githubId = 7716744;
-    name = "Berno Strik";
-  };
   btlvr = {
     email = "btlvr@protonmail.com";
     github = "btlvr";
@@ -3885,6 +3879,13 @@
     github = "daniyalsuri6";
     githubId = 107034852;
     name = "Daniyal Suri";
+  };
+  dannixon = {
+    email = "dan@dan-nixon.com";
+    github = "DanNixon";
+    githubId = 4037377;
+    name = "Dan Nixon";
+    matrix = "@dannixon:matrix.org";
   };
   dansbandit = {
     github = "dansbandit";
@@ -6620,6 +6621,12 @@
     github = "gravndal";
     githubId = 4656860;
     name = "Gaute Ravndal";
+  };
+  gray-heron = {
+    email = "ave+nix@cezar.info";
+    github = "gray-heron";
+    githubId = 7032646;
+    name = "Cezary Siwek";
   };
   graysonhead = {
     email = "grayson@graysonhead.net";
@@ -11666,6 +11673,13 @@
     githubId = 149558;
     name = "Merlin Gaillard";
   };
+  mirkolenz = {
+    name = "Mirko Lenz";
+    email = "mirko@mirkolenz.com";
+    matrix = "@mlenz:matrix.org";
+    github = "mirkolenz";
+    githubId = 5160954;
+  };
   mirrexagon = {
     email = "mirrexagon@mirrexagon.com";
     github = "mirrexagon";
@@ -14804,6 +14818,12 @@
     githubId = 165283;
     name = "Alexey Kutepov";
   };
+  rexxDigital = {
+    email = "joellarssonpriv@gmail.com";
+    github = "rexxDigital";
+    githubId = 44014925;
+    name = "Rexx Larsson";
+  };
   rgnns = {
     email = "jglievano@gmail.com";
     github = "rgnns";
@@ -15035,6 +15055,12 @@
     github = "roberth";
     githubId = 496447;
     name = "Robert Hensing";
+  };
+  robert-manchester = {
+    email = "robert.manchester@gmail.com";
+    github = "robert-manchester";
+    githubId = 86313040;
+    name = "Robert Manchester";
   };
   robertodr = {
     email = "roberto.diremigio@gmail.com";
@@ -17984,6 +18010,12 @@
     githubId = 15064765;
     name = "tshaynik";
   };
+  tsowell = {
+    email = "tom@ldtlb.com";
+    github = "tsowell";
+    githubId = 4044033;
+    name = "Thomas Sowell";
+  };
   ttuegel = {
     email = "ttuegel@mailbox.org";
     github = "ttuegel";
@@ -19335,6 +19367,11 @@
     name = "Yuri Meister";
     github = "ymeister";
     githubId = 47071325;
+  };
+  ymstnt = {
+    name = "YMSTNT";
+    github = "ymstnt";
+    githubId = 21342713;
   };
   yoavlavi = {
     email = "yoav@yoavlavi.com";
