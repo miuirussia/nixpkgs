@@ -1,0 +1,13 @@
+diff --git a/pkgs/applications/editors/vscode/generic.nix b/pkgs/applications/editors/vscode/generic.nix
+index 693ffb4e..354f64f7 100644
+--- a/pkgs/applications/editors/vscode/generic.nix
++++ b/pkgs/applications/editors/vscode/generic.nix
+@@ -208,7 +208,7 @@ in
+     gappsWrapperArgs+=(
+       # Add gio to PATH so that moving files to the trash works when not using a desktop environment
+       --prefix PATH : ${glib.bin}/bin
+-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
++      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform=wayland}}"
+       --add-flags ${lib.escapeShellArg commandLineArgs}
+     )
+   '';
