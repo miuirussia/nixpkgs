@@ -652,6 +652,7 @@ mapAliases ({
   paper-note = throw "paper-note has been removed: abandoned by upstream"; # Added 2023-05-03
   parity = openethereum; # Added 2020-08-01
   pash = throw "'pash' has been removed: abandoned by upstream. Use 'powershell' instead"; # Added 2023-09-16
+  pdf2xml = throw "'pdf2xml' was removed: abandoned for years."; # Added 2023-10-22
   peach = asouldocs; # Added 2022-08-28
   pentablet-driver = xp-pen-g430-driver; # Added 2022-06-23
   perldevel = throw "'perldevel' has been dropped due to lack of updates in nixpkgs and lack of consistent support for devel versions by 'perl-cross' releases, use 'perl' instead";
@@ -849,6 +850,7 @@ mapAliases ({
   spotify-unwrapped = spotify; # added 2022-11-06
   spring-boot = spring-boot-cli; # added 2020-04-24
   squid4 = throw "'squid4' has been renamed to/replaced by 'squid'"; # Converted to throw 2023-09-10
+  ssm-agent = amazon-ssm-agent; # Added 2023-10-17
   starboard-octant-plugin = throw "starboard-octant-plugin has been dropped due to needing octant which is archived"; # Added 2023-09-29
   steam-run-native = steam-run; # added 2022-02-21
   sumneko-lua-language-server = lua-language-server; # Added 2023-02-07

@@ -4520,6 +4520,12 @@
     githubId = 1708810;
     name = "Daniel Vianna";
   };
+  dmytrokyrychuk = {
+    email = "dmytro@kyrych.uk";
+    github = "dmytrokyrychuk";
+    githubId = 699961;
+    name = "Dmytro Kyrychuk";
+  };
   dnr = {
     email = "dnr@dnr.im";
     github = "dnr";
@@ -6198,6 +6204,16 @@
     github = "Galagora";
     githubId = 45048741;
     name = "Alwanga Oyango";
+  };
+  galaxy = {
+    email = "galaxy@dmc.chat";
+    matrix = "@galaxy:mozilla.org";
+    name = "The Galaxy";
+    github = "ga1aksy";
+    githubId = 148551648;
+    keys = [{
+      fingerprint = "48CA 3873 9E9F CA8E 76A0  835A E3DE CF85 4212 E1EA";
+    }];
   };
   gal_bolle = {
     email = "florent.becker@ens-lyon.org";
@@ -13664,6 +13680,12 @@
     githubId = 152312;
     name = "Periklis Tsirakidis";
   };
+  perstark = {
+    email = "perstark.se@gmail.com";
+    github = "perstarkse";
+    githubId = 63069986;
+    name = "Per Stark";
+  };
   petercommand = {
     email = "petercommand@gmail.com";
     github = "petercommand";
@@ -16090,6 +16112,12 @@
       fingerprint = "AB63 4CD9 3322 BD42 6231  F764 C404 1EA6 B326 33DE";
     }];
   };
+  shivaraj-bh = {
+    email = "sbh69840@gmail.com";
+    name = "Shivaraj B H";
+    github = "shivaraj-bh";
+    githubId = 23645788;
+  };
   shlevy = {
     email = "shea@shealevy.com";
     github = "shlevy";
@@ -17189,6 +17217,12 @@
     github = "Taneb";
     githubId = 1901799;
     name = "Nathan van Doorn";
+  };
+  taranarmo = {
+    email = "taranarmo@gmail.com";
+    github = "taranarmo";
+    githubId = 11619234;
+    name = "Sergey Volkov";
   };
   tari = {
     email = "peter@taricorp.net";
