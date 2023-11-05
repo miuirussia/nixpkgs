@@ -29305,6 +29305,8 @@ with pkgs;
 
   ferrum = callPackage ../data/fonts/ferrum { };
 
+  fg-virgil = callPackage ../data/fonts/fg-virgil { };
+
   fixedsys-excelsior = callPackage ../data/fonts/fixedsys-excelsior { };
 
   graphs = callPackage ../data/misc/graphs { };
@@ -35689,7 +35691,9 @@ with pkgs;
 
   taizen = callPackage ../applications/misc/taizen { };
 
-  talosctl = callPackage ../applications/networking/cluster/talosctl { };
+  talosctl = callPackage ../applications/networking/cluster/talosctl {
+    buildGoModule = buildGo120Module;
+  };
 
   talentedhack = callPackage ../applications/audio/talentedhack { };
 
@@ -39480,9 +39484,7 @@ with pkgs;
 
   alt-ergo = callPackage ../applications/science/logic/alt-ergo { };
 
-  aspino = callPackage ../applications/science/logic/aspino {
-    stdenv = gcc10StdenvCompat;
-  };
+  aspino = callPackage ../applications/science/logic/aspino { };
 
   beluga = callPackage ../applications/science/logic/beluga { };
 
