@@ -248,6 +248,7 @@ mapAliases ({
   Nuitka = nuitka; # added 2023-02-19
   ntlm-auth = throw "ntlm-auth has been removed, because it relies on the md4 implementation provided by openssl. Use pyspnego instead.";
   openapi-schema-pydantic = throw "openapi-schema-pydantic has been removed, since it is no longer maintained"; # added 2023-10-30
+  opencv3 = throw "opencv3 has been removed as it is obsolete"; # added 2023-10-12
   opsdroid_get_image_size = opsdroid-get-image-size; # added 2023-10-16
   ordereddict = throw "ordereddict has been removed because it is only useful on unsupported python versions."; # added 2022-05-28
   pafy = throw "pafy has been removed because it is unmaintained and only a dependency of mps-youtube, itself superseded by yewtube"; # Added 2023-01-19
@@ -267,6 +268,7 @@ mapAliases ({
   prometheus_client = prometheus-client; # added 2021-06-10
   prompt_toolkit = prompt-toolkit; # added 2021-07-22
   protonup = protonup-ng; # Added 2022-11-06
+  proxy_tools = proxy-tools; # added 2023-11-05
   pur = throw "pur has been renamed to pkgs.pur"; # added 2021-11-08
   pushbullet = pushbullet-py;  # Added 2022-10-15
   Pweave = pweave; # added 2023-02-19
@@ -369,6 +371,7 @@ mapAliases ({
   repeated_test = repeated-test; # added 2022-11-15
   requests_oauthlib = requests-oauthlib; # added 2022-02-12
   requests_toolbelt = requests-toolbelt; # added 2017-09-26
+  restructuredtext_lint = restructuredtext-lint; # added 2023-11-04
   rig = throw "rig has been removed because it was pinned to python 2.7 and 3.5, failed to build and is otherwise unmaintained"; # added 2022-11-28
   rl-coach = "rl-coach was removed because the project is discontinued and was archived by upstream"; # added 2023-05-03
   roboschool = throw "roboschool is deprecated in favor of PyBullet and has been removed"; # added 2022-01-15
@@ -449,4 +452,5 @@ mapAliases ({
   zope_i18nmessageid = zope-i18nmessageid; # added 2023-07-29
   zope_lifecycleevent = zope-lifecycleevent; # added 2023-10-11
   zope_proxy = zope-proxy; # added 2023-10-07
+  zxing_cpp = zxing-cpp; # added 2023-11-05
 })
