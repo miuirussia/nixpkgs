@@ -188,7 +188,7 @@ in {
             - Set `root` to ${toString fileset._internalBase} or any directory higher up. This changes the layout of the resulting store path.
             - Set `fileset` to a file set that cannot contain files outside the `root` (${toString root}). This could change the files included in the result.''
     else
-      builtins.seq sourceFilter
+      seq sourceFilter
       cleanSourceWith {
         name = "source";
         src = root;
@@ -380,7 +380,7 @@ in {
       fileFilter (file: hasPrefix "." file.name) ./.
 
       # Include all regular files (not symlinks or others) in the current directory
-      fileFilter (file: file.type == "regular")
+      fileFilter (file: file.type == "regular") ./.
   */
   fileFilter =
     /*
@@ -401,7 +401,7 @@ in {
     fileset:
     if ! isFunction predicate then
       throw ''
-        lib.fileset.fileFilter: First argument is of type ${typeOf predicate}, but it should be a function.''
+        lib.fileset.fileFilter: First argument is of type ${typeOf predicate}, but it should be a function instead.''
     else
       _fileFilter predicate
         (_coerce "lib.fileset.fileFilter: Second argument" fileset);
