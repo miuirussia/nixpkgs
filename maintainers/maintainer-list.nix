@@ -12253,7 +12253,7 @@
   moni = {
     email = "lythe1107@gmail.com";
     matrix = "@fortuneteller2k:matrix.org";
-    github = "moni";
+    github = "moni-dz";
     githubId = 20619776;
     name = "moni";
   };
@@ -18808,6 +18808,11 @@
     githubId = 347983;
     name = "Udo Spallek";
   };
+  ufUNnxagpM = {
+    github = "ufUNnxagpM";
+    githubId = 12422133;
+    name = "Chromo-residuum-opec";
+  };
   ulrikstrid = {
     email = "ulrik.strid@outlook.com";
     github = "ulrikstrid";
@@ -19794,6 +19799,12 @@
     github = "alicerum";
     githubId = 3992240;
     name = "Elijah Rum";
+  };
+  x0ba = {
+    name = "x0ba";
+    email = "dax@omg.lol";
+    github = "x0ba";
+    githubId = 64868985;
   };
   x3ro = {
     name = "^x3ro";
