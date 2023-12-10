@@ -906,8 +906,8 @@ let
         mktplcRef = {
           name = "vscode-markdownlint";
           publisher = "DavidAnson";
-          version = "0.52.0";
-          sha256 = "sha256-Y8qkcNEvJ/yzT8PDeErRzKGxYBNKKfbNNsJVaFDeIV4=";
+          version = "0.53.0";
+          sha256 = "sha256-ApCX636M51zN9obFqrUHmaJB3YoFmJPQfjKEWf9bosk=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/DavidAnson.vscode-markdownlint/changelog";
@@ -1234,8 +1234,8 @@ let
         mktplcRef = {
           name = "elixir-ls";
           publisher = "JakeBecker";
-          version = "0.17.5";
-          sha256 = "sha256-2iOyLNLMQ6Snm0gvv7Yl6von/A9UTfLYrH5l1PoJwUc=";
+          version = "0.17.10";
+          sha256 = "sha256-4/B70DyNlImz60PSTSL5CKihlOJen/tR1/dXGc3s1ZY=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/JakeBecker.elixir-ls/changelog";
@@ -2123,19 +2123,19 @@ let
 
       kddejong.vscode-cfn-lint =
         let
-          inherit (python3Packages) cfn-lint;
+          inherit (python3Packages) cfn-lint pydot;
         in
         buildVscodeMarketplaceExtension {
           mktplcRef = {
             name = "vscode-cfn-lint";
             publisher = "kddejong";
-            version = "0.21.0";
+            version = "0.25.1";
             sha256 = "sha256-IueXiN+077tiecAsVCzgYksWYTs00mZv6XJVMtRJ/PQ=";
           };
 
           nativeBuildInputs = [ jq moreutils ];
 
-          buildInputs = [ cfn-lint ];
+          buildInputs = [ cfn-lint pydot ];
 
           postInstall = ''
             cd "$out/$installPrefix"
