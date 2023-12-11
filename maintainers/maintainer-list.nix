@@ -5676,6 +5676,12 @@
     githubId = 454695;
     name = "Artur Taranchiev";
   };
+  ewuuwe = {
+    email = "ewu.uweq@pm.me";
+    github = "ewuuwe";
+    githubId = 63652646;
+    name = "Xaver Oswald";
+  };
   exarkun = {
     email = "exarkun@twistedmatrix.com";
     github = "exarkun";
@@ -6738,6 +6744,8 @@
   };
   gm6k = {
     email = "nix@quidecco.pl";
+    github = "zeuner";
+    githubId = 2545850;
     name = "Isidor Zeuner";
   };
   gmemstr = {
@@ -14668,6 +14676,11 @@
     githubId = 146413;
     name = "Tobias Poschwatta";
   };
+  poweredbypie = {
+    name = "poweredbypie";
+    github = "poweredbypie";
+    githubId = 67135060;
+  };
   PowerUser64 = {
     email = "blakelysnorth@gmail.com";
     github = "PowerUser64";
@@ -16282,6 +16295,11 @@
     github = "schnusch";
     githubId = 5104601;
     name = "schnusch";
+  };
+  Schweber = {
+    github = "Schweber";
+    githubId = 64630479;
+    name = "Schweber";
   };
   sciencentistguy = {
     email = "jamie@quigley.xyz";
@@ -18536,6 +18554,8 @@
   };
   tomkoid = {
     email = "tomaszierl@outlook.com";
+    github = "Tomkoid";
+    githubId = 67477750;
     name = "Tomkoid";
   };
   tomodachi94 = {
@@ -18570,6 +18590,12 @@
     github = "toonn";
     githubId = 1486805;
     name = "Toon Nolten";
+  };
+  tornax = {
+    email = "tornax@pm.me";
+    github = "TornaxO7";
+    githubId = 50843046;
+    name = "tornax";
   };
   toschmidt = {
     email = "tobias.schmidt@in.tum.de";
