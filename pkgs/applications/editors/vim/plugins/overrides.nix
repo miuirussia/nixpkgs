@@ -590,6 +590,10 @@ self: super: {
     dependencies = with self; [ plenary-nvim ];
   };
 
+  harpoon2 = super.harpoon2.overrideAttrs {
+    dependencies = with self; [ plenary-nvim ];
+  };
+
   hex-nvim = super.hex-nvim.overrideAttrs {
     postPatch = ''
       substituteInPlace lua/hex.lua --replace xxd ${xxd}/bin/xxd
@@ -1003,7 +1007,7 @@ self: super: {
         pname = "sg-nvim-rust";
         inherit (old) version src;
 
-        cargoHash = "sha256-ITrjY15Haz8hEztWym4q8YW2h0R8/kOYPaIYJu87sN4=";
+        cargoHash = "sha256-XaCBFAq/T17fz4Zn1OtG9Or3p4UwxXYKr+PTkl+Ho3k=";
 
         nativeBuildInputs = [ pkg-config ];
 
@@ -1107,6 +1111,10 @@ self: super: {
 
   ssr = super.ssr-nvim.overrideAttrs {
     dependencies = with self; [ nvim-treesitter ];
+  };
+
+  startup-nvim = super.startup-nvim.overrideAttrs {
+    dependencies = with super; [ plenary-nvim ];
   };
 
   statix = buildVimPlugin rec {

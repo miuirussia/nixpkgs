@@ -218,6 +218,8 @@ self: super: with self; {
 
   aiogram = callPackage ../development/python-modules/aiogram { };
 
+  aiohappyeyeballs = callPackage ../development/python-modules/aiohappyeyeballs { };
+
   aioharmony = callPackage ../development/python-modules/aioharmony { };
 
   aiohomekit = callPackage ../development/python-modules/aiohomekit { };
@@ -748,6 +750,8 @@ self: super: with self; {
 
   asgi-csrf = callPackage ../development/python-modules/asgi-csrf { };
 
+  asgi-logger = callPackage ../development/python-modules/asgi-logger { };
+
   asgineer = callPackage ../development/python-modules/asgineer { };
 
   asgiref = callPackage ../development/python-modules/asgiref { };
@@ -954,6 +958,8 @@ self: super: with self; {
   av = callPackage ../development/python-modules/av { };
 
   avea = callPackage ../development/python-modules/avea { };
+
+ avidtools = callPackage ../development/python-modules/avidtools { };
 
   avion = callPackage ../development/python-modules/avion { };
 
@@ -1509,6 +1515,8 @@ self: super: with self; {
   bleach-allowlist = callPackage ../development/python-modules/bleach-allowlist { };
 
   bleak = callPackage ../development/python-modules/bleak { };
+
+  bleak-esphome = callPackage ../development/python-modules/bleak-esphome { };
 
   bleak-retry-connector = callPackage ../development/python-modules/bleak-retry-connector { };
 
@@ -5415,6 +5423,8 @@ self: super: with self; {
 
   imgtool = callPackage ../development/python-modules/imgtool { };
 
+  imia = callPackage ../development/python-modules/imia { };
+
   iminuit = callPackage ../development/python-modules/iminuit { };
 
   immutabledict = callPackage ../development/python-modules/immutabledict { };
@@ -8368,7 +8378,7 @@ self: super: with self; {
     inherit (pkgs) notmuch;
   };
 
-  nototools = callPackage ../data/fonts/noto-fonts/tools.nix { };
+  nototools = callPackage ../development/python-modules/nototools { };
 
   notus-scanner = callPackage ../development/python-modules/notus-scanner { };
 
@@ -8423,6 +8433,8 @@ self: super: with self; {
   nutils = callPackage ../development/python-modules/nutils { };
 
   nvchecker = callPackage ../development/python-modules/nvchecker { };
+
+  nvdlib = callPackage ../development/python-modules/nvdlib { };
 
   nvidia-ml-py = callPackage ../development/python-modules/nvidia-ml-py { };
 
@@ -13238,6 +13250,8 @@ self: super: with self; {
 
   smpp_pdu = callPackage ../development/python-modules/smpp.pdu { };
 
+  smtpdfix = callPackage ../development/python-modules/smtpdfix { };
+
   snack = toPythonModule (pkgs.newt.override {
     inherit (self) python;
   });
@@ -13641,6 +13655,8 @@ self: super: with self; {
   starlette = callPackage ../development/python-modules/starlette {
     inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices;
   };
+
+  starlette-wtf = callPackage ../development/python-modules/starlette-wtf { };
 
   starkbank-ecdsa = callPackage ../development/python-modules/starkbank-ecdsa { };
 
@@ -15683,6 +15699,8 @@ self: super: with self; {
 
   vine = callPackage ../development/python-modules/vine { };
 
+  virt-firmware = callPackage ../development/python-modules/virt-firmware { };
+
   virtkey = callPackage ../development/python-modules/virtkey { };
 
   virtualenv = callPackage ../development/python-modules/virtualenv { };
@@ -15993,6 +16011,8 @@ self: super: with self; {
 
   wtforms = callPackage ../development/python-modules/wtforms { };
 
+  wtforms-bootstrap5 = callPackage ../development/python-modules/wtforms-bootstrap5 { };
+
   wtf-peewee = callPackage ../development/python-modules/wtf-peewee { };
 
   wurlitzer = callPackage ../development/python-modules/wurlitzer { };
@@ -16171,7 +16191,7 @@ self: super: with self; {
 
   yarg = callPackage ../development/python-modules/yarg { };
 
-  yagry = callPackage ../development/python-modules/yargy { };
+  yargy = callPackage ../development/python-modules/yargy { };
 
   yark = callPackage ../development/python-modules/yark { };
 
@@ -16204,6 +16224,8 @@ self: super: with self; {
   youless-api = callPackage ../development/python-modules/youless-api { };
 
   youseedee = callPackage ../development/python-modules/youseedee { };
+
+  youtokentome = callPackage ../development/python-modules/youtokentome { };
 
   youtube-dl = callPackage ../tools/misc/youtube-dl { };
 
