@@ -382,7 +382,7 @@ let
       repo = "tree-sitter-solidity";
     };
     "tree-sitter-nu" = {
-      orga = "LhKipp";
+      orga = "nushell";
       repo = "tree-sitter-nu";
     };
     "tree-sitter-cue" = {

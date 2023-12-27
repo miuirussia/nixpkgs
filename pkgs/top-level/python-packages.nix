@@ -1759,8 +1759,6 @@ self: super: with self; {
 
   cachey = callPackage ../development/python-modules/cachey { };
 
-  cacheyou = callPackage ../development/python-modules/cacheyou { };
-
   cachier = callPackage ../development/python-modules/cachier { };
 
   cachy = callPackage ../development/python-modules/cachy { };
@@ -2379,6 +2377,8 @@ self: super: with self; {
   cppheaderparser = callPackage ../development/python-modules/cppheaderparser { };
 
   cppy = callPackage ../development/python-modules/cppy { };
+
+  cpufeature = callPackage ../development/python-modules/cpufeature { };
 
   cpyparsing = callPackage ../development/python-modules/cpyparsing { };
 
@@ -3083,6 +3083,8 @@ self: super: with self; {
 
   django-markup = callPackage ../development/python-modules/django-markup { };
 
+  django-markdownx = callPackage ../development/python-modules/django-markdownx { };
+
   django-model-utils = callPackage ../development/python-modules/django-model-utils { };
 
   django-modelcluster = callPackage ../development/python-modules/django-modelcluster { };
@@ -3260,6 +3262,8 @@ self: super: with self; {
   };
 
   dnachisel = callPackage ../development/python-modules/dnachisel { };
+
+  dnf-plugins-core = callPackage ../development/python-modules/dnf-plugins-core { };
 
   dnf4 = callPackage ../development/python-modules/dnf4 { };
 
@@ -4756,6 +4760,8 @@ self: super: with self; {
   google-search-results = callPackage ../development/python-modules/google-search-results { };
 
   googletrans = callPackage ../development/python-modules/googletrans { };
+
+  gotailwind = callPackage ../development/python-modules/gotailwind { };
 
   gotenberg-client = callPackage ../development/python-modules/gotenberg-client { };
 
@@ -9341,6 +9347,10 @@ self: super: with self; {
 
   pycoolmasternet-async = callPackage ../development/python-modules/pycoolmasternet-async { };
 
+  pycrdt = callPackage ../development/python-modules/pycrdt { };
+
+  pycrdt-websocket = callPackage ../development/python-modules/pycrdt-websocket { };
+
   pyfibaro = callPackage ../development/python-modules/pyfibaro { };
 
   pyfireservicerota = callPackage ../development/python-modules/pyfireservicerota { };
@@ -13800,6 +13810,18 @@ self: super: with self; {
 
   succulent = callPackage ../development/python-modules/succulent { };
 
+  sudachidict-core = callPackage ../development/python-modules/sudachidict { };
+
+  sudachidict-full = callPackage ../development/python-modules/sudachidict {
+    sudachidict = pkgs.sudachidict.override { dict-type = "full"; };
+  };
+
+  sudachidict-small = callPackage ../development/python-modules/sudachidict {
+    sudachidict = pkgs.sudachidict.override { dict-type = "small"; };
+  };
+
+  sudachipy = callPackage ../development/python-modules/sudachipy { };
+
   sumo = callPackage ../development/python-modules/sumo { };
 
   sumtypes = callPackage ../development/python-modules/sumtypes { };
@@ -14102,6 +14124,8 @@ self: super: with self; {
   testcontainers = callPackage ../development/python-modules/testcontainers { };
 
   testfixtures = callPackage ../development/python-modules/testfixtures { };
+
+  texsoup = callPackage ../development/python-modules/texsoup { };
 
   textfsm = callPackage ../development/python-modules/textfsm { };
 
@@ -14454,6 +14478,8 @@ self: super: with self; {
   translatepy = callPackage ../development/python-modules/translatepy { };
 
   translationstring = callPackage ../development/python-modules/translationstring { };
+
+  translitcodec = callPackage ../development/python-modules/translitcodec { };
 
   transmission-rpc = callPackage ../development/python-modules/transmission-rpc { };
 

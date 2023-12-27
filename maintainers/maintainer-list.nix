@@ -388,6 +388,12 @@
       fingerprint = "CE85 54F7 B9BC AC0D D648  5661 AB5F C04C 3C94 443F";
     }];
   };
+  adam248 = {
+    email = "adamjbutler091@gmail.com";
+    github = "adam248";
+    githubId = 85082674;
+    name = "Adam J. Butler";
+  };
   adamcstephens = {
     email = "happy.plan4249@valkor.net";
     matrix = "@adam:valkor.net";
@@ -2721,6 +2727,12 @@
     github = "bryanasdev000";
     githubId = 53131727;
     name = "Bryan Albuquerque";
+  };
+  bryango = {
+    name = "Bryan Lai";
+    email = "bryanlais@gmail.com";
+    github = "bryango";
+    githubId = 26322692;
   };
   bryanhonof = {
     name = "Bryan Honof";
@@ -13955,6 +13967,12 @@
     github = "p3psi-boo";
     githubId = 43925055;
   };
+  pabloaul = {
+    email = "contact@nojus.org";
+    github = "pabloaul";
+    githubId = 35423980;
+    name = "Nojus Dulskis";
+  };
   pablovsky = {
     email = "dealberapablo07@gmail.com";
     github = "Pablo1107";
@@ -14109,6 +14127,12 @@
     github = "patternspandemic";
     githubId = 15645854;
     name = "Brad Christensen";
+  };
+  paulsmith = {
+    email = "paulsmith@pobox.com";
+    github = "paulsmith";
+    name = "Paul Smith";
+    githubId = 1210;
   };
   paumr = {
     github = "paumr";
