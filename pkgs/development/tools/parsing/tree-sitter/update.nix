@@ -25,6 +25,7 @@ let
     "tree-sitter-python"
     "tree-sitter-typescript"
     "tree-sitter-rust"
+    "tree-sitter-bash"
     "tree-sitter-php"
     "tree-sitter-java"
     "tree-sitter-scala"
@@ -48,7 +49,6 @@ let
   ignoredTreeSitterOrgRepos = [
     "tree-sitter"
     "tree-sitter-cli"
-    "tree-sitter-bash"
     # this is the haskell language bindings, tree-sitter-haskell is the grammar
     "haskell-tree-sitter"
     # this is the ruby language bindings, tree-sitter-ruby is the grammar
@@ -84,9 +84,9 @@ let
   # If you need a grammar that already exists in the official orga,
   # make sure to give it a different name.
   otherGrammars = {
-    "tree-sitter-bash" = {
-      orga = "miuirussia";
-      repo = "tree-sitter-bash";
+    "tree-sitter-bitbake" = {
+      orga = "amaanq";
+      repo = "tree-sitter-bitbake";
     };
     "tree-sitter-beancount" = {
       orga = "polarmutex";
