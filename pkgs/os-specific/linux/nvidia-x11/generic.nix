@@ -58,7 +58,6 @@
 
 with lib;
 
-assert useSettings -> !libsOnly;
 assert !libsOnly -> kernel != null;
 assert versionOlder version "391" -> sha256_32bit != null;
 assert useSettings -> settingsSha256 != null;
