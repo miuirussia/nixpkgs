@@ -847,6 +847,7 @@ with pkgs;
 
   octodns-providers = recurseIntoAttrs {
     bind = python3Packages.callPackage ../tools/networking/octodns/providers/bind { };
+    gandi = python3Packages.callPackage ../tools/networking/octodns/providers/gandi { };
     hetzner = python3Packages.callPackage ../tools/networking/octodns/providers/hetzner { };
     powerdns = python3Packages.callPackage ../tools/networking/octodns/providers/powerdns { };
   };
@@ -24048,6 +24049,8 @@ with pkgs;
     ch4backend = libfabric;
   };
 
+  mpich-pmix = mpich.override { pmixSupport = true; withPm = [ ]; };
+
   mstpd = callPackage ../os-specific/linux/mstpd { };
 
   mtdev = callPackage ../development/libraries/mtdev { };
@@ -29715,6 +29718,8 @@ with pkgs;
   numix-sx-gtk-theme = callPackage ../data/themes/numix-sx { };
 
   office-code-pro = callPackage ../data/fonts/office-code-pro { };
+
+  _0xproto = callPackage ../data/fonts/0xproto { };
 
   oldstandard = callPackage ../data/fonts/oldstandard { };
 
