@@ -1583,6 +1583,8 @@ self: super: with self; {
 
   blurhash = callPackage ../development/python-modules/blurhash { };
 
+  blurhash-python = callPackage ../development/python-modules/blurhash-python { };
+
   bme280spi = callPackage ../development/python-modules/bme280spi { };
 
   bme680 = callPackage ../development/python-modules/bme680 { };
@@ -9182,6 +9184,8 @@ self: super: with self; {
 
   ping3 = callPackage ../development/python-modules/ping3 { };
 
+  pins = callPackage ../development/python-modules/pins { };
+
   pg8000 = callPackage ../development/python-modules/pg8000 { };
 
   pgcli = callPackage ../development/python-modules/pgcli { };
@@ -10067,6 +10071,8 @@ self: super: with self; {
   pyarrow = callPackage ../development/python-modules/pyarrow {
     inherit (pkgs) arrow-cpp cmake;
   };
+
+  pyarrow-hotfix = callPackage ../development/python-modules/pyarrow-hotfix { };
 
   pyasn = callPackage ../development/python-modules/pyasn { };
 
@@ -13699,6 +13705,8 @@ self: super: with self; {
   spyder-kernels = callPackage ../development/python-modules/spyder-kernels { };
 
   spyse-python = callPackage ../development/python-modules/spyse-python { };
+
+  spython = callPackage ../development/python-modules/spython { };
 
   sqids = callPackage ../development/python-modules/sqids { };
 
