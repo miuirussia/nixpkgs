@@ -60,6 +60,12 @@
     See `./scripts/check-maintainer-github-handles.sh` for an example on how to work with this data.
 */
 {
+  _0b11stan = {
+    name = "Tristan Auvinet Pinaudeau";
+    email = "tristan@tic.sh";
+    github = "0b11stan";
+    githubId = 27831931;
+  };
   _0qq = {
     email = "0qqw0qqw@gmail.com";
     github = "0qq";
@@ -1904,6 +1910,12 @@
     githubId = 1217745;
     name = "Aldwin Vlasblom";
   };
+  averagebit = {
+    email = "averagebit@pm.me";
+    github = "averagebit";
+    githubId = 97070581;
+    name = "averagebit";
+  };
   averelld = {
     email = "averell+nixos@rxd4.com";
     github = "averelld";
@@ -3259,6 +3271,9 @@
     github = "LostAttractor";
     githubId = 46527539;
     name = "ChaosAttractor";
+    keys = [{
+      fingerprint = "A137 4415 DB7C 6439 10EA  5BF1 0FEE 4E47 5940 E125";
+    }];
   };
   charlesbaynham = {
     email = "charlesbaynham@gmail.com";
@@ -3337,6 +3352,13 @@
     github = "chisui";
     githubId = 4526429;
     name = "Philipp Dargel";
+  };
+  chito = {
+    email = "iamchito@protonmail.com";
+    github = "chitochi";
+    githubId = 153365419;
+    matrix = "@chito:nichijou.dev";
+    name = "Chito";
   };
   chivay = {
     email = "hubert.jasudowicz@gmail.com";
@@ -5495,6 +5517,12 @@
     githubId = 428026;
     name = "embr";
   };
+  emilioziniades = {
+    email = "emilioziniades@protonmail.com";
+    github = "emilioziniades";
+    githubId = 75438244;
+    name = "Emilio Ziniades";
+  };
   emily = {
     email = "nixpkgs@emily.moe";
     github = "emilazy";
@@ -6944,6 +6972,12 @@
   gm6k = {
     email = "nix@quidecco.pl";
     name = "Isidor Zeuner";
+  };
+  gmacon = {
+    name = "George Macon";
+    matrix = "@gmacon:matrix.org";
+    github = "gmacon";
+    githubId = 238853;
   };
   gmemstr = {
     email = "git@gmem.ca";
@@ -10163,6 +10197,13 @@
     githubId = 22116767;
     name = "Kritnich";
   };
+  krloer = {
+    email = "kriloneri@gmail.com";
+    github = "krloer";
+    githubId = 45591621;
+    name = "Kristoffer Longva Eriksen";
+    matrix = "@krisleri:pvv.ntnu.no";
+  };
   kroell = {
     email = "nixosmainter@makroell.de";
     github = "rokk4";
@@ -13092,6 +13133,12 @@
     github = "namore";
     githubId = 1222539;
     name = "Roman Naumann";
+  };
+  nanotwerp = {
+    email = "nanotwerp@gmail.com";
+    github = "nanotwerp";
+    githubId = 17240342;
+    name = "Nano Twerpus";
   };
   naphta = {
     github = "naphta";
@@ -16790,12 +16837,6 @@
       fingerprint = "E173 237A C782 296D 98F5  ADAC E13D FD4B 4712 7951";
     }];
   };
-  scubed2 = {
-    email = "scubed2@gmail.com";
-    github = "scubed2";
-    githubId = 7401858;
-    name = "Sterling Stein";
-  };
   sdier = {
     email = "scott@dier.name";
     matrix = "@sdier:matrix.org";
@@ -20442,6 +20483,12 @@
     github = "xbreak";
     githubId = 13489144;
     name = "Calle Rosenquist";
+  };
+  xbz = {
+    email = "renatochavez7@gmail.com";
+    github = "Xbz-24";
+    githubId = 68678258;
+    name = "Renato German Chavez Chicoma";
   };
   xddxdd = {
     email = "b980120@hotmail.com";
