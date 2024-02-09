@@ -6989,6 +6989,11 @@
     githubId = 615606;
     name = "Glenn Searby";
   };
+  Gliczy = {
+    name = "Gliczy";
+    github = "Gliczy";
+    githubId = 129636582;
+  };
   glittershark = {
     name = "Griffin Smith";
     email = "root@gws.fyi";
@@ -9162,6 +9167,12 @@
       fingerprint = "7249 70E6 A661 D84E 8B47  678A 0590 93B1 A278 BCD0";
     }];
   };
+  jokatzke = {
+    email = "jokatzke@fastmail.com";
+    github = "jokatzke";
+    githubId = 46931073;
+    name = "Jonas Katzke";
+  };
   joko = {
     email = "ioannis.koutras@gmail.com";
     github = "jokogr";
@@ -10750,6 +10761,12 @@
     githubId = 18749973;
     name = "Yanning Chen";
     matrix = "@self:lightquantum.me";
+  };
+  Ligthiago = {
+    email = "donets.andre@gmail.com";
+    github = "Ligthiago";
+    githubId = 142721811;
+    name = "Andrey Donets";
   };
   lihop = {
     email = "nixos@leroy.geek.nz";
@@ -12819,6 +12836,16 @@
     githubId = 10601196;
     name = "Jérémie Ferry";
   };
+  motiejus = {
+    email = "motiejus@jakstys.lt";
+    github = "motiejus";
+    githubId = 107720;
+    keys = [{
+      fingerprint = "5F6B 7A8A 92A2 60A4 3704  9BEB 6F13 3A0C 1C28 48D7";
+    }];
+    matrix = "@motiejus:jakstys.lt";
+    name = "Motiejus Jakštys";
+  };
   mounium = {
     email = "muoniurn@gmail.com";
     github = "Mounium";
@@ -14505,6 +14532,12 @@
     githubId = 72527881;
     name = "PassiveLemon";
   };
+  patka = {
+    email = "patka@patka.dev";
+    github = "patka-123";
+    githubId = 69802930;
+    name = "patka";
+  };
   patricksjackson = {
     email = "patrick@jackson.dev";
     github = "patricksjackson";
@@ -15751,6 +15784,12 @@
     github = "7c6f434c";
     githubId = 1891350;
     name = "Michael Raskin";
+  };
+  raspher = {
+    email = "raspher@protonmail.com";
+    github = "raspher";
+    githubId = 23345803;
+    name = "Szymon Scholz";
   };
   ratcornu = {
     email = "ratcornu@skaven.org";
