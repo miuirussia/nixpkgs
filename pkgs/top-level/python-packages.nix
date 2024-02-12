@@ -4121,13 +4121,9 @@ self: super: with self; {
 
   flask-assets = callPackage ../development/python-modules/flask-assets { };
 
-  flask-autoindex = callPackage ../development/python-modules/flask-autoindex { };
-
   flask-babel = callPackage ../development/python-modules/flask-babel { };
 
   flask-babelex = callPackage ../development/python-modules/flask-babelex { };
-
-  flask-basicauth = callPackage ../development/python-modules/flask-basicauth { };
 
   flask-bcrypt = callPackage ../development/python-modules/flask-bcrypt { };
 
@@ -4194,8 +4190,6 @@ self: super: with self; {
   flask-session = callPackage ../development/python-modules/flask-session { };
 
   flask-session-captcha = callPackage ../development/python-modules/flask-session-captcha { };
-
-  flask-sessionstore = callPackage ../development/python-modules/flask-sessionstore { };
 
   flask-security-too = callPackage ../development/python-modules/flask-security-too { };
 
@@ -5174,6 +5168,8 @@ self: super: with self; {
   hg-git = callPackage ../development/python-modules/hg-git { };
 
   hickle = callPackage ../development/python-modules/hickle { };
+
+  highdicom = callPackage ../development/python-modules/highdicom { };
 
   hid = callPackage ../development/python-modules/hid {
     inherit (pkgs) hidapi;
@@ -9378,6 +9374,8 @@ self: super: with self; {
 
   pillow-heif = callPackage ../development/python-modules/pillow-heif { };
 
+  pillow-jpls = callPackage ../development/python-modules/pillow-jpls { };
+
   pillow-simd = callPackage ../development/python-modules/pillow-simd {
       inherit (pkgs) freetype libjpeg zlib libtiff libwebp tcl lcms2 tk;
       inherit (pkgs.xorg) libX11;
@@ -9654,7 +9652,9 @@ self: super: with self; {
 
   python-mbedtls = callPackage ../development/python-modules/python-mbedtls { };
 
-  python-memcached = callPackage ../development/python-modules/python-memcached { };
+  python-memcached = callPackage ../development/python-modules/python-memcached {
+    inherit (pkgs) memcached;
+  };
 
   python-otbr-api = callPackage ../development/python-modules/python-otbr-api { };
 
@@ -10574,6 +10574,8 @@ self: super: with self; {
 
   pygls = callPackage ../development/python-modules/pygls { };
 
+  pygltflib = callPackage ../development/python-modules/pygltflib { };
+
   pygmars = callPackage ../development/python-modules/pygmars { };
 
   pygments-better-html = callPackage ../development/python-modules/pygments-better-html { };
@@ -11325,6 +11327,8 @@ self: super: with self; {
   pysigma-backend-qradar = callPackage ../development/python-modules/pysigma-backend-qradar { };
 
   pysigma-backend-splunk = callPackage ../development/python-modules/pysigma-backend-splunk { };
+
+  pysigma-backend-sqlite = callPackage ../development/python-modules/pysigma-backend-sqlite { };
 
   pysigma-backend-insightidr = callPackage ../development/python-modules/pysigma-backend-insightidr { };
 
@@ -13611,6 +13615,8 @@ self: super: with self; {
 
   sparse = callPackage ../development/python-modules/sparse { };
 
+  spatial-image = callPackage ../development/python-modules/spatial-image { };
+
   spdx-tools = callPackage ../development/python-modules/spdx-tools { };
 
   speaklater = callPackage ../development/python-modules/speaklater { };
@@ -13885,9 +13891,7 @@ self: super: with self; {
 
   stanza = callPackage ../development/python-modules/stanza { };
 
-  starlette = callPackage ../development/python-modules/starlette {
-    inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices;
-  };
+  starlette = callPackage ../development/python-modules/starlette { };
 
   starlette-wtf = callPackage ../development/python-modules/starlette-wtf { };
 
@@ -16332,6 +16336,8 @@ self: super: with self; {
   };
 
   xarray = callPackage ../development/python-modules/xarray { };
+
+  xarray-dataclasses = callPackage ../development/python-modules/xarray-dataclasses { };
 
   xarray-einstats = callPackage ../development/python-modules/xarray-einstats { };
 

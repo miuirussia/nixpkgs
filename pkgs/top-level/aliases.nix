@@ -141,6 +141,7 @@ mapAliases ({
   cadence = throw "cadence has been removed from nixpkgs, as it was archived upstream"; # Added 2023-10-28
   cask = emacs.pkgs.cask; # Added 2022-11-12
   cargo-embed = throw "cargo-embed is now part of the probe-rs package"; # Added 2023-07-03
+  cargo-espflash = espflash;
   cargo-flash = throw "cargo-flash is now part of the probe-rs package"; # Added 2023-07-03
   catfish = throw "'catfish' has been renamed to/replaced by 'xfce.catfish'"; # Converted to throw 2023-09-10
   cawbird = throw "cawbird has been abandoned upstream and is broken anyways due to Twitter closing its API";
@@ -911,6 +912,7 @@ mapAliases ({
   rccl = throw "'rccl' has been replaced with 'rocmPackages.rccl'"; # Added 2023-10-08
   rdc = throw "'rdc' has been replaced with 'rocmPackages.rdc'"; # Added 2023-10-08
   redpanda = redpanda-client; # Added 2023-10-14
+  restya-board = throw "'restya-board' has been removed from nixpkgs, as it was broken and unmaintained"; # Added 2024-01-22
   retdec-full = throw "'retdec-full' is no longer needed, please use 'retdec'"; # Added 2024-02-05
   retroshare06 = retroshare;
   rigsofrods = rigsofrods-bin; # Added 2023-03-22
