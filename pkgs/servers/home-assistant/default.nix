@@ -46,24 +46,6 @@ let
         ];
       });
 
-      aiohttp = super.aiohttp.overridePythonAttrs (old: rec {
-        version = "3.9.3";
-        src = fetchFromGitHub {
-          owner = "aio-libs";
-          repo = "aiohttp";
-          rev = "refs/tags/v${version}";
-          hash = "sha256-dEeMHruFJ1o0J6VUJcpUk7LhEC8sV8hUKXoKcd618lE=";
-        };
-        nativeCheckInputs = with self; [
-          freezegun
-          gunicorn
-          pytest-mock
-          pytestCheckHook
-          python-on-whales
-          re-assert
-        ];
-      });
-
       aionotion = super.aionotion.overridePythonAttrs (oldAttrs: rec {
         version = "2023.05.5";
         src = fetchFromGitHub {
@@ -342,6 +324,16 @@ let
         };
       });
 
+      python-slugify = super.python-slugify.overridePythonAttrs (oldAttrs: rec {
+        version = "8.0.1";
+        src = fetchFromGitHub {
+          owner = "un33k";
+          repo =  "python-slugify";
+          rev = "refs/tags/v${version}";
+          hash = "sha256-MJac63XjgWdUQdyyEm8O7gAGVszmHxZzRF4frJtR0BU=";
+        };
+      });
+
       pytradfri = super.pytradfri.overridePythonAttrs (oldAttrs: rec {
         version = "9.0.1";
         src = fetchFromGitHub {
@@ -485,7 +477,7 @@ in python.pkgs.buildPythonApplication rec {
   # leave this in, so users don't have to constantly update their downstream patch handling
   patches = [
     # Follow symlinks in /var/lib/hass/www
-    ./patches/static-symlinks.patch
+    ./patches/static-follow-symlinks.patch
 
     # Patch path to ffmpeg binary
     (substituteAll {

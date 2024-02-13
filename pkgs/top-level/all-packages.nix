@@ -290,10 +290,6 @@ with pkgs;
 
   _0x =  callPackage ../tools/misc/0x { };
 
-  atuin = callPackage ../tools/misc/atuin {
-    inherit (darwin.apple_sdk.frameworks) AppKit Security SystemConfiguration;
-  };
-
   automatic-timezoned = callPackage ../tools/system/automatic-timezoned { };
 
   cve = with python3Packages; toPythonApplication cvelib;
@@ -14549,8 +14545,6 @@ with pkgs;
 
   wifish = callPackage ../tools/networking/wifish { };
 
-  wifite2 = callPackage ../tools/networking/wifite2 { };
-
   wimboot = callPackage ../tools/misc/wimboot { };
 
   wit-bindgen = callPackage ../tools/misc/wit-bindgen { };
@@ -15380,8 +15374,6 @@ with pkgs;
   murex = callPackage ../shells/murex { };
 
   oh = callPackage ../shells/oh { };
-
-  oil = callPackage ../shells/oil { };
 
   oksh = callPackage ../shells/oksh { };
 
@@ -20626,7 +20618,8 @@ with pkgs;
     withCMake = false;
   };
 
-  c-blosc = callPackage ../development/libraries/c-blosc { };
+  inherit (callPackages ../development/libraries/c-blosc { })
+    c-blosc c-blosc2;
 
   cachix = lib.getBin haskellPackages.cachix;
 
@@ -21434,12 +21427,12 @@ with pkgs;
   };
 
   libgit2_1_6 = libgit2.overrideAttrs rec {
-    version = "1.6.4";
+    version = "1.6.5";
     src = fetchFromGitHub {
       owner = "libgit2";
       repo = "libgit2";
       rev = "v${version}";
-      hash = "sha256-lW3mokVKsbknVj2xsxEbeZH4IdKZ0aIgGutzenS0Eh0=";
+      hash = "sha256-2tgXnrB85dEfxu7giETqMuFxfm0RH5MicHZqO3ezGu0=";
     };
     patches = [ ];
   };
@@ -33770,7 +33763,6 @@ with pkgs;
   mpv-unwrapped = darwin.apple_sdk_11_0.callPackage ../applications/video/mpv {
     stdenv = if stdenv.isDarwin then swiftPackages.stdenv else stdenv;
     inherit lua;
-    inherit (darwin) sigtool;
   };
 
   shaka-packager = callPackage ../applications/video/shaka-packager { };
@@ -33904,11 +33896,6 @@ with pkgs;
   odin2 = callPackage ../applications/audio/odin2 { };
 
   okteto = callPackage ../development/tools/okteto { };
-
-  onlyoffice-bin_7_2 = callPackage ../applications/office/onlyoffice-bin/7_2.nix { };
-  onlyoffice-bin_7_5 = callPackage ../applications/office/onlyoffice-bin/7_5.nix { };
-  onlyoffice-bin = onlyoffice-bin_7_2;
-  onlyoffice-bin_latest = onlyoffice-bin_7_5;
 
   onmetal-image = callPackage ../tools/virtualization/onmetal-image { };
 
@@ -34592,8 +34579,6 @@ with pkgs;
   ponymix = callPackage ../applications/audio/ponymix { };
 
   pop-launcher = callPackage ../applications/misc/pop-launcher { };
-
-  popcorntime = callPackage ../applications/video/popcorntime { };
 
   pot = callPackage ../applications/misc/pot { };
 
@@ -35740,8 +35725,6 @@ with pkgs;
   toot = callPackage ../applications/misc/toot { };
 
   toipe = callPackage ../applications/misc/toipe { };
-
-  tootle = callPackage ../applications/misc/tootle { };
 
   toxic = callPackage ../applications/networking/instant-messengers/toxic { };
 
@@ -39586,6 +39569,8 @@ with pkgs;
     # executable fails at startup for jdk > 17
     jdk = jdk17;
   };
+
+  degate = libsForQt5.callPackage ../applications/science/electronics/degate { };
 
   diylc = callPackage ../applications/science/electronics/diylc { };
 
