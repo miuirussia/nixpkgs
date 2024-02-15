@@ -11476,10 +11476,6 @@ with pkgs;
 
   openfortivpn = callPackage ../tools/networking/openfortivpn { };
 
-  opensnitch = callPackage ../tools/networking/opensnitch/daemon.nix { };
-
-  opensnitch-ui = libsForQt5.callPackage ../tools/networking/opensnitch/ui.nix { };
-
   obexfs = callPackage ../tools/bluetooth/obexfs { };
 
   obexftp = callPackage ../tools/bluetooth/obexftp { };
@@ -18183,10 +18179,10 @@ with pkgs;
   ansible = ansible_2_16;
   ansible_2_16 = python3Packages.toPythonApplication python3Packages.ansible-core;
   ansible_2_15 = python3Packages.toPythonApplication (python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
-    version = "2.15.5";
+    version = "2.15.9";
     src = oldAttrs.src.override {
       inherit version;
-      hash = "sha256-jMU5y41DSa8//ZAccHIvenogOuZCfdrJX/31RqbkFgI=";
+      hash = "sha256-JfmxtaWvPAmGvTko7QhurduGdSf7XIOv7xoDz60080U=";
     };
   }));
   ansible_2_14 = python3Packages.toPythonApplication (python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
@@ -20397,7 +20393,9 @@ with pkgs;
 
   alure2 = callPackage ../development/libraries/alure2 { };
 
-  agg = callPackage ../development/libraries/agg { };
+  agg = callPackage ../development/libraries/agg {
+    stdenv = gccStdenv;
+  };
 
   agkozak-zsh-prompt = callPackage ../shells/zsh/agkozak-zsh-prompt { };
 
@@ -23830,8 +23828,6 @@ with pkgs;
 
   toml-f = callPackage ../development/libraries/toml-f { };
 
-  fypp = python3Packages.callPackage ../development/python-modules/fypp { };
-
   dbcsr = callPackage ../development/libraries/science/math/dbcsr { };
 
   taco = callPackage ../development/libraries/taco { };
@@ -24661,8 +24657,6 @@ with pkgs;
   retro-gtk = callPackage ../development/libraries/retro-gtk { };
 
   resolv_wrapper = callPackage ../development/libraries/resolv_wrapper { };
-
-  restinio = callPackage ../development/libraries/restinio { };
 
   restish = callPackage ../tools/networking/restish { };
 
