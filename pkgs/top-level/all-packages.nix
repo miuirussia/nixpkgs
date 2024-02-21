@@ -11467,6 +11467,10 @@ with pkgs;
 
   openfortivpn = callPackage ../tools/networking/openfortivpn { };
 
+  openobserve = darwin.apple_sdk_11_0.callPackage ../servers/monitoring/openobserve {
+    apple_sdk = darwin.apple_sdk_11_0;
+  };
+
   obexfs = callPackage ../tools/bluetooth/obexfs { };
 
   obexftp = callPackage ../tools/bluetooth/obexftp { };
@@ -31753,7 +31757,7 @@ with pkgs;
   firefox-devedition-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
     inherit (gnome) adwaita-icon-theme;
     channel = "developer-edition";
-    generated = import ../applications/networking/browsers/firefox-bin/devedition_sources.nix;
+    generated = import ../applications/networking/browsers/firefox-bin/developer-edition_sources.nix;
   };
 
   firefox-devedition-bin = res.wrapFirefox firefox-devedition-bin-unwrapped {
@@ -34642,6 +34646,8 @@ with pkgs;
   qcad = libsForQt5.callPackage ../applications/misc/qcad { };
 
   qcomicbook = libsForQt5.callPackage ../applications/graphics/qcomicbook { };
+
+  qctools = libsForQt5.callPackage ../applications/video/qctools { };
 
   qelectrotech = libsForQt5.callPackage ../applications/misc/qelectrotech { };
 
@@ -41887,7 +41893,7 @@ with pkgs;
 
   weggli = callPackage ../tools/security/weggli { };
 
-  yazi = callPackage ../applications/file-managers/yazi { inherit (darwin.apple_sdk.frameworks) Foundation; };
+  yazi-unwrapped = callPackage ../by-name/ya/yazi-unwrapped/package.nix { inherit (darwin.apple_sdk.frameworks) Foundation; };
 
   ssl-proxy = callPackage ../tools/networking/ssl-proxy { };
 

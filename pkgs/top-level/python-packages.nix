@@ -3354,6 +3354,8 @@ self: super: with self; {
 
   docloud = callPackage ../development/python-modules/docloud { };
 
+  docstr-coverage = callPackage ../development/python-modules/docstr-coverage { };
+
   docstring-to-markdown = callPackage ../development/python-modules/docstring-to-markdown { };
 
   docstring-parser = callPackage ../development/python-modules/docstring-parser { };
@@ -3946,6 +3948,8 @@ self: super: with self; {
   fastapi = callPackage ../development/python-modules/fastapi { };
 
   fastapi-mail = callPackage ../development/python-modules/fastapi-mail { };
+
+  fastapi-sso = callPackage ../development/python-modules/fastapi-sso { };
 
   fast-histogram = callPackage ../development/python-modules/fast-histogram { };
 
@@ -9917,6 +9921,8 @@ self: super: with self; {
 
   priority = callPackage ../development/python-modules/priority { };
 
+  prisma = callPackage ../development/python-modules/prisma { };
+
   prison = callPackage ../development/python-modules/prison { };
 
   proboscis = callPackage ../development/python-modules/proboscis { };
@@ -12483,6 +12489,8 @@ self: super: with self; {
 
   rangehttpserver = callPackage ../development/python-modules/rangehttpserver { };
 
+  rangeparser = callPackage ../development/python-modules/rangeparser { };
+
   rank-bm25 = callPackage ../development/python-modules/rank-bm25 { };
 
   rapidfuzz = callPackage ../development/python-modules/rapidfuzz { };
@@ -12691,6 +12699,8 @@ self: super: with self; {
   rerun-sdk = callPackage ../development/python-modules/rerun-sdk { };
 
   resampy = callPackage ../development/python-modules/resampy { };
+
+  resend = callPackage ../development/python-modules/resend { };
 
   resize-right = callPackage ../development/python-modules/resize-right { };
 
@@ -16104,6 +16114,8 @@ self: super: with self; {
   wagtail-factories = callPackage ../development/python-modules/wagtail-factories { };
 
   wagtail-localize = callPackage ../development/python-modules/wagtail-localize { };
+
+  wagtail-modeladmin = callPackage ../development/python-modules/wagtail-modeladmin { };
 
   waitress = callPackage ../development/python-modules/waitress { };
 
