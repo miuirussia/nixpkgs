@@ -8642,6 +8642,7 @@ with pkgs;
   };
 
   gnucap = callPackage ../applications/science/electronics/gnucap { };
+  gnucap-full = gnucap.withPlugins(p: [ p.verilog ]);
 
   gnu-cim = callPackage ../development/compilers/gnu-cim { };
 
@@ -11652,6 +11653,8 @@ with pkgs;
   openvpn-auth-ldap = callPackage ../tools/networking/openvpn/openvpn-auth-ldap.nix {
     stdenv = clangStdenv;
   };
+
+  namespaced-openvpn = python3Packages.callPackage ../tools/networking/namespaced-openvpn { };
 
   oq = callPackage ../development/tools/oq { };
 
@@ -16293,6 +16296,8 @@ with pkgs;
 
   go-junit-report = callPackage ../development/tools/go-junit-report { };
 
+  gocover-cobertura = callPackage ../development/tools/gocover-cobertura { };
+
   gobang = callPackage ../development/tools/database/gobang {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security SystemConfiguration;
   };
@@ -20772,8 +20777,6 @@ with pkgs;
   };
 
   cointop = callPackage ../applications/misc/cointop { };
-
-  collada-dom = callPackage ../development/libraries/collada-dom { };
 
   coloquinte = callPackage ../development/libraries/science/electronics/coloquinte { };
 
@@ -31028,8 +31031,6 @@ with pkgs;
   drumgizmo = callPackage ../applications/audio/drumgizmo { };
 
   dsf2flac = callPackage ../applications/audio/dsf2flac { };
-
-  dunst = callPackage ../applications/misc/dunst { };
 
   dust = callPackage ../by-name/du/dust/package.nix {
     inherit (darwin.apple_sdk_11_0.frameworks) AppKit;
