@@ -1884,6 +1884,8 @@ self: super: with self; {
 
   case = callPackage ../development/python-modules/case { };
 
+  cashaddress = callPackage ../development/python-modules/cashaddress { };
+
   cassandra-driver = callPackage ../development/python-modules/cassandra-driver { };
 
   castepxbin = callPackage ../development/python-modules/castepxbin { };
@@ -2931,6 +2933,8 @@ self: super: with self; {
   dipy = callPackage ../development/python-modules/dipy { };
 
   directv = callPackage ../development/python-modules/directv { };
+
+  dirigera = callPackage ../development/python-modules/dirigera { };
 
   dirty-equals = callPackage ../development/python-modules/dirty-equals { };
 
@@ -4517,6 +4521,8 @@ self: super: with self; {
     inherit (pkgs) bluez glib pkg-config;
   };
 
+  gawd = callPackage ../development/python-modules/gawd { };
+
   gb-io = callPackage ../development/python-modules/gb-io { };
 
   gbinder-python = callPackage ../development/python-modules/gbinder-python { };
@@ -5699,6 +5705,8 @@ self: super: with self; {
   invocations = callPackage ../development/python-modules/invocations { };
 
   invoke = callPackage ../development/python-modules/invoke { };
+
+  iocsearcher = callPackage ../development/python-modules/iocsearcher { };
 
   iodata = callPackage ../development/python-modules/iodata { };
 
@@ -12716,6 +12724,8 @@ self: super: with self; {
 
   readability-lxml = callPackage ../development/python-modules/readability-lxml { };
 
+  readabilipy = callPackage ../development/python-modules/readabilipy { };
+
   readchar = callPackage ../development/python-modules/readchar { };
 
   readlike = callPackage ../development/python-modules/readlike { };
@@ -13157,6 +13167,8 @@ self: super: with self; {
   safetensors = callPackage ../development/python-modules/safetensors { };
 
   safety = callPackage ../development/python-modules/safety { };
+
+  safety-schemas = callPackage ../development/python-modules/safety-schemas { };
 
   sagemaker = callPackage ../development/python-modules/sagemaker { };
 
@@ -14964,7 +14976,9 @@ self: super: with self; {
 
   treq = callPackage ../development/python-modules/treq { };
 
-  trezor-agent = callPackage ../development/python-modules/trezor-agent { };
+  trezor-agent = callPackage ../development/python-modules/trezor-agent {
+    pinentry = pkgs.pinentry-curses;
+  };
 
   trezor = callPackage ../development/python-modules/trezor { };
 

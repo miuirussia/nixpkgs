@@ -1785,8 +1785,6 @@ with pkgs;
 
   dysk = callPackage ../tools/filesystems/dysk { };
 
-  etlegacy = callPackage ../games/etlegacy { lua = lua5_4; };
-
   fastfetch = callPackage ../tools/misc/fastfetch {
     stdenv = if stdenv.isDarwin then overrideSDK stdenv "11.0" else stdenv;
   };
@@ -1942,6 +1940,8 @@ with pkgs;
   linux-router = callPackage ../tools/networking/linux-router { };
 
   linux-router-without-wifi = linux-router.override { useWifiDependencies = false; };
+
+  makehuman = libsForQt5.callPackage ../applications/misc/makehuman { };
 
   markdownlint-cli = callPackage ../tools/text/markdownlint-cli { };
 
@@ -3581,8 +3581,8 @@ with pkgs;
   bucklespring-libinput = callPackage ../applications/audio/bucklespring { };
   bucklespring-x11 = callPackage ../applications/audio/bucklespring { legacy = true; };
 
-  inherit (python3.pkgs.callPackage ../development/tools/continuous-integration/buildbot {})
-    buildbot buildbot-ui buildbot-full buildbot-plugins buildbot-worker;
+  buildbotPackages = recurseIntoAttrs (python3.pkgs.callPackage ../development/tools/continuous-integration/buildbot { });
+  inherit (buildbotPackages) buildbot buildbot-ui buildbot-full buildbot-plugins buildbot-worker;
 
   bunyan-rs = callPackage ../development/tools/bunyan-rs { };
 
@@ -5406,9 +5406,7 @@ with pkgs;
   texlive = callPackage ../tools/typesetting/tex/texlive { };
   inherit (texlive.schemes) texliveBasic texliveBookPub texliveConTeXt texliveFull texliveGUST texliveInfraOnly texliveMedium texliveMinimal texliveSmall texliveTeTeX;
 
-  fop = callPackage ../tools/typesetting/fop {
-    jdk = openjdk8;
-  };
+  fop = callPackage ../tools/typesetting/fop { };
 
   fondu = callPackage ../tools/misc/fondu {
     inherit (darwin.apple_sdk.frameworks) CoreServices;
@@ -5527,8 +5525,6 @@ with pkgs;
   glslviewer = callPackage ../development/tools/glslviewer {
     inherit (darwin.apple_sdk.frameworks) Cocoa;
   };
-
-  gmic-qt = libsForQt5.callPackage ../tools/graphics/gmic-qt { };
 
   gpg-tui = callPackage ../tools/security/gpg-tui {
     inherit (darwin.apple_sdk.frameworks) AppKit Foundation;
@@ -5973,11 +5969,7 @@ with pkgs;
 
   mlarchive2maildir = callPackage ../applications/networking/mailreaders/mlarchive2maildir { };
 
-  mmctl = callPackage ../tools/misc/mmctl {
-    # mmctl tests currently fail with go1.21. See
-    # https://mattermost.atlassian.net/browse/MM-55465
-    buildGoModule = buildGo120Module;
-  };
+  mmctl = callPackage ../tools/misc/mmctl { };
 
   moar = callPackage ../tools/misc/moar { };
 
@@ -7297,7 +7289,7 @@ with pkgs;
     builtins.mapAttrs (_: pin-to-gcc12-if-gcc13)
       (darwin.apple_sdk_11_0.callPackage ../tools/networking/curl-impersonate { });
   curl-impersonate-ff = pin-to-gcc12-if-gcc13 curl-impersonate.curl-impersonate-ff;
-  curl-impersonate-chrom = pin-to-gcc12-if-gcc13 curl-impersonate.curl-impersonate-chrome;
+  curl-impersonate-chrome = pin-to-gcc12-if-gcc13 curl-impersonate.curl-impersonate-chrome;
 
   curlie = callPackage ../tools/networking/curlie { };
 
@@ -7602,7 +7594,7 @@ with pkgs;
   };
 
   dump_syms = callPackage ../development/tools/dump_syms {
-    inherit (darwin.apple_sdk.frameworks) Security;
+    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
 
   dumpasn1 = callPackage ../tools/security/dumpasn1 { };
@@ -8401,6 +8393,8 @@ with pkgs;
   gau = callPackage ../tools/security/gau { };
 
   gauge = callPackage ../development/tools/gauge { };
+
+  gawd = python3Packages.toPythonApplication python3Packages.gawd;
 
   gawk = callPackage ../tools/text/gawk {
     inherit (darwin) locale;
@@ -9381,6 +9375,8 @@ with pkgs;
   ioccheck = callPackage ../tools/security/ioccheck { };
 
   iocextract = with python3Packages; toPythonApplication iocextract;
+
+  iocsearcher = with python3Packages; toPythonApplication iocsearcher;
 
   ioping = callPackage ../tools/system/ioping { };
 
@@ -11990,13 +11986,13 @@ with pkgs;
 
   piknik = callPackage ../tools/networking/piknik { };
 
-  pinentry = libsForQt5.callPackage ../tools/security/pinentry { };
-
-  pinentry-curses = (lib.getOutput "curses" pinentry);
-  pinentry-emacs = (lib.getOutput "emacs" pinentry);
-  pinentry-gtk2 = (lib.getOutput "gtk2" pinentry);
-  pinentry-qt = (lib.getOutput "qt" pinentry);
-  pinentry-gnome = (lib.getOutput "gnome3" pinentry);
+  inherit (callPackages ../tools/security/pinentry { })
+    pinentry-curses
+    pinentry-emacs
+    pinentry-gtk2
+    pinentry-gnome3
+    pinentry-qt
+    pinentry-all;
 
   pinentry_mac = callPackage ../tools/security/pinentry/mac.nix {
     inherit (darwin.apple_sdk.frameworks) Cocoa;
@@ -14662,8 +14658,6 @@ with pkgs;
 
   unnaturalscrollwheels = callPackage ../tools/inputmethods/unnaturalscrollwheels { };
 
-  unrar = callPackage ../tools/archivers/unrar { };
-
   unrar-wrapper = python3Packages.callPackage ../tools/archivers/unrar-wrapper { };
 
   uptime-kuma = callPackage ../servers/monitoring/uptime-kuma { };
@@ -15342,8 +15336,8 @@ with pkgs;
   temurin-bin-8 = javaPackages.compiler.temurin-bin.jdk-8;
   temurin-jre-bin-8 = javaPackages.compiler.temurin-bin.jre-8;
 
-  temurin-bin = temurin-bin-19;
-  temurin-jre-bin = temurin-jre-bin-19;
+  temurin-bin = temurin-bin-21;
+  temurin-jre-bin = temurin-jre-bin-21;
 
   semeru-bin-17 = javaPackages.compiler.semeru-bin.jdk-17;
   semeru-jre-bin-17 = javaPackages.compiler.semeru-bin.jre-17;
@@ -16340,8 +16334,8 @@ with pkgs;
   jdk21_headless = openjdk21_headless;
 
   /* default JDK */
-  jdk = jdk19;
-  jdk_headless = jdk19_headless;
+  jdk = jdk21;
+  jdk_headless = jdk21_headless;
 
   # Since the introduction of the Java Platform Module System in Java 9, Java
   # no longer ships a separate JRE package.
@@ -21109,9 +21103,7 @@ with pkgs;
     };
   };
 
-  freetts = callPackage ../development/libraries/freetts {
-    jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
-  };
+  freetts = callPackage ../development/libraries/freetts { };
 
   frog = res.languageMachines.frog;
 
@@ -26041,11 +26033,11 @@ with pkgs;
 
   engelsystem = callPackage ../servers/web-apps/engelsystem { php = php81; };
 
-  envoy = pin-to-gcc12-if-gcc13 (callPackage ../servers/http/envoy {
+  envoy = callPackage ../servers/http/envoy {
     go = go_1_20;
     jdk = openjdk11_headless;
     gn = gn1924;
-  });
+  };
 
   ergochat = callPackage ../servers/irc/ergochat { };
 
@@ -28089,7 +28081,9 @@ with pkgs;
 
   goverview = callPackage ../tools/security/goverview { };
 
-  go-tools = callPackage ../development/tools/go-tools { };
+  go-tools = callPackage ../development/tools/go-tools {
+    buildGoModule = buildGo122Module;
+  };
 
   gotest = callPackage ../development/tools/gotest { };
 
@@ -30341,7 +30335,9 @@ with pkgs;
 
   bgpq4 = callPackage ../tools/networking/bgpq4 { };
 
-  blackbox = callPackage ../applications/version-management/blackbox { };
+  blackbox = callPackage ../applications/version-management/blackbox {
+    pinentry = pinentry-curses;
+  };
 
   bleachbit = callPackage ../applications/misc/bleachbit { };
 
@@ -31639,22 +31635,6 @@ with pkgs;
 
   fragments = callPackage ../applications/networking/p2p/fragments { };
 
-  freecad = libsForQt5.callPackage ../applications/graphics/freecad {
-    boost = python3Packages.boost;
-    inherit (python3Packages)
-      gitpython
-      matplotlib
-      pivy
-      ply
-      pycollada
-      pyside2
-      pyside2-tools
-      python
-      pyyaml
-      scipy
-      shiboken2;
-  };
-
   freedv = callPackage ../applications/radio/freedv {
     inherit (darwin.apple_sdk.frameworks) AppKit AVFoundation Cocoa CoreMedia;
     codec2 = codec2.override {
@@ -32725,8 +32705,6 @@ with pkgs;
 
   kondo = callPackage ../applications/misc/kondo { };
 
-  kooha = callPackage ../applications/video/kooha { };
-
   kotatogram-desktop = libsForQt5.callPackage ../applications/networking/instant-messengers/telegram/kotatogram-desktop {
     inherit (darwin.apple_sdk_11_0.frameworks) Cocoa CoreFoundation CoreServices CoreText CoreGraphics
       CoreMedia OpenGL AudioUnit ApplicationServices Foundation AGL Security SystemConfiguration
@@ -33201,12 +33179,6 @@ with pkgs;
   mastodon-bot = nodePackages.mastodon-bot;
 
   matchbox = callPackage ../applications/window-managers/matchbox { };
-
-  matrixcli = callPackage ../applications/networking/instant-messengers/matrixcli {
-    inherit (python3Packages) buildPythonApplication buildPythonPackage
-      pygobject3 pytest-runner requests responses pytest python-olm
-      canonicaljson;
-  };
 
   matrix-commander = python3Packages.callPackage ../applications/networking/instant-messengers/matrix-commander { };
 
@@ -36320,7 +36292,7 @@ with pkgs;
     inherit (gnome2) libgnomecanvas;
   };
 
-  xournalpp = callPackage ../applications/graphics/xournalpp {
+  xournalpp = darwin.apple_sdk_11_0.callPackage ../applications/graphics/xournalpp {
     lua = lua5_3;
   };
 
@@ -41266,7 +41238,9 @@ with pkgs;
 
   linkchecker = callPackage ../tools/networking/linkchecker { };
 
-  tomb = callPackage ../os-specific/linux/tomb { };
+  tomb = callPackage ../os-specific/linux/tomb {
+    pinentry = pinentry-curses;
+  };
 
   sccache = callPackage ../development/tools/misc/sccache { };
 
