@@ -7427,6 +7427,12 @@
     githubId = 21156405;
     name = "GuangTao Zhang";
   };
+  Guanran928 = {
+    email = "guanran928@outlook.com";
+    github = "Guanran928";
+    githubId = 68757440;
+    name = "Guanran928";
+  };
   guekka = {
     github = "Guekka";
     githubId = 39066502;
@@ -9417,6 +9423,13 @@
     githubId = 392720;
     name = "Jon Banafato";
   };
+  jonas-w = {
+    email = "nixpkgs@03j.de";
+    github = "jonas-w";
+    githubId = 32615971;
+    name = "Jonas Wunderlich";
+    matrix = "@matrix:03j.de";
+  };
   jonathanmarler = {
     email = "johnnymarler@gmail.com";
     github = "marler8997";
@@ -10589,6 +10602,12 @@
     github = "kuznero";
     githubId = 449813;
     name = "Roman Kuznetsov";
+  };
+  kuznetsss = {
+    email = "kuzzz99@gmail.com";
+    github = "kuznetsss";
+    githubId = 15742918;
+    name = "Sergey Kuznetsov";
   };
   kwohlfahrt = {
     email = "kai.wohlfahrt@gmail.com";
@@ -19220,6 +19239,12 @@
     github = "thelegy";
     githubId = 3105057;
     name = "Jan Beinke";
+  };
+  themaxmur = {
+    name = "Maxim Muravev";
+    email = "muravjev.mak@yandex.ru";
+    github = "TheMaxMur";
+    githubId = 31189199;
   };
   thenonameguy = {
     email = "thenonameguy24@gmail.com";
