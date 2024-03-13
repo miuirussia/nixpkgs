@@ -7972,6 +7972,12 @@
     githubId = 1614615;
     name = "Hendrik Schaeidt";
   };
+  hsjobeki = {
+    email = "hsjobeki@gmail.com";
+    github = "hsjobeki";
+    githubId = 50398876;
+    name = "Johannes Kirschbauer";
+  };
   htr = {
     email = "hugo@linux.com";
     github = "htr";
@@ -17198,6 +17204,12 @@
     githubId = 8534888;
     name = "Savanni D'Gerinel";
   };
+  savedra1 = {
+    email = "michaelsavedra@gmail.com";
+    github = "savedra1";
+    githubId = 99875823;
+    name = "Michael Savedra";
+  };
   savyajha = {
     email = "savya.jha@hawkradius.com";
     github = "savyajha";
@@ -18122,6 +18134,12 @@
     github = "sochotnicky";
     githubId = 55726;
     name = "Stanislav Ochotnický";
+  };
+  sodiboo = {
+    name = "sodiboo";
+    github = "sodiboo";
+    githubId = 37938646;
+    matrix = "@sodiboo:arcticfoxes.net";
   };
   softinio = {
     email = "code@softinio.com";

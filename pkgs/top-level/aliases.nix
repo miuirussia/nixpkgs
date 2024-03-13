@@ -608,6 +608,7 @@ mapAliases ({
   linuxPackages_6_5 = linuxKernel.packages.linux_6_5;
   linuxPackages_6_6 = linuxKernel.packages.linux_6_6;
   linuxPackages_6_7 = linuxKernel.packages.linux_6_7;
+  linuxPackages_6_8 = linuxKernel.packages.linux_6_8;
   linuxPackages_rpi0 = linuxKernel.packages.linux_rpi1;
   linuxPackages_rpi02w = linuxKernel.packages.linux_rpi3;
   linuxPackages_rpi1 = linuxKernel.packages.linux_rpi1;
@@ -634,6 +635,7 @@ mapAliases ({
   linux_6_5 = linuxKernel.kernels.linux_6_5;
   linux_6_6 = linuxKernel.kernels.linux_6_6;
   linux_6_7 = linuxKernel.kernels.linux_6_7;
+  linux_6_8 = linuxKernel.kernels.linux_6_8;
   linux_rpi0 = linuxKernel.kernels.linux_rpi1;
   linux_rpi02w = linuxKernel.kernels.linux_rpi3;
   linux_rpi1 = linuxKernel.kernels.linux_rpi1;
@@ -982,6 +984,7 @@ mapAliases ({
   ricochet = throw "ricochet has been deprecated in favor of ricochet-refresh"; # Added 2024-02-26
   rigsofrods = rigsofrods-bin; # Added 2023-03-22
   ring-daemon = jami-daemon; # Added 2021-10-26
+  rnix-lsp = throw "'rnix-lsp' has been removed as it is unmaintained"; # Added 2024-03-09
   rockbox_utility = rockbox-utility; # Added 2022-03-17
   rocalution = throw "'rocalution' has been replaced with 'rocmPackages.rocalution'"; # Added 2023-10-08
   rocblas = throw "'rocblas' has been replaced with 'rocmPackages.rocblas'"; # Added 2023-10-08
@@ -1100,6 +1103,7 @@ mapAliases ({
   spice-gtk_libsoup2 = throw "'spice-gtk_libsoup2' has been renamed to/replaced by 'spice-gtk'"; # Added 2023-02-21
   # spidermonkey is not ABI upwards-compatible, so only allow this for nix-shell
   spidermonkey = spidermonkey_78; # Added 2020-10-09
+  spotify-tui = throw "'spotify-tui' has been removed, as it was broken and unmaintained"; # Added 2024-03-12
   spotify-unwrapped = spotify; # added 2022-11-06
   spring-boot = spring-boot-cli; # added 2020-04-24
   squid4 = throw "'squid4' has been renamed to/replaced by 'squid'"; # Converted to throw 2023-09-10
