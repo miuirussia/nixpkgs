@@ -278,8 +278,6 @@ with pkgs;
 
   asitop = pkgs.python3Packages.callPackage ../os-specific/darwin/asitop { };
 
-  asn = callPackage ../applications/networking/asn { };
-
   asnmap = callPackage ../tools/security/asnmap { };
 
   astrolog = callPackage ../applications/science/astronomy/astrolog { };
@@ -7094,6 +7092,8 @@ with pkgs;
 
   certstrap = callPackage ../tools/security/certstrap { };
 
+  cffconvert = python3Packages.toPythonApplication python3Packages.cffconvert;
+
   cfssl = callPackage ../tools/security/cfssl { };
 
   cfs-zen-tweaks = callPackage ../os-specific/linux/cfs-zen-tweaks { };
@@ -11988,6 +11988,7 @@ with pkgs;
     pinentry-gtk2
     pinentry-gnome3
     pinentry-qt
+    pinentry-tty
     pinentry-all;
 
   pinentry_mac = callPackage ../tools/security/pinentry/mac.nix {
@@ -16749,7 +16750,7 @@ with pkgs;
   rasm = callPackage ../development/compilers/rasm { };
 
   replibyte = callPackage ../development/tools/database/replibyte {
-    inherit (darwin.apple_sdk.frameworks) Security;
+    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
 
   rgbds = callPackage ../development/compilers/rgbds { };
@@ -24231,10 +24232,6 @@ with pkgs;
 
   prime-server = callPackage ../development/libraries/prime-server { };
 
-  primecount = callPackage ../applications/science/math/primecount { };
-
-  primesieve = callPackage ../applications/science/math/primesieve { };
-
   proj = callPackage ../development/libraries/proj {
     stdenv = if stdenv.cc.isClang then overrideLibcxx llvmPackages_13.stdenv else stdenv;
   };
@@ -27233,10 +27230,6 @@ with pkgs;
   pg_featureserv = callPackage ../servers/geospatial/pg_featureserv { };
 
   pg_tileserv = callPackage ../servers/geospatial/pg_tileserv { };
-
-  t-rex = callPackage ../servers/geospatial/t-rex {
-    inherit (darwin.apple_sdk.frameworks) Security;
-  };
 
   tegola = callPackage ../servers/geospatial/tegola { };
 
@@ -31073,8 +31066,6 @@ with pkgs;
 
   gspeech = callPackage ../applications/audio/gspeech { };
 
-  gtkcord4 = callPackage ../applications/audio/gtkcord4 { };
-
   haruna = libsForQt5.callPackage ../applications/video/haruna { };
 
   hdrmerge = libsForQt5.callPackage ../applications/graphics/hdrmerge { };
@@ -33619,8 +33610,6 @@ with pkgs;
     webkitgtk = webkitgtk_6_0;
   };
 
-  nicotine-plus = callPackage ../applications/networking/soulseek/nicotine-plus { };
-
   nice-dcv-client = callPackage ../applications/networking/remote/nice-dcv-client { };
 
   nixos-shell = callPackage ../tools/virtualization/nixos-shell { };
@@ -35789,6 +35778,7 @@ with pkgs;
   virtualbox = libsForQt5.callPackage ../applications/virtualization/virtualbox {
     stdenv = stdenv_32bit;
     inherit (gnome2) libIDL;
+    jdk = openjdk17;
   };
 
   virtualboxKvm = lowPrio (virtualbox.override {
@@ -36221,8 +36211,6 @@ with pkgs;
 
   xdg-desktop-portal-xapp = callPackage ../development/libraries/xdg-desktop-portal-xapp { };
 
-  xdg-user-dirs = callPackage ../tools/X11/xdg-user-dirs { };
-
   xdg-utils = callPackage ../tools/X11/xdg-utils {};
 
   xdgmenumaker = callPackage ../applications/misc/xdgmenumaker { };
@@ -36610,13 +36598,6 @@ with pkgs;
   dcrd = callPackage ../applications/blockchains/dcrd { };
   dcrwallet = callPackage ../applications/blockchains/dcrwallet {
     buildGoModule = buildGo120Module;
-  };
-
-  dogecoin  = libsForQt5.callPackage ../applications/blockchains/dogecoin {
-    withGui = true;
-  };
-  dogecoind = callPackage ../applications/blockchains/dogecoin {
-    withGui = false;
   };
 
   eclair = callPackage ../applications/blockchains/eclair { };
