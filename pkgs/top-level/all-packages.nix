@@ -107,7 +107,7 @@ with pkgs;
     Please be informed that this pseudo-package is not the only part
     of Nixpkgs that fails to evaluate. You should not evaluate
     entire Nixpkgs without some special measures to handle failing
-    packages, like using pkgs/top-level/release-attrpaths.nix.
+    packages, like using pkgs/top-level/release-attrpaths-superset.nix.
   '';
 
   tests = callPackages ../test { };
@@ -9792,9 +9792,7 @@ with pkgs;
 
   kdiff3 = libsForQt5.callPackage ../tools/text/kdiff3 { };
 
-  kube-router = callPackage ../applications/networking/cluster/kube-router {
-    buildGoModule = buildGo120Module;
-  };
+  kube-router = callPackage ../applications/networking/cluster/kube-router { };
 
   kubedock = callPackage ../development/tools/kubedock { };
 
@@ -12217,7 +12215,8 @@ with pkgs;
   prototypejs = callPackage ../development/libraries/prototypejs { };
 
   proxmark3 = libsForQt5.callPackage ../tools/security/proxmark3/default.nix {
-    inherit (darwin.apple_sdk.frameworks) Foundation AppKit;
+    inherit (darwin.apple_sdk_11_0.frameworks) Foundation AppKit;
+    stdenv = if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
   };
 
   proxychains = callPackage ../tools/networking/proxychains { };
@@ -30775,7 +30774,7 @@ with pkgs;
   dnglab = callPackage ../tools/graphics/dnglab { };
 
   inherit (callPackage ../applications/virtualization/docker {})
-    docker_20_10 docker_24 docker_25;
+    docker_24 docker_25;
 
   docker = docker_24;
   docker-client = docker.override { clientOnly = true; };
