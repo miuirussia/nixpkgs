@@ -1,0 +1,92 @@
+diff --git a/lib/generators.nix b/lib/generators.nix
+index 5f42a98de..9d0c0fde3 100644
+--- a/lib/generators.nix
++++ b/lib/generators.nix
+@@ -567,6 +567,49 @@ ${expr "" v}
+   */
+   mkLuaInline = expr: { _type = "lua-inline"; inherit expr; };
+ 
++  toTOML = let
++    inherit (builtins) toJSON concatStringsSep isAttrs isList isFloat;
++    inherit (lib.strings) concatMapStringsSep isStringLike;
++    inherit (lib) mapAttrsToList;
++
++    # We use `toJSON` for serialization of string, numbers and booleans.
++    # The only incompatibility is that JSON allows `"\/"` while TOML does not.
++    # But `builtins.toJSON` does not escape `/` anyway, so it's fine.
++
++    inf = 1.0e308 * 10;
++
++    toTopLevel = obj:
++      concatStringsSep ""
++        (mapAttrsToList
++          (name: value: "${toJSON name}=${toInline value}\n")
++          obj);
++
++    toInline = obj:
++      # Exclude drvs here, or we'll easily get infinite recursion.
++      if isAttrs obj && !isStringLike obj then
++        "{${concatStringsSep ","
++          (mapAttrsToList
++            (name: value: "${toJSON name}=${toInline value}")
++            obj)
++        }}"
++      else if isList obj then
++        "[${concatMapStringsSep "," toInline obj}]"
++      else if obj == null then
++        throw "“null” is not supported by TOML"
++      else if !isFloat obj then
++        # Strings, integers and booleans.
++        toJSON obj
++      # Sanitize +-inf and NaN. They'll produce "null", which is invalid for TOML.
++      else if obj == inf then
++        "inf"
++      else if obj == -inf then
++        "-inf"
++      else if obj != obj then
++        "nan"
++      else
++        toJSON obj;
++    in
++      {}: toTopLevel;
+ in
+ 
+ # Everything in this attrset is the public interface of the file.
+@@ -585,6 +628,7 @@ in
+     toLua
+     toPlist
+     toPretty
++    toTOML
+     withRecursion
+     ;
+ 
+diff --git a/lib/tests/misc.nix b/lib/tests/misc.nix
+index 6f1d9039d..f8c3f9d06 100644
+--- a/lib/tests/misc.nix
++++ b/lib/tests/misc.nix
+@@ -1278,6 +1278,25 @@ runTests {
+       expected = builtins.toJSON val;
+   };
+ 
++  testToTOMLSimple =
++    let val = {
++      section = {
++        foo = "string\n\"";
++        "\"ba r\"" = [ true 4.2 ];
++        deep.nested = { };
++      };
++      list = [ { one = 1; } { two = 2; } ];
++      drv = { outPath = "/store/path"; };
++    };
++    in {
++      expr = generators.toTOML {} val;
++      expected = ''
++        "drv"="/store/path"
++        "list"=[{"one"=1},{"two"=2}]
++        "section"={"\"ba r\""=[true,4.2],"deep"={"nested"={}},"foo"="string\n\""}
++      '';
++  };
++
+   /* right now only invocation check */
+   testToYAMLSimple =
+     let val = {
