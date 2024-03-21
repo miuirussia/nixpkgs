@@ -13,9 +13,96 @@ Alternatively, to run all `lib` tests:
 
   [nixpkgs]$ nix-build lib/tests/release.nix
 */
-with import ../default.nix;
 
 let
+  lib = import ../default.nix;
+
+  inherit (lib)
+    allUnique
+    and
+    attrNames
+    attrsets
+    attrsToList
+    bitAnd
+    bitOr
+    bitXor
+    boolToString
+    callPackagesWith
+    callPackageWith
+    cartesianProductOfSets
+    cli
+    composeExtensions
+    composeManyExtensions
+    concatLines
+    concatMapAttrs
+    concatMapStrings
+    concatStrings
+    concatStringsSep
+    const
+    escapeXML
+    evalModules
+    filter
+    fix
+    fold
+    foldAttrs
+    foldl
+    foldl'
+    foldlAttrs
+    foldr
+    functionArgs
+    generators
+    genList
+    getExe
+    getExe'
+    groupBy
+    groupBy'
+    hasAttrByPath
+    hasInfix
+    id
+    isStorePath
+    lazyDerivation
+    lists
+    listToAttrs
+    makeExtensible
+    makeOverridable
+    mapAttrs
+    matchAttrs
+    mergeAttrs
+    meta
+    mkOption
+    mod
+    nameValuePair
+    optionalDrvAttr
+    optionAttrSetToDocList
+    overrideExisting
+    packagesFromDirectoryRecursive
+    pipe
+    range
+    recursiveUpdateUntil
+    removePrefix
+    replicate
+    runTests
+    setFunctionArgs
+    showAttrPath
+    sort
+    sortOn
+    stringLength
+    strings
+    stringToCharacters
+    systems
+    tail
+    take
+    testAllTrue
+    toBaseDigits
+    toHexString
+    toInt
+    toIntBase10
+    toShellVars
+    types
+    updateManyAttrsByPath
+    versions
+    ;
+
   testingThrow = expr: {
     expr = (builtins.tryEval (builtins.seq expr "didn't throw"));
     expected = { success = false; value = false; };
@@ -1189,25 +1276,6 @@ runTests {
       expr = generators.toJSON {} val;
       # trivial implementation
       expected = builtins.toJSON val;
-  };
-
-  testToTOMLSimple =
-    let val = {
-      section = {
-        foo = "string\n\"";
-        "\"ba r\"" = [ true 4.2 ];
-        deep.nested = { };
-      };
-      list = [ { one = 1; } { two = 2; } ];
-      drv = { outPath = "/store/path"; };
-    };
-    in {
-      expr = generators.toTOML {} val;
-      expected = ''
-        "drv"="/store/path"
-        "list"=[{"one"=1},{"two"=2}]
-        "section"={"\"ba r\""=[true,4.2],"deep"={"nested"={}},"foo"="string\n\""}
-      '';
   };
 
   /* right now only invocation check */
