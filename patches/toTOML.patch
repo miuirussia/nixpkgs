@@ -14,7 +14,7 @@ index a2dddedd2d3a7c..de2e71a8334ff8 100644
 +++ b/lib/generators.nix
 @@ -234,6 +234,50 @@ rec {
      */
-   toJSON = {}: builtins.toJSON;
+  toJSON = {}: toJSON;
  
 +  toTOML = let
 +    inherit (builtins) toJSON concatStringsSep isAttrs isList isFloat;
