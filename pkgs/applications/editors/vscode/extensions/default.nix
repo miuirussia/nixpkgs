@@ -18,6 +18,7 @@
 , clojure-lsp
 , alejandra
 , millet
+, craftos-pc
 , shfmt
 , typst-lsp
 , typst-preview
@@ -1593,8 +1594,8 @@ let
         mktplcRef = {
           name = "prettier-vscode";
           publisher = "esbenp";
-          version = "10.3.0";
-          sha256 = "sha256-Oc46dxOI+55Y6hiJe0zTakdTM1sikcF7ISWkkVlaO1c=";
+          version = "10.4.0";
+          sha256 = "sha256-8+90cZpqyH+wBgPFaX5GaU6E02yBWUoB+T9C2z2Ix8c=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/esbenp.prettier-vscode/changelog";
@@ -2259,6 +2260,39 @@ let
           homepage = "https://github.com/IronGeek/vscode-env.git";
           license = lib.licenses.mit;
           maintainers = [ ];
+        };
+      };
+
+      jackmacwindows.craftos-pc = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "craftos-pc";
+          publisher = "jackmacwindows";
+          version = "1.2.2";
+          sha256 = "sha256-A+MNroXv0t9Mw/gr0Fyov3cXyF/GGzwRLKrIxQ2tKCE=";
+        };
+        nativeBuildInputs = [ jq moreutils ];
+        postInstall = ''
+          cd "$out/$installPrefix"
+
+          jq -e '
+            .contributes.configuration.properties."craftos-pc.executablePath.linux".default =
+              "${lib.meta.getExe craftos-pc}" |
+            .contributes.configuration.properties."craftos-pc.executablePath.mac".default =
+              "${lib.meta.getExe craftos-pc}" |
+            .contributes.configuration.properties."craftos-pc.executablePath.windows".default =
+              "${lib.meta.getExe craftos-pc}"
+          ' \
+          < package.json \
+          | sponge package.json
+        '';
+        meta = {
+          changelog = "https://marketplace.visualstudio.com/items/jackmacwindows.craftos-pc/changelog";
+          description = "A Visual Studio Code extension for opening a CraftOS-PC window";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=jackmacwindows.craftos-pc";
+          homepage = "https://www.craftos-pc.cc/docs/extension";
+          license = lib.licenses.mit;
+          maintainers = with lib.maintainers; [ tomodachi94 ];
+          platforms = craftos-pc.meta.platforms;
         };
       };
 
