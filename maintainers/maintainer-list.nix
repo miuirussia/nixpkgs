@@ -18544,6 +18544,12 @@
     githubId = 6362238;
     name = "Christoph Honal";
   };
+  starsep = {
+    email = "nix@starsep.com";
+    github = "starsep";
+    githubId = 2798728;
+    name = "Filip Czaplicki";
+  };
   star-szr = {
     email = "nixpkgs@szr.fastmail.com";
     github = "star-szr";
@@ -21298,6 +21304,12 @@
     github = "xNWDD";
     githubId = 3028542;
     name = "Guillermo NWDD";
+  };
+  xokdvium = {
+    email = "xokdvium@proton.me";
+    github = "xokdvium";
+    githubId = 145775305;
+    name = "Sergei Zimmerman";
   };
   xrelkd = {
     github = "xrelkd";
