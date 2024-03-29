@@ -1390,6 +1390,8 @@ self: super: with self; {
 
   basemap-data = callPackage ../development/python-modules/basemap-data { };
 
+  bases = callPackage ../development/python-modules/bases { };
+
   bash-kernel = callPackage ../development/python-modules/bash-kernel { };
 
   bashlex = callPackage ../development/python-modules/bashlex { };
@@ -3755,6 +3757,8 @@ self: super: with self; {
 
   enrich = callPackage ../development/python-modules/enrich { };
 
+  enterpriseattack = callPackage ../development/python-modules/enterpriseattack { };
+
   entrance = callPackage ../development/python-modules/entrance {
     routerFeatures = false;
   };
@@ -5374,6 +5378,8 @@ self: super: with self; {
 
   hsaudiotag3k = callPackage ../development/python-modules/hsaudiotag3k { };
 
+  hsh = callPackage ../development/python-modules/hsh { };
+
   hsluv = callPackage ../development/python-modules/hsluv { };
 
   hstspreload = callPackage ../development/python-modules/hstspreload { };
@@ -6778,11 +6784,19 @@ self: super: with self; {
 
   llama-index-question-gen-openai = callPackage ../development/python-modules/llama-index-question-gen-openai { };
 
+  llama-index-readers-database = callPackage ../development/python-modules/llama-index-readers-database { };
+
   llama-index-readers-file = callPackage ../development/python-modules/llama-index-readers-file { };
 
   llama-index-readers-json = callPackage ../development/python-modules/llama-index-readers-json { };
 
   llama-index-readers-llama-parse = callPackage ../development/python-modules/llama-index-readers-llama-parse { };
+
+  llama-index-readers-s3 = callPackage ../development/python-modules/llama-index-readers-s3 { };
+
+  llama-index-readers-twitter = callPackage ../development/python-modules/llama-index-readers-twitter { };
+
+  llama-index-readers-txtai = callPackage ../development/python-modules/llama-index-readers-txtai { };
 
   llama-index-readers-weather = callPackage ../development/python-modules/llama-index-readers-weather { };
 
@@ -7344,6 +7358,7 @@ self: super: with self; {
   mizani = callPackage ../development/python-modules/mizani { };
 
   mkdocs = callPackage ../development/python-modules/mkdocs { };
+  mkdocs-autolinks-plugin = callPackage ../development/python-modules/mkdocs-autolinks-plugin { };
   mkdocs-autorefs = callPackage ../development/python-modules/mkdocs-autorefs { };
   mkdocs-drawio-exporter = callPackage ../development/python-modules/mkdocs-drawio-exporter { };
   mkdocs-exclude = callPackage ../development/python-modules/mkdocs-exclude { };
@@ -8389,6 +8404,8 @@ self: super: with self; {
 
   nagiosplugin = callPackage ../development/python-modules/nagiosplugin { };
 
+  naked = callPackage ../development/python-modules/naked { };
+
   namedlist = callPackage ../development/python-modules/namedlist { };
 
   nameparser = callPackage ../development/python-modules/nameparser { };
@@ -9062,7 +9079,7 @@ self: super: with self; {
 
   openvino = callPackage ../development/python-modules/openvino {
     openvino-native = pkgs.openvino.override {
-      inherit python;
+      python3Packages = self;
     };
   };
 
@@ -13093,8 +13110,6 @@ self: super: with self; {
 
   robotframework-sshlibrary = callPackage ../development/python-modules/robotframework-sshlibrary { };
 
-  robotframework-tidy = callPackage ../development/python-modules/robotframework-tidy { };
-
   robotframework-tools = callPackage ../development/python-modules/robotframework-tools { };
 
   robotstatuschecker = callPackage ../development/python-modules/robotstatuschecker { };
@@ -13505,7 +13520,7 @@ self: super: with self; {
 
   setuptools-declarative-requirements = callPackage ../development/python-modules/setuptools-declarative-requirements { };
 
-  setuptools_dso = callPackage ../development/python-modules/setuptools_dso { };
+  setuptools-dso = callPackage ../development/python-modules/setuptools-dso { };
 
   setuptools-generate = callPackage ../development/python-modules/setuptools-generate { };
 
@@ -14543,6 +14558,8 @@ self: super: with self; {
   tenacity = callPackage ../development/python-modules/tenacity { };
 
   tencentcloud-sdk-python = callPackage ../development/python-modules/tencentcloud-sdk-python { };
+
+  tendo = callPackage ../development/python-modules/tendo { };
 
   tensorboard-data-server = callPackage ../development/python-modules/tensorboard-data-server { };
 
@@ -16018,6 +16035,8 @@ self: super: with self; {
   typing-extensions = callPackage ../development/python-modules/typing-extensions { };
 
   typing-inspect = callPackage ../development/python-modules/typing-inspect { };
+
+  typing-validation = callPackage ../development/python-modules/typing-validation { };
 
   typish = callPackage ../development/python-modules/typish { };
 

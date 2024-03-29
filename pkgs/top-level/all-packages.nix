@@ -2621,6 +2621,11 @@ with pkgs;
 
   _86Box = callPackage ../applications/emulators/86box { };
 
+  _86Box-with-roms = _86Box.override {
+    unfreeEnableRoms = true;
+    unfreeEnableDiscord = true;
+  };
+
   attract-mode = callPackage ../applications/emulators/attract-mode { };
 
   basiliskii = callPackage ../applications/emulators/basiliskii { };
@@ -3378,8 +3383,6 @@ with pkgs;
   aws-sso-creds = callPackage ../tools/admin/aws-sso-creds { };
 
   aws-vault = callPackage ../tools/admin/aws-vault { };
-
-  aws-workspaces = callPackage ../applications/networking/remote/aws-workspaces { };
 
   iamy = callPackage ../tools/admin/iamy { };
 
@@ -5002,8 +5005,6 @@ with pkgs;
 
   ioport = callPackage ../os-specific/linux/ioport { };
 
-  dgoss = callPackage ../tools/misc/dgoss { };
-
   diagrams-builder = callPackage ../tools/graphics/diagrams-builder {
     inherit (haskellPackages) ghcWithPackages diagrams-builder;
   };
@@ -5534,8 +5535,6 @@ with pkgs;
   gorilla-cli = callPackage ../tools/llm/gorilla-cli { };
 
   godu = callPackage ../tools/misc/godu { };
-
-  goss = callPackage ../tools/misc/goss { };
 
   gosu = callPackage ../tools/misc/gosu { };
 
@@ -6332,8 +6331,6 @@ with pkgs;
   starboard = callPackage ../applications/networking/cluster/starboard { };
 
   statserial = callPackage ../tools/misc/statserial { };
-
-  steampipe = callPackage ../tools/misc/steampipe { };
 
   step-ca = callPackage ../tools/security/step-ca {
     inherit (darwin.apple_sdk.frameworks) PCSC;
@@ -7873,8 +7870,6 @@ with pkgs;
   elasticsearchPlugins = recurseIntoAttrs (
     callPackage ../servers/search/elasticsearch/plugins.nix {}
   );
-
-  elasticsearch-curator = callPackage ../tools/admin/elasticsearch-curator { };
 
   embree = callPackage ../development/libraries/embree { };
   embree2 = callPackage ../development/libraries/embree/2.x.nix { };
@@ -13133,7 +13128,7 @@ with pkgs;
 
   sipsak = callPackage ../tools/networking/sipsak { };
 
-  sipvicious = python3Packages.callPackage ../tools/security/sipvicious { };
+  sipvicious = callPackage ../tools/security/sipvicious { };
 
   siril = callPackage ../applications/science/astronomy/siril { };
 
@@ -16531,6 +16526,31 @@ with pkgs;
     targetLlvmLibraries = targetPackages.llvmPackages_17.libraries or llvmPackages_17.libraries;
     targetLlvm = targetPackages.llvmPackages_17.llvm or llvmPackages_17.llvm;
   }));
+
+  inherit
+    (rec {
+      llvmPackages_18 = recurseIntoAttrs (callPackage ../development/compilers/llvm/18 ({
+        inherit (stdenvAdapters) overrideCC;
+        buildLlvmTools = buildPackages.llvmPackages_18.tools;
+        targetLlvmLibraries = targetPackages.llvmPackages_18.libraries or llvmPackages_18.libraries;
+        targetLlvm = targetPackages.llvmPackages_18.llvm or llvmPackages_18.llvm;
+      }));
+
+      clang_18 = llvmPackages_18.clang;
+      lld_18 = llvmPackages_18.lld;
+      lldb_18 = llvmPackages_18.lldb;
+      llvm_18 = llvmPackages_18.llvm;
+
+      clang-tools_18 = callPackage ../development/tools/clang-tools {
+        llvmPackages = llvmPackages_18;
+      };
+    })
+      llvmPackages_18
+      clang_18
+      lld_18
+      lldb_18
+      llvm_18
+      clang-tools_18;
 
   lorri = callPackage ../tools/misc/lorri {
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
@@ -22287,7 +22307,6 @@ with pkgs;
 
   libdwarf = callPackage ../development/libraries/libdwarf { };
   dwarfdump = libdwarf.bin;
-  libdwarf_20210528 = callPackage ../development/libraries/libdwarf/20210528.nix { };
 
   libe57format = callPackage ../development/libraries/libe57format { };
 
@@ -24875,6 +24894,10 @@ with pkgs;
 
   tet = callPackage ../development/tools/misc/tet { };
 
+  texpresso = callPackage ../tools/typesetting/tex/texpresso {
+    texpresso-tectonic = callPackage ../tools/typesetting/tex/texpresso/tectonic.nix { };
+  };
+
   text-engine = callPackage ../development/libraries/text-engine { };
 
   the-foundation = callPackage ../development/libraries/the-foundation { };
@@ -25379,8 +25402,6 @@ with pkgs;
   commonsMath = callPackage ../development/libraries/java/commons/math { };
 
   fastjar = callPackage ../development/tools/java/fastjar { };
-
-  jextract = callPackage ../development/tools/java/jextract { };
 
   httpunit = callPackage ../development/libraries/java/httpunit { };
 
@@ -30633,8 +30654,6 @@ with pkgs;
 
   dk = callPackage ../applications/window-managers/dk { };
 
-  docker-credential-gcr = callPackage ../tools/admin/docker-credential-gcr { };
-
   docker-credential-helpers = callPackage ../tools/admin/docker-credential-helpers { };
 
   dockstarter = callPackage ../tools/virtualization/dockstarter { };
@@ -34876,7 +34895,7 @@ with pkgs;
 
   stalonetray = callPackage ../applications/window-managers/stalonetray { };
 
-  inherit (ocaml-ng.ocamlPackages_4_12) stog;
+  inherit (ocaml-ng.ocamlPackages) stog;
 
   stp = callPackage ../applications/science/logic/stp { };
 
@@ -37406,8 +37425,6 @@ with pkgs;
 
   portmod = callPackage ../games/portmod { };
 
-  tetrio-desktop = callPackage ../games/tetrio-desktop { };
-
   tr-patcher = callPackage ../games/tr-patcher { };
 
   tes3cmd = callPackage ../games/tes3cmd { };
@@ -38488,8 +38505,6 @@ with pkgs;
   coin-utils = callPackage ../development/libraries/science/math/coin-utils { };
 
   ecos = callPackage ../development/libraries/science/math/ecos { };
-
-  flintqs = callPackage ../development/libraries/science/math/flintqs { };
 
   getdp = callPackage ../applications/science/math/getdp { };
 
@@ -40806,8 +40821,6 @@ with pkgs;
 
   xboxdrv = callPackage ../misc/drivers/xboxdrv { };
 
-  xivlauncher = callPackage ../games/xivlauncher { };
-
   xortool = python3Packages.callPackage ../tools/security/xortool { };
 
   xorex = callPackage ../tools/security/xorex { };
@@ -41053,9 +41066,7 @@ with pkgs;
 
   openrisk = callPackage ../tools/security/openrisk { };
 
-  openvino = callPackage ../development/libraries/openvino {
-    python = python3;
-  };
+  openvino = callPackage ../development/libraries/openvino { };
 
   phonetisaurus = callPackage ../development/libraries/phonetisaurus {
     # https://github.com/AdolfVonKleist/Phonetisaurus/issues/70
