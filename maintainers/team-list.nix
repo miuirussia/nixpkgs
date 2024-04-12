@@ -146,6 +146,15 @@ with lib.maintainers; {
     enableFeatureFreezePing = true;
   };
 
+  cloudposse = {
+    members = [
+      dudymas
+    ];
+    scope = "Maintain atmos and applications made by the Cloud Posse team.";
+    shortName = "CloudPosse";
+    enableFeatureFreezePing = true;
+  };
+
   coq = {
     members = [
       cohencyril
@@ -257,7 +266,6 @@ with lib.maintainers; {
 
   docs = {
     members = [
-      asymmetric
       ryantm
     ];
     scope = "Maintain nixpkgs/NixOS documentation and tools for building it.";
@@ -352,6 +360,7 @@ with lib.maintainers; {
   geospatial = {
     members = [
       imincik
+      l0b0
       nh2
       nialov
       sikmir
@@ -475,6 +484,7 @@ with lib.maintainers; {
       ryantm
       lassulus
       yayayayaka
+      asymmetric
     ];
     scope = "Maintain Jitsi.";
     shortName = "Jitsi";
