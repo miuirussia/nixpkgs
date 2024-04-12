@@ -61,10 +61,10 @@ index 5f42a98de..9d0c0fde3 100644
      ;
  
 diff --git a/lib/tests/misc.nix b/lib/tests/misc.nix
-index 6f1d9039d..f8c3f9d06 100644
+index accceb4ddf..37791f6ae4 100644
 --- a/lib/tests/misc.nix
 +++ b/lib/tests/misc.nix
-@@ -1278,6 +1278,25 @@ runTests {
+@@ -1340,6 +1340,25 @@ runTests {
        expected = builtins.toJSON val;
    };
  
@@ -87,6 +87,6 @@ index 6f1d9039d..f8c3f9d06 100644
 +      '';
 +  };
 +
-   /* right now only invocation check */
-   testToYAMLSimple =
-     let val = {
+   testToPretty =
+     let
+       deriv = derivation { name = "test"; builder = "/bin/sh"; system = "aarch64-linux"; };
