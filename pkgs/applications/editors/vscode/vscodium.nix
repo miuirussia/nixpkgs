@@ -15,11 +15,11 @@ let
   archive_fmt = if stdenv.isDarwin then "zip" else "tar.gz";
 
   sha256 = {
-    x86_64-linux = "1kqmx5x2h1gg5bwrfnd22jwz02svgjbd4v710kqgm5xxxjvs8d5j";
+    x86_64-linux = "09pyxnh6wmzj7yb4rvqcivcbgac43ga96h0a5ibxdkm9xwmihpbd";
     x86_64-darwin = "1ipbgwwl93x21f7s1gq4w088vcr5kbkjwvi4kwz4q8m47sjlsqya";
-    aarch64-linux = "0mk808jads7wp1p4gcfiajxhn0scpgdmsdvcz3fynabj9wpxs5m6";
+    aarch64-linux = "1gwscil9nfwsfv1p54j94hvddvdsd1gw826v3zcfhqiirlp9667j";
     aarch64-darwin = "1mgpjpm8cf8fwyg49dic76n5whlj264r3hcrx7v3nkddvs4zj698";
-    armv7l-linux = "198cpml34yvz6hkb894apsx897rivc7f1zxxggnf1hv2ixw974lj";
+    armv7l-linux = "1v6nl6lycsli4p3nylg0aah4jbq63svxh3b7f8rir30ynbycyl3s";
   }.${system} or throwSystem;
 
   sourceRoot = lib.optionalString (!stdenv.isDarwin) ".";
