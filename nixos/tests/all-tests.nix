@@ -227,6 +227,7 @@ in {
   corerad = handleTest ./corerad.nix {};
   coturn = handleTest ./coturn.nix {};
   couchdb = handleTest ./couchdb.nix {};
+  crabfit = handleTest ./crabfit.nix {};
   cri-o = handleTestOn ["aarch64-linux" "x86_64-linux"] ./cri-o.nix {};
   cups-pdf = handleTest ./cups-pdf.nix {};
   curl-impersonate = handleTest ./curl-impersonate.nix {};
@@ -502,6 +503,7 @@ in {
   lxd = pkgs.recurseIntoAttrs (handleTest ./lxd { inherit handleTestOn; });
   lxd-image-server = handleTest ./lxd-image-server.nix {};
   #logstash = handleTest ./logstash.nix {};
+  lomiri = handleTest ./lomiri.nix {};
   lomiri-system-settings = handleTest ./lomiri-system-settings.nix {};
   lorri = handleTest ./lorri/default.nix {};
   maddy = discoverTests (import ./maddy { inherit handleTest; });
