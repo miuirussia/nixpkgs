@@ -10207,6 +10207,11 @@
     githubId = 6544084;
     name = "Kai Harries";
   };
+  kai-tub = {
+    name = "Kai Norman Clasen";
+    github = "kai-tub";
+    githubId = 46302524;
+  };
   kalbasit = {
     email = "wael.nasreddine@gmail.com";
     matrix = "@kalbasit:matrix.org";
@@ -19037,12 +19042,6 @@
     githubId = 2798728;
     name = "Filip Czaplicki";
   };
-  star-szr = {
-    email = "nixpkgs@szr.fastmail.com";
-    github = "star-szr";
-    githubId = 327943;
-    name = "Scott Zhu Reeves";
-  };
   starzation = {
     email = "nixpkgs@starzation.net";
     github = "starzation";
@@ -20262,6 +20261,11 @@
     github = "tnias";
     githubId = 9853194;
     name = "Philipp Bartsch";
+  };
+  toast = {
+    name = "Toast";
+    github = "toast003";
+    githubId = 39011842;
   };
   toastal = {
     email = "toastal+nix@posteo.net";
