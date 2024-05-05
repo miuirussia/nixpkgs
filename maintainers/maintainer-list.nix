@@ -429,6 +429,12 @@
     githubId = 1517066;
     name = "Aiken Cairncross";
   };
+  a-camarillo = {
+    name = "Anthony Camarillo";
+    email = "anthony.camarillo.96@gmail.com";
+    github = "a-camarillo";
+    githubId = 58638902;
+  };
   aciceri = {
     name = "Andrea Ciceri";
     email = "andrea.ciceri@autistici.org";
@@ -2943,6 +2949,12 @@
       fingerprint = "BF4FCB85C69989B4ED95BF938AE74787A4B7C07E";
     }];
   };
+  b-rodrigues = {
+    email = "bruno@brodrigues.co";
+    github = "b-rodrigues";
+    githubId = 2998834;
+    name = "Bruno Rodrigues";
+  };
   broke = {
     email = "broke@in-fucking.space";
     github = "broke";
@@ -3017,6 +3029,12 @@
     github = "Builditluc";
     githubId = 37375448;
     name = "Buildit";
+  };
+  buurro = {
+    email = "marcoburro98@gmail.com";
+    github = "buurro";
+    githubId = 9320677;
+    name = "Marco Burro";
   };
   bwc9876 = {
     email = "bwc9876@gmail.com";
@@ -7582,6 +7600,12 @@
     githubId = 76716;
     name = "Graham Christensen";
   };
+  grahamnorris = {
+    email = "oss@grahamjnorris.com";
+    github = "grahamnorris";
+    githubId = 66037909;
+    name = "Graham J. Norris";
+  };
   gravndal = {
     email = "gaute.ravndal+nixos@gmail.com";
     github = "gravndal";
@@ -9045,6 +9069,12 @@
     github = "jasonodoom";
     githubId = 6789916;
     name = "Jason Odoom";
+  };
+  javaes = {
+    email = "jan+dev@vanesdonk.de";
+    github = "javaes";
+    githubId = 1131529;
+    name = "Jan van Esdonk";
   };
   javaguirre = {
     email = "contacto@javaguirre.net";
