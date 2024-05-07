@@ -311,8 +311,6 @@ with pkgs;
 
   asn1c = callPackage ../development/compilers/asn1c { };
 
-  assemblyscript = callPackage ../development/compilers/assemblyscript { };
-
   authz0 = callPackage ../tools/security/authz0 { };
 
   auth0-cli = callPackage ../tools/admin/auth0-cli { };
@@ -768,8 +766,6 @@ with pkgs;
   protoc-gen-prost-crate = callPackage ../development/tools/protoc-gen-prost-crate { };
 
   protoc-gen-prost-serde = callPackage ../development/tools/protoc-gen-prost-serde { };
-
-  protoc-gen-rust = callPackage ../development/tools/protoc-gen-rust { };
 
   protoc-gen-tonic = callPackage ../development/tools/protoc-gen-tonic { };
 
@@ -2759,20 +2755,38 @@ with pkgs;
 
   pcsxr = callPackage ../applications/emulators/pcsxr { };
 
-  ppsspp-sdl = ppsspp.override {
-    enableQt = false;
-    enableVulkan = true;
-  };
+  ppsspp-sdl = let
+    argset = {
+      ffmpeg = ffmpeg_4;
+      glew = glew.override { enableEGL = argset.forceWayland; };
+      enableQt = false;
+      enableVulkan = true;
+      forceWayland = false;
+    };
+  in
+    ppsspp.override argset;
 
-  ppsspp-sdl-wayland = ppsspp.override {
-    forceWayland = true;
-    enableVulkan = false; # https://github.com/hrydgard/ppsspp/issues/13845
-  };
+  ppsspp-sdl-wayland = let
+    argset = {
+      ffmpeg = ffmpeg_4;
+      glew = glew.override { enableEGL = argset.forceWayland; };
+      enableQt = false;
+      enableVulkan = false; # https://github.com/hrydgard/ppsspp/issues/13845
+      forceWayland = true;
+    };
+  in
+    ppsspp.override argset;
 
-  ppsspp-qt = ppsspp.override {
-    enableQt = true;
-    enableVulkan = false; # https://github.com/hrydgard/ppsspp/issues/11628
-  };
+  ppsspp-qt = let
+    argset = {
+      ffmpeg = ffmpeg_4;
+      glew = glew.override { enableEGL = argset.forceWayland; };
+      enableQt = true;
+      enableVulkan = false; # https://github.com/hrydgard/ppsspp/issues/11628
+      forceWayland = false;
+    };
+  in
+    ppsspp.override argset;
 
   proton-caller = callPackage ../applications/emulators/proton-caller { };
 
@@ -4877,8 +4891,6 @@ with pkgs;
 
   dante = callPackage ../servers/dante { };
 
-  dapr-cli = callPackage ../development/tools/dapr/cli { };
-
   dasel = callPackage ../applications/misc/dasel { };
 
   dasher = callPackage ../applications/accessibility/dasher { };
@@ -4953,8 +4965,6 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  refinery-cli = callPackage ../development/tools/refinery-cli { };
-
   digitemp = callPackage ../tools/misc/digitemp { };
 
   dijo = callPackage ../tools/misc/dijo {
@@ -5020,8 +5030,6 @@ with pkgs;
   dokuwiki = callPackage ../servers/web-apps/dokuwiki { };
 
   dolibarr = callPackage ../servers/web-apps/dolibarr { };
-
-  doppler = callPackage ../tools/security/doppler { };
 
   dosage = callPackage ../applications/graphics/dosage { };
 
@@ -5545,8 +5553,6 @@ with pkgs;
   hopper = qt5.callPackage ../development/tools/analysis/hopper { };
 
   hr = callPackage ../applications/misc/hr { };
-
-  humioctl = callPackage ../applications/logging/humioctl { };
 
   huniq = callPackage ../tools/text/huniq { };
 
@@ -7025,7 +7031,8 @@ with pkgs;
 
   ckb-next = libsForQt5.callPackage ../tools/misc/ckb-next { };
 
-  clamav = darwin.apple_sdk_11_0.callPackage ../tools/security/clamav {
+  clamav = callPackage ../tools/security/clamav {
+    stdenv = if stdenv.isDarwin then overrideSDK stdenv "11.0" else stdenv;
     inherit (darwin.apple_sdk_11_0.frameworks) Foundation;
   };
 
@@ -8922,8 +8929,6 @@ with pkgs;
   haste-client = callPackage ../tools/misc/haste-client { };
 
   haste-server = callPackage ../servers/haste-server { };
-
-  hatch = python3Packages.callPackage ../development/tools/hatch { };
 
   hal-hardware-analyzer = libsForQt5.callPackage ../applications/science/electronics/hal-hardware-analyzer {
     stdenv = if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
@@ -11319,8 +11324,6 @@ with pkgs;
   ofono-phonesim = libsForQt5.callPackage ../development/tools/ofono-phonesim { };
 
   ogdf = callPackage ../development/libraries/ogdf { };
-
-  oh-my-posh = callPackage ../development/tools/oh-my-posh { };
 
   oh-my-zsh = callPackage ../shells/zsh/oh-my-zsh { };
 
@@ -14070,8 +14073,6 @@ with pkgs;
 
   up = callPackage ../tools/misc/up { };
 
-  upbound = callPackage ../development/tools/upbound { };
-
   upterm = callPackage ../tools/misc/upterm { };
 
   upx = callPackage ../tools/compression/upx { };
@@ -16775,7 +16776,6 @@ with pkgs;
 
   cargo-nextest = callPackage ../development/tools/rust/cargo-nextest { };
   cargo-play = callPackage ../development/tools/rust/cargo-play { };
-  cargo-profiler = callPackage ../development/tools/rust/cargo-profiler { };
   cargo-raze = callPackage ../development/tools/rust/cargo-raze {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -16811,9 +16811,6 @@ with pkgs;
 
   cargo-valgrind = callPackage ../development/tools/rust/cargo-valgrind { };
   cargo-vet = callPackage ../development/tools/rust/cargo-vet {
-    inherit (darwin.apple_sdk.frameworks) Security;
-  };
-  cargo-wasi = callPackage ../development/tools/rust/cargo-wasi {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
   cargo-watch = callPackage ../development/tools/rust/cargo-watch {
@@ -17750,10 +17747,6 @@ with pkgs;
 
   waagent = callPackage ../applications/networking/cluster/waagent { };
 
-  wapm-cli = callPackage ../tools/package-management/wapm/cli {
-    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
-  };
-
   wasm = ocamlPackages.wasm;
 
   wasm3 = callPackage ../development/interpreters/wasm3 { };
@@ -18675,8 +18668,6 @@ with pkgs;
   eask = callPackage ../development/tools/eask { };
 
   easypdkprog = callPackage ../development/embedded/easypdkprog { };
-
-  eclint = callPackage ../development/tools/eclint { };
 
   editorconfig-checker = callPackage ../development/tools/misc/editorconfig-checker { };
 
@@ -31879,8 +31870,6 @@ with pkgs;
 
   waylevel = callPackage ../tools/misc/waylevel { };
 
-  wbg = callPackage ../applications/misc/wbg { };
-
   i3 = callPackage ../applications/window-managers/i3 {
     xcb-util-cursor = if stdenv.isDarwin then xcb-util-cursor-HEAD else xcb-util-cursor;
   };
@@ -32200,6 +32189,7 @@ with pkgs;
 
   inherit (callPackage ../applications/networking/cluster/k3s {
     buildGoModule = buildGo121Module;
+    go = go_1_21;
   }) k3s_1_26 k3s_1_27 k3s_1_28 k3s_1_29;
   k3s = k3s_1_29;
 
@@ -35560,9 +35550,7 @@ with pkgs;
 
   webcamoid = libsForQt5.callPackage ../applications/video/webcamoid { };
 
-  webcord = callPackage ../applications/networking/instant-messengers/webcord { };
-
-  webcord-vencord = callPackage ../applications/networking/instant-messengers/webcord/webcord-vencord { };
+  webcord = callPackage ../by-name/we/webcord/package.nix { electron = electron_29; };
 
   webex = callPackage ../applications/networking/instant-messengers/webex { };
 
@@ -40359,8 +40347,6 @@ with pkgs;
 
   twitch-cli = callPackage ../development/tools/twitch-cli { };
 
-  twiggy = callPackage ../development/tools/twiggy { };
-
   uacme = callPackage ../tools/admin/uacme { };
 
   ufiformat = callPackage ../tools/system/ufiformat { };
@@ -40528,8 +40514,6 @@ with pkgs;
   wishbone-tool = callPackage ../development/tools/misc/wishbone-tool { };
 
   with-shell = callPackage ../applications/misc/with-shell { };
-
-  wizer = darwin.apple_sdk_11_0.callPackage ../development/tools/wizer { };
 
   wmutils-core = callPackage ../tools/X11/wmutils-core { };
 
