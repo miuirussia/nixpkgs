@@ -1088,8 +1088,8 @@ with pkgs;
     inherit (darwin) cctools DarwinTools;
     inherit (darwin.apple_sdk.frameworks) CoreServices;
     antlr = antlr4_10;
-    icu =  icu69;
-    protobuf = protobuf_21;
+    icu =  icu73;
+    protobuf = protobuf_24;
   };
 
   broadlink-cli = callPackage ../tools/misc/broadlink-cli { };
@@ -1970,7 +1970,7 @@ with pkgs;
   node-glob = callPackage ../tools/misc/node-glob { };
 
   nominatim = callPackage ../servers/nominatim {
-    postgresql = postgresql_12;
+    postgresql = postgresql_14;
   };
 
   npm-check-updates = callPackage ../tools/package-management/npm-check-updates { };
@@ -16487,7 +16487,7 @@ with pkgs;
     ocamlformat # latest version
     ocamlformat_0_19_0 ocamlformat_0_20_0 ocamlformat_0_20_1 ocamlformat_0_21_0
     ocamlformat_0_22_4 ocamlformat_0_23_0 ocamlformat_0_24_1 ocamlformat_0_25_1
-    ocamlformat_0_26_0 ocamlformat_0_26_1;
+    ocamlformat_0_26_0 ocamlformat_0_26_1 ocamlformat_0_26_2;
 
   inherit (ocamlPackages) odig;
 
@@ -23611,6 +23611,17 @@ with pkgs;
   };
 
   opencascade-occt = callPackage ../development/libraries/opencascade-occt { };
+
+  opencascade-occt_7_6 = opencascade-occt.overrideAttrs rec {
+    pname = "opencascade-occt";
+    version = "7.6.2";
+    commit = "V${builtins.replaceStrings ["."] ["_"] version}";
+    src = fetchurl {
+      name = "occt-${commit}.tar.gz";
+      url = "https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=${commit};sf=tgz";
+      hash = "sha256-n3KFrN/mN1SVXfuhEUAQ1fJzrCvhiclxfEIouyj9Z18=";
+    };
+  };
 
   opencl-headers = callPackage ../development/libraries/opencl-headers { };
 
@@ -31132,9 +31143,9 @@ with pkgs;
 
   freenet = callPackage ../applications/networking/p2p/freenet {
     gradle = gradle_7;
-    jdk = jdk_headless;
+    jdk = jdk17_headless;
     # Reduce closure size
-    jre = pkgs.jre_minimal.override {
+    jre = pkgs.jre17_minimal.override {
       modules = [
         "java.base"
         "java.logging"
@@ -31143,7 +31154,7 @@ with pkgs;
         "java.desktop"
         "java.management"
       ];
-      jdk = jdk_headless;
+      jdk = jdk17_headless;
     };
   };
 
@@ -35716,7 +35727,7 @@ with pkgs;
 
   xlife = callPackage ../applications/graphics/xlife { };
 
-  xmobar = haskellPackages.xmobar;
+  xmobar = haskellPackages.xmobar.bin;
 
   xmonad-log = callPackage ../tools/misc/xmonad-log { };
 
@@ -36202,6 +36213,8 @@ with pkgs;
   beancount = with python3.pkgs; toPythonApplication beancount;
 
   beancount-black = with python3.pkgs; toPythonApplication beancount-black;
+
+  beanhub-cli = with python3.pkgs; toPythonApplication beanhub-cli;
 
   bean-add = callPackage ../applications/office/beancount/bean-add.nix { };
 

@@ -1467,6 +1467,14 @@ self: super: with self; {
 
   beancount-docverif = callPackage ../development/python-modules/beancount-docverif { };
 
+  beanhub-cli = callPackage ../development/python-modules/beanhub-cli { };
+
+  beanhub-extract = callPackage ../development/python-modules/beanhub-extract { };
+
+  beanhub-forms = callPackage ../development/python-modules/beanhub-forms { };
+
+  beanhub-import = callPackage ../development/python-modules/beanhub-import { };
+
   beanstalkc = callPackage ../development/python-modules/beanstalkc { };
 
   beartype = callPackage ../development/python-modules/beartype { };
@@ -4188,6 +4196,8 @@ self: super: with self; {
   filebytes = callPackage ../development/python-modules/filebytes { };
 
   filecheck = callPackage ../development/python-modules/filecheck { };
+
+  filedate = callPackage ../development/python-modules/filedate { };
 
   filedepot = callPackage ../development/python-modules/filedepot { };
 

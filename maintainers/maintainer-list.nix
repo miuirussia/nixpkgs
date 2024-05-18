@@ -6481,6 +6481,15 @@
     githubId = 225893;
     name = "James Cook";
   };
+  fangpen = {
+    email = "hello@fangpenlin.com";
+    github = "fangpenlin";
+    githubId = 201615;
+    name = "Fang-Pen Lin";
+    keys = [{
+      fingerprint = "7130 3454 A7CD 0F0A 941A  F9A3 2A26 9964 AD29 2131";
+    }];
+  };
   farcaller = {
     name = "Vladimir Pouzanov";
     email = "farcaller@gmail.com";
@@ -10051,6 +10060,11 @@
     github = "jshholland";
     githubId = 107689;
     name = "Josh Holland";
+  };
+  jshort = {
+    github = "jshort";
+    githubId = 1186444;
+    name = "James Short";
   };
   jsierles = {
     email = "joshua@hey.com";
@@ -15488,6 +15502,15 @@
     githubId = 69802930;
     name = "patka";
   };
+  patrickdag = {
+    email = "patrick-nixos@failmail.dev";
+    github = "PatrickDaG";
+    githubId = 58092422;
+    name = "Patrick";
+    keys = [{
+      fingerprint = "5E4C 3D74 80C2 35FE 2F0B  D23F 7DD6 A72E C899 617D";
+    }];
+  };
   patricksjackson = {
     email = "patrick@jackson.dev";
     github = "patricksjackson";
@@ -19710,6 +19733,12 @@
     github = "syboxez";
     githubId = 12841859;
     name = "Syboxez Blank";
+  };
+  syedahkam = {
+    email = "smahkam57@gmail.com";
+    github = "SyedAhkam";
+    githubId = 52673095;
+    name = "Syed Ahkam";
   };
   symphorien = {
     email = "symphorien_nixpkgs@xlumurb.eu";
