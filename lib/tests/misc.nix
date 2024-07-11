@@ -1366,6 +1366,25 @@ runTests {
       expected = builtins.toJSON val;
   };
 
+  testToTOMLSimple =
+    let val = {
+      section = {
+        foo = "string\n\"";
+        "\"ba r\"" = [ true 4.2 ];
+        deep.nested = { };
+      };
+      list = [ { one = 1; } { two = 2; } ];
+      drv = { outPath = "/store/path"; };
+    };
+    in {
+      expr = generators.toTOML {} val;
+      expected = ''
+        "drv"="/store/path"
+        "list"=[{"one"=1},{"two"=2}]
+        "section"={"\"ba r\""=[true,4.2],"deep"={"nested"={}},"foo"="string\n\""}
+      '';
+  };
+
   testToPretty =
     let
       deriv = derivation { name = "test"; builder = "/bin/sh"; system = "aarch64-linux"; };

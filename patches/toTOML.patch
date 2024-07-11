@@ -1,0 +1,83 @@
+diff --git a/lib/generators.nix b/lib/generators.nix
+index 4317e49c25..01e5b70f82 100644
+--- a/lib/generators.nix
++++ b/lib/generators.nix
+@@ -803,4 +803,48 @@ ${expr "" v}
+     : The value to be converted to YAML
+   */
+   toYAML = {}: lib.strings.toJSON;
++} // {
++  toTOML = let
++    inherit (builtins) toJSON concatStringsSep isAttrs isList isFloat;
++    inherit (lib.strings) concatMapStringsSep isStringLike;
++    inherit (lib) mapAttrsToList;
++
++    # We use `toJSON` for serialization of string, numbers and booleans.
++    # The only incompatibility is that JSON allows `"\/"` while TOML does not.
++    # But `builtins.toJSON` does not escape `/` anyway, so it's fine.
++
++    inf = 1.0e308 * 10;
++
++    toTopLevel = obj:
++      concatStringsSep ""
++        (mapAttrsToList
++          (name: value: "${toJSON name}=${toInline value}\n")
++          obj);
++
++    toInline = obj:
++      # Exclude drvs here, or we'll easily get infinite recursion.
++      if isAttrs obj && !isStringLike obj then
++        "{${concatStringsSep ","
++          (mapAttrsToList
++            (name: value: "${toJSON name}=${toInline value}")
++            obj)
++        }}"
++      else if isList obj then
++        "[${concatMapStringsSep "," toInline obj}]"
++      else if obj == null then
++        throw "“null” is not supported by TOML"
++      else if !isFloat obj then
++        # Strings, integers and booleans.
++        toJSON obj
++      # Sanitize +-inf and NaN. They'll produce "null", which is invalid for TOML.
++      else if obj == inf then
++        "inf"
++      else if obj == -inf then
++        "-inf"
++      else if obj != obj then
++        "nan"
++      else
++        toJSON obj;
++    in
++      {}: toTopLevel;
+ }
+diff --git a/lib/tests/misc.nix b/lib/tests/misc.nix
+index 408ea54162..aaf98ac953 100644
+--- a/lib/tests/misc.nix
++++ b/lib/tests/misc.nix
+@@ -1366,6 +1366,25 @@ runTests {
+       expected = builtins.toJSON val;
+   };
+ 
++  testToTOMLSimple =
++    let val = {
++      section = {
++        foo = "string\n\"";
++        "\"ba r\"" = [ true 4.2 ];
++        deep.nested = { };
++      };
++      list = [ { one = 1; } { two = 2; } ];
++      drv = { outPath = "/store/path"; };
++    };
++    in {
++      expr = generators.toTOML {} val;
++      expected = ''
++        "drv"="/store/path"
++        "list"=[{"one"=1},{"two"=2}]
++        "section"={"\"ba r\""=[true,4.2],"deep"={"nested"={}},"foo"="string\n\""}
++      '';
++  };
++
+   testToPretty =
+     let
+       deriv = derivation { name = "test"; builder = "/bin/sh"; system = "aarch64-linux"; };
