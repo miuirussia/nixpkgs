@@ -25,7 +25,6 @@
 , fzf
 , gawk
 , git
-, gnome
 , himalaya
 , htop
 , jq
@@ -58,6 +57,7 @@
 , xorg
 , xxd
 , zathura
+, zenity
 , zsh
 , # codeium-nvim dependencies
   codeium
@@ -79,6 +79,8 @@
 , CoreServices
 , # nvim-treesitter dependencies
   callPackage
+, # Preview-nvim dependencies
+  md-tui
 , # sg.nvim dependencies
   darwin
 , # sved dependencies
@@ -406,12 +408,12 @@
 
   codesnap-nvim =
     let
-      version = "1.3.1";
+      version = "1.5.2";
       src = fetchFromGitHub {
         owner = "mistricky";
         repo = "codesnap.nvim";
         rev = "refs/tags/v${version}";
-        hash = "sha256-nS/bAWsBQ1L4M9437Yp6FdmHoogzalKlLIAXnRZyMp0=";
+        hash = "sha256-r6/2pbojfzBdMoZHphE6BX5cEiCAmOWurPBptI6jjcw=";
       };
       codesnap-lib = rustPlatform.buildRustPackage {
         pname = "codesnap-lib";
@@ -419,7 +421,7 @@
 
         sourceRoot = "${src.name}/generator";
 
-        cargoHash = "sha256-FTQl5WIGEf+RQKYJ4BbIE3cCeN+NYUp7VXIrpxB05tU=";
+        cargoHash = "sha256-E8EywpyRSoknXSebnvqP178ZgAIahJeD5siD46KM/Mc=";
 
         nativeBuildInputs = [
           pkg-config
@@ -451,7 +453,10 @@
       doInstallCheck = true;
       nvimRequireCheck = "codesnap";
 
-      meta.homepage = "https://github.com/mistricky/codesnap.nvim/";
+      meta = {
+        homepage = "https://github.com/mistricky/codesnap.nvim/";
+        changelog = "https://github.com/mistricky/codesnap.nvim/releases/tag/v${version}";
+      };
     };
 
   command-t = super.command-t.overrideAttrs {
@@ -1162,11 +1167,16 @@
         inherit (old) version src;
         sourceRoot = "${old.src.name}/spectre_oxi";
 
-        cargoHash = "sha256-ZBlxJjkHb2buvXK6VGP6FMnSFk8RUX7IgHjNofnGDAs=";
+        cargoHash = "sha256-SqbU9YwZ5pvdFUr7XBAkkfoqiLHI0JwJRwH7Wj1JDNg=";
 
         preCheck = ''
           mkdir tests/tmp/
         '';
+
+        checkFlags = [
+          # Flaky test (https://github.com/nvim-pack/nvim-spectre/issues/244)
+          "--skip=tests::test_replace_simple"
+        ];
       };
     in
     {
@@ -1229,6 +1239,10 @@
     dependencies = with self; [ (nvim-treesitter.withPlugins (p: [ p.org ])) ];
   };
 
+  otter-nvim = super.otter-nvim.overrideAttrs {
+    dependencies = [ self.nvim-lspconfig ];
+  };
+
   overseer-nvim = super.overseer-nvim.overrideAttrs {
     doCheck = true;
     checkPhase = ''
@@ -1269,6 +1283,15 @@
 
     doInstallCheck = true;
     nvimRequireCheck = "plenary";
+  };
+
+  Preview-nvim = super.Preview-nvim.overrideAttrs {
+    patches = [
+      (substituteAll {
+        src = ./patches/preview-nvim/hardcode-mdt-binary-path.patch;
+        mdt = lib.getExe md-tui;
+      })
+    ];
   };
 
   range-highlight-nvim = super.range-highlight-nvim.overrideAttrs {
@@ -1344,12 +1367,12 @@
 
   sniprun =
     let
-      version = "1.3.13";
+      version = "1.3.14";
       src = fetchFromGitHub {
         owner = "michaelb";
         repo = "sniprun";
         rev = "refs/tags/v${version}";
-        hash = "sha256-PQ3nAZ+bMbHHJWD7cV6h1b3g3TzrakA/N8vVumIooMg=";
+        hash = "sha256-9vglmQ9sy0aCbj4H81ublHclpoSfOA7ss5CNdoX54sY=";
       };
       sniprun-bin = rustPlatform.buildRustPackage {
         pname = "sniprun-bin";
@@ -1359,7 +1382,7 @@
           darwin.apple_sdk.frameworks.Security
         ];
 
-        cargoHash = "sha256-I8R2V9zoLqiM4lu0D7URoVof68wtKHI+8T8fVrUg7i4=";
+        cargoHash = "sha256-p4rZBgB3xQC14hRRTjNZT1G1gbaKydlKu6MYNSLk6iA=";
 
         nativeBuildInputs = [ makeWrapper ];
 
@@ -1381,6 +1404,12 @@
       '';
 
       propagatedBuildInputs = [ sniprun-bin ];
+
+      meta = {
+        homepage = "https://github.com/michaelb/sniprun/";
+        changelog = "https://github.com/michaelb/sniprun/releases/tag/v${version}";
+        maintainers = with lib.maintainers; [ GaetanLepage ];
+      };
     };
 
   # The GitHub repository returns 404, which breaks the update script
@@ -1593,7 +1622,7 @@
 
   vCoolor-vim = super.vCoolor-vim.overrideAttrs {
     # on linux can use either Zenity or Yad.
-    propagatedBuildInputs = [ gnome.zenity ];
+    propagatedBuildInputs = [ zenity ];
     meta = {
       description = "Simple color selector/picker plugin";
       license = lib.licenses.publicDomain;

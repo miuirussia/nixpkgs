@@ -47,13 +47,13 @@ let
 in
 stdenv'.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.16.0";
+  version = "2.17.2";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = finalAttrs.version;
-    hash = "sha256-dfgRRh8yJUDkMgl32ddx8iQElwRt0hCBsObud7rbTYQ=";
+    hash = "sha256-XQ0A1eeajiExrD440FVj5STjyMTYdIK0SyysFo/tF3o=";
   };
 
   outputs = [ "out" "man" ];
@@ -138,6 +138,10 @@ stdenv'.mkDerivation (finalAttrs: {
     (lib.cmakeOptionType "filepath" "CUSTOM_PCI_IDS_PATH" "${hwdata}/share/hwdata/pci.ids")
     (lib.cmakeOptionType "filepath" "CUSTOM_AMDGPU_IDS_PATH" "${libdrm}/share/libdrm/amdgpu.ids")
   ];
+
+  postPatch = ''
+    substituteInPlace completions/fastfetch.fish --replace-fail python3 '${python3.interpreter}'
+  '';
 
   postInstall = ''
     wrapProgram $out/bin/fastfetch \
