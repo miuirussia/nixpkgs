@@ -4657,6 +4657,8 @@ self: super: with self; {
 
   openllm-core = callPackage ../development/python-modules/openllm-core { };
 
+  openstep-parser = callPackage ../development/python-modules/openstep-parser { };
+
   openstep-plist = callPackage ../development/python-modules/openstep-plist { };
 
   glyphsets = callPackage ../development/python-modules/glyphsets { };
@@ -6744,9 +6746,15 @@ self: super: with self; {
 
   lakeside = callPackage ../development/python-modules/lakeside { };
 
+  lammps = callPackage ../development/python-modules/lammps {
+    inherit (pkgs) lammps;
+  };
+
   lancedb = callPackage ../development/python-modules/lancedb { };
 
   langchain = callPackage ../development/python-modules/langchain { };
+
+  langchain-aws = callPackage ../development/python-modules/langchain-aws { };
 
   langchain-azure-dynamic-sessions = callPackage ../development/python-modules/langchain-azure-dynamic-sessions { };
 
@@ -6762,6 +6770,8 @@ self: super: with self; {
 
   langchain-openai = callPackage ../development/python-modules/langchain-openai { };
 
+  langchain-standard-tests = callPackage ../development/python-modules/langchain-standard-tests { };
+
   langchain-text-splitters = callPackage ../development/python-modules/langchain-text-splitters { };
 
   langcodes = callPackage ../development/python-modules/langcodes { };
@@ -6771,6 +6781,12 @@ self: super: with self; {
   langfuse = callPackage ../development/python-modules/langfuse { };
 
   langgraph = callPackage ../development/python-modules/langgraph { };
+
+  langgraph-checkpoint = callPackage ../development/python-modules/langgraph-checkpoint { };
+
+  langgraph-checkpoint-postgres = callPackage ../development/python-modules/langgraph-checkpoint-postgres { };
+
+  langgraph-checkpoint-sqlite = callPackage ../development/python-modules/langgraph-checkpoint-sqlite { };
 
   langgraph-cli = callPackage ../development/python-modules/langgraph-cli { };
 
@@ -9693,6 +9709,8 @@ self: super: with self; {
 
   osc-sdk-python = callPackage ../development/python-modules/osc-sdk-python { };
 
+  oschmod = callPackage ../development/python-modules/oschmod { };
+
   oscpy = callPackage ../development/python-modules/oscpy { };
 
   oscrypto = callPackage ../development/python-modules/oscrypto { };
@@ -10249,8 +10267,6 @@ self: super: with self; {
     inherit (pkgs.qt5) qtbase qmake;
     inherit (pkgs.libsForQt5) soqt;
   };
-
-  pixelmatch = callPackage ../development/python-modules/pixelmatch { };
 
   pixel-font-builder = callPackage ../development/python-modules/pixel-font-builder { };
 
@@ -14500,6 +14516,8 @@ self: super: with self; {
 
   sipyco = callPackage ../development/python-modules/sipyco { };
 
+  sismic = callPackage ../development/python-modules/sismic { };
+
   sisyphus-control = callPackage ../development/python-modules/sisyphus-control { };
 
   siuba = callPackage ../development/python-modules/siuba { };
@@ -14705,6 +14723,8 @@ self: super: with self; {
   somajo = callPackage ../development/python-modules/somajo { };
 
   somfy-mylink-synergy = callPackage ../development/python-modules/somfy-mylink-synergy { };
+
+  somweb = callPackage ../development/python-modules/somweb { };
 
   sonarr = callPackage ../development/python-modules/sonarr { };
 
