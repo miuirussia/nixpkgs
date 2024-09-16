@@ -735,6 +735,10 @@
     };
   };
 
+  diagram-nvim = super.diagram-nvim.overrideAttrs {
+    dependencies = with self; [ image-nvim ];
+  };
+
   diffview-nvim = super.diffview-nvim.overrideAttrs {
     dependencies = with self; [ plenary-nvim ];
 
@@ -870,6 +874,10 @@
 
   gitsigns-nvim = super.gitsigns-nvim.overrideAttrs {
     dependencies = with self; [ plenary-nvim ];
+  };
+
+  git-worktree-nvim = super.git-worktree-nvim.overrideAttrs {
+    dependencies = with super; [ plenary-nvim ];
   };
 
   guard-nvim = super.guard-nvim.overrideAttrs {
@@ -1051,6 +1059,8 @@
   };
 
   lz-n = neovimUtils.buildNeovimPlugin { luaAttr = "lz-n"; };
+
+  lze = neovimUtils.buildNeovimPlugin { luaAttr = "lze"; };
 
   lzn-auto-require = neovimUtils.buildNeovimPlugin { luaAttr = "lzn-auto-require"; };
 
