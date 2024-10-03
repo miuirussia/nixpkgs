@@ -1,0 +1,182 @@
+diff --git a/pkgs/by-name/li/libcapsule/mkCapsule.nix b/pkgs/by-name/li/libcapsule/mkCapsule.nix
+new file mode 100644
+index 0000000000..e9e05a0b18
+--- /dev/null
++++ b/pkgs/by-name/li/libcapsule/mkCapsule.nix
+@@ -0,0 +1,65 @@
++{
++  lib,
++  stdenv,
++  runCommand,
++  autoreconfHook,
++  autoconf,
++  automake,
++  getopt,
++  pkg-config,
++  libcapsule,
++  libtool,
++}:
++
++{
++  pname,
++  dependencies,
++  objects,
++  meta ? {},
++}@args:
++
++stdenv.mkDerivation (finalAttrs: {
++  inherit pname;
++  inherit (libcapsule) version;
++
++  outputs = [ "out" "dev" ];
++
++  src = runCommand "${pname}-src" {
++    nativeBuildInputs = [
++      autoconf
++      automake
++      libtool
++      pkg-config
++    ];
++    buildInputs = [
++      libcapsule
++    ];
++    LD_LIBRARY_PATH = lib.makeLibraryPath dependencies;
++  } ''
++    capsule-init-project --destination=$out --package-name=${pname} --runtime-tree="/" ${lib.concatStringsSep " " objects}
++  '';
++
++  nativeBuildInputs = [
++    autoreconfHook
++    pkg-config
++    getopt
++  ];
++  buildInputs = [
++    libcapsule
++  ];
++
++  # Do hacky stuff to pull dev outputs from dependencies that have them
++  postInstall = ''
++    mkdir -p $dev/include $dev/lib/pkgconfig
++  '' + (lib.concatStringsSep "\n" (builtins.map (dep: ''
++    cp -r ${dep.dev}/include/. $dev/include/
++    for pc in $(find ${dep.dev}/lib/pkgconfig -printf "%P\n"); do
++      cat "${dep.dev}/lib/pkgconfig/$pc" | sed "s|${dep}|$out|g" | sed "s|${dep.dev}|$dev|g" > $dev/lib/pkgconfig/$pc
++    done
++  '') (builtins.filter (dep: builtins.hasAttr "dev" dep) dependencies)));
++
++  meta = {
++    description = "libcapsule-wrapped ${lib.concatStringsSep ", " objects}";
++    license = lib.licenses.gpl3Plus;
++  } // meta;
++})
+diff --git a/pkgs/by-name/li/libcapsule/package.nix b/pkgs/by-name/li/libcapsule/package.nix
+new file mode 100644
+index 0000000000..bd1cfc564f
+--- /dev/null
++++ b/pkgs/by-name/li/libcapsule/package.nix
+@@ -0,0 +1,72 @@
++{
++  lib,
++  stdenv,
++  fetchFromGitLab,
++  autoreconfHook,
++  autoconf-archive,
++  elfutils,
++  getopt,
++  gtk-doc,
++  intltool,
++  libtool,
++  makeWrapper,
++  patchelf,
++  pkg-config,
++}:
++stdenv.mkDerivation (finalAttrs: {
++  pname = "libcapsule";
++  version = "0.20240806.0";
++
++  src = fetchFromGitLab {
++    domain = "gitlab.collabora.com";
++    owner = "vivek";
++    repo = "libcapsule";
++    rev = "refs/tags/v${finalAttrs.version}";
++    hash = "sha256-aJV1u047hCVZhuLvAKe8JvoLe/vGkuuCs/LvD+bLTGU=";
++  };
++  
++  postPatch = ''
++    patchShebangs data
++  '';
++
++  configureFlags = [ "--enable-host-prefix=no" ];
++
++  nativeBuildInputs = [
++    autoreconfHook
++    autoconf-archive
++    getopt
++    gtk-doc
++    intltool
++    libtool
++    makeWrapper
++    patchelf
++    pkg-config
++  ];
++
++  buildInputs = [
++    elfutils
++  ];
++
++  postInstall = ''
++    # Manually remove /build/source/tests/.libs from the rpath of this specific test binary
++    patchelf --shrink-rpath --allowed-rpath-prefixes /nix/store $out/libexec/installed-tests/libcapsule/tests/libcapsule-test-dependent-runpath.so.1
++
++    # Tell programs where to find files
++    wrapProgram $out/bin/capsule-init-project \
++      --prefix PATH : ${lib.makeBinPath [ getopt pkg-config ]} \
++      --set CAPSULE_MKINC $out/share/libcapsule/ \
++      --set CAPSULE_SYMBOLS_TOOL $out/bin/capsule-symbols \
++      --set CAPSULE_VERSION_TOOL $out/bin/capsule-version
++    wrapProgram $out/bin/capsule-mkstublib \
++      --prefix PATH : ${lib.makeBinPath [ pkg-config ]} \
++      --set CAPSULE_SYMBOLS_TOOL $out/bin/capsule-symbols
++  '';
++
++  meta = {
++    description = "Segregated dynamic linking library";
++    homepage = "https://gitlab.collabora.com/vivek/libcapsule";
++    mainProgram = "capsule-init-project";
++    license = lib.licenses.gpl3Plus;
++    maintainers = with lib.maintainers; [ pandapip1 ];
++  };
++})
+diff --git a/pkgs/by-name/li/libglcapsule/package.nix b/pkgs/by-name/li/libglcapsule/package.nix
+new file mode 100644
+index 0000000000..057b6b8540
+--- /dev/null
++++ b/pkgs/by-name/li/libglcapsule/package.nix
+@@ -0,0 +1,14 @@
++{
++  lib,
++  mkCapsule,
++  libglvnd,
++}:
++
++mkCapsule {
++  pname = "libglcapsule";
++  dependencies = [ libglvnd ];
++  objects = [ "libGL.so" "libEGL.so" "libGLESv1_CM.so" "libGLESv2.so" "libGLX.so" "libOpenGL.so" ];
++  meta = {
++    maintainers = with lib.maintainers; [ pandapip1 ];
++  };
++}
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index b3c51bf2c0..238fb88c56 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -24124,6 +24124,8 @@ with pkgs;
+     faslExt = "fas";
+   };
+ 
++  mkCapsule = callPackage ../../pkgs/by-name/li/libcapsule/mkCapsule.nix { };
++
+   # Steel Bank Common Lisp
+   sbcl_2_4_6 = wrapLisp {
+     pkg = callPackage ../development/compilers/sbcl { version = "2.4.6"; };
