@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "refs/tags/v${finalAttrs.version}";
     hash = "sha256-aJV1u047hCVZhuLvAKe8JvoLe/vGkuuCs/LvD+bLTGU=";
   };
-
+  
   postPatch = ''
     patchShebangs data
   '';
@@ -43,7 +43,9 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ elfutils ];
+  buildInputs = [
+    elfutils
+  ];
 
   postInstall = ''
     # Manually remove /build/source/tests/.libs from the rpath of this specific test binary
@@ -51,12 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Tell programs where to find files
     wrapProgram $out/bin/capsule-init-project \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          getopt
-          pkg-config
-        ]
-      } \
+      --prefix PATH : ${lib.makeBinPath [ getopt pkg-config ]} \
       --set CAPSULE_MKINC $out/share/libcapsule/ \
       --set CAPSULE_SYMBOLS_TOOL $out/bin/capsule-symbols \
       --set CAPSULE_VERSION_TOOL $out/bin/capsule-version
