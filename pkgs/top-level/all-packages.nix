@@ -196,6 +196,8 @@ with pkgs;
 
   appimageTools = callPackage ../build-support/appimage { };
 
+  appimageupdate-qt = appimageupdate.override { withQtUI = true; };
+
   appindicator-sharp = callPackage ../development/libraries/appindicator-sharp { };
 
   bindle = callPackage ../servers/bindle {
@@ -21025,10 +21027,6 @@ with pkgs;
 
   libhugetlbfs = callPackage ../development/libraries/libhugetlbfs { };
 
-  libhv = callPackage ../development/libraries/libhv {
-    inherit (darwin.apple_sdk.frameworks) Security;
-  };
-
   libhwy = callPackage ../development/libraries/libhwy { };
 
   libHX = callPackage ../development/libraries/libHX { };
@@ -24372,8 +24370,6 @@ with pkgs;
 
   ircdHybrid = callPackage ../servers/irc/ircd-hybrid { };
 
-  janus-gateway = callPackage ../servers/janus-gateway { };
-
   janusgraph = callPackage ../servers/nosql/janusgraph { };
 
   jboss = callPackage ../servers/http/jboss { };
@@ -25968,9 +25964,11 @@ with pkgs;
     fetchurl = import ../build-support/fetchurl/boot.nix {
       inherit (stdenv.buildPlatform) system;
     };
-    checkMeta = callPackage ../stdenv/generic/check-meta.nix { };
+    checkMeta = callPackage ../stdenv/generic/check-meta.nix { inherit (stdenv) hostPlatform; };
   });
-  minimal-bootstrap-sources = callPackage ../os-specific/linux/minimal-bootstrap/stage0-posix/bootstrap-sources.nix { };
+  minimal-bootstrap-sources = callPackage ../os-specific/linux/minimal-bootstrap/stage0-posix/bootstrap-sources.nix {
+    inherit (stdenv) hostPlatform;
+  };
   make-minimal-bootstrap-sources = callPackage ../os-specific/linux/minimal-bootstrap/stage0-posix/make-bootstrap-sources.nix {
     inherit (stdenv) hostPlatform;
   };
@@ -28406,8 +28404,6 @@ with pkgs;
 
   catt = callPackage ../applications/video/catt { };
 
-  cava = callPackage ../applications/audio/cava { };
-
   cb2bib = libsForQt5.callPackage ../applications/office/cb2bib { };
 
   cbatticon = callPackage ../applications/misc/cbatticon { };
@@ -28989,8 +28985,6 @@ with pkgs;
   keepass-qrcodeview = callPackage ../applications/misc/keepass-plugins/qrcodeview { };
 
   kerbrute = callPackage ../tools/security/kerbrute { };
-
-  komikku = callPackage ../applications/graphics/komikku { };
 
   kvmtool = callPackage ../applications/virtualization/kvmtool { };
 
@@ -30236,7 +30230,7 @@ with pkgs;
 
   jaeles = callPackage ../tools/security/jaeles { };
 
-  jalv = callPackage ../applications/audio/jalv { };
+  jalv-qt = jalv.override { useQt = true; };
 
   jameica = callPackage ../applications/office/jameica {
     inherit (darwin.apple_sdk.frameworks) Cocoa;
@@ -32245,8 +32239,6 @@ with pkgs;
   scantailor-universal = libsForQt5.callPackage ../applications/graphics/scantailor/universal.nix { };
 
   sc-im = callPackage ../applications/misc/sc-im { };
-
-  scite = callPackage ../applications/editors/scite { };
 
   scli = callPackage ../applications/misc/scli { };
 
@@ -37086,13 +37078,9 @@ with pkgs;
 
   gummi = callPackage ../applications/misc/gummi { };
 
-  gummy = callPackage ../tools/misc/gummy { };
-
   hashpump = callPackage ../tools/misc/hashpump { };
 
   hck = callPackage ../tools/text/hck { };
-
-  helm = callPackage ../applications/audio/helm { };
 
   helmfile = callPackage ../applications/networking/cluster/helmfile { };
 
