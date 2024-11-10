@@ -16,9 +16,9 @@ let
 
   sha256 = {
     x86_64-linux = "0f9ncclc1gii75yvk6hcfa5v8k1xd44whzfpvmcddxwjcr9pzjf3";
-    x86_64-darwin = "";
+    x86_64-darwin = "0cgnmqg680pagv06wdx9ngpma7fldsxrd1a5bmsixdk20ng1z8hg";
     aarch64-linux = "0ajx7vblr05czsnkws3kb5mrinn10ayk71ivsw3cbrqylm8qix0b";
-    aarch64-darwin = "";
+    aarch64-darwin = "0g4blykfaxj5qdc1xsci61jckcx7l4bigizcshr71hcj1dhm6i5m";
     armv7l-linux = "1ykdmsik5j61ys4wsdbmh96vkycs2zv7khjyxqngc66s1fk966r1";
   }.${system} or throwSystem;
 
