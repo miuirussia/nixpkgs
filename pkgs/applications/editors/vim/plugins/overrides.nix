@@ -496,15 +496,18 @@ in
       '';
 
       doCheck = true;
-      checkInputs = [ jq ];
+      checkInputs = [
+        jq
+        codeium'
+      ];
       checkPhase = ''
         runHook preCheck
 
         expected_codeium_version=$(jq -r '.version' lua/codeium/versions.json)
-        actual_codeium_version=$(${codeium'}/bin/codeium_language_server --version)
+        actual_codeium_version=$(codeium_language_server --version)
 
         expected_codeium_stamp=$(jq -r '.stamp' lua/codeium/versions.json)
-        actual_codeium_stamp=$(${codeium'}/bin/codeium_language_server --stamp | grep STABLE_BUILD_SCM_REVISION | cut -d' ' -f2)
+        actual_codeium_stamp=$(codeium_language_server --stamp | grep STABLE_BUILD_SCM_REVISION | cut -d' ' -f2)
 
         if [ "$actual_codeium_stamp" != "$expected_codeium_stamp" ]; then
           echo "
@@ -883,6 +886,13 @@ in
             "let s:direnv_cmd = get(g:, 'direnv_cmd', '${lib.getBin direnv}/bin/direnv')"
       '';
   });
+
+  dotnet-nvim = super.dotnet-nvim.overrideAttrs {
+    dependencies = with self; [
+      telescope-nvim
+      plenary-nvim
+    ];
+  };
 
   efmls-configs-nvim = super.efmls-configs-nvim.overrideAttrs {
     dependencies = [ self.nvim-lspconfig ];
@@ -1851,6 +1861,10 @@ in
 
   nvim-fzf-commands = super.nvim-fzf-commands.overrideAttrs {
     dependencies = [ self.nvim-fzf ];
+  };
+
+  nvim-dap-lldb = super.nvim-dap-lldb.overrideAttrs {
+    dependencies = [ self.nvim-dap ];
   };
 
   nvim-dap-python = super.nvim-dap-python.overrideAttrs {
