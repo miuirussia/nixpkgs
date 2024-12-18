@@ -20,8 +20,8 @@ update_vscodium () {
   ARCH_LONG=$3
   ARCHIVE_FMT=$4
   VSCODIUM_URL="https://github.com/VSCodium/vscodium/releases/download/${VSCODIUM_VER}/VSCodium-${ARCH}-${VSCODIUM_VER}.${ARCHIVE_FMT}"
-  VSCODIUM_SHA256=$(nix-prefetch-url ${VSCODIUM_URL})
-  sed -i "s/${ARCH_LONG} = \"[0-9a-fA-F]\{40,64\}\"/${ARCH_LONG} = \"${VSCODIUM_SHA256}\"/" "$ROOT/vscodium.nix"
+  VSCODIUM_SHA256="$(nix store prefetch-file --json ${VSCODIUM_URL} | jq -r .hash)"
+  sed -i "/\(linux-x64\|darwin-x64\|linux-arm64\|darwin-arm64\|linux-armhf\)/! s|${ARCH_LONG} = \"[^\"]*\";|${ARCH_LONG} = \"${VSCODIUM_SHA256}\";|" "$ROOT/vscodium.nix"
 }
 
 # VSCodium
@@ -29,12 +29,12 @@ update_vscodium () {
 VSCODIUM_VER=$(curl -Ls -w %{url_effective} -o /dev/null https://github.com/VSCodium/vscodium/releases/latest | awk -F'/' '{print $NF}')
 sed -i "s/version = \".*\"/version = \"${VSCODIUM_VER}\"/" "$ROOT/vscodium.nix"
 
-update_vscodium $VSCODIUM_VER linux-x64 x86_64-linux tar.gz
+update_vscodium $VSCODIUM_VER linux-x64 x86_64-linux tar.gz || echo "Failed to update linux-x64"
 
-update_vscodium $VSCODIUM_VER darwin-x64 x86_64-darwin zip
+update_vscodium $VSCODIUM_VER darwin-x64 x86_64-darwin zip || echo "Failed to update darwin-x64"
 
-update_vscodium $VSCODIUM_VER linux-arm64 aarch64-linux tar.gz
+update_vscodium $VSCODIUM_VER linux-arm64 aarch64-linux tar.gz || echo "Failed to update linux-arm64"
 
-update_vscodium $VSCODIUM_VER darwin-arm64 aarch64-darwin zip
+update_vscodium $VSCODIUM_VER darwin-arm64 aarch64-darwin zip || echo "Failed to update darwin-arm64"
 
-update_vscodium $VSCODIUM_VER linux-armhf armv7l-linux tar.gz
+update_vscodium $VSCODIUM_VER linux-armhf armv7l-linux tar.gz || echo "Failed to update linux-armhf"

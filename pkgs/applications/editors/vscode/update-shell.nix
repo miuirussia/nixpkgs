@@ -13,8 +13,6 @@ mkShell {
     gnugrep
     gnused
     jq
-    nix
-    nix-prefetch
-    nix-prefetch-scripts
+    nixVersions.git
   ];
 }
