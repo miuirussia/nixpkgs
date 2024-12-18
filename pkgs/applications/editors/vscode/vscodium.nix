@@ -41,7 +41,7 @@ callPackage ./generic.nix rec {
 
   # Please backport all compatible updates to the stable release.
   # This is important for the extension ecosystem.
-  version = "1.96.0.24347";
+  version = "1.96.0.24352";
   pname = "vscodium";
 
   executableName = "codium";
