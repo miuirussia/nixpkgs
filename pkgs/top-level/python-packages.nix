@@ -2831,6 +2831,10 @@ self: super: with self; {
 
   cu2qu = callPackage ../development/python-modules/cu2qu { };
 
+  curated-tokenizers = callPackage ../development/python-modules/curated-tokenizers { };
+
+  curated-transformers = callPackage ../development/python-modules/curated-transformers { };
+
   customtkinter = callPackage ../development/python-modules/customtkinter { };
 
   cucumber-tag-expressions = callPackage ../development/python-modules/cucumber-tag-expressions { };
@@ -3415,8 +3419,6 @@ self: super: with self; {
   django-admin-sortable2 = callPackage ../development/python-modules/django-admin-sortable2 { };
 
   django-allauth = callPackage ../development/python-modules/django-allauth { };
-
-  django-allauth-2fa = callPackage ../development/python-modules/django-allauth-2fa { };
 
   django-anymail = callPackage ../development/python-modules/django-anymail { };
 
@@ -15230,6 +15232,8 @@ self: super: with self; {
 
   snowflake-sqlalchemy = callPackage ../development/python-modules/snowflake-sqlalchemy { };
 
+  snowplow-tracker = callPackage ../development/python-modules/snowplow-tracker { };
+
   snscrape = callPackage ../development/python-modules/snscrape { };
 
   snuggs = callPackage ../development/python-modules/snuggs { };
@@ -15326,6 +15330,8 @@ self: super: with self; {
   };
 
   spacy-alignments = callPackage ../development/python-modules/spacy-alignments { };
+
+  spacy-curated-transformers = callPackage ../development/python-modules/spacy-curated-transformers { };
 
   spacy-legacy = callPackage ../development/python-modules/spacy/legacy.nix { };
 
@@ -15773,6 +15779,10 @@ self: super: with self; {
 
   stop-words = callPackage ../development/python-modules/stop-words { };
 
+  stp = toPythonModule (pkgs.stp.override {
+    python3 = self.python;
+  });
+
   stransi = callPackage ../development/python-modules/stransi { };
 
   strategies = callPackage ../development/python-modules/strategies { };
@@ -15936,6 +15946,8 @@ self: super: with self; {
   symengine = callPackage ../development/python-modules/symengine {
     inherit (pkgs) symengine;
   };
+
+  symfc = callPackage ../development/python-modules/symfc { };
 
   sympy = callPackage ../development/python-modules/sympy { };
 

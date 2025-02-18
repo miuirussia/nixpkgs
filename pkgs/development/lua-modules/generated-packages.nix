@@ -2586,6 +2586,29 @@ buildLuarocksPackage {
   };
 }) {};
 
+lzextras = callPackage({ buildLuarocksPackage, fetchurl, fetchzip, luaOlder }:
+buildLuarocksPackage {
+  pname = "lzextras";
+  version = "0.1.19-1";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/lzextras-0.1.19-1.rockspec";
+    sha256 = "1wdkikn246b25c8j6984nz0c7fr6vz4rbjfl4wq4785jkf4k95mc";
+  }).outPath;
+  src = fetchzip {
+    url    = "https://github.com/BirdeeHub/lzextras/archive/v0.1.19.zip";
+    sha256 = "0hq5939lygmi8i8rhqhxsjr98aixrlr7m2sb0kxppca6pb18g38c";
+  };
+
+  disabled = luaOlder "5.1";
+
+  meta = {
+    homepage = "https://github.com/BirdeeHub/lzextras";
+    description = "A collection of utilities and handlers for BirdeeHub/lze";
+    maintainers = with lib.maintainers; [ birdee ];
+    license.fullName = "GPL-2+";
+  };
+}) {};
+
 lzn-auto-require = callPackage({ buildLuarocksPackage, fetchurl, fetchzip, luaOlder, lz-n }:
 buildLuarocksPackage {
   pname = "lzn-auto-require";
@@ -2950,6 +2973,29 @@ buildLuarocksPackage {
   meta = {
     homepage = "https://github.com/nvim-tree/nvim-web-devicons";
     description = "Nerd Font icons for neovim";
+    license.fullName = "MIT";
+  };
+}) {};
+
+oil-nvim = callPackage({ buildLuarocksPackage, fetchurl, fetchzip, luaOlder, nvim-web-devicons }:
+buildLuarocksPackage {
+  pname = "oil.nvim";
+  version = "2.15.0-1";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/oil.nvim-2.15.0-1.rockspec";
+    sha256 = "0xkych23rn6jpj4hbam1j7ca1gwb9z3lzfm7id3dvcqj8aysv77j";
+  }).outPath;
+  src = fetchzip {
+    url    = "https://github.com/stevearc/oil.nvim/archive/v2.15.0.zip";
+    sha256 = "0rrv7wg0nwfj5fd6byxs4np1p18xxdzyv11ba6vqqh3s6z0qwawc";
+  };
+
+  disabled = luaOlder "5.1";
+  propagatedBuildInputs = [ nvim-web-devicons ];
+
+  meta = {
+    homepage = "https://github.com/stevearc/oil.nvim";
+    description = "Neovim file explorer: edit your filesystem like a buffer";
     license.fullName = "MIT";
   };
 }) {};
