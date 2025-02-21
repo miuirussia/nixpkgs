@@ -5704,12 +5704,7 @@ with pkgs;
   };
 
   inherit (darwin.apple_sdk_11_0.callPackage ../development/compilers/crystal { })
-    crystal_1_2
-    crystal_1_7
-    crystal_1_8
-    crystal_1_9
     crystal_1_11
-    crystal_1_12
     crystal_1_14
     crystal_1_15
     crystal;
@@ -7473,9 +7468,9 @@ with pkgs;
   antlr = antlr4;
 
   inherit (callPackages ../servers/apache-kafka { })
-    apacheKafka_3_6
     apacheKafka_3_7
-    apacheKafka_3_8;
+    apacheKafka_3_8
+    apacheKafka_3_9;
 
   apacheKafka = apacheKafka_3_8;
 
@@ -8215,10 +8210,6 @@ with pkgs;
     # TODO: Erroneous references to GHC on aarch64-darwin: https://github.com/NixOS/nixpkgs/issues/318013
     (if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then lib.id else haskell.lib.compose.justStaticExecutables)
     haskellPackages.shake;
-
-  inherit (callPackage ../development/tools/build-managers/shards { })
-    shards_0_17
-    shards;
 
   shellcheck = callPackage ../development/tools/shellcheck {
     inherit (__splicedPackages.haskellPackages) ShellCheck;
@@ -14594,10 +14585,6 @@ with pkgs;
   obs-studio-plugins = recurseIntoAttrs (callPackage ../applications/video/obs-studio/plugins {});
   wrapOBS = callPackage ../applications/video/obs-studio/wrapper.nix { };
 
-  obsidian = callPackage ../by-name/ob/obsidian/package.nix {
-    electron = electron_33;
-  };
-
   okms-cli = callPackage ../by-name/ok/okms-cli/package.nix {
     buildGoModule = buildGo123Module;
   };
@@ -15789,7 +15776,7 @@ with pkgs;
   youtube-dl-light = with python3Packages; toPythonApplication youtube-dl-light;
 
   youtube-music = callPackage ../applications/audio/youtube-music {
-    pnpm = pnpm_9;
+    pnpm = pnpm_10;
   };
 
   youtube-tui = callPackage ../applications/video/youtube-tui {
@@ -17364,10 +17351,6 @@ with pkgs;
 
   pythia = callPackage ../development/libraries/physics/pythia {
     hepmc = hepmc2;
-  };
-
-  rivet = callPackage ../development/libraries/physics/rivet {
-    imagemagick = graphicsmagick-imagemagick-compat;
   };
 
   yoda-with-root = lowPrio (yoda.override {
