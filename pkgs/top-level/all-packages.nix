@@ -503,6 +503,7 @@ with pkgs;
       antlr = antlr4_10;
       icu =  icu73;
       protobuf = protobuf_24;
+      stdenv = if stdenv.hostPlatform.isDarwin then llvmPackages_18.stdenv else stdenv;
     };
   })
   mysql-shell_8
@@ -1057,6 +1058,8 @@ with pkgs;
 
   pricehist = python3Packages.callPackage ../tools/misc/pricehist { };
 
+  py7zr = with python3Packages; toPythonApplication py7zr;
+
   q = callPackage ../tools/networking/q { };
 
   qFlipper = libsForQt5.callPackage ../tools/misc/qflipper { };
@@ -1157,6 +1160,7 @@ with pkgs;
 
   gitMinimal = git.override {
     withManual = false;
+    osxkeychainSupport = false;
     pythonSupport = false;
     perlSupport = false;
     withpcre2 = false;
@@ -2963,6 +2967,7 @@ with pkgs;
   cudaPackages_12_2 = callPackage ./cuda-packages.nix { cudaVersion = "12.2"; };
   cudaPackages_12_3 = callPackage ./cuda-packages.nix { cudaVersion = "12.3"; };
   cudaPackages_12_4 = callPackage ./cuda-packages.nix { cudaVersion = "12.4"; };
+  cudaPackages_12_6 = callPackage ./cuda-packages.nix { cudaVersion = "12.6"; };
   cudaPackages_12 = cudaPackages_12_4; # Latest supported by cudnn
 
   cudaPackages = recurseIntoAttrs cudaPackages_12;
@@ -3939,15 +3944,7 @@ with pkgs;
 
   maskromtool = qt6Packages.callPackage ../tools/graphics/maskromtool { };
 
-  matrix-synapse = callPackage ../servers/matrix-synapse/wrapper.nix { };
-  matrix-synapse-unwrapped = callPackage ../servers/matrix-synapse/default.nix { };
   matrix-synapse-plugins = recurseIntoAttrs matrix-synapse-unwrapped.plugins;
-  matrix-synapse-tools = recurseIntoAttrs matrix-synapse-unwrapped.tools;
-
-  matrix-appservice-slack = callPackage ../servers/matrix-synapse/matrix-appservice-slack {
-    matrix-sdk-crypto-nodejs = matrix-sdk-crypto-nodejs-0_1_0-beta_3;
-    nodejs = nodejs_18;
-  };
 
   matrix-appservice-discord = callPackage ../servers/matrix-appservice-discord { };
 
@@ -4164,7 +4161,6 @@ with pkgs;
   };
 
   matrix-sdk-crypto-nodejs = callPackage ../development/libraries/matrix-sdk-crypto-nodejs { };
-  matrix-sdk-crypto-nodejs-0_1_0-beta_3 = callPackage ../development/libraries/matrix-sdk-crypto-nodejs/beta3.nix { };
 
   makemkv = libsForQt5.callPackage ../applications/video/makemkv { };
 
@@ -5533,19 +5529,18 @@ with pkgs;
   ### SHELLS
 
   runtimeShell = "${runtimeShellPackage}${runtimeShellPackage.shellPath}";
-  runtimeShellPackage = bash;
+  runtimeShellPackage = bashNonInteractive;
 
-  bash = lowPrio (callPackage ../shells/bash/5.nix { });
+  bash = callPackage ../shells/bash/5.nix { };
+  bashNonInteractive = lowPrio (callPackage ../shells/bash/5.nix {
+    interactive = false;
+  });
   # WARNING: this attribute is used by nix-shell so it shouldn't be removed/renamed
-  bashInteractive = callPackage ../shells/bash/5.nix {
-    interactive = true;
-    withDocs = true;
-  };
-  bashInteractiveFHS = callPackage ../shells/bash/5.nix {
-    interactive = true;
-    withDocs = true;
+  bashInteractive = bash;
+  bashFHS = callPackage ../shells/bash/5.nix {
     forFHSEnv = true;
   };
+  bashInteractiveFHS = bashFHS;
 
   carapace = callPackage ../shells/carapace {
     buildGoModule = buildGo123Module;
@@ -5592,6 +5587,9 @@ with pkgs;
 
   semeru-bin = semeru-bin-21;
   semeru-jre-bin = semeru-jre-bin-21;
+
+  adaptivecppWithCuda = adaptivecpp.override { cudaSupport = true; };
+  adaptivecppWithRocm = adaptivecpp.override { rocmSupport = true; };
 
   adoptopenjdk-icedtea-web = callPackage ../development/compilers/adoptopenjdk-icedtea-web {
     jdk = jdk8;
@@ -6647,9 +6645,6 @@ with pkgs;
 
   opensmalltalk-vm = callPackage ../development/compilers/opensmalltalk-vm { };
 
-  opensycl = darwin.apple_sdk_11_0.callPackage ../development/compilers/opensycl { };
-  opensyclWithRocm = opensycl.override { rocmSupport = true; };
-
   rustfmt = rustPackages.rustfmt;
   rust-bindgen-unwrapped = callPackage ../development/tools/rust/bindgen/unwrapped.nix { };
   rust-bindgen = callPackage ../development/tools/rust/bindgen { };
@@ -7301,9 +7296,6 @@ with pkgs;
 
   inherit
     ({
-      spidermonkey_78 = callPackage ../development/interpreters/spidermonkey/78.nix {
-        inherit (darwin) libobjc;
-      };
       spidermonkey_91 = callPackage ../development/interpreters/spidermonkey/91.nix {
         inherit (darwin) libobjc;
       };
@@ -7314,7 +7306,6 @@ with pkgs;
         inherit (darwin) libobjc;
       };
     })
-    spidermonkey_78
     spidermonkey_91
     spidermonkey_115
     spidermonkey_128
@@ -8562,10 +8553,8 @@ with pkgs;
   celt_0_7 = callPackage ../development/libraries/celt/0.7.nix { };
   celt_0_5_1 = callPackage ../development/libraries/celt/0.5.1.nix { };
 
-  certbot = python3.pkgs.toPythonApplication python3.pkgs.certbot;
-
   certbot-full = certbot.withPlugins (cp: with cp; [
-    certbot-dns-cloudflare
+    # FIXME unbreak certbot-dns-cloudflare
     certbot-dns-google
     certbot-dns-ovh
     certbot-dns-rfc2136
@@ -9230,7 +9219,7 @@ with pkgs;
   #
   # `icuReal` is provided in case the upstream icu package is needed on Darwin instead of the fork.
   # Note that the versioned icu packages always correspond to the upstream versions.
-  icuReal = icu74;
+  icuReal = icu76;
   icu = if stdenv.hostPlatform.isDarwin then darwin.ICU else icuReal;
 
   idasen = with python3Packages; toPythonApplication idasen;
@@ -9511,8 +9500,6 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) IOKit Security;
   };
 
-  libftdi1 = callPackage ../development/libraries/libftdi/1.x.nix { };
-
   libgcrypt = callPackage ../development/libraries/libgcrypt { };
 
   libgdiplus = callPackage ../development/libraries/libgdiplus {
@@ -9688,8 +9675,7 @@ with pkgs;
   };
 
   librsvg = callPackage ../development/libraries/librsvg {
-    inherit (darwin) libobjc;
-    inherit (darwin.apple_sdk.frameworks) ApplicationServices Foundation;
+    inherit (darwin.apple_sdk.frameworks) Foundation;
   };
 
   libsigcxx = callPackage ../development/libraries/libsigcxx { };
@@ -10093,8 +10079,6 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks)
       AVFoundation Cocoa VideoDecodeAcceleration CoreMedia MediaToolbox Accelerate;
     pythonPackages = python3Packages;
-    # TODO(@connorbaker): OpenCV 4.9 only supports up to CUDA 12.3.
-    cudaPackages = cudaPackages_12_3;
     # TODO: LTO does not work.
     # https://github.com/NixOS/nixpkgs/issues/343123
     enableLto = false;
@@ -10159,7 +10143,7 @@ with pkgs;
     inherit (darwin.apple_sdk_11_0.frameworks) Security;
   };
 
-  openssl = openssl_3_3;
+  openssl = openssl_3_4;
 
   openssl_legacy = openssl.override {
     conf = ../development/libraries/openssl/3.0/legacy.cnf;
@@ -10168,7 +10152,7 @@ with pkgs;
   inherit (callPackages ../development/libraries/openssl { })
     openssl_1_1
     openssl_3
-    openssl_3_3;
+    openssl_3_4;
 
   openwebrx = callPackage ../applications/radio/openwebrx {
     inherit (python3Packages)
@@ -10232,11 +10216,6 @@ with pkgs;
   proj = callPackage ../development/libraries/proj { };
 
   proj_7 = callPackage ../development/libraries/proj/7.nix { };
-
-  proselint = callPackage ../tools/text/proselint {
-    inherit (python3Packages)
-    buildPythonApplication click;
-  };
 
   prospector = callPackage ../development/tools/prospector { };
 
@@ -11013,17 +10992,17 @@ with pkgs;
     faslExt = "fasl";
     flags = [ "--dynamic-space-size" "3000" ];
   };
-  sbcl_2_4_11 = wrapLisp {
-    pkg = callPackage ../development/compilers/sbcl { version = "2.4.11"; };
-    faslExt = "fasl";
-    flags = [ "--dynamic-space-size" "3000" ];
-  };
   sbcl_2_5_0 = wrapLisp {
     pkg = callPackage ../development/compilers/sbcl { version = "2.5.0"; };
     faslExt = "fasl";
     flags = [ "--dynamic-space-size" "3000" ];
   };
-  sbcl = sbcl_2_5_0;
+  sbcl_2_5_1 = wrapLisp {
+    pkg = callPackage ../development/compilers/sbcl { version = "2.5.1"; };
+    faslExt = "fasl";
+    flags = [ "--dynamic-space-size" "3000" ];
+  };
+  sbcl = sbcl_2_5_1;
 
   sbclPackages = recurseIntoAttrs sbcl.pkgs;
 
@@ -11599,10 +11578,11 @@ with pkgs;
     asciidoc = asciidoc-full;
   };
 
-  postgresqlVersions = import ../servers/sql/postgresql pkgs;
-  inherit (postgresqlVersions)
-    libpq
+  inherit (import ../servers/sql/postgresql pkgs)
+    postgresqlVersions
+    libpq;
 
+  inherit (postgresqlVersions)
     postgresql_13
     postgresql_14
     postgresql_15
@@ -12449,6 +12429,8 @@ with pkgs;
   util-linuxMinimal = util-linux.override {
     nlsSupport = false;
     ncursesSupport = false;
+    pamSupport = false;
+    shadowSupport = false;
     systemdSupport = false;
     translateManpages = false;
   };
@@ -13321,7 +13303,6 @@ with pkgs;
   gnuradio = callPackage ../applications/radio/gnuradio/wrapper.nix {
     unwrapped = callPackage ../applications/radio/gnuradio {
       python = python311;
-      boost = boost186;  # fails with 187
     };
   };
   gnuradioPackages = lib.recurseIntoAttrs gnuradio.pkgs;
@@ -13411,16 +13392,10 @@ with pkgs;
 
   firefox = wrapFirefox firefox-unwrapped { };
   firefox-beta = wrapFirefox firefox-beta-unwrapped {
-    nameSuffix = "-beta";
     desktopName = "Firefox Beta";
-    wmClass = "firefox-beta";
-    icon = "firefox-beta";
   };
   firefox-devedition = wrapFirefox firefox-devedition-unwrapped {
-    nameSuffix = "-devedition";
     desktopName = "Firefox Developer Edition";
-    wmClass = "firefox-devedition";
-    icon = "firefox-devedition";
   };
 
   firefox-mobile = callPackage ../applications/networking/browsers/firefox/mobile-config.nix { };
@@ -15601,7 +15576,7 @@ with pkgs;
 
   webcamoid = qt6Packages.callPackage ../applications/video/webcamoid { };
 
-  webcord = callPackage ../by-name/we/webcord/package.nix { electron = electron_33; };
+  webcord = callPackage ../by-name/we/webcord/package.nix { electron = electron_34; };
 
   webcord-vencord = callPackage ../by-name/we/webcord-vencord/package.nix { electron = electron_33; };
 
@@ -15950,6 +15925,8 @@ with pkgs;
 
   beancount = with python3.pkgs; toPythonApplication beancount;
 
+  beancount_2 = with python3.pkgs; toPythonApplication beancount_2;
+
   beancount-black = with python3.pkgs; toPythonApplication beancount-black;
 
   beanhub-cli = with python3.pkgs; toPythonApplication beanhub-cli;
@@ -15989,7 +15966,7 @@ with pkgs;
 
   heroic-unwrapped = callPackage ../games/heroic {
     # Upstream uses EOL Electron 31.  Use next oldest version.
-    electron = electron_32;
+    electron = electron_33;
   };
 
   heroic = callPackage ../games/heroic/fhsenv.nix { };

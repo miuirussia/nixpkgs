@@ -425,6 +425,7 @@ buildStdenv.mkDerivation {
     "--disable-updater"
     "--enable-application=${application}"
     "--enable-default-toolkit=${toolkit}"
+    "--with-app-name=${binaryName}"
     "--with-distribution-id=org.nixos"
     "--with-libclang-path=${lib.getLib llvmPackagesBuildBuild.libclang}/lib"
     "--with-wasi-sysroot=${wasiSysRoot}"
@@ -570,7 +571,7 @@ buildStdenv.mkDerivation {
   env = lib.optionalAttrs stdenv.hostPlatform.isMusl {
     # Firefox relies on nonstandard behavior of the glibc dynamic linker. It re-uses
     # previously loaded libraries even though they are not in the rpath of the newly loaded binary.
-    # On musl we have to explicity set the rpath to include these libraries.
+    # On musl we have to explicitly set the rpath to include these libraries.
     LDFLAGS = "-Wl,-rpath,${placeholder "out"}/lib/${binaryName}";
   };
 
