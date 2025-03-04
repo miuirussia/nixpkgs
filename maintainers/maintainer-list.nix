@@ -1008,6 +1008,12 @@
     githubId = 217050;
     name = "Albert Chae";
   };
+  albertilagan = {
+    email = "me@albertilagan.dev";
+    github = "albertilagan";
+    githubId = 22500561;
+    name = "Albert Ilagan";
+  };
   albertodvp = {
     email = "alberto.fanton@protonmail.com";
     github = "albertodvp";
@@ -2546,6 +2552,12 @@
     name = "Baitinq";
     github = "Baitinq";
     githubId = 30861839;
+  };
+  bakito = {
+    email = "github@bakito.ch";
+    name = "Marc Brugger";
+    github = "bakito";
+    githubId = 2733215;
   };
   baksa = {
     email = "baksa@pm.me";
@@ -7588,6 +7600,13 @@
     github = "feathecutie";
     githubId = 53912746;
   };
+  federicoschonborn = {
+    name = "Federico Damián Schonborn";
+    email = "federicoschonborn@disroot.org";
+    github = "FedericoSchonborn";
+    githubId = 62166915;
+    matrix = "@FedericoDSchonborn:matrix.org";
+  };
   fedx-sudo = {
     email = "fedx-sudo@pm.me";
     github = "FedX-sudo";
@@ -10159,6 +10178,11 @@
     githubId = 88038050;
     name = "Souvik Sen";
   };
+  io12 = {
+    github = "io12";
+    githubId = 7348004;
+    name = "Benjamin Levy";
+  };
   iogamaster = {
     email = "iogamastercode+nixpkgs@gmail.com";
     name = "IogaMaster";
@@ -11965,6 +11989,12 @@
     github = "KAction";
     githubId = 44864956;
     keys = [ { fingerprint = "3F87 0A7C A7B4 3731 2F13  6083 749F D4DF A2E9 4236"; } ];
+  };
+  kaeeraa = {
+    name = "kaeeraa";
+    email = "kaeeraa@nebula-nook.ru";
+    github = "kaeeraa";
+    githubId = 99148867;
   };
   kaiha = {
     email = "kai.harries@gmail.com";
@@ -17894,6 +17924,12 @@
     githubId = 33826198;
     name = "Philipp Arras";
   };
+  parrot7483 = {
+    email = "parrot7483@pm.me";
+    github = "Parrot7483";
+    githubId = 47054801;
+    name = "Parrot7483";
+  };
   parth = {
     github = "parth";
     githubId = 821972;
@@ -19778,6 +19814,12 @@
     name = "Reputable2772";
     github = "Reputable2772";
     githubId = 153411261;
+  };
+  ret2pop = {
+    email = "ret2pop@gmail.com";
+    github = "ret2pop";
+    githubId = 135050157;
+    name = "Preston Pan";
   };
   rettetdemdativ = {
     email = "michael@koeppl.dev";
@@ -21750,6 +21792,12 @@
     github = "siraben";
     githubId = 8219659;
     name = "Siraphob Phipathananunth";
+  };
+  SirBerg = {
+    email = "benno@boerg.co";
+    github = "SirBerg";
+    githubId = 87900036;
+    name = "Benno Rodehack";
   };
   siriobalmelli = {
     email = "sirio@b-ad.ch";
