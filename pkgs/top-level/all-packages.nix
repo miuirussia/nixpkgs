@@ -922,7 +922,7 @@ with pkgs;
     type = "OPN";
   };
 
-  akkoma = callPackage ../servers/akkoma {
+  akkoma = callPackage ../by-name/ak/akkoma/package.nix {
     beamPackages = beam_nox.packages.erlang_26.extend (self: super: {
       elixir = self.elixir_1_16;
       rebar3 = self.rebar3WithPlugins {
@@ -930,16 +930,9 @@ with pkgs;
       };
     });
   };
-  akkoma-frontends = recurseIntoAttrs {
-    akkoma-fe = callPackage ../servers/akkoma/akkoma-fe { };
-    admin-fe = callPackage ../servers/akkoma/admin-fe {
-      nodejs = nodejs_18;
-      yarn = yarn.override { nodejs = nodejs_18; };
-      python3 = python311;
-    };
-  };
-  akkoma-emoji = recurseIntoAttrs {
-    blobs_gg = callPackage ../servers/akkoma/emoji/blobs_gg.nix { };
+
+  akkoma-admin-fe = callPackage ../by-name/ak/akkoma-admin-fe/package.nix {
+    python3 = python311;
   };
 
   aegisub = callPackage ../by-name/ae/aegisub/package.nix ({
@@ -1196,7 +1189,9 @@ with pkgs;
 
   datalad-gooey = with python3Packages; toPythonApplication datalad-gooey;
 
-  forgejo-lts = callPackage ../by-name/fo/forgejo/lts.nix { };
+  forgejo-lts = callPackage ../by-name/fo/forgejo/lts.nix {
+    buildGoModule = buildGo123Module;
+  };
 
   gfold = callPackage ../applications/version-management/gfold { };
 
@@ -2445,8 +2440,6 @@ with pkgs;
 
   materialx = with python3Packages; toPythonApplication materialx;
 
-  megasync = libsForQt5.callPackage ../applications/misc/megasync { };
-
   # while building documentation meson may want to run binaries for host
   # which needs an emulator
   # example of an error which this fixes
@@ -2928,10 +2921,6 @@ with pkgs;
 
   cmdpack = callPackages ../tools/misc/cmdpack { };
 
-  cobalt = callPackage ../applications/misc/cobalt {
-    inherit (darwin.apple_sdk.frameworks) CoreServices;
-  };
-
   cocoapods = callPackage ../development/tools/cocoapods { };
 
   cocoapods-beta = lowPrio (callPackage ../development/tools/cocoapods { beta = true; });
@@ -3035,10 +3024,6 @@ with pkgs;
   deluge-2_x = deluge;
 
   dnsviz = python3Packages.callPackage ../tools/networking/dnsviz { };
-
-  diffoscope = callPackage ../tools/misc/diffoscope {
-    jdk = jdk8;
-  };
 
   diffoscopeMinimal = diffoscope.override {
     enableBloat = false;
@@ -3510,14 +3495,12 @@ with pkgs;
 
   grails = callPackage ../development/web/grails { jdk = null; };
 
-  graylog-5_1 = callPackage ../tools/misc/graylog/5.1.nix { };
-
   graylog-5_2 = callPackage ../tools/misc/graylog/5.2.nix { };
 
   graylog-6_0 = callPackage ../tools/misc/graylog/6.0.nix { };
 
   graylogPlugins = recurseIntoAttrs (
-    callPackage ../tools/misc/graylog/plugins.nix { }
+    callPackage ../tools/misc/graylog/plugins.nix { graylogPackage = graylog-6_0; }
   );
 
   graphviz = callPackage ../tools/graphics/graphviz {
@@ -4220,10 +4203,6 @@ with pkgs;
 
   moreutils = callPackage ../tools/misc/moreutils {
     docbook-xsl = docbook_xsl;
-  };
-
-  morgen = callPackage ../applications/office/morgen {
-    electron = electron_32;
   };
 
   metasploit = callPackage ../tools/security/metasploit { };
@@ -5037,6 +5016,7 @@ with pkgs;
   stutter = haskell.lib.compose.justStaticExecutables haskellPackages.stutter;
 
   strongswanTNC = strongswan.override { enableTNC = true; };
+  strongswanTPM = strongswan.override { enableTPM2 = true; };
   strongswanNM  = strongswan.override { enableNetworkManager = true; };
 
   stylish-haskell = haskell.lib.compose.justStaticExecutables haskellPackages.stylish-haskell;
@@ -5763,6 +5743,15 @@ with pkgs;
         };
       };
     }) else ccWrapper;
+
+  gnuStdenv =
+    if stdenv.cc.isGNU
+    then stdenv
+    else gccStdenv.override {
+      cc = gccStdenv.cc.override {
+        bintools = buildPackages.binutils;
+      };
+    };
 
   gccStdenv =
     if stdenv.cc.isGNU
@@ -7420,10 +7409,10 @@ with pkgs;
     };
   }));
   ansible_2_16 = python3Packages.toPythonApplication (python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
-    version = "2.16.8";
+    version = "2.16.14";
     src = oldAttrs.src.override {
       inherit version;
-      hash = "sha256-WeSqQO1azbTvm789BYkY//k/ZqFJNz2BWciilgRBC9o=";
+      hash = "sha256-gCef/9mGhrrfqjLh7HhdmKbfGy/B5Al97AWXZA10ZBU=";
     };
   }));
 
@@ -8157,6 +8146,10 @@ with pkgs;
   inherit (callPackage ../development/tools/replay-io { })
     replay-io replay-node-cli;
 
+  rescript-language-server = callPackage ../by-name/re/rescript-language-server/package.nix {
+    rescript-editor-analysis = vscode-extensions.chenglou92.rescript-vscode.rescript-editor-analysis;
+  };
+
   rnginline = with python3Packages; toPythonApplication rnginline;
 
   rr = callPackage ../development/tools/analysis/rr { };
@@ -8786,8 +8779,6 @@ with pkgs;
     protobuf = protobuf_21;
   };
 
-  gcovr = with python3Packages; toPythonApplication gcovr;
-
   gcr = callPackage ../development/libraries/gcr { };
 
   gcr_4 = callPackage ../development/libraries/gcr/4.nix { };
@@ -9016,10 +9007,6 @@ with pkgs;
   });
 
   qxmpp = qt6Packages.callPackage ../development/libraries/qxmpp { };
-
-  gnu-efi = if stdenv.hostPlatform.isEfi
-              then callPackage ../development/libraries/gnu-efi { }
-            else null;
 
   gnutls = callPackage ../development/libraries/gnutls {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -11733,7 +11720,7 @@ with pkgs;
   sickgear = callPackage ../servers/sickbeard/sickgear.nix { };
 
   snipe-it = callPackage ../by-name/sn/snipe-it/package.nix {
-    php = php81;
+    php = php84;
   };
 
   spacecookie =
@@ -11939,8 +11926,6 @@ with pkgs;
     inherit (darwin) IOKit;
   };
 
-  htop-vim = callPackage ../tools/system/htop/htop-vim.nix { };
-
   humility = callPackage ../development/tools/rust/humility {
     inherit (darwin.apple_sdk.frameworks) AppKit;
   };
@@ -12035,6 +12020,10 @@ with pkgs;
   linuxPackages-rt_latest = linuxKernel.packageAliases.linux_rt_latest;
   linux-rt = linuxPackages-rt.kernel;
   linux-rt_latest = linuxPackages-rt_latest.kernel;
+
+  # Amateur Radio kernel
+  linuxPackages_ham = linuxKernel.packages.linux_ham;
+  linux_ham = linuxPackages_ham.kernel;
 
   # hardened kernels
   linuxPackages_hardened = linuxKernel.packages.linux_hardened;
@@ -13139,15 +13128,6 @@ with pkgs;
   };
 
   inherit (recurseIntoAttrs (callPackage ../applications/editors/emacs { }))
-    emacs28
-    emacs28-gtk3
-    emacs28-nox
-
-    emacs29
-    emacs29-gtk3
-    emacs29-nox
-    emacs29-pgtk
-
     emacs30
     emacs30-gtk3
     emacs30-nox
@@ -16140,6 +16120,8 @@ with pkgs;
 
   factorio-demo = factorio.override { releaseType = "demo"; };
 
+  factorio-demo-experimental = factorio.override { releaseType = "demo"; experimental = true; };
+
   factorio-space-age = factorio.override { releaseType = "expansion"; };
 
   factorio-space-age-experimental = factorio.override { releaseType = "expansion"; experimental = true; };
@@ -16189,8 +16171,6 @@ with pkgs;
   gshogi = python3Packages.callPackage ../games/gshogi { };
 
   qtads = qt5.callPackage ../games/qtads { };
-
-  hedgewars = libsForQt5.callPackage ../games/hedgewars { };
 
   ibmcloud-cli = callPackage ../tools/admin/ibmcloud-cli { stdenv = stdenvNoCC; };
 
@@ -18169,7 +18149,7 @@ with pkgs;
 
   duden = python3Packages.toPythonApplication python3Packages.duden;
 
-  tremotesf = libsForQt5.callPackage ../applications/networking/p2p/tremotesf { };
+  tremotesf = callPackage ../applications/networking/p2p/tremotesf { };
 
   yazi-unwrapped = callPackage ../by-name/ya/yazi-unwrapped/package.nix { inherit (darwin.apple_sdk.frameworks) Foundation; };
 
