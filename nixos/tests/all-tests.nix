@@ -895,6 +895,7 @@ in {
   pam-u2f = handleTest ./pam/pam-u2f.nix {};
   pam-ussh = handleTest ./pam/pam-ussh.nix {};
   pam-zfs-key = handleTest ./pam/zfs-key.nix {};
+  paretosecurity = runTest ./paretosecurity.nix;
   pass-secret-service = handleTest ./pass-secret-service.nix {};
   patroni = handleTestOn ["x86_64-linux"] ./patroni.nix {};
   pantalaimon = handleTest ./matrix/pantalaimon.nix {};
@@ -968,6 +969,7 @@ in {
   pppd = handleTest ./pppd.nix {};
   predictable-interface-names = handleTest ./predictable-interface-names.nix {};
   pretalx = runTest ./web-apps/pretalx.nix;
+  prefect = runTest ./prefect.nix;
   pretix = runTest ./web-apps/pretix.nix;
   printing-socket = handleTest ./printing.nix { socket = true; listenTcp = true; };
   printing-service = handleTest ./printing.nix { socket = false; listenTcp = true; };

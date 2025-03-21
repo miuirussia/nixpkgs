@@ -1364,6 +1364,7 @@
   ./services/scheduling/atd.nix
   ./services/scheduling/cron.nix
   ./services/scheduling/fcron.nix
+  ./services/scheduling/prefect.nix
   ./services/scheduling/scx.nix
   ./services/search/elasticsearch-curator.nix
   ./services/search/elasticsearch.nix
@@ -1401,6 +1402,7 @@
   ./services/security/oauth2-proxy.nix
   ./services/security/oauth2-proxy-nginx.nix
   ./services/security/opensnitch.nix
+  ./services/security/paretosecurity.nix
   ./services/security/pass-secret-service.nix
   ./services/security/physlock.nix
   ./services/security/shibboleth-sp.nix
