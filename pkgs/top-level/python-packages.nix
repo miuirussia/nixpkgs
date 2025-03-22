@@ -2646,6 +2646,10 @@ self: super: with self; {
 
   conda-package-streaming = callPackage ../development/python-modules/conda-package-streaming { };
 
+  conduit = callPackage ../development/python-modules/conduit { };
+
+  conduit-mpi = callPackage ../development/python-modules/conduit { mpiSupport = true; };
+
   confection = callPackage ../development/python-modules/confection { };
 
   configargparse = callPackage ../development/python-modules/configargparse { };
@@ -7236,6 +7240,8 @@ self: super: with self; {
 
   kubernetes-asyncio = callPackage ../development/python-modules/kubernetes-asyncio { };
 
+  kubernetes-validate = callPackage ../by-name/ku/kubernetes-validate/unwrapped.nix { };
+
   kurbopy = callPackage ../development/python-modules/kurbopy { };
 
   l18n = callPackage ../development/python-modules/l18n { };
@@ -7328,6 +7334,8 @@ self: super: with self; {
     inherit (pkgs) cmake ninja;
     inherit (pkgs.__splicedPackages) laszip;
   };
+
+  lap = callPackage ../development/python-modules/lap { };
 
   latex2mathml = callPackage ../development/python-modules/latex2mathml { };
 
@@ -12348,6 +12356,8 @@ self: super: with self; {
   pyld = callPackage ../development/python-modules/pyld { };
 
   pyleri = callPackage ../development/python-modules/pyleri { };
+
+  pylette = callPackage ../development/python-modules/pylette { };
 
   pylev = callPackage ../development/python-modules/pylev { };
 
