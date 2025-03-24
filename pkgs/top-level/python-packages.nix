@@ -636,6 +636,8 @@ self: super: with self; {
 
   annotated-types = callPackage ../development/python-modules/annotated-types { };
 
+  annotatedyaml = callPackage ../development/python-modules/annotatedyaml { };
+
   annoy = callPackage ../development/python-modules/annoy { };
 
   anonip = callPackage ../development/python-modules/anonip { };
@@ -2008,6 +2010,8 @@ self: super: with self; {
 
   bump2version = callPackage ../development/python-modules/bump2version { };
 
+  bump-my-version = callPackage ../development/python-modules/bump-my-version { };
+
   bumpfontversion = callPackage ../development/python-modules/bumpfontversion { };
 
   bumps = callPackage ../development/python-modules/bumps { };
@@ -2520,6 +2524,8 @@ self: super: with self; {
 
   cmake = callPackage ../development/python-modules/cmake { inherit (pkgs) cmake; };
 
+  cmake-build-extension = callPackage ../development/python-modules/cmake-build-extension { };
+
   cmarkgfm = callPackage ../development/python-modules/cmarkgfm { };
 
   cmd2 = callPackage ../development/python-modules/cmd2 { };
@@ -2660,7 +2666,7 @@ self: super: with self; {
 
   configparser = callPackage ../development/python-modules/configparser { };
 
-  configshell = callPackage ../development/python-modules/configshell { };
+  configshell-fb = callPackage ../development/python-modules/configshell-fb { };
 
   configupdater = callPackage ../development/python-modules/configupdater { };
 
@@ -4138,6 +4144,8 @@ self: super: with self; {
 
   ec2instanceconnectcli = callPackage ../tools/virtualization/ec2instanceconnectcli { };
 
+  ec2-metadata = callPackage ../development/python-modules/ec2-metadata { };
+
   eccodes = toPythonModule (pkgs.eccodes.override {
     enablePython = true;
     pythonPackages = self;
@@ -4290,8 +4298,6 @@ self: super: with self; {
   entrypoints = callPackage ../development/python-modules/entrypoints { };
 
   enturclient = callPackage ../development/python-modules/enturclient { };
-
-  enum34 = callPackage ../development/python-modules/enum34 { };
 
   env-canada = callPackage ../development/python-modules/env-canada { };
 
@@ -4563,9 +4569,7 @@ self: super: with self; {
 
   faker = callPackage ../development/python-modules/faker { };
 
-  fakeredis = callPackage ../development/python-modules/fakeredis {
-    redis-server = pkgs.redis;
-  };
+  fakeredis = callPackage ../development/python-modules/fakeredis { };
 
   falcon = callPackage ../development/python-modules/falcon { };
 
@@ -5372,6 +5376,8 @@ self: super: with self; {
   ghapi = callPackage ../development/python-modules/ghapi { };
 
   ghdiff = callPackage ../development/python-modules/ghdiff { };
+
+  ghidra-bridge = callPackage ../development/python-modules/ghidra-bridge { };
 
   ghome-foyer-api = callPackage ../development/python-modules/ghome-foyer-api { };
 
@@ -6802,6 +6808,8 @@ self: super: with self; {
 
   jh2 = callPackage ../development/python-modules/jh2 { };
 
+  jfx-bridge = callPackage ../development/python-modules/jfx-bridge { };
+
   jianpu-ly = callPackage ../development/python-modules/jianpu-ly { };
 
   jieba = callPackage ../development/python-modules/jieba { };
@@ -7446,6 +7454,8 @@ self: super: with self; {
 
   libagent = callPackage ../development/python-modules/libagent { };
 
+  libbs = callPackage ../development/python-modules/libbs { };
+
   pa-ringbuffer = callPackage ../development/python-modules/pa-ringbuffer { };
 
   lib4sbom = callPackage ../development/python-modules/lib4sbom { };
@@ -7917,9 +7927,7 @@ self: super: with self; {
 
   loguru-logging-intercept = callPackage ../development/python-modules/loguru-logging-intercept { };
 
-  logutils = callPackage ../development/python-modules/logutils {
-    redis-server = pkgs.redis;
-  };
+  logutils = callPackage ../development/python-modules/logutils { };
 
   logzero = callPackage ../development/python-modules/logzero { };
 
@@ -8225,6 +8233,8 @@ self: super: with self; {
   mcdreforged = callPackage ../development/python-modules/mcdreforged { };
 
   mcp = callPackage ../development/python-modules/mcp { };
+
+  mcpadapt = callPackage ../development/python-modules/mcpadapt { };
 
   mcstatus = callPackage ../development/python-modules/mcstatus { };
 
@@ -8598,9 +8608,7 @@ self: super: with self; {
 
   mobly = callPackage ../development/python-modules/mobly { };
 
-  mocket = callPackage ../development/python-modules/mocket {
-    redis-server = pkgs.redis;
-  };
+  mocket = callPackage ../development/python-modules/mocket { };
 
   mock = callPackage ../development/python-modules/mock { };
 
@@ -10926,6 +10934,8 @@ self: super: with self; {
 
   pyhepmc = callPackage ../development/python-modules/pyhepmc { };
 
+  pyhidra = callPackage ../development/python-modules/pyhidra { };
+
   pyhive-integration = callPackage ../development/python-modules/pyhive-integration { };
 
   pyhumps = callPackage ../development/python-modules/pyhumps { };
@@ -11750,6 +11760,10 @@ self: super: with self; {
 
   pybind11 = callPackage ../development/python-modules/pybind11 { };
 
+  pybind11-abseil = callPackage ../development/python-modules/pybind11-abseil { };
+
+  pybind11-protobuf = callPackage ../development/python-modules/pybind11-protobuf { };
+
   pybind11-stubgen = callPackage ../development/python-modules/pybind11-stubgen { };
 
   pybindgen = callPackage ../development/python-modules/pybindgen { };
@@ -11905,6 +11919,8 @@ self: super: with self; {
   pydantic = callPackage ../development/python-modules/pydantic { };
 
   pydantic_1 = callPackage ../development/python-modules/pydantic/1.nix { };
+
+  pydantic-argparse-extensible = callPackage ../development/python-modules/pydantic-argparse-extensible { };
 
   pydantic-compat = callPackage ../development/python-modules/pydantic-compat { };
 
@@ -12997,6 +13013,8 @@ self: super: with self; {
     inherit (pkgs) cmake ninja;
   });
 
+  pyside6-qtads = callPackage ../development/python-modules/pyside6-qtads { };
+
   pysigma = callPackage ../development/python-modules/pysigma { };
 
   pysigma-backend-elasticsearch = callPackage ../development/python-modules/pysigma-backend-elasticsearch { };
@@ -13877,8 +13895,6 @@ self: super: with self; {
 
   pytz-deprecation-shim = callPackage ../development/python-modules/pytz-deprecation-shim { };
 
-  pytzdata = callPackage ../development/python-modules/pytzdata { };
-
   pyu2f = callPackage ../development/python-modules/pyu2f { };
 
   pyudev = callPackage ../development/python-modules/pyudev {
@@ -14651,6 +14667,8 @@ self: super: with self; {
 
   roma = callPackage ../development/python-modules/roma { };
 
+  roman-numerals-py = callPackage ../development/python-modules/roman-numerals-py { };
+
   roman = callPackage ../development/python-modules/roman { };
 
   romy = callPackage ../development/python-modules/romy { };
@@ -14703,9 +14721,7 @@ self: super: with self; {
 
   rpyc = callPackage ../development/python-modules/rpyc { };
 
-  rq = callPackage ../development/python-modules/rq {
-    redis-server = pkgs.redis;
-  };
+  rq = callPackage ../development/python-modules/rq { };
 
   rsa = callPackage ../development/python-modules/rsa { };
 
@@ -14735,7 +14751,7 @@ self: super: with self; {
     inherit (pkgs) libspatialindex;
   };
 
-  rtslib = callPackage ../development/python-modules/rtslib { };
+  rtslib-fb = callPackage ../development/python-modules/rtslib-fb { };
 
   rtsp-to-webrtc = callPackage ../development/python-modules/rtsp-to-webrtc { };
 
@@ -16100,6 +16116,8 @@ self: super: with self; {
 
   stringzilla = callPackage ../development/python-modules/stringzilla { };
 
+  strip-ansi = callPackage ../development/python-modules/strip-ansi { };
+
   stripe = callPackage ../development/python-modules/stripe { };
 
   striprtf = callPackage ../development/python-modules/striprtf { };
@@ -16429,13 +16447,9 @@ self: super: with self; {
       grpcioTF = self.grpcio.override {
         protobuf = protobufTF;
       };
-      tensorboard-plugin-profileTF = self.tensorboard-plugin-profile.override {
-        protobuf = protobuf-pythonTF;
-      };
       tensorboardTF = self.tensorboard.override {
         grpcio = grpcioTF;
         protobuf = protobuf-pythonTF;
-        tensorboard-plugin-profile = tensorboard-plugin-profileTF;
       };
     };
   in
