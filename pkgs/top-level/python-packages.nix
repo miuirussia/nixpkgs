@@ -6630,6 +6630,8 @@ self: super: with self; {
 
   ipython-genutils = callPackage ../development/python-modules/ipython-genutils { };
 
+  ipython-pygments-lexers = callPackage ../development/python-modules/ipython-pygments-lexers { };
+
   ipython = callPackage ../development/python-modules/ipython { };
 
   ipython-sql = callPackage ../development/python-modules/ipython-sql { };
@@ -6963,6 +6965,8 @@ self: super: with self; {
   jstyleson = callPackage ../development/python-modules/jstyleson { };
 
   jug = callPackage ../development/python-modules/jug { };
+
+  juliandate = callPackage ../development/python-modules/juliandate { };
 
   julius = callPackage ../development/python-modules/julius { };
 
@@ -9427,6 +9431,8 @@ self: super: with self; {
   netapp-ontap = callPackage ../development/python-modules/netapp-ontap { };
 
   netbox-bgp = callPackage ../development/python-modules/netbox-bgp { };
+
+  netbox-contract = callPackage ../development/python-modules/netbox-contract { };
 
   netbox-dns = callPackage ../development/python-modules/netbox-dns { };
 
@@ -12789,7 +12795,9 @@ self: super: with self; {
 
   pyqt-builder = callPackage ../development/python-modules/pyqt-builder { };
 
-  pyqt5 = callPackage ../development/python-modules/pyqt/5.x.nix { };
+  pyqt5 = callPackage ../development/python-modules/pyqt/5.x.nix {
+    inherit (pkgs) mesa;
+  };
 
   pyqt5-stubs = callPackage ../development/python-modules/pyqt5-stubs { };
 
@@ -14908,6 +14916,8 @@ self: super: with self; {
   schwifty = callPackage ../development/python-modules/schwifty { };
 
   scienceplots = callPackage ../development/python-modules/scienceplots { };
+
+  sciform = callPackage ../development/python-modules/sciform { };
 
   scim2-client = callPackage ../development/python-modules/scim2-client { };
 
