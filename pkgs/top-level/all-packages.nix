@@ -4709,8 +4709,6 @@ with pkgs;
 
   quickbms = pkgsi686Linux.callPackage ../tools/archivers/quickbms { };
 
-  qastools = libsForQt5.callPackage ../tools/audio/qastools { };
-
   qdigidoc = libsForQt5.callPackage ../tools/security/qdigidoc { } ;
 
   qjournalctl = libsForQt5.callPackage ../applications/system/qjournalctl { };
@@ -6673,9 +6671,7 @@ with pkgs;
 
   tinycc = darwin.apple_sdk_11_0.callPackage ../development/compilers/tinycc { };
 
-  tinygo = callPackage ../development/compilers/tinygo {
-    llvmPackages = llvmPackages_18;
-  };
+  tinygo = callPackage ../development/compilers/tinygo { };
 
   urweb = callPackage ../development/compilers/urweb {
     icu = icu67;
@@ -13396,10 +13392,7 @@ with pkgs;
         inherit (darwin.apple_sdk.frameworks) AudioToolbox AVFoundation Carbon Cocoa CoreMedia;
         inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-good;
       };
-      freerdp3 = callPackage ../applications/networking/remote/freerdp/3.nix {
-        stdenv = if stdenv.hostPlatform.isDarwin then overrideSDK stdenv "11.0" else stdenv;
-        inherit (darwin.apple_sdk.frameworks) AudioToolbox AVFoundation Carbon Cocoa CoreMedia;
-      };
+      freerdp3 = callPackage ../applications/networking/remote/freerdp/3.nix {};
     })
     freerdp
     freerdp3
@@ -16488,12 +16481,10 @@ with pkgs;
     yquake2-the-reckoning
     yquake2-all-games;
 
-  zeroadPackages = recurseIntoAttrs (callPackage ../games/0ad {
+  zeroad-unwrapped = callPackage ../by-name/ze/zeroad-unwrapped/package.nix {
     wxGTK = wxGTK32;
     fmt = fmt_9;
-  });
-
-  zeroad = zeroadPackages.zeroad;
+  };
 
   ### DESKTOP ENVIRONMENTS
 
