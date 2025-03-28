@@ -218,6 +218,7 @@ with lib.maintainers;
   cuda = {
     members = [
       connorbaker
+      prusnak
       samuela
       SomeoneSerge
     ];
@@ -760,7 +761,6 @@ with lib.maintainers;
 
   marketing = {
     members = [
-      garbas
       tomberek
     ];
     scope = "Marketing of Nix/NixOS/nixpkgs.";
