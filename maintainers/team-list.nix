@@ -85,6 +85,7 @@ with lib.maintainers;
 
   beam = {
     members = [
+      adamcstephens
       ankhers
       Br1ght0ne
       DianaOlympos
@@ -331,6 +332,7 @@ with lib.maintainers;
       AndersonTorres
       adisbladis
       linj
+      panchoh
     ];
     scope = "Maintain the Emacs editor and packages.";
     shortName = "Emacs";
@@ -784,7 +786,6 @@ with lib.maintainers;
       ma27
       fadenb
       mguentner
-      ralith
       dandellion
       nickcao
       teutat3s
