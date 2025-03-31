@@ -43,20 +43,6 @@ index 8fab66bb2a..9663f5bfd4 100644
        }
      )
    )
-diff --git a/pkgs/tools/package-management/nix/update-all.sh b/pkgs/tools/package-management/nix/update-all.sh
-index 547721d8b3..a2b459e67e 100755
---- a/pkgs/tools/package-management/nix/update-all.sh
-+++ b/pkgs/tools/package-management/nix/update-all.sh
-@@ -36,3 +36,9 @@ for name in $nix_versions; do
-         break
-     fi
- done
-+
-+commit_json=$(curl -s https://api.github.com/repos/NixOS/nix/commits/master) # format: 2024-11-01T10:18:53Z
-+date_of_commit=$(echo "$commit_json" | jq -r '.commit.author.date')
-+suffix="pre$(date -d "$date_of_commit" +%Y%m%d)_"
-+sed -i -e "s|\"pre[0-9]\{8\}_|\"$suffix|g" "$SCRIPT_DIR/default.nix"
-+nix-update --override-filename "$SCRIPT_DIR/default.nix" --version branch --build --commit "nixVersions.git"
 diff --git a/pkgs/top-level/release-cross.nix b/pkgs/top-level/release-cross.nix
 index ad45dcedb1..ded7924f14 100644
 --- a/pkgs/top-level/release-cross.nix
