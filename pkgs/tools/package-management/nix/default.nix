@@ -260,6 +260,18 @@ lib.makeExtensible (
       # depend on the components they need in `nixComponents_2_26`.
       nix_2_26 = addTests "nix_2_26" self.nixComponents_2_26.nix-everything;
 
+      git = common rec {
+        version = "2.25.0";
+        suffix = "pre20241101_${lib.substring 0 8 src.rev}";
+        src = fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nix";
+          rev = "2e5759e3778c460efc5f7cfc4cb0b84827b5ffbe";
+          hash = "sha256-E1Sp0JHtbD1CaGO3UbBH6QajCtOGqcrVfPSKL0n63yo=";
+        };
+        self_attribute_name = "git";
+      };
+
       latest = self.nix_2_26;
 
       # The minimum Nix version supported by Nixpkgs
@@ -293,8 +305,7 @@ lib.makeExtensible (
         ) (lib.range 4 23)
       )
       // {
-        unstable = throw "nixVersions.unstable has been removed. use nixVersions.latest or the nix flake.";
-        git = throw "nixVersions.git has been removed. use nixVersions.latest or the nix flake.";
+        unstable = throw "nixVersions.unstable has been removed. use nixVersions.git or the nix flake.";
       }
     )
   )
