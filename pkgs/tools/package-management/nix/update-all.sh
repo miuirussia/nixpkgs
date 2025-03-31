@@ -15,7 +15,7 @@ for name in $nix_versions; do
         continue
     fi
 
-    nix-update --override-filename "$SCRIPT_DIR/default.nix" --version-regex "(2\\.${minor_version}\..+)" --build "nixVersions.$name" || echo "Failed to update nixVersions.$name"
+    nix-update --override-filename "$SCRIPT_DIR/default.nix" --version-regex "(2\\.${minor_version}\..+)" --build "nixVersions.$name" || echo "Failed to update nixVersions.$name in $SCRIPT_DIR/default.nix"
 done
 
 stable_version_full=$(nix eval --impure --json --expr "with import ./. { config.allowAliases = false; }; nixVersions.stable.version" | jq -r)
@@ -41,4 +41,4 @@ commit_json=$(curl -s https://api.github.com/repos/NixOS/nix/commits/master) # f
 date_of_commit=$(echo "$commit_json" | jq -r '.commit.author.date')
 suffix="pre$(date -d "$date_of_commit" +%Y%m%d)_"
 sed -i -e "s|\"pre[0-9]\{8\}_|\"$suffix|g" "$SCRIPT_DIR/default.nix"
-nix-update --override-filename "$SCRIPT_DIR/default.nix" --version branch --build "nixVersions.git" || echo "Failed to update nixVersions.git"
+nix-update --override-filename "$SCRIPT_DIR/default.nix" --version branch --build "nixVersions.git" || echo "Failed to update nixVersions.git in $SCRIPT_DIR/default.nix"
