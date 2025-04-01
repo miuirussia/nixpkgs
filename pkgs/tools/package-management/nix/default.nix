@@ -262,12 +262,12 @@ lib.makeExtensible (
 
       git = common rec {
         version = "2.25.0";
-        suffix = "pre20250329_${lib.substring 0 8 src.rev}";
+        suffix = "pre20250331_${lib.substring 0 8 src.rev}";
         src = fetchFromGitHub {
           owner = "NixOS";
           repo = "nix";
-          rev = "3f13cc0f8739a1a70e52326af9ec49cee536128a";
-          hash = "sha256-WSair8Op8eOoMX8DYCSdfSLLV4AGOaPmnyJQZ/qRBIs=";
+          rev = "0e1da295e95c5fdedf842a76f0756313f385e05d";
+          hash = "sha256-hAmUhzu1MtAQwTmorU5Yo45Xl7FjYJJzbkdED2NLqA4=";
         };
         self_attribute_name = "git";
       };
