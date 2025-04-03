@@ -35,6 +35,7 @@ jobs:
           git apply -v ../nixpkgs-final/patches/*.patch
           popd
           rsync -au --delete ./nixpkgs-original/doc/ ./nixpkgs-final/doc
+          rsync -au --delete ./nixpkgs-original/ci/ ./nixpkgs-final/ci
           rsync -au --delete ./nixpkgs-original/lib/ ./nixpkgs-final/lib
           rsync -au --delete ./nixpkgs-original/maintainers/ ./nixpkgs-final/maintainers
           rsync -au --delete ./nixpkgs-original/nixos/ ./nixpkgs-final/nixos
