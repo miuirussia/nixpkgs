@@ -40,7 +40,7 @@ jobs:
           rsync -au --delete ./nixpkgs-original/maintainers/ ./nixpkgs-final/maintainers
           rsync -au --delete ./nixpkgs-original/nixos/ ./nixpkgs-final/nixos
           rsync -au --delete ./nixpkgs-original/pkgs/ ./nixpkgs-final/pkgs
-          cp -f ./nixpkgs-original/{.editorconfig,.gitattributes,.gitignore,.version,CONTRIBUTING.md,COPYING,README.md,default.nix,flake.nix} ./nixpkgs-final
+          cp -f ./nixpkgs-original/{.editorconfig,.git-blame-ignore-revs,.gitattributes,.gitignore,.version,CONTRIBUTING.md,COPYING,README.md,default.nix,flake.nix} ./nixpkgs-final
 
           (cd ./nixpkgs-final && ./pkgs/applications/editors/vscode/update-vscode.sh)
           (cd ./nixpkgs-final && ./pkgs/applications/editors/vscode/update-vscodium.sh)
