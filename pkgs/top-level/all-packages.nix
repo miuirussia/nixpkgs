@@ -1031,9 +1031,7 @@ with pkgs;
   _7zz = darwin.apple_sdk_11_0.callPackage ../tools/archivers/7zz { };
   _7zz-rar = _7zz.override { enableUnfree = true; };
 
-  acme-dns = callPackage ../servers/dns/acme-dns/default.nix {
-    buildGoModule = buildGo122Module; # https://github.com/joohoi/acme-dns/issues/365
-  };
+  acme-dns = callPackage ../servers/dns/acme-dns/default.nix { };
 
   acquire = with python3Packages; toPythonApplication acquire;
 
@@ -1047,7 +1045,7 @@ with pkgs;
   };
 
   akkoma = callPackage ../by-name/ak/akkoma/package.nix {
-    beamPackages = beam_nox.packages.erlang_26.extend (
+    beamPackages = beam_minimal.packages.erlang_26.extend (
       self: super: {
         elixir = self.elixir_1_16;
         rebar3 = self.rebar3WithPlugins {
@@ -1148,7 +1146,7 @@ with pkgs;
 
   fwbuilder = libsForQt5.callPackage ../tools/security/fwbuilder { };
 
-  inherit (callPackages ../tools/networking/ivpn/default.nix { buildGoModule = buildGo122Module; })
+  inherit (callPackages ../tools/networking/ivpn/default.nix { })
     ivpn
     ivpn-service
     ;
@@ -1387,11 +1385,7 @@ with pkgs;
     pythonPackages = python3Packages;
   };
 
-  gitlint = python3Packages.callPackage ../applications/version-management/gitlint { };
-
-  gitmux = callPackage ../applications/version-management/gitmux {
-    buildGoModule = buildGo122Module;
-  };
+  gitmux = callPackage ../applications/version-management/gitmux { };
 
   gittyup = libsForQt5.callPackage ../applications/version-management/gittyup { };
 
@@ -1844,7 +1838,7 @@ with pkgs;
   bucklespring-x11 = callPackage ../applications/audio/bucklespring { legacy = true; };
 
   buildbotPackages = recurseIntoAttrs (
-    python3.pkgs.callPackage ../development/tools/continuous-integration/buildbot { }
+    callPackage ../development/tools/continuous-integration/buildbot { }
   );
   inherit (buildbotPackages)
     buildbot
@@ -2235,23 +2229,9 @@ with pkgs;
 
   clickgen = with python3Packages; toPythonApplication clickgen;
 
-  cloud-init = python3.pkgs.callPackage ../tools/virtualization/cloud-init { inherit systemd; };
+  cloud-init = callPackage ../tools/virtualization/cloud-init { inherit systemd; };
 
-  cloudflared = callPackage ../applications/networking/cloudflared {
-    # https://github.com/cloudflare/cloudflared/issues/1151#issuecomment-1888819250
-    buildGoModule = buildGoModule.override {
-      go = buildPackages.go_1_22.overrideAttrs {
-        pname = "cloudflare-go";
-        version = "1.22.2-devel-cf";
-        src = fetchFromGitHub {
-          owner = "cloudflare";
-          repo = "go";
-          rev = "ec0a014545f180b0c74dfd687698657a9e86e310";
-          sha256 = "sha256-oQQ9Jyh8TphZSCaHqaugTL7v0aeZjyOdVACz86I2KvU=";
-        };
-      };
-    };
-  };
+  cloudflared = callPackage ../applications/networking/cloudflared { };
 
   clingo = callPackage ../applications/science/logic/potassco/clingo.nix { };
 
@@ -4516,6 +4496,7 @@ with pkgs;
 
   netcat = libressl.nc.overrideAttrs (old: {
     meta = old.meta // {
+      description = "Utility which reads and writes data across network connections — LibreSSL implementation";
       mainProgram = "nc";
     };
   });
@@ -4544,8 +4525,6 @@ with pkgs;
 
   inherit (callPackages ../applications/networking/cluster/nomad { })
     nomad
-    nomad_1_7
-    nomad_1_8
     nomad_1_9
     ;
 
@@ -4880,9 +4859,7 @@ with pkgs;
 
   pinentry_mac = callPackage ../tools/security/pinentry/mac.nix { };
 
-  pingu = callPackage ../tools/networking/pingu {
-    buildGoModule = buildGo122Module;
-  };
+  pingu = callPackage ../tools/networking/pingu { };
 
   pinnwand = callPackage ../servers/pinnwand { };
 
@@ -5701,9 +5678,7 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Foundation IOBluetooth;
   };
 
-  wireguard-go = callPackage ../tools/networking/wireguard-go {
-    buildGoModule = buildGo122Module;
-  };
+  wireguard-go = callPackage ../tools/networking/wireguard-go { };
 
   wring = nodePackages.wring;
 
@@ -7399,14 +7374,9 @@ with pkgs;
   };
 
   beam = callPackage ./beam-packages.nix { };
-  beam_nox = callPackage ./beam-packages.nix {
-    beam = beam_nox;
-    wxSupport = false;
-  };
   beam_minimal = callPackage ./beam-packages.nix {
     beam = beam_minimal;
     wxSupport = false;
-    systemdSupport = false;
   };
 
   inherit (beam.interpreters)
@@ -7424,8 +7394,6 @@ with pkgs;
     elixir-ls
     ;
 
-  erlang_nox = beam_nox.interpreters.erlang;
-
   inherit (beam.packages.erlang)
     erlang-ls
     ex_doc
@@ -7442,17 +7410,17 @@ with pkgs;
   beamPackages = dontRecurseIntoAttrs beam27Packages;
   beamMinimalPackages = dontRecurseIntoAttrs beamMinimal27Packages;
 
-  beam25Packages = recurseIntoAttrs beam.packages.erlang_25;
-  beam26Packages = recurseIntoAttrs beam.packages.erlang_26;
-  beam27Packages = recurseIntoAttrs beam.packages.erlang_27;
+  beam25Packages = recurseIntoAttrs beam.packages.erlang_25.beamPackages;
+  beam26Packages = recurseIntoAttrs beam.packages.erlang_26.beamPackages;
+  beam27Packages = recurseIntoAttrs beam.packages.erlang_27.beamPackages;
   # 28 is pre-release
-  beam28Packages = dontRecurseIntoAttrs beam.packages.erlang_28;
+  beam28Packages = dontRecurseIntoAttrs beam.packages.erlang_28.beamPackages;
 
-  beamMinimal25Packages = recurseIntoAttrs beam_minimal.packages.erlang_25;
-  beamMinimal26Packages = recurseIntoAttrs beam_minimal.packages.erlang_26;
-  beamMinimal27Packages = recurseIntoAttrs beam_minimal.packages.erlang_27;
+  beamMinimal25Packages = recurseIntoAttrs beam_minimal.packages.erlang_25.beamPackages;
+  beamMinimal26Packages = recurseIntoAttrs beam_minimal.packages.erlang_26.beamPackages;
+  beamMinimal27Packages = recurseIntoAttrs beam_minimal.packages.erlang_27.beamPackages;
   # 28 is pre-release
-  beamMinimal28Packages = dontRecurseIntoAttrs beam_minimal.packages.erlang_28;
+  beamMinimal28Packages = dontRecurseIntoAttrs beam_minimal.packages.erlang_28.beamPackages;
 
   erlang_language_platform = callPackage ../by-name/er/erlang-language-platform/package.nix { };
 
@@ -11689,10 +11657,8 @@ with pkgs;
   go = go_1_24;
   buildGoModule = buildGo124Module;
 
-  go_1_22 = callPackage ../development/compilers/go/1.22.nix { };
-  buildGo122Module = callPackage ../build-support/go/module.nix {
-    go = buildPackages.go_1_22;
-  };
+  go_latest = go_1_24;
+  buildGoLatestModule = buildGo124Module;
 
   go_1_23 = callPackage ../development/compilers/go/1.23.nix { };
   buildGo123Module = callPackage ../build-support/go/module.nix {
@@ -15757,7 +15723,7 @@ with pkgs;
 
   openscad = libsForQt5.callPackage ../applications/graphics/openscad { };
 
-  opentimestamps-client = python3Packages.callPackage ../tools/misc/opentimestamps-client { };
+  opentimestamps-client = callPackage ../tools/misc/opentimestamps-client { };
 
   opentoonz = libsForQt5.callPackage ../applications/graphics/opentoonz { };
 
@@ -16773,10 +16739,6 @@ with pkgs;
 
   whispers = with python3Packages; toPythonApplication whispers;
 
-  warp-plus = callPackage ../by-name/wa/warp-plus/package.nix {
-    buildGoModule = buildGo122Module;
-  };
-
   # Should always be the version with the most features
   w3m-full = w3m;
 
@@ -16971,10 +16933,6 @@ with pkgs;
     nvidia_x11 = linuxPackages.nvidia_x11.override { libsOnly = true; };
   };
   libfakeXinerama = callPackage ../tools/X11/xpra/libfakeXinerama.nix { };
-
-  xsd = callPackage ../development/libraries/xsd {
-    stdenv = gcc9Stdenv;
-  };
 
   xmp = callPackage ../applications/audio/xmp {
     inherit (darwin.apple_sdk.frameworks) AudioUnit CoreAudio;
@@ -18925,6 +18883,10 @@ with pkgs;
   mongocxx = callPackage ../development/libraries/mongocxx/default.nix { };
 
   muse = libsForQt5.callPackage ../applications/audio/muse { };
+
+  nixDependencies = recurseIntoAttrs (
+    callPackage ../tools/package-management/nix/dependencies-scope.nix { }
+  );
 
   nixVersions = recurseIntoAttrs (
     callPackage ../tools/package-management/nix {
