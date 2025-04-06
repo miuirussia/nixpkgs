@@ -52,15 +52,7 @@ in
   # fix-point made by Nixpkgs.
   overlays ?
     let
-      lib = import ../../lib;
-      inherit (lib.filesystem) pathType;
-      isDir =
-        path:
-        {
-          symlink = builtins.pathExists (toString path + "/");
-          directory = true;
-        }
-        .${pathType path} or false;
+      isDir = path: builtins.pathExists (path + "/.");
       pathOverlays = try (toString <nixpkgs-overlays>) "";
       homeOverlaysFile = homeDir + "/.config/nixpkgs/overlays.nix";
       homeOverlaysDir = homeDir + "/.config/nixpkgs/overlays";
@@ -69,28 +61,24 @@ in
         # check if the path is a directory or a file
         if isDir path then
           # it's a directory, so the set of overlays from the directory, ordered lexicographically
-          overlaysDir path
+          let
+            content = builtins.readDir path;
+          in
+          map (n: import (path + ("/" + n))) (
+            builtins.filter (
+              n:
+              (
+                builtins.match ".*\\.nix" n != null
+                &&
+                  # ignore Emacs lock files (.#foo.nix)
+                  builtins.match "\\.#.*" n == null
+              )
+              || builtins.pathExists (path + ("/" + n + "/default.nix"))
+            ) (builtins.attrNames content)
+          )
         else
           # it's a file, so the result is the contents of the file itself
-          overlaysFile path;
-      overlaysDir =
-        path:
-        let
-          content = builtins.readDir path;
-        in
-        map (n: import (path + ("/" + n))) (
-          builtins.filter (
-            n:
-            (
-              builtins.match ".*\\.nix" n != null
-              &&
-                # ignore Emacs lock files (.#foo.nix)
-                builtins.match "\\.#.*" n == null
-            )
-            || builtins.pathExists (path + ("/" + n + "/default.nix"))
-          ) (builtins.attrNames content)
-        );
-      overlaysFile = path: import path;
+          import path;
     in
     if pathOverlays != "" && builtins.pathExists pathOverlays then
       overlays pathOverlays
@@ -100,9 +88,15 @@ in
         Please remove one of them and try again.
       ''
     else if builtins.pathExists homeOverlaysFile then
-      overlaysFile homeOverlaysFile
+      if isDir homeOverlaysFile then
+        throw (homeOverlaysFile + " should be a file")
+      else
+        overlays homeOverlaysFile
     else if builtins.pathExists homeOverlaysDir then
-      overlaysDir homeOverlaysDir
+      if !(isDir homeOverlaysDir) then
+        throw (homeOverlaysDir + " should be a directory")
+      else
+        overlays homeOverlaysDir
     else
       [ ],
 

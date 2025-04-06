@@ -2192,6 +2192,10 @@ self: super: with self; {
 
   canmatrix = callPackage ../development/python-modules/canmatrix { };
 
+  canonical-sphinx-extensions =
+    callPackage ../development/python-modules/canonical-sphinx-extensions
+      { };
+
   canonicaljson = callPackage ../development/python-modules/canonicaljson { };
 
   canopen = callPackage ../development/python-modules/canopen { };
@@ -3274,6 +3278,8 @@ self: super: with self; {
   decli = callPackage ../development/python-modules/decli { };
 
   decopatch = callPackage ../development/python-modules/decopatch { };
+
+  decora-wifi = callPackage ../development/python-modules/decora-wifi { };
 
   decorator = callPackage ../development/python-modules/decorator { };
 
@@ -7454,10 +7460,6 @@ self: super: with self; {
 
   langgraph-checkpoint = callPackage ../development/python-modules/langgraph-checkpoint { };
 
-  langgraph-checkpoint-duckdb =
-    callPackage ../development/python-modules/langgraph-checkpoint-duckdb
-      { };
-
   langgraph-checkpoint-postgres =
     callPackage ../development/python-modules/langgraph-checkpoint-postgres
       { };
@@ -7800,7 +7802,7 @@ self: super: with self; {
       p.override {
         enablePython = true;
         python3 = python;
-        python3Packages = pythonPackages;
+        python3Packages = self;
       }
     )
     (p: p.py)
@@ -13322,6 +13324,8 @@ self: super: with self; {
 
   pyspellchecker = callPackage ../development/python-modules/pyspellchecker { };
 
+  pyspelling = callPackage ../development/python-modules/pyspelling { };
+
   pyspf = callPackage ../development/python-modules/pyspf { };
 
   pyspice = callPackage ../development/python-modules/pyspice { };
@@ -16166,6 +16170,10 @@ self: super: with self; {
   sphinx-prompt = callPackage ../development/python-modules/sphinx-prompt { };
 
   sphinx-pytest = callPackage ../development/python-modules/sphinx-pytest { };
+
+  sphinx-reredirects = callPackage ../development/python-modules/sphinx-reredirects { };
+
+  sphinx-remove-toctrees = callPackage ../development/python-modules/sphinx-remove-toctrees { };
 
   sphinx-rtd-dark-mode = callPackage ../development/python-modules/sphinx-rtd-dark-mode { };
 
