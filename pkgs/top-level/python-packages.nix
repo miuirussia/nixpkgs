@@ -9685,6 +9685,8 @@ self: super: with self; {
 
   netapp-ontap = callPackage ../development/python-modules/netapp-ontap { };
 
+  netbox-attachments = callPackage ../development/python-modules/netbox-attachments { };
+
   netbox-bgp = callPackage ../development/python-modules/netbox-bgp { };
 
   netbox-contract = callPackage ../development/python-modules/netbox-contract { };
@@ -12233,6 +12235,8 @@ self: super: with self; {
 
   pygetwindow = callPackage ../development/python-modules/pygetwindow { };
 
+  pyghmi = callPackage ../development/python-modules/pyghmi { };
+
   pygit2 = callPackage ../development/python-modules/pygit2 { };
 
   pygitguardian = callPackage ../development/python-modules/pygitguardian { };
@@ -13095,6 +13099,8 @@ self: super: with self; {
   pyro4 = callPackage ../development/python-modules/pyro4 { };
 
   pyro5 = callPackage ../development/python-modules/pyro5 { };
+
+  pyroaring = callPackage ../development/python-modules/pyroaring { };
 
   pyrogram = callPackage ../development/python-modules/pyrogram { };
 
