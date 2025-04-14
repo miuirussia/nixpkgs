@@ -17194,8 +17194,8 @@
   };
   niklaskorz = {
     name = "Niklas Korz";
-    email = "niklas@niklaskorz.de";
-    matrix = "@niklaskorz:korz.dev";
+    email = "nixpkgs@korz.dev";
+    matrix = "@niklaskorz:matrix.org";
     github = "niklaskorz";
     githubId = 590517;
   };
@@ -23601,6 +23601,13 @@
     github = "Taneb";
     githubId = 1901799;
     name = "Nathan van Doorn";
+  };
+  tanya1866 = {
+    email = "tanyaarora@tutamail.com";
+    matrix = "@tanya1866:matrix.org";
+    github = "tanya1866";
+    githubId = 119473725;
+    name = "Tanya Arora";
   };
   taranarmo = {
     email = "taranarmo@gmail.com";
