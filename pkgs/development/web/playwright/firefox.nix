@@ -17,8 +17,8 @@ let
       }.zip";
       hash =
         {
-          x86_64-linux = "sha256-1xfqM13IVNkRq+f9/Iu2vjozpGYqUH97bhkYfN3y6IQ=";
-          aarch64-linux = "sha256-rYRSg686GVmydJQ+/MI5f1PnydoaMevh1v+Oyjzf00g=";
+          x86_64-linux = "sha256-tZ5rDLVzNaGILydgGbSOjtgfoRx0DWesZMmW0X8Pphc=";
+          aarch64-linux = "sha256-2NOK02C2APHVh4gVrQygrazGUJzJXH/3uOYDoyIn7fU=";
         }
         .${system} or throwSystem;
     };
@@ -41,8 +41,8 @@ let
     stripRoot = false;
     hash =
       {
-        x86_64-darwin = "sha256-yckYCZFK+9c5wIu8RBQgDgZ27MT3nvrxZJBofFdN7m8=";
-        aarch64-darwin = "sha256-YJA/YUCrDwYU+ybTCXYPSpt1SkYglfOA1xMeEWUcKvA=";
+        x86_64-darwin = "sha256-2j59mGvDiHMwmUQQFRVhToCooBdIGkF5s9iuXrVenHU=";
+        aarch64-darwin = "sha256-L7ffypyrX8qSCXksNxnihEZaV+wChoggGIcCuqosXzA=";
       }
       .${system} or throwSystem;
   };

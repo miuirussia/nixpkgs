@@ -34,8 +34,8 @@ let
     stripRoot = false;
     hash =
       {
-        x86_64-darwin = "sha256-9BGp3s+Zy0TZ8P8iIj2PowSBzicpMGJpc36b0xAlhsQ=";
-        aarch64-darwin = "sha256-VQo0szwMeI0N5kKw41d694hYL1MEnfgLmwOqrmeNI5A=";
+        x86_64-darwin = "sha256-IJxCYtHTOtBxQdGbiLz+PODQL4rmBn4WXNJ3QNr0D/I=";
+        aarch64-darwin = "sha256-6QP1OY1krhcfMf5rNzbd55W/Wg02LnbqaU7aKWhJ7qM=";
       }
       .${system} or throwSystem;
   };
