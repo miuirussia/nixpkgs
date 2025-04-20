@@ -622,6 +622,13 @@
     githubId = 1773511;
     name = "Adrien Devresse";
   };
+  adfaure = {
+    email = "adfaure@pm.me";
+    matrix = "@adfaure:matrix.org";
+    github = "adfaure";
+    githubId = 8026586;
+    name = "Adrien Faure";
+  };
   adisbladis = {
     email = "adisbladis@gmail.com";
     matrix = "@adis:blad.is";
@@ -855,6 +862,12 @@
     github = "ajaxbits";
     githubId = 45179933;
     name = "Alex Jackson";
+  };
+  a-jay98 = {
+    email = "ali@jamadi.me";
+    github = "A-jay98";
+    githubId = 23138252;
+    name = "Ali Jamadi";
   };
   ajgon = {
     email = "igor@rzegocki.pl";
@@ -2089,6 +2102,12 @@
     github = "arunoruto";
     githubId = 21687187;
     name = "Mirza Arnaut";
+  };
+  asakura = {
+    email = "mikalai.seva+nixpkgs@gmail.com";
+    github = "asakura";
+    githubId = 29058;
+    name = "Mikalai Seva";
   };
   asappia = {
     email = "asappia@gmail.com";
@@ -5000,6 +5019,12 @@
     github = "craigem";
     githubId = 6470493;
     name = "Craige McWhirter";
+  };
+  craigf = {
+    email = "craig@craigfurman.dev";
+    github = "craigfurman";
+    githubId = 4772216;
+    name = "Craig Furman";
   };
   cransom = {
     email = "cransom@hubns.net";
@@ -17376,6 +17401,12 @@
     github = "noaccOS";
     githubId = 24324352;
   };
+  noahfraiture = {
+    name = "Noahcode";
+    email = "pro@noahcode.dev";
+    github = "noahfraiture";
+    githubId = 94681915;
+  };
   noahgitsham = {
     name = "Noah Gitsham";
     github = "noahgitsham";
@@ -20863,6 +20894,13 @@
     github = "rorosen";
     githubId = 76747196;
     name = "Robert Rose";
+  };
+  RorySys = {
+    email = "root@rory.gay";
+    github = "TheArcaneBrony";
+    githubId = 13570458;
+    matrix = "@emma:rory.gay"; # preferred
+    name = "Rory&";
   };
   rosehobgoblin = {
     name = "J. L. Bowden";
@@ -24441,6 +24479,12 @@
     githubId = 6118602;
     name = "Viktor";
   };
+  tmssngr = {
+    email = "nixpkgs@syntevo.com";
+    github = "tmssngr";
+    githubId = 6029561;
+    name = "Thomas Singer";
+  };
   tne = {
     email = "tne@garudalinux.org";
     github = "JustTNE";
@@ -24460,8 +24504,9 @@
     githubId = 39011842;
   };
   toastal = {
+    # preferred: xmpp = "toastal@toastal.in.th";
     email = "toastal+nix@posteo.net";
-    matrix = "@toastal:mozilla.org";
+    matrix = "@toastal:clan.lol";
     github = "toastal";
     githubId = 561087;
     name = "toastal";
