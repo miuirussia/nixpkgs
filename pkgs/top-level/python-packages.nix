@@ -93,6 +93,14 @@ self: super: with self; {
 
   adguardhome = callPackage ../development/python-modules/adguardhome { };
 
+  adios2 = toPythonModule (
+    pkgs.adios2.override {
+      python3 = python;
+      python3Packages = self;
+      pythonSupport = true;
+    }
+  );
+
   adjusttext = callPackage ../development/python-modules/adjusttext { };
 
   adlfs = callPackage ../development/python-modules/adlfs { };
@@ -2655,6 +2663,8 @@ self: super: with self; {
 
   colcon = callPackage ../development/python-modules/colcon { };
 
+  colcon-argcomplete = callPackage ../development/python-modules/colcon-argcomplete { };
+
   collections-extended = callPackage ../development/python-modules/collections-extended { };
 
   collidoscope = callPackage ../development/python-modules/collidoscope { };
@@ -3488,6 +3498,8 @@ self: super: with self; {
 
   disnake = callPackage ../development/python-modules/disnake { };
 
+  disposable-email-domains = callPackage ../development/python-modules/disposable-email-domains { };
+
   dissect = callPackage ../development/python-modules/dissect { };
 
   dissect-archive = callPackage ../development/python-modules/dissect-archive { };
@@ -3880,6 +3892,8 @@ self: super: with self; {
 
   django-taggit = callPackage ../development/python-modules/django-taggit { };
 
+  django-tasks = callPackage ../development/python-modules/django-tasks { };
+
   django-tastypie = callPackage ../development/python-modules/django-tastypie { };
 
   django-tenants = callPackage ../development/python-modules/django-tenants { };
@@ -4015,6 +4029,8 @@ self: super: with self; {
   docker-pycreds = callPackage ../development/python-modules/docker-pycreds { };
 
   dockerfile-parse = callPackage ../development/python-modules/dockerfile-parse { };
+
+  dockerflow = callPackage ../development/python-modules/dockerflow { };
 
   dockerpty = callPackage ../development/python-modules/dockerpty { };
 
@@ -7278,6 +7294,13 @@ self: super: with self; {
 
   kaggle = callPackage ../development/python-modules/kaggle { };
 
+  kahip = toPythonModule (
+    pkgs.kahip.override {
+      pythonSupport = true;
+      python3Packages = self;
+    }
+  );
+
   kaitaistruct = callPackage ../development/python-modules/kaitaistruct { };
 
   kajiki = callPackage ../development/python-modules/kajiki { };
@@ -8119,6 +8142,8 @@ self: super: with self; {
   llm-jq = callPackage ../development/python-modules/llm-jq { };
 
   llm-ollama = callPackage ../development/python-modules/llm-ollama { };
+
+  llm-openai-plugin = callPackage ../development/python-modules/llm-openai-plugin { };
 
   llmx = callPackage ../development/python-modules/llmx { };
 
@@ -9723,6 +9748,8 @@ self: super: with self; {
   nest-asyncio = callPackage ../development/python-modules/nest-asyncio { };
 
   nested-lookup = callPackage ../development/python-modules/nested-lookup { };
+
+  nested-multipart-parser = callPackage ../development/python-modules/nested-multipart-parser { };
 
   nestedtext = callPackage ../development/python-modules/nestedtext { };
 
@@ -12257,11 +12284,10 @@ self: super: with self; {
 
   pygal = callPackage ../development/python-modules/pygal { };
 
-  pygame = callPackage ../development/python-modules/pygame { SDL2_image = pkgs.SDL2_image_2_0; };
+  pygame = callPackage ../development/python-modules/pygame { };
 
   pygame-ce = callPackage ../development/python-modules/pygame-ce {
     inherit (pkgs.darwin.apple_sdk.frameworks) AppKit;
-    SDL2_image = pkgs.SDL2_image_2_0;
     SDL2_mixer = pkgs.SDL2_mixer_2_0;
   };
 
@@ -15467,6 +15493,8 @@ self: super: with self; {
     inherit (pkgs.darwin.apple_sdk.frameworks) Accelerate;
   };
 
+  scspell = callPackage ../development/python-modules/scspell { };
+
   sdds = callPackage ../development/python-modules/sdds { };
 
   sdjson = callPackage ../development/python-modules/sdjson { };
@@ -15565,11 +15593,7 @@ self: super: with self; {
 
   sentinels = callPackage ../development/python-modules/sentinels { };
 
-  sentry-sdk = sentry-sdk_1;
-
-  sentry-sdk_1 = callPackage ../development/python-modules/sentry-sdk/1.nix { };
-
-  sentry-sdk_2 = callPackage ../development/python-modules/sentry-sdk/default.nix { };
+  sentry-sdk = callPackage ../development/python-modules/sentry-sdk/default.nix { };
 
   sepaxml = callPackage ../development/python-modules/sepaxml { };
 
@@ -15817,6 +15841,8 @@ self: super: with self; {
   siuba = callPackage ../development/python-modules/siuba { };
 
   six = callPackage ../development/python-modules/six { };
+
+  sixel = callPackage ../development/python-modules/sixel { };
 
   sjcl = callPackage ../development/python-modules/sjcl { };
 
@@ -16104,18 +16130,7 @@ self: super: with self; {
 
   soxr = callPackage ../development/python-modules/soxr { libsoxr = pkgs.soxr; };
 
-  spacy = callPackage ../development/python-modules/spacy {
-    # fix error: ‘_PyCFrame’ has no member named ‘use_tracing’
-    # see: https://aur.archlinux.org/packages/python-spacy
-    cython_0 = cython_0.overridePythonAttrs (old: rec {
-      version = "0.29.37";
-      src = pkgs.fetchPypi {
-        pname = "Cython";
-        inherit version;
-        hash = "sha256-+BPUpt2Ure5dT/JmGR0dlb9tQWSk+sxTVCLAIbJQTPs=";
-      };
-    });
-  };
+  spacy = callPackage ../development/python-modules/spacy { };
 
   spacy-alignments = callPackage ../development/python-modules/spacy-alignments { };
 
@@ -16973,8 +16988,6 @@ self: super: with self; {
 
   tensorflow-bin = callPackage ../development/python-modules/tensorflow/bin.nix {
     inherit (pkgs.config) cudaSupport;
-    # https://www.tensorflow.org/install/source#gpu
-    cudaPackages = pkgs.cudaPackages_12;
   };
 
   tensorflow-build =
@@ -17389,9 +17402,7 @@ self: super: with self; {
 
   torchaudio = callPackage ../development/python-modules/torchaudio { };
 
-  torchaudio-bin = callPackage ../development/python-modules/torchaudio/bin.nix {
-    cudaPackages = pkgs.cudaPackages_12;
-  };
+  torchaudio-bin = callPackage ../development/python-modules/torchaudio/bin.nix { };
 
   torchbench = callPackage ../development/python-modules/torchbench { };
 
@@ -17425,9 +17436,7 @@ self: super: with self; {
 
   torchvision = callPackage ../development/python-modules/torchvision { };
 
-  torchvision-bin = callPackage ../development/python-modules/torchvision/bin.nix {
-    cudaPackages = pkgs.cudaPackages_12;
-  };
+  torchvision-bin = callPackage ../development/python-modules/torchvision/bin.nix { };
 
   tornado = callPackage ../development/python-modules/tornado { };
 
@@ -17546,8 +17555,6 @@ self: super: with self; {
   tree-sitter-rust = callPackage ../development/python-modules/tree-sitter-rust { };
 
   tree-sitter-yaml = callPackage ../development/python-modules/tree-sitter-yaml { };
-
-  tree-sitter_0_21 = callPackage ../development/python-modules/tree-sitter/0_21.nix { };
 
   treelib = callPackage ../development/python-modules/treelib { };
 
