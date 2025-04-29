@@ -396,6 +396,15 @@ stdenv.mkDerivation {
   passthru = {
     inherit (libglvnd) driverLink;
     inherit llvmPackages;
+    inherit
+      eglPlatforms
+      galliumDrivers
+      vulkanDrivers
+      vulkanLayers
+      ;
+
+    # for compatibility
+    drivers = lib.warn "`mesa.drivers` is deprecated, use `mesa` instead" mesa;
 
     tests.outDoesNotDependOnLLVM = stdenv.mkDerivation {
       name = "mesa-does-not-depend-on-llvm";
