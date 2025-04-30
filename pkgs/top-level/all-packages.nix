@@ -3146,8 +3146,6 @@ with pkgs;
 
   deluge-2_x = deluge;
 
-  dnsviz = python3Packages.callPackage ../tools/networking/dnsviz { };
-
   diffoscopeMinimal = diffoscope.override {
     enableBloat = false;
   };
@@ -6802,13 +6800,6 @@ with pkgs;
   open-watcom-bin-unwrapped = callPackage ../development/compilers/open-watcom/bin.nix { };
   open-watcom-bin = wrapWatcom open-watcom-bin-unwrapped { };
 
-  ponyc = callPackage ../development/compilers/ponyc {
-    # Upstream pony no longer supports GCC
-    stdenv = llvmPackages.stdenv;
-  };
-
-  pony-corral = callPackage ../development/compilers/ponyc/pony-corral.nix { };
-
   replibyte = callPackage ../development/tools/database/replibyte {
     inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
@@ -7397,7 +7388,6 @@ with pkgs;
         newScope
         lxqt
         lib
-        libsForQt5
         ;
     }
   );
@@ -9839,7 +9829,7 @@ with pkgs;
 
   libappindicator-gtk2 = libappindicator.override { gtkVersion = "2"; };
   libappindicator-gtk3 = libappindicator.override { gtkVersion = "3"; };
-  libarchive-qt = libsForQt5.callPackage ../development/libraries/libarchive-qt { };
+  libarchive-qt = callPackage ../development/libraries/libarchive-qt { };
 
   libaribcaption = callPackage ../by-name/li/libaribcaption/package.nix {
     inherit (darwin.apple_sdk.frameworks)
@@ -11971,7 +11961,7 @@ with pkgs;
     nodejs-slim = nodejs-slim_22;
     python3 = python311;
     ruby = ruby_3_3;
-    yarn-berry = yarn-berry.override { nodejs = nodejs-slim_22; };
+    yarn-berry = yarn-berry_4.override { nodejs = nodejs-slim_22; };
   };
 
   micro-full = micro.wrapper.override {
@@ -12101,10 +12091,6 @@ with pkgs;
     withPerl = false;
     modules = [ ];
   };
-
-  opensmtpd = callPackage ../servers/mail/opensmtpd { };
-  opensmtpd-extras = callPackage ../servers/mail/opensmtpd/extras.nix { };
-  opensmtpd-filter-rspamd = callPackage ../servers/mail/opensmtpd/filter-rspamd.nix { };
 
   system-sendmail = lowPrio (callPackage ../servers/mail/system-sendmail { });
 
@@ -13687,10 +13673,6 @@ with pkgs;
     inherit (haskellPackages) ghcWithPackages;
   };
 
-  bluefish = callPackage ../applications/editors/bluefish {
-    gtk = gtk3;
-  };
-
   breezy = with python3Packages; toPythonApplication breezy;
 
   calf = callPackage ../applications/audio/calf {
@@ -14411,10 +14393,6 @@ with pkgs;
 
   pattypan = callPackage ../applications/misc/pattypan {
     jdk = jdk.override { enableJavaFX = true; };
-  };
-
-  gkrellm = callPackage ../applications/misc/gkrellm {
-    inherit (darwin.apple_sdk.frameworks) IOKit;
   };
 
   gnunet = callPackage ../applications/networking/p2p/gnunet { };
@@ -17112,7 +17090,7 @@ with pkgs;
 
   garden-of-coloured-lights = callPackage ../games/garden-of-coloured-lights { allegro = allegro4; };
 
-  gcompris = libsForQt5.callPackage ../games/gcompris { };
+  gcompris = kdePackages.callPackage ../games/gcompris { };
 
   gl-gsync-demo = callPackage ../games/gl-gsync-demo {
     libXNVCtrl = linuxPackages.nvidia_x11.settings.libXNVCtrl;
