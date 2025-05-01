@@ -2115,6 +2115,12 @@
     githubId = 891399;
     name = "Alessandro Sappia";
   };
+  asauzeau = {
+    email = "antoine.sauzeau3@gmail.com";
+    github = "AntoineSauzeau";
+    githubId = 72159603;
+    name = "Antoine Sauzeau";
+  };
   asbachb = {
     email = "asbachb-nixpkgs-5c2a@impl.it";
     matrix = "@asbachb:matrix.org";
@@ -9897,6 +9903,12 @@
     githubId = 57007241;
     name = "hogcycle";
   };
+  hoh = {
+    email = "git@hugoherter.com";
+    github = "hoh";
+    githubId = 404665;
+    name = "Hugo Herter";
+  };
   holgerpeters = {
     name = "Holger Peters";
     email = "holger.peters@posteo.de";
@@ -13380,6 +13392,12 @@
     github = "l0b0";
     githubId = 168301;
     name = "Victor Engmark";
+  };
+  L0L1P0P = {
+    name = "Behrad Badeli";
+    email = "behradbadeli@gmail.com";
+    github = "L0L1P0P1";
+    githubId = 73695812;
   };
   l1npengtul = {
     email = "l1npengtul@l1npengtul.lol";
@@ -24058,6 +24076,13 @@
     github = "teto";
     githubId = 886074;
     name = "Matthieu Coudron";
+  };
+  tetov = {
+    email = "anton@tetov.se";
+    github = "tetov";
+    githubId = 14882117;
+    keys = [ { fingerprint = "2B4D 0035 AFF0 F7DA CE5B  29D7 337D DB57 4A88 34DB"; } ];
+    name = "Anton Tetov";
   };
   teutat3s = {
     email = "teutates@mailbox.org";

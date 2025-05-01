@@ -3042,6 +3042,8 @@ self: super: with self; {
 
   customtkinter = callPackage ../development/python-modules/customtkinter { };
 
+  cut-cross-entropy = callPackage ../development/python-modules/cut-cross-entropy { };
+
   cvelib = callPackage ../development/python-modules/cvelib { };
 
   cvss = callPackage ../development/python-modules/cvss { };
@@ -8420,6 +8422,8 @@ self: super: with self; {
 
   manim-slides = callPackage ../development/python-modules/manim-slides { };
 
+  manimgl = callPackage ../development/python-modules/manimgl { };
+
   manimpango = callPackage ../development/python-modules/manimpango {
     inherit (pkgs.darwin.apple_sdk.frameworks) AppKit;
   };
@@ -10163,6 +10167,8 @@ self: super: with self; {
   odfpy = callPackage ../development/python-modules/odfpy { };
 
   odp-amsterdam = callPackage ../development/python-modules/odp-amsterdam { };
+
+  oelint-data = callPackage ../development/python-modules/oelint-data { };
 
   oelint-parser = callPackage ../development/python-modules/oelint-parser { };
 
@@ -12621,6 +12627,8 @@ self: super: with self; {
 
   pylint-flask = callPackage ../development/python-modules/pylint-flask { };
 
+  pylint-odoo = callPackage ../development/python-modules/pylint-odoo { };
+
   pylint-plugin-utils = callPackage ../development/python-modules/pylint-plugin-utils { };
 
   pylint-venv = callPackage ../development/python-modules/pylint-venv { };
@@ -14358,6 +14366,8 @@ self: super: with self; {
   pythonqwt = callPackage ../development/python-modules/pythonqwt { };
 
   pythran = callPackage ../development/python-modules/pythran { inherit (pkgs.llvmPackages) openmp; };
+
+  pythreejs = callPackage ../development/python-modules/pythreejs { };
 
   pytibber = callPackage ../development/python-modules/pytibber { };
 
@@ -17164,6 +17174,8 @@ self: super: with self; {
 
   test-tube = callPackage ../development/python-modules/test-tube { };
 
+  test2ref = callPackage ../development/python-modules/test2ref { };
+
   testbook = callPackage ../development/python-modules/testbook { };
 
   testcontainers = callPackage ../development/python-modules/testcontainers { };
@@ -17654,6 +17666,8 @@ self: super: with self; {
   triton-no-cuda = self.triton.override { cudaSupport = false; };
 
   tritonclient = callPackage ../development/python-modules/tritonclient { };
+
+  trl = callPackage ../development/python-modules/trl { };
 
   trlib = toPythonModule (
     pkgs.trlib.override {
@@ -18263,6 +18277,8 @@ self: super: with self; {
 
   typst = callPackage ../development/python-modules/typst { };
 
+  tyro = callPackage ../development/python-modules/tyro { };
+
   tzdata = callPackage ../development/python-modules/tzdata { };
 
   tzlocal = callPackage ../development/python-modules/tzlocal { };
@@ -18416,6 +18432,10 @@ self: super: with self; {
   unrardll = callPackage ../development/python-modules/unrardll { };
 
   unrpa = callPackage ../development/python-modules/unrpa { };
+
+  unsloth = callPackage ../development/python-modules/unsloth { };
+
+  unsloth-zoo = callPackage ../development/python-modules/unsloth-zoo { };
 
   unstructured = callPackage ../development/python-modules/unstructured { };
 
