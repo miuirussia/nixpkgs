@@ -94,7 +94,10 @@ let
     sourceRoot = "${src.name}"; # update.sh depends on sourceRoot presence
     npmDepsHash = "sha256-Os/HvvL+CFFb2sM+EDdxF2hN28Sg7oy3vBBfkIipkqs=";
 
-    nativeBuildInputs = [ cacert ];
+    nativeBuildInputs = [
+      cacert
+      jq
+    ];
 
     ELECTRON_SKIP_BINARY_DOWNLOAD = true;
 
@@ -127,6 +130,12 @@ let
       mkdir -p "$out/lib/node_modules/playwright"
       cp -r packages/playwright/!(bundles|src|node_modules|.*) "$out/lib/node_modules/playwright"
 
+      # for not supported platforms (such as NixOS) playwright assumes that it runs on ubuntu-20.04
+      # that forces it to use overridden webkit revision
+      # let's remove that override to make it use latest revision provided in Nixpkgs
+      # https://github.com/microsoft/playwright/blob/baeb065e9ea84502f347129a0b896a85d2a8dada/packages/playwright-core/src/server/utils/hostPlatform.ts#L111
+      jq '(.browsers[] | select(.name == "webkit") | .revisionOverrides) |= del(."ubuntu20.04-x64", ."ubuntu20.04-arm64")' \
+        packages/playwright-core/browsers.json > browser.json.tmp && mv browser.json.tmp packages/playwright-core/browsers.json
       mkdir -p "$out/lib/node_modules/playwright-core"
       cp -r packages/playwright-core/!(bundles|src|bin|.*) "$out/lib/node_modules/playwright-core"
 
@@ -197,7 +206,7 @@ let
     {
       withChromium ? true,
       withFirefox ? true,
-      withWebkit ? true,
+      withWebkit ? true, # may require `export PLAYWRIGHT_HOST_PLATFORM_OVERRIDE="ubuntu-24.04"`
       withFfmpeg ? true,
       withChromiumHeadlessShell ? true,
       fontconfig_file ? makeFontsConf {
