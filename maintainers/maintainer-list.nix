@@ -12713,6 +12713,12 @@
     githubId = 8211181;
     name = "Kevin Kandlbinder";
   };
+  keysmashes = {
+    email = "x-89cjg9@keysmash.solutions";
+    github = "keysmashes";
+    githubId = 9433472;
+    name = "ash";
+  };
   kfollesdal = {
     email = "kfollesdal@gmail.com";
     github = "kfollesdal";
@@ -22175,12 +22181,6 @@
     githubId = 56278796;
     name = "Sergio Ribera";
   };
-  sersorrel = {
-    email = "ash@sorrel.sh";
-    github = "sersorrel";
-    githubId = 9433472;
-    name = "ash";
-  };
   servalcatty = {
     email = "servalcat@pm.me";
     github = "servalcatty";
@@ -25825,6 +25825,12 @@
     githubId = 19562240;
     name = "Vinicius Bernardino";
     keys = [ { fingerprint = "F0D3 920C 722A 541F 0CCD  66E3 A7BA BA05 3D78 E7CA"; } ];
+  };
+  vnpower = {
+    email = "vnpower@loang.net";
+    github = "vntsuyo";
+    githubId = 209139160;
+    name = "VnPower";
   };
   vog = {
     email = "v@njh.eu";

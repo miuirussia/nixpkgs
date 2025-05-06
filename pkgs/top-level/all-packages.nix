@@ -1329,8 +1329,6 @@ with pkgs;
 
   git-credential-manager = callPackage ../applications/version-management/git-credential-manager { };
 
-  git-fame = callPackage ../applications/version-management/git-fame { };
-
   git-gone = callPackage ../applications/version-management/git-gone {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -1358,10 +1356,6 @@ with pkgs;
 
   git-stack = callPackage ../applications/version-management/git-stack {
     inherit (darwin.apple_sdk.frameworks) Security;
-  };
-
-  git-up = callPackage ../applications/version-management/git-up {
-    pythonPackages = python3Packages;
   };
 
   gittyup = libsForQt5.callPackage ../applications/version-management/gittyup { };
@@ -2596,10 +2590,6 @@ with pkgs;
 
   nixpkgs-pytools = with python3.pkgs; toPythonApplication nixpkgs-pytools;
 
-  noti = callPackage ../tools/misc/noti {
-    inherit (darwin.apple_sdk.frameworks) Cocoa;
-  };
-
   nsz = with python3.pkgs; toPythonApplication nsz;
 
   ocrmypdf = with python3.pkgs; toPythonApplication ocrmypdf;
@@ -3607,6 +3597,13 @@ with pkgs;
   grails = callPackage ../development/web/grails { jdk = null; };
 
   graylog-6_0 = callPackage ../tools/misc/graylog/6.0.nix { };
+
+  inherit
+    ({
+      graylog-6_1 = callPackage ../tools/misc/graylog/6.1.nix { };
+    })
+    graylog-6_1
+    ;
 
   graylogPlugins = recurseIntoAttrs (
     callPackage ../tools/misc/graylog/plugins.nix { graylogPackage = graylog-6_0; }
@@ -7808,12 +7805,14 @@ with pkgs;
     electron_33-bin
     electron_34-bin
     electron_35-bin
+    electron_36-bin
     ;
 
   inherit (callPackages ../development/tools/electron/chromedriver { })
     electron-chromedriver_33
     electron-chromedriver_34
     electron-chromedriver_35
+    electron-chromedriver_36
     ;
 
   electron_33 = electron_33-bin;
@@ -7827,6 +7826,11 @@ with pkgs;
       electron-source.electron_35
     else
       electron_35-bin;
+  electron_36 =
+    if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_36 then
+      electron-source.electron_36
+    else
+      electron_36-bin;
   electron = electron_35;
   electron-bin = electron_35-bin;
   electron-chromedriver = electron-chromedriver_35;
@@ -16511,18 +16515,18 @@ with pkgs;
 
   kodi = callPackage ../applications/video/kodi {
     ffmpeg = ffmpeg_6;
-    jre_headless = jdk11_headless;
+    jre_headless = buildPackages.jdk11_headless;
   };
 
   kodi-wayland = callPackage ../applications/video/kodi {
     ffmpeg = ffmpeg_6;
-    jre_headless = jdk11_headless;
+    jre_headless = buildPackages.jdk11_headless;
     waylandSupport = true;
   };
 
   kodi-gbm = callPackage ../applications/video/kodi {
     ffmpeg = ffmpeg_6;
-    jre_headless = jdk11_headless;
+    jre_headless = buildPackages.jdk11_headless;
     gbmSupport = true;
   };
 
