@@ -1,7 +1,7 @@
 {
   stdenv,
   lib,
-  pandoc_3_6,
+  pandoc,
   typst,
   esbuild,
   deno,
@@ -20,11 +20,11 @@
 }:
 stdenv.mkDerivation (final: {
   pname = "quarto";
-  version = "1.7.29";
+  version = "1.7.30";
 
   src = fetchurl {
     url = "https://github.com/quarto-dev/quarto-cli/releases/download/v${final.version}/quarto-${final.version}-linux-amd64.tar.gz";
-    hash = "sha256-UFXNyovsvRmLTAHQ3P/XYZwL4su9xwmrTQCFy3VXkak=";
+    hash = "sha256-JcDeZGexvVxCLf1Vcgs59IslLYACs0bgIaGMIphiw/k=";
   };
 
   patches = [
@@ -41,7 +41,7 @@ stdenv.mkDerivation (final: {
   preFixup = ''
     wrapProgram $out/bin/quarto \
       --prefix QUARTO_DENO : ${lib.getExe deno} \
-      --prefix QUARTO_PANDOC : ${lib.getExe pandoc_3_6} \
+      --prefix QUARTO_PANDOC : ${lib.getExe pandoc} \
       --prefix QUARTO_ESBUILD : ${lib.getExe esbuild} \
       --prefix QUARTO_DART_SASS : ${lib.getExe dart-sass} \
       --prefix QUARTO_TYPST : ${lib.getExe typst} \
