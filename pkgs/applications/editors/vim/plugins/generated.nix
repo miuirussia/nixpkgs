@@ -4630,6 +4630,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  famous-quotes-nvim = buildVimPlugin {
+    pname = "famous-quotes.nvim";
+    version = "2025-05-07";
+    src = fetchFromGitHub {
+      owner = "mahyarmirrashed";
+      repo = "famous-quotes.nvim";
+      rev = "dc493abfb51581b6716986b4311c367c6a100bab";
+      sha256 = "179hgxyhzca4g0xmx02kl7gy7c6058kgww4zv7f1dvl2mf59ln67";
+    };
+    meta.homepage = "https://github.com/mahyarmirrashed/famous-quotes.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
   far-vim = buildVimPlugin {
     pname = "far.vim";
     version = "2024-05-14";
@@ -11310,6 +11323,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  nvim-vtsls = buildVimPlugin {
+    pname = "nvim-vtsls";
+    version = "2025-04-27";
+    src = fetchFromGitHub {
+      owner = "yioneko";
+      repo = "nvim-vtsls";
+      rev = "60b493e641d3674c030c660cabe7a2a3f7a914be";
+      sha256 = "00qj7b70afpgxmb6ml4knjwdwcn29yk8mvsb575b6ww9zsxh34il";
+    };
+    meta.homepage = "https://github.com/yioneko/nvim-vtsls/";
+    meta.hydraPlatforms = [ ];
+  };
+
   nvim-whichkey-setup-lua = buildVimPlugin {
     pname = "nvim-whichkey-setup.lua";
     version = "2021-04-16";
@@ -14516,6 +14542,19 @@ final: prev: {
       sha256 = "083xd3mwbv89k7vdwm7x3ww6xsjarphr0znfda47dam5r4vk41nz";
     };
     meta.homepage = "https://github.com/itchyny/thumbnail.vim/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  timerly = buildVimPlugin {
+    pname = "timerly";
+    version = "2025-04-16";
+    src = fetchFromGitHub {
+      owner = "nvzone";
+      repo = "timerly";
+      rev = "17299a4d332c483ce09052fe8478b41b992f2594";
+      sha256 = "0nfyw98nb95df0dpnxlaipgar92b8z2z3rxfih2fc86m6gxv2mm2";
+    };
+    meta.homepage = "https://github.com/nvzone/timerly/";
     meta.hydraPlatforms = [ ];
   };
 
