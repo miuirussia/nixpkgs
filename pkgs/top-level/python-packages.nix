@@ -1602,6 +1602,8 @@ self: super: with self; {
 
   backports-tarfile = callPackage ../development/python-modules/backports-tarfile { };
 
+  backtesting = callPackage ../development/python-modules/backtesting { };
+
   bacpypes = callPackage ../development/python-modules/bacpypes { };
 
   bagit = callPackage ../development/python-modules/bagit { };
@@ -1777,6 +1779,8 @@ self: super: with self; {
   better-exceptions = callPackage ../development/python-modules/better-exceptions { };
 
   betterproto = callPackage ../development/python-modules/betterproto { };
+
+  bezier = callPackage ../development/python-modules/bezier { };
 
   beziers = callPackage ../development/python-modules/beziers { };
 
@@ -4408,6 +4412,8 @@ self: super: with self; {
 
   elevenlabs = callPackage ../development/python-modules/elevenlabs { };
 
+  elfdeps = toPythonModule (pkgs.elfdeps.override { python3Packages = self; });
+
   elgato = callPackage ../development/python-modules/elgato { };
 
   eliot = callPackage ../development/python-modules/eliot { };
@@ -4755,6 +4761,8 @@ self: super: with self; {
 
   falcon = callPackage ../development/python-modules/falcon { };
 
+  falcon-cors = callPackage ../development/python-modules/falcon-cors { };
+
   falconpy = callPackage ../development/python-modules/falconpy { };
 
   faraday-agent-parameters-types =
@@ -4942,6 +4950,8 @@ self: super: with self; {
   firebase-messaging = callPackage ../development/python-modules/firebase-messaging { };
 
   firecrawl-py = callPackage ../development/python-modules/firecrawl-py { };
+
+  firedrake = callPackage ../development/python-modules/firedrake { };
 
   firedrake-fiat = callPackage ../development/python-modules/firedrake-fiat { };
 
@@ -6488,8 +6498,6 @@ self: super: with self; {
 
   huggingface-hub = callPackage ../development/python-modules/huggingface-hub { };
 
-  huisbaasje-client = callPackage ../development/python-modules/huisbaasje-client { };
-
   human-readable = callPackage ../development/python-modules/human-readable { };
 
   humanfriendly = callPackage ../development/python-modules/humanfriendly { };
@@ -6906,6 +6914,8 @@ self: super: with self; {
   ircstates = callPackage ../development/python-modules/ircstates { };
 
   irctokens = callPackage ../development/python-modules/irctokens { };
+
+  irisclient = callPackage ../development/python-modules/irisclient { };
 
   isal = callPackage ../development/python-modules/isal { };
 
@@ -8094,6 +8104,8 @@ self: super: with self; {
 
   llama-cloud = callPackage ../development/python-modules/llama-cloud { };
 
+  llama-cloud-services = callPackage ../development/python-modules/llama-cloud-services { };
+
   llama-cpp-python = callPackage ../development/python-modules/llama-cpp-python { };
 
   llama-index = callPackage ../development/python-modules/llama-index { };
@@ -8276,8 +8288,6 @@ self: super: with self; {
   logfury = callPackage ../development/python-modules/logfury { };
 
   logging-journald = callPackage ../development/python-modules/logging-journald { };
-
-  logi-circle = callPackage ../development/python-modules/logi-circle { };
 
   logical-unification = callPackage ../development/python-modules/logical-unification { };
 
@@ -10110,6 +10120,8 @@ self: super: with self; {
   numba-scipy = callPackage ../development/python-modules/numba-scipy { };
 
   numbaWithCuda = self.numba.override { cudaSupport = true; };
+
+  numbagg = callPackage ../development/python-modules/numbagg { };
 
   numcodecs = callPackage ../development/python-modules/numcodecs { };
 
@@ -13558,6 +13570,8 @@ self: super: with self; {
 
   pysuezv2 = callPackage ../development/python-modules/pysuezv2 { };
 
+  pysunspec2 = callPackage ../development/python-modules/pysunspec2 { };
+
   pysvg-py3 = callPackage ../development/python-modules/pysvg-py3 { };
 
   pysvn = callPackage ../development/python-modules/pysvn {
@@ -14867,6 +14881,8 @@ self: super: with self; {
   rclone-python = callPackage ../development/python-modules/rclone-python { };
 
   rcssmin = callPackage ../development/python-modules/rcssmin { };
+
+  rctclient = callPackage ../development/python-modules/rctclient { };
 
   rdbtools = callPackage ../development/python-modules/rdbtools { };
 

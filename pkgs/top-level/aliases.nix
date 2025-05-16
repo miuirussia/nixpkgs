@@ -425,6 +425,9 @@ mapAliases {
   chromatic = throw "chromatic has been removed due to being unmaintained and failing to build"; # Added 2025-04-18
   chrome-gnome-shell = gnome-browser-connector; # Added 2022-07-27
   cinnamon = throw "The cinnamon scope has been removed and all packages have been moved to the top-level"; # Added 2024-11-25
+  citra = throw "citra has been removed from nixpkgs, as it has been taken down upstream"; # added 2024-03-04
+  citra-nightly = throw "citra-nightly has been removed from nixpkgs, as it has been taken down upstream"; # added 2024-03-04
+  citra-canary = throw "citra-canary has been removed from nixpkgs, as it has been taken down upstream"; # added 2024-03-04
   cloog = throw "cloog has been removed from Nixpkgs, as it is unmaintained and obsolete"; # Added 2024-09-13
   cloog_0_18_0 = throw "cloog_0_18_0 has been removed from Nixpkgs, as it is unmaintained and obsolete"; # Added 2024-09-13
   cloogppl = throw "cloogppl has been removed from Nixpkgs, as it is unmaintained and obsolete"; # Added 2024-09-13
@@ -497,6 +500,7 @@ mapAliases {
   ### D ###
 
   dap = throw "'dap' has been removed because it doesn't compile and has been unmaintained since 2014"; # Added 2025-05-10
+  darling = throw "'darling' has been removed due to vendoring Python2"; # Added 2025-05-10
   dart_stable = throw "'dart_stable' has been renamed to/replaced by 'dart'"; # Converted to throw 2024-10-17
   dart-sass-embedded = throw "dart-sass-embedded has been removed from nixpkgs, as is now included in Dart Sass itself.";
   dat = nodePackages.dat;
@@ -650,6 +654,7 @@ mapAliases {
   flutter319 = throw "flutter319 has been removed because it isn't updated anymore, and no packages in nixpkgs use it. If you still need it, use flutter.mkFlutter to get a custom version"; # Added 2024-12-03
   flutter322 = throw "flutter322 has been removed because it isn't updated anymore, and no packages in nixpkgs use it. If you still need it, use flutter.mkFlutter to get a custom version"; # Added 2024-10-05
   flutter323 = throw "flutter323 has been removed because it isn't updated anymore, and no packages in nixpkgs use it. If you still need it, use flutter.mkFlutter to get a custom version"; # Added 2024-10-05
+  fluxctl = throw "fluxctl is unmaintained and has been removed. Migration to flux2 is recommended"; # Added 2025-05-11
   fluxus = throw "fluxus has been removed because it hasn't been updated in 9 years and depended on insecure Racket 7.9"; # Added 2024-12-06
   fmt_8 = throw "fmt_8 has been removed as it is obsolete and was no longer used in the tree"; # Added 2024-11-12
   fntsample = throw "fntsample has been removed as it is unmaintained upstream"; # Added 2025-04-21
@@ -1242,6 +1247,7 @@ mapAliases {
   neocomp = throw "neocomp has been remove because it fails to build and was unmaintained upstream"; # Added 2025-04-28
   netbox_3_3 = throw "netbox 3.3 series has been removed as it was EOL"; # Added 2023-09-02
   netbox_3_5 = throw "netbox 3.5 series has been removed as it was EOL"; # Added 2024-01-22
+  netbox_3_7 = throw "netbox 3.7 series has been removed as it was EOL"; # Added 2025-04-23
   nextcloud29 = throw ''
     Nextcloud v29 has been removed from `nixpkgs` as the support for is dropped
     by upstream in 2025-04. Please upgrade to at least Nextcloud v30 by declaring
@@ -1624,6 +1630,7 @@ mapAliases {
   rke2_testing = throw "'rke2_testing' has been removed from nixpkgs as the RKE2 testing channel no longer serves releases"; # Added 2025-06-02
   rl_json = tclPackages.rl_json; # Added 2025-05-03
   rockbox_utility = rockbox-utility; # Added 2022-03-17
+  rocmPackages_5 = throw "ROCm 5 has been removed in favor of newer versions"; # Added 2025-02-18
   rnix-hashes = throw "'rnix-hashes' has been removed due to lack of upstream maintenance"; # Added 2025-01-25
   rpiboot-unstable = throw "'rpiboot-unstable' has been renamed to/replaced by 'rpiboot'"; # Converted to throw 2024-10-17
   rr-unstable = rr; # Added 2022-09-17
@@ -1650,6 +1657,8 @@ mapAliases {
   SDL1 = throw "'SDL1' has been removed as development ended long ago with SDL 2.0 replacing it, use SDL_compat instead"; # Added 2025-03-27
   SDL_gpu = throw "'SDL_gpu' has been removed due to lack of upstream maintenance and known users"; # Added 2025-03-15
   SDL_image_2_0 = throw "'SDL_image_2_0' has been removed in favor of the latest version"; # Added 2025-04-20
+  SDL2_mixer_2_0 = throw "'SDL2_mixer_2_0' has been removed in favor of the latest version"; # Added 2025-04-27
+  SDL2_classic_mixer_2_0 = throw "'SDL2_classic_mixer_2_0' has been removed in favor of the latest version"; # Added 2025-04-27
   s2n = throw "'s2n' has been renamed to/replaced by 's2n-tls'"; # Converted to throw 2024-10-17
   sandboxfs = throw "'sandboxfs' has been removed due to being unmaintained, consider using linux namespaces for sandboxing instead"; # Added 2024-06-06
   sane-backends-git = throw "'sane-backends-git' has been renamed to/replaced by 'sane-backends'"; # Converted to throw 2024-10-17
@@ -1679,6 +1688,8 @@ mapAliases {
   siduck76-st = st-snazzy; # Added 2024-12-24
   signal-desktop-beta = throw "signal-desktop-beta has been removed to make the signal-desktop package easier to maintain";
   signal-desktop-source = lib.warnOnInstantiate "'signal-desktop-source' is now exposed at 'signal-desktop'." signal-desktop; # Added 2025-04-16
+  silc_server = throw "'silc_server' has been removed because it is unmaintained"; # Added 2025-05-12
+  silc_client = throw "'silc_client' has been removed because it is unmaintained"; # Added 2025-05-12
   sheesy-cli = throw "'sheesy-cli' has been removed due to lack of upstream maintenance"; # Added 2025-01-26
   shout = nodePackages.shout; # Added unknown; moved 2024-10-19
   sky = throw "'sky' has been removed because its upstream website disappeared"; # Added 2024-07-21
@@ -1751,6 +1762,7 @@ mapAliases {
   sumneko-lua-language-server = lua-language-server; # Added 2023-02-07
   sumokoin = throw "sumokoin has been removed as it was abandoned upstream"; # Added 2024-11-23
   supertag = throw "supertag has been removed as it was abandoned upstream and fails to build"; # Added 2025-04-20
+  suyu = throw "suyu has been removed from nixpkgs, as it is subject to a DMCA takedown"; # Added 2025-05-12
   swiProlog = lib.warnOnInstantiate "swiProlog has been renamed to swi-prolog" swi-prolog; # Added 2024-09-07
   swiPrologWithGui = lib.warnOnInstantiate "swiPrologWithGui has been renamed to swi-prolog-gui" swi-prolog-gui; # Added 2024-09-07
   swig1 = throw "swig1 has been removed as it is obsolete"; # Added 2024-08-23
@@ -1827,6 +1839,7 @@ mapAliases {
   tor-browser-bundle-bin = tor-browser; # Added 2023-09-23
   torrenttools = throw "torrenttools has been removed due to lack of maintanance upstream"; # Added 2025-04-06
   torq = throw "torq has been removed because the project went closed source"; # Added 2024-11-24
+  torzu = throw "torzu has been removed from nixpkgs, as it is subject to a DMCA takedown"; # Added 2025-05-12
   transmission = lib.warnOnInstantiate (transmission3Warning { }) transmission_3; # Added 2024-06-10
   transmission-gtk = lib.warnOnInstantiate (transmission3Warning {
     suffix = "-gtk";
@@ -1907,6 +1920,8 @@ mapAliases {
   varnish74Packages = throw "varnish 7.4 is EOL. Either use the LTS or upgrade."; # Added 2024-10-31
   varnish75 = throw "varnish 7.5 is EOL. Either use the LTS or upgrade."; # Added 22025-03-29
   varnish75Packages = throw "varnish 7.5 is EOL. Either use the LTS or upgrade."; # Added 2025-03-29
+  varnish76 = throw "varnish 7.6 is EOL. Either use the LTS or upgrade."; # Added 2025-05-15
+  varnish76Packages = throw "varnish 7.6 is EOL. Either use the LTS or upgrade."; # Added 2025-05-15
   vdirsyncerStable = vdirsyncer; # Added 2020-11-08, see https://github.com/NixOS/nixpkgs/issues/103026#issuecomment-723428168
   ventoy-bin = ventoy; # Added 2023-04-12
   ventoy-bin-full = ventoy-full; # Added 2023-04-12
@@ -2010,6 +2025,11 @@ mapAliases {
   yandex-browser-corporate = throw "'yandex-browser-corporate' has been removed, as it was broken and unmaintained"; # Added 2025-04-17
   youtrack_2022_3 = throw "'youtrack_2022_3' has been removed as it was deprecated. Please update to the 'youtrack' package."; # Added 2024-10-17
   yrd = throw "'yrd' has been removed, as it was broken and unmaintained"; # added 2024-05-27
+  yuzu-ea = throw "yuzu-ea has been removed from nixpkgs, as it has been taken down upstream"; # Added 2024-03-04
+  yuzu-early-access = throw "yuzu-early-access has been removed from nixpkgs, as it has been taken down upstream"; # Added 2024-03-04
+  yuzu = throw "yuzu has been removed from nixpkgs, as it has been taken down upstream"; # Added 2024-03-04
+  yuzu-mainline = throw "yuzu-mainline has been removed from nixpkgs, as it has been taken down upstream"; # Added 2024-03-04
+  yuzuPackages = throw "yuzuPackages has been removed from nixpkgs, as it has been taken down upstream"; # Added 2024-03-04
 
   ### Z ###
 

@@ -1671,8 +1671,6 @@ with pkgs;
 
   brakeman = callPackage ../development/tools/analysis/brakeman { };
 
-  brewtarget = libsForQt5.callPackage ../applications/misc/brewtarget { };
-
   # Derivation's result is not used by nixpkgs. Useful for validation for
   # regressions of bootstrapTools on hydra and on ofborg. Example:
   #     pkgsCross.aarch64-multiplatform.freshBootstrapTools.build
@@ -2170,7 +2168,7 @@ with pkgs;
 
   easyocr = with python3.pkgs; toPythonApplication easyocr;
 
-  eddy = libsForQt5.callPackage ../applications/graphics/eddy { };
+  eddy = callPackage ../applications/graphics/eddy { };
 
   element-web = callPackage ../by-name/el/element-web/package.nix {
     conf = config.element-web.conf or { };
@@ -2538,6 +2536,11 @@ with pkgs;
       # If we want to switch for that before upstream fixes it, use this patch:
       # https://github.com/NixOS/nixpkgs/pull/281858#issuecomment-1899648638
       fmt = fmt_9;
+
+      # Remove once Ceph supports arrow-cpp >= 20, see:
+      # * https://tracker.ceph.com/issues/71269
+      # * https://github.com/NixOS/nixpkgs/issues/406306
+      arrow-cpp = callPackage ../tools/filesystems/ceph/arrow-cpp-19.nix { };
     })
     ceph
     ceph-client
@@ -2860,7 +2863,6 @@ with pkgs;
   kramdown-asciidoc = callPackage ../tools/typesetting/kramdown-asciidoc { };
 
   rocmPackages = rocmPackages_6;
-  rocmPackages_5 = recurseIntoAttrs (callPackage ../development/rocm-modules/5 { });
   rocmPackages_6 = recurseIntoAttrs (callPackage ../development/rocm-modules/6 { });
 
   sonobuoy = callPackage ../applications/networking/cluster/sonobuoy { };
@@ -3005,7 +3007,7 @@ with pkgs;
     inherit (darwin) autoSignDarwinBinariesHook;
   };
 
-  fontmatrix = libsForQt5.callPackage ../applications/graphics/fontmatrix { };
+  fontmatrix = callPackage ../applications/graphics/fontmatrix { };
 
   fox = callPackage ../development/libraries/fox { };
 
@@ -3027,7 +3029,7 @@ with pkgs;
 
   frostwire-bin = callPackage ../applications/networking/p2p/frostwire/frostwire-bin.nix { };
 
-  fstl = qt5.callPackage ../applications/graphics/fstl { };
+  fstl = callPackage ../applications/graphics/fstl { };
 
   fwknop = callPackage ../tools/security/fwknop {
     texinfo = texinfo6_7; # Uses @setcontentsaftertitlepage, removed in 6.8.
@@ -3517,7 +3519,7 @@ with pkgs;
       ocamlPackages = ocaml_p;
     };
 
-  leocad = libsForQt5.callPackage ../applications/graphics/leocad { };
+  leocad = callPackage ../applications/graphics/leocad { };
 
   libcoap = callPackage ../applications/networking/libcoap {
     autoconf = buildPackages.autoconf269;
@@ -3862,8 +3864,6 @@ with pkgs;
     hdf5 = hdf5-mpi.override { usev110Api = true; };
   };
 
-  inherit (callPackage ../servers/web-apps/netbox { }) netbox_3_7;
-
   # Not in aliases because it wouldn't get picked up by callPackage
   netbox = netbox_4_2;
 
@@ -3982,7 +3982,7 @@ with pkgs;
     jre = pkgs.jre_headless;
   };
 
-  openboard = libsForQt5.callPackage ../applications/graphics/openboard { };
+  openboard = callPackage ../applications/graphics/openboard { };
 
   ophcrack-cli = ophcrack.override { enableGui = false; };
 
@@ -4089,7 +4089,7 @@ with pkgs;
 
   ossec-server = callPackage ../tools/security/ossec/server.nix { };
 
-  ovito = qt6Packages.callPackage ../applications/graphics/ovito { };
+  ovito = callPackage ../applications/graphics/ovito { };
 
   p4c = callPackage ../development/compilers/p4c {
     protobuf = protobuf_21;
@@ -4305,9 +4305,9 @@ with pkgs;
 
   qmarkdowntextedit = libsForQt5.callPackage ../development/libraries/qmarkdowntextedit { };
 
-  qosmic = libsForQt5.callPackage ../applications/graphics/qosmic { };
+  qosmic = callPackage ../applications/graphics/qosmic { };
 
-  qtikz = libsForQt5.callPackage ../applications/graphics/ktikz { };
+  qtikz = callPackage ../applications/graphics/ktikz { };
 
   qtspim = libsForQt5.callPackage ../development/tools/misc/qtspim { };
 
@@ -4315,9 +4315,9 @@ with pkgs;
 
   quota = if stdenv.hostPlatform.isLinux then linuxquota else unixtools.quota;
 
-  qvge = libsForQt5.callPackage ../applications/graphics/qvge { };
+  qvge = callPackage ../applications/graphics/qvge { };
 
-  qview = libsForQt5.callPackage ../applications/graphics/qview { };
+  qview = callPackage ../applications/graphics/qview { };
 
   wayback_machine_downloader = callPackage ../applications/networking/wayback_machine_downloader { };
 
@@ -4798,12 +4798,10 @@ with pkgs;
 
   inherit (callPackages ../servers/varnish { })
     varnish60
-    varnish76
     varnish77
     ;
   inherit (callPackages ../servers/varnish/packages.nix { })
     varnish60Packages
-    varnish76Packages
     varnish77Packages
     ;
   varnishPackages = varnish77Packages;
@@ -7184,7 +7182,7 @@ with pkgs;
 
   chruby = callPackage ../development/tools/misc/chruby { rubies = null; };
 
-  cloudcompare = libsForQt5.callPackage ../applications/graphics/cloudcompare { };
+  cloudcompare = callPackage ../applications/graphics/cloudcompare { };
 
   cookiecutter = with python3Packages; toPythonApplication cookiecutter;
 
@@ -7426,7 +7424,7 @@ with pkgs;
 
   jenkins-job-builder = with python3Packages; toPythonApplication jenkins-job-builder;
 
-  kcc = libsForQt5.callPackage ../applications/graphics/kcc { };
+  kcc = callPackage ../applications/graphics/kcc { };
 
   kustomize = callPackage ../development/tools/kustomize { };
 
@@ -10361,7 +10359,7 @@ with pkgs;
   freshrss = callPackage ../servers/web-apps/freshrss { };
   freshrss-extensions = recurseIntoAttrs (callPackage ../servers/web-apps/freshrss/extensions { });
 
-  glabels-qt = libsForQt5.callPackage ../applications/graphics/glabels-qt { };
+  glabels-qt = callPackage ../applications/graphics/glabels-qt { };
 
   grafana = callPackage ../servers/monitoring/grafana { };
   grafanaPlugins = callPackages ../servers/monitoring/grafana/plugins { };
@@ -10908,6 +10906,10 @@ with pkgs;
   };
 
   stalwart-mail-webadmin = stalwart-mail.webadmin;
+
+  stalwart-mail-enterprise = stalwart-mail.override {
+    stalwartEnterprise = true;
+  };
 
   ruby-zoom = callPackage ../tools/text/ruby-zoom { };
 
@@ -12153,7 +12155,7 @@ with pkgs;
 
   djv = callPackage ../by-name/dj/djv/package.nix { openexr = openexr_2; };
 
-  djview = libsForQt5.callPackage ../applications/graphics/djview { };
+  djview = callPackage ../applications/graphics/djview { };
   djview4 = djview;
 
   dmenu = callPackage ../applications/misc/dmenu { };
@@ -12191,7 +12193,7 @@ with pkgs;
   drawio-headless = callPackage ../applications/graphics/drawio/headless.nix { };
 
   drawpile = callPackage ../applications/graphics/drawpile { };
-  drawpile-server-headless = libsForQt5.callPackage ../applications/graphics/drawpile {
+  drawpile-server-headless = drawpile.override {
     buildClient = false;
     buildServerGui = false;
   };
@@ -12260,7 +12262,7 @@ with pkgs;
 
   espeakedit = callPackage ../applications/audio/espeak/edit.nix { };
 
-  evilpixie = libsForQt5.callPackage ../applications/graphics/evilpixie { };
+  evilpixie = callPackage ../applications/graphics/evilpixie { };
 
   greenfoot = callPackage ../applications/editors/greenfoot {
     openjdk = openjdk21.override {
@@ -12271,7 +12273,7 @@ with pkgs;
 
   haruna = kdePackages.callPackage ../applications/video/haruna { };
 
-  hdrmerge = libsForQt5.callPackage ../applications/graphics/hdrmerge { };
+  hdrmerge = callPackage ../applications/graphics/hdrmerge { };
 
   input-leap = qt6Packages.callPackage ../applications/misc/input-leap {
     avahi = avahi.override { withLibdnssdCompat = true; };
@@ -12757,7 +12759,7 @@ with pkgs;
 
   pixel2svg = python310Packages.callPackage ../tools/graphics/pixel2svg { };
 
-  pixinsight = qt6Packages.callPackage ../applications/graphics/pixinsight { };
+  pixinsight = callPackage ../applications/graphics/pixinsight { };
 
   inherit (callPackage ../applications/virtualization/singularity/packages.nix { })
     apptainer
@@ -12939,7 +12941,7 @@ with pkgs;
 
   img2pdf = with python3Packages; toPythonApplication img2pdf;
 
-  imgp = python3Packages.callPackage ../applications/graphics/imgp { };
+  imgp = callPackage ../applications/graphics/imgp { };
 
   inkscape = callPackage ../applications/graphics/inkscape {
     lcms = lcms2;
@@ -13010,11 +13012,9 @@ with pkgs;
 
   kaidan = kdePackages.callPackage ../applications/networking/instant-messengers/kaidan { };
 
-  kdeltachat = libsForQt5.callPackage ../applications/networking/instant-messengers/kdeltachat { };
-
   kexi = libsForQt5.callPackage ../applications/office/kexi { };
 
-  kgraphviewer = libsForQt5.callPackage ../applications/graphics/kgraphviewer { };
+  kgraphviewer = callPackage ../applications/graphics/kgraphviewer { };
 
   kid3-cli = kid3.override {
     withCLI = true;
@@ -13220,7 +13220,7 @@ with pkgs;
     portaudio = null;
   };
 
-  luminanceHDR = libsForQt5.callPackage ../applications/graphics/luminance-hdr {
+  luminanceHDR = callPackage ../applications/graphics/luminance-hdr {
     openexr = openexr_2;
   };
 
@@ -13254,7 +13254,7 @@ with pkgs;
     shelfMultiBand = callPackage ../applications/audio/magnetophonDSP/shelfMultiBand { };
   };
 
-  mandelbulber = libsForQt5.callPackage ../applications/graphics/mandelbulber { };
+  mandelbulber = callPackage ../applications/graphics/mandelbulber { };
 
   mapmap = libsForQt5.callPackage ../applications/video/mapmap { };
 
@@ -13282,8 +13282,8 @@ with pkgs;
 
   meshcentral = callPackage ../tools/admin/meshcentral { };
 
-  meshlab = libsForQt5.callPackage ../applications/graphics/meshlab { };
-  meshlab-unstable = libsForQt5.callPackage ../applications/graphics/meshlab-unstable { };
+  meshlab = callPackage ../applications/graphics/meshlab { };
+  meshlab-unstable = callPackage ../applications/graphics/meshlab-unstable { };
 
   michabo = libsForQt5.callPackage ../applications/misc/michabo { };
 
@@ -13388,7 +13388,7 @@ with pkgs;
 
   rquickshare-legacy = rquickshare.override { app-type = "legacy"; };
 
-  seamly2d = libsForQt5.callPackage ../applications/graphics/seamly2d { };
+  seamly2d = callPackage ../applications/graphics/seamly2d { };
 
   # a somewhat more maintained fork of ympd
   memento = qt6Packages.callPackage ../applications/video/memento { };
@@ -13600,9 +13600,9 @@ with pkgs;
     kreative-square
     ;
 
-  openscad = libsForQt5.callPackage ../applications/graphics/openscad { };
+  openscad = callPackage ../applications/graphics/openscad { };
 
-  opentoonz = libsForQt5.callPackage ../applications/graphics/opentoonz { };
+  opentoonz = callPackage ../applications/graphics/opentoonz { };
 
   opentx = libsForQt5.callPackage ../applications/misc/opentx { };
 
@@ -13659,9 +13659,9 @@ with pkgs;
     stdenv = gccStdenv;
   };
 
-  photoflare = libsForQt5.callPackage ../applications/graphics/photoflare { };
+  photoflare = callPackage ../applications/graphics/photoflare { };
 
-  phototonic = libsForQt5.callPackage ../applications/graphics/phototonic { };
+  phototonic = callPackage ../applications/graphics/phototonic { };
 
   pianobooster = qt5.callPackage ../applications/audio/pianobooster { };
 
@@ -13732,7 +13732,7 @@ with pkgs;
 
   qcad = libsForQt5.callPackage ../applications/misc/qcad { };
 
-  qcomicbook = libsForQt5.callPackage ../applications/graphics/qcomicbook { };
+  qcomicbook = callPackage ../applications/graphics/qcomicbook { };
 
   qctools = libsForQt5.callPackage ../applications/video/qctools { };
 
@@ -13766,7 +13766,7 @@ with pkgs;
 
   qjackctl = libsForQt5.callPackage ../applications/audio/qjackctl { };
 
-  qimgv = libsForQt5.callPackage ../applications/graphics/qimgv { };
+  qimgv = callPackage ../applications/graphics/qimgv { };
 
   qmediathekview = libsForQt5.callPackage ../applications/video/qmediathekview { };
 
@@ -13781,7 +13781,7 @@ with pkgs;
 
   qsampler = libsForQt5.callPackage ../applications/audio/qsampler { };
 
-  qscreenshot = libsForQt5.callPackage ../applications/graphics/qscreenshot { };
+  qscreenshot = callPackage ../applications/graphics/qscreenshot { };
 
   qsstv = qt5.callPackage ../applications/radio/qsstv { };
 
@@ -13866,7 +13866,7 @@ with pkgs;
     wxGTK = wxGTK32;
   };
 
-  rapid-photo-downloader = libsForQt5.callPackage ../applications/graphics/rapid-photo-downloader { };
+  rapid-photo-downloader = callPackage ../applications/graphics/rapid-photo-downloader { };
 
   rawtherapee = callPackage ../applications/graphics/rawtherapee {
     fftw = fftwSinglePrec;
@@ -13938,9 +13938,9 @@ with pkgs;
 
   sayonara = libsForQt5.callPackage ../applications/audio/sayonara { };
 
-  scantailor-advanced = libsForQt5.callPackage ../applications/graphics/scantailor/advanced.nix { };
+  scantailor-advanced = callPackage ../applications/graphics/scantailor/advanced.nix { };
 
-  scantailor-universal = libsForQt5.callPackage ../applications/graphics/scantailor/universal.nix { };
+  scantailor-universal = callPackage ../applications/graphics/scantailor/universal.nix { };
 
   scribus_1_5 = libsForQt5.callPackage ../applications/office/scribus/default.nix { };
   scribus = scribus_1_5;
@@ -14028,7 +14028,7 @@ with pkgs;
 
   skrooge = libsForQt5.callPackage ../applications/office/skrooge { };
 
-  smartdeblur = libsForQt5.callPackage ../applications/graphics/smartdeblur { };
+  smartdeblur = callPackage ../applications/graphics/smartdeblur { };
 
   soci = callPackage ../development/libraries/soci { };
 
@@ -14302,7 +14302,7 @@ with pkgs;
 
   vdirsyncer = with python3Packages; toPythonApplication vdirsyncer;
 
-  veusz = libsForQt5.callPackage ../applications/graphics/veusz { };
+  veusz = callPackage ../applications/graphics/veusz { };
 
   vim = vimUtils.makeCustomizable (
     callPackage ../applications/editors/vim {
@@ -14550,11 +14550,6 @@ with pkgs;
 
   worldengine-cli = python3Packages.worldengine;
 
-  wpsoffice = libsForQt5.callPackage ../applications/office/wpsoffice { };
-  wpsoffice-cn = libsForQt5.callPackage ../applications/office/wpsoffice {
-    useChineseVersion = true;
-  };
-
   wrapFirefox = callPackage ../applications/networking/browsers/firefox/wrapper.nix { };
 
   wrapThunderbird = callPackage ../applications/networking/mailreaders/thunderbird/wrapper.nix { };
@@ -14694,7 +14689,7 @@ with pkgs;
     SDL = SDL_sixel;
   };
 
-  zotero_7 = pkgs.zotero-beta;
+  zotero_7 = pkgs.zotero;
 
   zsteg = callPackage ../tools/security/zsteg { };
 
@@ -16601,14 +16596,7 @@ with pkgs;
 
   qtrvsim = libsForQt5.callPackage ../applications/science/computer-architecture/qtrvsim { };
 
-  pick-colour-picker = python3Packages.callPackage ../applications/graphics/pick-colour-picker {
-    inherit
-      glib
-      gtk3
-      gobject-introspection
-      wrapGAppsHook3
-      ;
-  };
+  pick-colour-picker = callPackage ../applications/graphics/pick-colour-picker { };
 
   romdirfs = callPackage ../tools/filesystems/romdirfs {
     stdenv = gccStdenv;
@@ -16787,7 +16775,7 @@ with pkgs;
     SDL = SDL_sixel;
   };
 
-  yacreader = libsForQt5.callPackage ../applications/graphics/yacreader { };
+  yacreader = callPackage ../applications/graphics/yacreader { };
 
   yamale = with python3Packages; toPythonApplication yamale;
 
