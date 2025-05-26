@@ -4809,6 +4809,8 @@ self: super: with self; {
 
   fastapi-mail = callPackage ../development/python-modules/fastapi-mail { };
 
+  fastapi-mcp = callPackage ../development/python-modules/fastapi-mcp { };
+
   fastapi-sso = callPackage ../development/python-modules/fastapi-sso { };
 
   fastavro = callPackage ../development/python-modules/fastavro { };
@@ -4844,6 +4846,8 @@ self: super: with self; {
   fastjet = callPackage ../development/python-modules/fastjet { };
 
   fastjsonschema = callPackage ../development/python-modules/fastjsonschema { };
+
+  fastmcp = callPackage ../development/python-modules/fastmcp { };
 
   fastmri = callPackage ../development/python-modules/fastmri { };
 
@@ -5691,6 +5695,8 @@ self: super: with self; {
   glean-sdk = callPackage ../development/python-modules/glean-sdk { };
 
   glfw = callPackage ../development/python-modules/glfw { };
+
+  gliner = callPackage ../development/python-modules/gliner { };
 
   glob2 = callPackage ../development/python-modules/glob2 { };
 
@@ -10116,8 +10122,6 @@ self: super: with self; {
   notmuch2 = callPackage ../development/python-modules/notmuch2 { inherit (pkgs) notmuch; };
 
   notobuilder = callPackage ../development/python-modules/notobuilder { };
-
-  nototools = callPackage ../development/python-modules/nototools { };
 
   notus-scanner = callPackage ../development/python-modules/notus-scanner { };
 
@@ -15369,7 +15373,7 @@ self: super: with self; {
 
   rpmfluff = callPackage ../development/python-modules/rpmfluff { };
 
-  rpy2 = callPackage ../development/python-modules/rpy2 { };
+  rpy2 = callPackage ../development/python-modules/rpy2 { inherit (pkgs) zstd; };
 
   rpyc = callPackage ../development/python-modules/rpyc { };
 
@@ -16734,6 +16738,8 @@ self: super: with self; {
 
   staticmap = callPackage ../development/python-modules/staticmap { };
 
+  staticvectors = callPackage ../development/python-modules/staticvectors { };
+
   statistics = callPackage ../development/python-modules/statistics { };
 
   statmake = callPackage ../development/python-modules/statmake { };
@@ -17903,9 +17909,9 @@ self: super: with self; {
     inherit (pkgs) file zlib;
   };
 
-  typed-ast = callPackage ../development/python-modules/typed-ast { };
-
   typed-settings = callPackage ../development/python-modules/typed-settings { };
+
+  typedunits = callPackage ../development/python-modules/typedunits { };
 
   typeguard = callPackage ../development/python-modules/typeguard { };
 
@@ -18346,8 +18352,6 @@ self: super: with self; {
   types-toml = callPackage ../development/python-modules/types-toml { };
 
   types-tqdm = callPackage ../development/python-modules/types-tqdm { };
-
-  types-typed-ast = callPackage ../development/python-modules/types-typed-ast { };
 
   types-ujson = callPackage ../development/python-modules/types-ujson { };
 
