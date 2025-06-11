@@ -2514,8 +2514,8 @@ let
         mktplcRef = {
           name = "Ionide-fsharp";
           publisher = "Ionide";
-          version = "7.25.10";
-          hash = "sha256-2d12itLc9qBZZ7nQNS/80K46dde2RUKpkWgPwFxogIs=";
+          version = "7.26.1";
+          hash = "sha256-xNbW3VoFGeOaII3Z1l51F1IAKKaGP7FhE+rGuCdaHTI=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/Ionide.Ionide-fsharp/changelog";
@@ -3538,6 +3538,8 @@ let
         };
       };
 
+      ms-vscode.remote-explorer = callPackage ./ms-vscode.remote-explorer { };
+
       ms-vscode.test-adapter-converter = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "test-adapter-converter";
@@ -3686,6 +3688,8 @@ let
       };
 
       myriad-dreamin.tinymist = callPackage ./myriad-dreamin.tinymist { };
+
+      natqe.reload = callPackage ./natqe.reload { };
 
       naumovs.color-highlight = buildVscodeMarketplaceExtension {
         mktplcRef = {
