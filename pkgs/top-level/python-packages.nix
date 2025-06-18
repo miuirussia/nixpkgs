@@ -93,7 +93,6 @@ self: super: with self; {
 
   adios2 = toPythonModule (
     pkgs.adios2.override {
-      python3 = python;
       python3Packages = self;
       pythonSupport = true;
     }
@@ -222,6 +221,10 @@ self: super: with self; {
   aiobotocore = callPackage ../development/python-modules/aiobotocore { };
 
   aiobroadlink = callPackage ../development/python-modules/aiobroadlink { };
+
+  aiobtclientapi = callPackage ../development/python-modules/aiobtclientapi { };
+
+  aiobtclientrpc = callPackage ../development/python-modules/aiobtclientrpc { };
 
   aiocache = callPackage ../development/python-modules/aiocache { };
 
@@ -2469,8 +2472,6 @@ self: super: with self; {
 
   chromadb = callPackage ../development/python-modules/chromadb { };
 
-  chromadb_0 = callPackage ../development/python-modules/chromadb/0.nix { };
-
   chromaprint = callPackage ../development/python-modules/chromaprint { };
 
   ci-info = callPackage ../development/python-modules/ci-info { };
@@ -2931,6 +2932,8 @@ self: super: with self; {
   cose = callPackage ../development/python-modules/cose { };
 
   cot = callPackage ../development/python-modules/cot { inherit (pkgs) qemu; };
+
+  countryguess = callPackage ../development/python-modules/countryguess { };
 
   courlan = callPackage ../development/python-modules/courlan { };
 
@@ -4373,6 +4376,10 @@ self: super: with self; {
 
   dynd = callPackage ../development/python-modules/dynd { };
 
+  e2b = callPackage ../development/python-modules/e2b { };
+
+  e2b-code-interpreter = callPackage ../development/python-modules/e2b-code-interpreter { };
+
   e3-core = callPackage ../development/python-modules/e3-core { };
 
   e3-testsuite = callPackage ../development/python-modules/e3-testsuite { };
@@ -5212,6 +5219,8 @@ self: super: with self; {
   flask-webtest = callPackage ../development/python-modules/flask-webtest { };
 
   flask-wtf = callPackage ../development/python-modules/flask-wtf { };
+
+  flatbencode = callPackage ../development/python-modules/flatbencode { };
 
   flatbuffers = callPackage ../development/python-modules/flatbuffers { inherit (pkgs) flatbuffers; };
 
@@ -6366,6 +6375,8 @@ self: super: with self; {
 
   hebg = callPackage ../development/python-modules/hebg { };
 
+  heif-image-plugin = callPackage ../development/python-modules/heif-image-plugin { };
+
   help2man = callPackage ../development/python-modules/help2man { };
 
   helpdev = callPackage ../development/python-modules/helpdev { };
@@ -6413,6 +6424,8 @@ self: super: with self; {
   hier-config = callPackage ../development/python-modules/hier-config { };
 
   hieroglyph = callPackage ../development/python-modules/hieroglyph { };
+
+  highctidh = callPackage ../development/python-modules/highctidh { };
 
   highdicom = callPackage ../development/python-modules/highdicom { };
 
@@ -11356,6 +11369,8 @@ self: super: with self; {
     inherit (pkgs.xorg) libxcb;
   };
 
+  pillow-avif-plugin = callPackage ../development/python-modules/pillow-avif-plugin { };
+
   pillow-heif = callPackage ../development/python-modules/pillow-heif { };
 
   pillow-jpls = callPackage ../development/python-modules/pillow-jpls { };
@@ -12726,6 +12741,8 @@ self: super: with self; {
 
   pyicumessageformat = callPackage ../development/python-modules/pyicumessageformat { };
 
+  pyimgbox = callPackage ../development/python-modules/pyimgbox { };
+
   pyimpfuzzy = callPackage ../development/python-modules/pyimpfuzzy { inherit (pkgs) ssdeep; };
 
   pyindego = callPackage ../development/python-modules/pyindego { };
@@ -13213,6 +13230,8 @@ self: super: with self; {
 
   pypandoc = callPackage ../development/python-modules/pypandoc { };
 
+  pyparsebluray = callPackage ../development/python-modules/pyparsebluray { };
+
   pyparser = callPackage ../development/python-modules/pyparser { };
 
   pyparsing = callPackage ../development/python-modules/pyparsing { };
@@ -13612,7 +13631,13 @@ self: super: with self; {
     callPackage ../development/python-modules/pyside6 { inherit (pkgs) cmake ninja; }
   );
 
+  pyside6-fluent-widgets = callPackage ../development/python-modules/pyside6-fluent-widgets { };
+
   pyside6-qtads = callPackage ../development/python-modules/pyside6-qtads { };
+
+  pysidesix-frameless-window =
+    callPackage ../development/python-modules/pysidesix-frameless-window
+      { };
 
   pysigma = callPackage ../development/python-modules/pysigma { };
 
@@ -15463,6 +15488,10 @@ self: super: with self; {
   robot-detection = callPackage ../development/python-modules/robot-detection { };
 
   robotframework = callPackage ../development/python-modules/robotframework { };
+
+  robotframework-assertion-engine =
+    callPackage ../development/python-modules/robotframework-assertion-engine
+      { };
 
   robotframework-databaselibrary =
     callPackage ../development/python-modules/robotframework-databaselibrary
@@ -17777,6 +17806,8 @@ self: super: with self; {
 
   torchWithoutRocm = self.torch.override { rocmSupport = false; };
 
+  torchao = callPackage ../development/python-modules/torchao { };
+
   torchaudio = callPackage ../development/python-modules/torchaudio { };
 
   torchaudio-bin = callPackage ../development/python-modules/torchaudio/bin.nix { };
@@ -17814,6 +17845,8 @@ self: super: with self; {
   torchvision = callPackage ../development/python-modules/torchvision { };
 
   torchvision-bin = callPackage ../development/python-modules/torchvision/bin.nix { };
+
+  torf = callPackage ../development/python-modules/torf { };
 
   tornado = callPackage ../development/python-modules/tornado { };
 
@@ -18971,6 +19004,10 @@ self: super: with self; {
     inherit (pkgs.libsForQt5) wrapQtAppsHook;
   };
 
+  vl-convert-python = callPackage ../development/python-modules/vl-convert-python {
+    inherit (pkgs) protobuf;
+  };
+
   vllm = callPackage ../development/python-modules/vllm { };
 
   vmprof = callPackage ../development/python-modules/vmprof { };
@@ -19618,7 +19655,7 @@ self: super: with self; {
 
   yubico-client = callPackage ../development/python-modules/yubico-client { };
 
-  z3-solver = (toPythonModule (pkgs.z3.override { python3 = python; })).python;
+  z3-solver = (toPythonModule (pkgs.z3.override { python3Packages = self; })).python;
 
   z3c-checkversions = callPackage ../development/python-modules/z3c-checkversions { };
 
