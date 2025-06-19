@@ -2,15 +2,15 @@
   "comment": "This file is kept up to date via update.sh",
   "browsers": {
     "chromium": {
-      "revision": "1178",
-      "browserVersion": "138.0.7204.15"
+      "revision": "1179",
+      "browserVersion": "138.0.7204.23"
     },
     "chromium-headless-shell": {
-      "revision": "1178",
-      "browserVersion": "138.0.7204.15"
+      "revision": "1179",
+      "browserVersion": "138.0.7204.23"
     },
     "firefox": {
-      "revision": "1487",
+      "revision": "1488",
       "browserVersion": "139.0"
     },
     "webkit": {

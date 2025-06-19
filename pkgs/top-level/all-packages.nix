@@ -3623,12 +3623,6 @@ with pkgs;
 
   node2nix = nodePackages.node2nix;
 
-  buildDenoPackage = callPackage ../build-support/deno/build-deno-package { };
-
-  inherit (callPackages ../build-support/deno/fetch-deno-deps { }) fetchDenoDeps;
-
-  denoHooks = callPackage ../build-support/deno/build-deno-package/hooks { };
-
   kcollectd = libsForQt5.callPackage ../tools/misc/kcollectd { };
 
   ktailctl = kdePackages.callPackage ../applications/networking/ktailctl { };
@@ -3872,6 +3866,7 @@ with pkgs;
   inherit (callPackages ../applications/networking/cluster/nomad { })
     nomad
     nomad_1_9
+    nomad_1_10
     ;
 
   nomacs-qt6 = nomacs.override { qtVersion = 6; };
@@ -8861,7 +8856,6 @@ with pkgs;
       stdenv = gccStdenv; # Required for darwin
     })
     libprom
-    libpromhttp
     ;
 
   libpulsar = callPackage ../development/libraries/libpulsar {
@@ -14585,8 +14579,6 @@ with pkgs;
 
   youtube-viewer = perlPackages.WWWYoutubeViewer;
 
-  yuview = libsForQt5.yuview;
-
   zathuraPkgs = callPackage ../applications/misc/zathura { };
   zathura = zathuraPkgs.zathuraWrapper;
 
@@ -14645,16 +14637,6 @@ with pkgs;
   bitcoind-knots = callPackage ../applications/blockchains/bitcoin-knots {
     withGui = false;
     inherit (darwin) autoSignDarwinBinariesHook;
-  };
-
-  bitcoin-abc = libsForQt5.callPackage ../applications/blockchains/bitcoin-abc {
-    withGui = true;
-    protobuf = protobuf_21;
-  };
-  bitcoind-abc = callPackage ../applications/blockchains/bitcoin-abc {
-    mkDerivation = stdenv.mkDerivation;
-    protobuf = protobuf_21;
-    withGui = false;
   };
 
   cryptop = python3.pkgs.callPackage ../applications/blockchains/cryptop { };
