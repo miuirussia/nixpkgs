@@ -260,6 +260,9 @@ with pkgs;
       auto-patchelf
       bintools
     ];
+    substitutions = {
+      hostPlatform = stdenv.hostPlatform.config;
+    };
   } ../build-support/setup-hooks/auto-patchelf.sh;
 
   appimageTools = callPackage ../build-support/appimage { };
@@ -1555,7 +1558,6 @@ with pkgs;
   cool-retro-term = libsForQt5.callPackage ../applications/terminal-emulators/cool-retro-term { };
 
   kitty = callPackage ../by-name/ki/kitty/package.nix {
-    harfbuzz = harfbuzz.override { withCoreText = stdenv.hostPlatform.isDarwin; };
     inherit (darwin) autoSignDarwinBinariesHook;
   };
 
@@ -1907,7 +1909,7 @@ with pkgs;
 
   babelfish = callPackage ../shells/fish/babelfish.nix { };
 
-  bat-extras = recurseIntoAttrs (lib.makeScope newScope (callPackage ../tools/misc/bat-extras { }));
+  bat-extras = recurseIntoAttrs (lib.makeScope newScope (import ../tools/misc/bat-extras));
 
   beauty-line-icon-theme = callPackage ../data/icons/beauty-line-icon-theme {
     inherit (plasma5Packages) breeze-icons;
@@ -1954,8 +1956,6 @@ with pkgs;
   behave = with python3Packages; toPythonApplication behave;
 
   blockdiag = with python3Packages; toPythonApplication blockdiag;
-
-  bookstack = callPackage ../servers/web-apps/bookstack { };
 
   boomerang = libsForQt5.callPackage ../development/tools/boomerang { };
 
@@ -2556,8 +2556,9 @@ with pkgs;
     citrix_workspace_24_05_0
     citrix_workspace_24_08_0
     citrix_workspace_24_11_0
+    citrix_workspace_25_03_0
     ;
-  citrix_workspace = citrix_workspace_24_11_0;
+  citrix_workspace = citrix_workspace_25_03_0;
 
   cmst = libsForQt5.callPackage ../tools/networking/cmst { };
 
@@ -2820,8 +2821,6 @@ with pkgs;
   dotnetfx35 = callPackage ../development/libraries/dotnetfx35 { };
 
   dotnetfx40 = callPackage ../development/libraries/dotnetfx40 { };
-
-  sl1-to-photon = python3Packages.callPackage ../applications/misc/sl1-to-photon { };
 
   drone = callPackage ../development/tools/continuous-integration/drone { };
   drone-oss = callPackage ../development/tools/continuous-integration/drone {
@@ -3168,8 +3167,11 @@ with pkgs;
     isStereo = true;
   };
 
-  google-cloud-sdk = callPackage ../tools/admin/google-cloud-sdk { };
+  google-cloud-sdk = callPackage ../tools/admin/google-cloud-sdk {
+    python3 = python312;
+  };
   google-cloud-sdk-gce = google-cloud-sdk.override {
+    python3 = python312;
     with-gce = true;
   };
 
@@ -4283,8 +4285,6 @@ with pkgs;
   qview = callPackage ../applications/graphics/qview { };
 
   wayback_machine_downloader = callPackage ../applications/networking/wayback_machine_downloader { };
-
-  radarr = callPackage ../servers/radarr { };
 
   radeon-profile = libsForQt5.callPackage ../tools/misc/radeon-profile { };
 
@@ -5990,10 +5990,10 @@ with pkgs;
   wrapRustcWith = { rustc-unwrapped, ... }@args: callPackage ../build-support/rust/rustc-wrapper args;
   wrapRustc = rustc-unwrapped: wrapRustcWith { inherit rustc-unwrapped; };
 
-  rust_1_86 = callPackage ../development/compilers/rust/1_86.nix {
-    llvm_19 = llvmPackages_19.libllvm;
+  rust_1_87 = callPackage ../development/compilers/rust/1_87.nix {
+    llvm_20 = llvmPackages_20.libllvm;
   };
-  rust = rust_1_86;
+  rust = rust_1_87;
 
   mrustc = callPackage ../development/compilers/mrustc { };
   mrustc-minicargo = callPackage ../development/compilers/mrustc/minicargo.nix { };
@@ -6001,8 +6001,8 @@ with pkgs;
     openssl = openssl_1_1;
   };
 
-  rustPackages_1_86 = rust_1_86.packages.stable;
-  rustPackages = rustPackages_1_86;
+  rustPackages_1_87 = rust_1_87.packages.stable;
+  rustPackages = rustPackages_1_87;
 
   inherit (rustPackages)
     cargo
@@ -6541,11 +6541,11 @@ with pkgs;
   # available as `pythonPackages.tkinter` and can be used as any other Python package.
   # When switching these sets, please update docs at ../../doc/languages-frameworks/python.md
   python2 = python27;
-  python3 = python312;
+  python3 = python313;
 
   # pythonPackages further below, but assigned here because they need to be in sync
   python2Packages = dontRecurseIntoAttrs python27Packages;
-  python3Packages = dontRecurseIntoAttrs python312Packages;
+  python3Packages = dontRecurseIntoAttrs python313Packages;
 
   pypy = pypy2;
   pypy2 = pypy27;
@@ -7361,8 +7361,6 @@ with pkgs;
   gradle = wrapGradle gradle-unwrapped "gradle-unwrapped";
 
   gperf = callPackage ../development/tools/misc/gperf { };
-  # 3.1 changed some parameters from int to size_t, leading to mismatches.
-  gperf_3_0 = callPackage ../development/tools/misc/gperf/3.0.x.nix { };
 
   griffe = with python3Packages; toPythonApplication griffe;
 
@@ -8362,9 +8360,7 @@ with pkgs;
 
   cairomm_1_16 = callPackage ../development/libraries/cairomm/1.16.nix { };
 
-  pango = callPackage ../development/libraries/pango {
-    harfbuzz = harfbuzz.override { withCoreText = stdenv.hostPlatform.isDarwin; };
-  };
+  pango = callPackage ../development/libraries/pango { };
 
   pangomm = callPackage ../development/libraries/pangomm { };
 
@@ -8442,7 +8438,6 @@ with pkgs;
   };
 
   harfbuzzFull = harfbuzz.override {
-    withCoreText = stdenv.hostPlatform.isDarwin;
     withGraphite2 = true;
     withIcu = true;
   };
@@ -9316,7 +9311,7 @@ with pkgs;
 
   prospector = callPackage ../development/tools/prospector { };
 
-  protobuf = protobuf_30;
+  protobuf = protobuf_31;
 
   inherit
     ({
@@ -11824,7 +11819,7 @@ with pkgs;
 
   whitesur-kde = kdePackages.callPackage ../data/themes/whitesur-kde { };
 
-  xkeyboard_config = xorg.xkeyboardconfig;
+  xkeyboard_config = xkeyboard-config;
 
   xlsx2csv = with python3Packages; toPythonApplication xlsx2csv;
 
@@ -13832,10 +13827,6 @@ with pkgs;
     backend = "wayland";
   };
 
-  rstudio = callPackage ../applications/editors/rstudio {
-    jdk = jdk8;
-  };
-
   rstudio-server = rstudio.override { server = true; };
 
   rsync = callPackage ../applications/networking/sync/rsync (config.rsync or { });
@@ -14476,6 +14467,8 @@ with pkgs;
 
   x2goclient = libsForQt5.callPackage ../applications/networking/remote/x2goclient { };
 
+  x2gokdriveclient = libsForQt5.callPackage ../applications/networking/remote/x2gokdriveclient { };
+
   x32edit = callPackage ../applications/audio/midas/x32edit.nix { };
 
   xbindkeys-config = callPackage ../tools/X11/xbindkeys-config {
@@ -14667,7 +14660,7 @@ with pkgs;
 
   ledger-agent = with python3Packages; toPythonApplication ledger-agent;
 
-  napari = with python3Packages; toPythonApplication napari;
+  napari = with python312Packages; toPythonApplication napari;
 
   nano-wallet = libsForQt5.callPackage ../applications/blockchains/nano-wallet { };
 
@@ -15977,7 +15970,9 @@ with pkgs;
 
   stellarium = qt6Packages.callPackage ../applications/science/astronomy/stellarium { };
 
-  tulip = libsForQt5.callPackage ../applications/science/misc/tulip { };
+  tulip = libsForQt5.callPackage ../applications/science/misc/tulip {
+    python3 = python312; # fails to build otherwise
+  };
 
   vite = libsForQt5.callPackage ../applications/science/misc/vite { };
 
