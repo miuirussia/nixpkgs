@@ -3029,8 +3029,13 @@ with pkgs;
     garage_0_9
     garage_0_8_7
     garage_0_9_4
+
     garage_1_2_0
     garage_1_x
+    garage_1
+
+    garage_2_0_0
+    garage_2
     ;
 
   gaugePlugins = recurseIntoAttrs (callPackage ../by-name/ga/gauge/plugins { });
@@ -3731,10 +3736,6 @@ with pkgs;
   mailnagWithPlugins = mailnag.withPlugins (builtins.attrValues mailnag.availablePlugins);
   mailpit = callPackage ../servers/mail/mailpit {
     libtool = if stdenv.hostPlatform.isDarwin then cctools else libtool;
-  };
-
-  mailutils = callPackage ../tools/networking/mailutils {
-    sasl = gsasl;
   };
 
   man = man-db;
@@ -9674,7 +9675,9 @@ with pkgs;
     hdf5 = hdf5.override { usev110Api = true; };
   };
 
-  vllm = with python3Packages; toPythonApplication vllm;
+  # Temporarily use python 3.12
+  # See: https://github.com/vllm-project/vllm/issues/12083
+  vllm = with python312Packages; toPythonApplication vllm;
 
   vte-gtk4 = vte.override {
     gtkVersion = "4";
@@ -14352,7 +14355,7 @@ with pkgs;
     autoconf = buildPackages.autoconf269;
   };
 
-  x2goclient = libsForQt5.callPackage ../applications/networking/remote/x2goclient { };
+  x2goclient = callPackage ../applications/networking/remote/x2goclient { };
 
   x2gokdriveclient = libsForQt5.callPackage ../applications/networking/remote/x2gokdriveclient { };
 
