@@ -412,6 +412,7 @@ mapAliases {
   cassandra_3_0 = throw "'cassandra_3_0' has been removed has it reached end-of-life"; # Added 2025-03-23
   cassandra_3_11 = throw "'cassandra_3_11' has been removed has it reached end-of-life"; # Added 2025-03-23
   cawbird = throw "cawbird has been abandoned upstream and is broken anyways due to Twitter closing its API";
+  catalyst-browser = throw "'catalyst-browser' has been removed due to a lack of maintenance and not satisfying our security criteria for browsers."; # Added 2025-06-25
   cde = throw "'cde' has been removed as it is unmaintained and broken"; # Added 2025-05-17
   centerim = throw "centerim has been removed due to upstream disappearing"; # Added 2025-04-18
   certmgr-selfsigned = certmgr; # Added 2023-11-30
@@ -1114,6 +1115,7 @@ mapAliases {
   linuxPackages_6_13 = linuxKernel.packages.linux_6_13;
   linuxPackages_6_14 = linuxKernel.packages.linux_6_14;
   linuxPackages_6_15 = linuxKernel.packages.linux_6_15;
+  linuxPackages_ham = linuxKernel.packages.linux_ham;
   linuxPackages_rpi0 = linuxKernel.packages.linux_rpi1;
   linuxPackages_rpi02w = linuxKernel.packages.linux_rpi3;
   linuxPackages_rpi1 = linuxKernel.packages.linux_rpi1;
@@ -1137,6 +1139,7 @@ mapAliases {
   linux_6_13 = linuxKernel.kernels.linux_6_13;
   linux_6_14 = linuxKernel.kernels.linux_6_14;
   linux_6_15 = linuxKernel.kernels.linux_6_15;
+  linux_ham = linuxKernel.kernels.linux_ham;
   linux_rpi0 = linuxKernel.kernels.linux_rpi1;
   linux_rpi02w = linuxKernel.kernels.linux_rpi3;
   linux_rpi1 = linuxKernel.kernels.linux_rpi1;
@@ -1666,6 +1669,7 @@ mapAliases {
   qbittorrent-qt5 = throw "'qbittorrent-qt5' has been removed as qBittorrent 5 dropped support for Qt 5. Please use 'qbittorrent'"; # Added 2024-09-30
   qcsxcad = throw "'qcsxcad' has been renamed to/replaced by 'libsForQt5.qcsxcad'"; # Converted to throw 2024-10-17
   qflipper = qFlipper; # Added 2022-02-11
+  qnial = throw "'qnial' has been removed due to failing to build and being unmaintained"; # Added 2025-06-26
   qscintilla = libsForQt5.qscintilla; # Added 2023-09-20
   qscintilla-qt6 = qt6Packages.qscintilla; # Added 2023-09-20
   qt515 = qt5; # Added 2022-11-24
@@ -2051,6 +2055,7 @@ mapAliases {
   ventoy-bin = ventoy; # Added 2023-04-12
   ventoy-bin-full = ventoy-full; # Added 2023-04-12
   verilog = iverilog; # Added 2024-07-12
+  vieb = throw "'vieb' has been removed as it doesn't satisfy our security criteria for browsers."; # Added 2025-06-25
   ViennaRNA = viennarna; # Added 2023-08-23
   vimHugeX = vim-full; # Added 2022-12-04
   vim_configurable = vim-full; # Added 2022-12-04
