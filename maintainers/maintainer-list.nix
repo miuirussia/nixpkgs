@@ -4063,6 +4063,12 @@
       }
     ];
   };
+  cameroncuttingedge = {
+    email = "buckets-taxiway5l@icloud.com";
+    github = "cameroncuttingedge";
+    githubId = 109548666;
+    name = "Cameron Byte";
+  };
   camerondugan = {
     email = "cameron.dugan@protonmail.com";
     github = "camerondugan";
@@ -8159,6 +8165,16 @@
     github = "felbinger";
     githubId = 26925347;
     keys = [ { fingerprint = "0797 D238 9769 CA1E 57B7 2ED9 2BA7 8116 87C9 0DE4"; } ];
+  };
+  felipe-9 = {
+    name = "Felipe Pinto";
+    email = "felipealexandrepinto@icloud.com";
+    github = "Felipe-9";
+    githubId = 32753781;
+    keys = [
+      { fingerprint = "1533 0D57 3312 0936 AB38  3C9B 7D36 1E4B 83CD AEFB"; }
+      { fingerprint = "2BD0 AD01 F91D A0DC 47DF  0AEE 7AA1 649F 6B71 42F2"; }
+    ];
   };
   felipeqq2 = {
     name = "Felipe Silva";
@@ -16194,6 +16210,13 @@
     githubId = 20536514;
     name = "Magdalena Haselsteiner";
   };
+  mhemeryck = {
+    email = "martijn.hemeryck@gmail.com";
+    github = "mhemeryck";
+    githubId = 5445250;
+    name = "Martijn Hemeryck";
+    keys = [ { fingerprint = "1B47 7ADA 04B4 7A5C E61A  EDE0 1AA3 6833 BC86 F0F1"; } ];
+  };
   mi-ael = {
     email = "miael.oss.1970@gmail.com";
     name = "mi-ael";
@@ -20752,6 +20775,13 @@
     github = "DaRacci";
     githubId = 90304606;
   };
+  RadxaYuntian = {
+    # This is the work account for @MakiseKurisu
+    name = "ZHANG Yuntian";
+    email = "yt@radxa.com";
+    github = "RadxaYuntian";
+    githubId = 95260730;
+  };
   raehik = {
     email = "thefirstmuffinman@gmail.com";
     github = "raehik";
@@ -24326,6 +24356,12 @@
     githubId = 52673095;
     name = "Syed Ahkam";
   };
+  sylonin = {
+    email = "syl@sperg.net";
+    github = "Sylonin";
+    githubId = 89575562;
+    name = "Sylonin";
+  };
   symphorien = {
     email = "symphorien_nixpkgs@xlumurb.eu";
     matrix = "@symphorien:xlumurb.eu";
@@ -25908,6 +25944,12 @@
     github = "TyberiusPrime";
     githubId = 1257580;
   };
+  tye-exe = {
+    name = "Tye";
+    email = "nixpkgs-fr@tye-home.xyz";
+    github = "tye-exe";
+    githubId = 131195812;
+  };
   Tygo-van-den-Hurk = {
     name = "Tygo van den Hurk";
     github = "Tygo-van-den-Hurk";
@@ -26555,6 +26597,12 @@
     github = "bratorange";
     githubId = 45292658;
     name = "Julius Schmitt";
+  };
+  voidnoi = {
+    email = "voidnoi@proton.me";
+    github = "VoidNoi";
+    githubId = 83523507;
+    name = "voidnoi";
   };
   vojta001 = {
     email = "vojtech.kane@gmail.com";
