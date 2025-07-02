@@ -703,7 +703,7 @@
     github = "aduh95";
     githubId = 14309773;
     name = "Antoine du Hamel";
-    keys = [ { fingerprint = "C0D6 2484 39F1 D560 4AAF  FB40 21D9 00FF DB23 3756"; } ];
+    keys = [ { fingerprint = "5BE8 A3F6 C8A5 C01D 106C  0AD8 20B1 A390 B168 D356"; } ];
   };
   aerialx = {
     email = "aaron+nixos@aaronlindsay.com";
@@ -9308,6 +9308,12 @@
     githubId = 1447245;
     name = "Robin Gloster";
   };
+  globule655 = {
+    email = "globule655@gmail.com";
+    github = "globule655";
+    githubId = 47015416;
+    name = "globule655";
+  };
   gm6k = {
     email = "nix@quidecco.pl";
     name = "Isidor Zeuner";
@@ -11591,6 +11597,12 @@
     github = "jecaro";
     githubId = 17029738;
     name = "Jean-Charles Quillet";
+  };
+  jed-richards = {
+    name = "Jed Richards";
+    email = "jed22richards+nixpkgs@gmail.com";
+    github = "jed-richards";
+    githubId = 123339450;
   };
   jedsek = {
     email = "jedsek@qq.com";
@@ -22911,7 +22923,10 @@
     github = "ShadowRZ";
     githubId = 23130178;
     name = "夜坂雅";
-    keys = [ { fingerprint = "3237 D49E 8F81 5A45 2133  64EA 4FF3 5790 F405 53A9"; } ];
+    keys = [
+      { fingerprint = "3237 D49E 8F81 5A45 2133  64EA 4FF3 5790 F405 53A9"; }
+      { fingerprint = "AC59 7AD3 89D1 CC56 18AD  1ED9 B712 3A2B 6B0A E434"; }
+    ];
   };
   shadows_withal = {
     email = "shadows@with.al";
