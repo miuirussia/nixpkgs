@@ -843,6 +843,8 @@ self: super: with self; {
 
   arcam-fmj = callPackage ../development/python-modules/arcam-fmj { };
 
+  arch = callPackage ../development/python-modules/arch { };
+
   archinfo = callPackage ../development/python-modules/archinfo { };
 
   archspec = callPackage ../development/python-modules/archspec { };
@@ -1636,6 +1638,8 @@ self: super: with self; {
   backtesting = callPackage ../development/python-modules/backtesting { };
 
   bacpypes = callPackage ../development/python-modules/bacpypes { };
+
+  badsecrets = callPackage ../development/python-modules/badsecrets { };
 
   bagit = callPackage ../development/python-modules/bagit { };
 
@@ -5266,6 +5270,8 @@ self: super: with self; {
 
   flask-themes2 = callPackage ../development/python-modules/flask-themes2 { };
 
+  flask-unsign = callPackage ../development/python-modules/flask-unsign { };
+
   flask-versioned = callPackage ../development/python-modules/flask-versioned { };
 
   flask-webtest = callPackage ../development/python-modules/flask-webtest { };
@@ -6324,6 +6330,8 @@ self: super: with self; {
 
   ha-ffmpeg = callPackage ../development/python-modules/ha-ffmpeg { };
 
+  ha-iotawattpy = callPackage ../development/python-modules/ha-iotawattpy { };
+
   ha-mqtt-discoverable = callPackage ../development/python-modules/ha-mqtt-discoverable { };
 
   ha-philipsjs = callPackage ../development/python-modules/ha-philipsjs { };
@@ -7035,8 +7043,6 @@ self: super: with self; {
   iopath = callPackage ../development/python-modules/iopath { };
 
   iosbackup = callPackage ../development/python-modules/iosbackup { };
-
-  iotawattpy = callPackage ../development/python-modules/iotawattpy { };
 
   iottycloud = callPackage ../development/python-modules/iottycloud { };
 
@@ -10882,6 +10888,8 @@ self: super: with self; {
 
   optuna = callPackage ../development/python-modules/optuna { };
 
+  optuna-dashboard = callPackage ../development/python-modules/optuna-dashboard { };
+
   optype = callPackage ../development/python-modules/optype { };
 
   opuslib = callPackage ../development/python-modules/opuslib { };
@@ -11823,6 +11831,8 @@ self: super: with self; {
   presenterm-export = callPackage ../development/python-modules/presenterm-export { };
 
   preshed = callPackage ../development/python-modules/preshed { };
+
+  presto-python-client = callPackage ../development/python-modules/presto-python-client { };
 
   pretend = callPackage ../development/python-modules/pretend { };
 
@@ -13022,7 +13032,7 @@ self: super: with self; {
 
   pylibjpeg-openjpeg = callPackage ../development/python-modules/pylibjpeg-openjpeg { };
 
-  pyliblo = callPackage ../development/python-modules/pyliblo { };
+  pyliblo3 = callPackage ../development/python-modules/pyliblo3 { };
 
   pylibmc = callPackage ../development/python-modules/pylibmc { };
 
@@ -13255,6 +13265,8 @@ self: super: with self; {
   pynmeagps = callPackage ../development/python-modules/pynmeagps { };
 
   pynndescent = callPackage ../development/python-modules/pynndescent { };
+
+  pynng = callPackage ../development/python-modules/pynng { };
 
   pynobo = callPackage ../development/python-modules/pynobo { };
 
@@ -15893,6 +15905,8 @@ self: super: with self; {
   sarif-tools = callPackage ../development/python-modules/sarif-tools { };
 
   sasmodels = callPackage ../development/python-modules/sasmodels { };
+
+  satel-integra = callPackage ../development/python-modules/satel-integra { };
 
   sbom2dot = callPackage ../development/python-modules/sbom2dot { };
 
