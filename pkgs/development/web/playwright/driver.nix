@@ -27,13 +27,13 @@ let
     }
     .${system} or throwSystem;
 
-  version = "1.53.2";
+  version = "1.54.1";
 
   src = fetchFromGitHub {
     owner = "Microsoft";
     repo = "playwright";
     rev = "v${version}";
-    hash = "sha256-YTOq5sEBV2F26Flgc9om0y496XcDEpy5Lsb0BaH8K/g=";
+    hash = "sha256-xwyREgelHLkpbUXOZTppKK7L6dE4jx0d/lbDWSKGzTY=";
   };
 
   babel-bundle = buildNpmPackage {
@@ -70,7 +70,7 @@ let
     pname = "utils-bundle-core";
     inherit version src;
     sourceRoot = "${src.name}/packages/playwright-core/bundles/utils";
-    npmDepsHash = "sha256-3hdOmvs/IGAgW7vhldms9Q9/ZQfbjbc+xP+JEtGJ7g8=";
+    npmDepsHash = "sha256-gEm2oTxj4QIiGnIOPffOLh3BYSngpGToF89ObnDYBqs=";
     dontNpmBuild = true;
     installPhase = ''
       cp -r . "$out"
@@ -92,7 +92,7 @@ let
     inherit version src;
 
     sourceRoot = "${src.name}"; # update.sh depends on sourceRoot presence
-    npmDepsHash = "sha256-J/Z4BBcKIbmspshyjDFVR51svolwQns/+B935fUee14=";
+    npmDepsHash = "sha256-4bsX8Q8V3CBpIsyqMYTzfERQQPY5zlPf7CoqR6UkUHU=";
 
     nativeBuildInputs = [
       cacert
