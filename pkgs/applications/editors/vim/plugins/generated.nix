@@ -5243,6 +5243,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  fyler-nvim = buildVimPlugin {
+    pname = "fyler.nvim";
+    version = "2025-07-21";
+    src = fetchFromGitHub {
+      owner = "A7Lavinraj";
+      repo = "fyler.nvim";
+      rev = "6595c9ef272797aeb92aacdc392cf670c994e467";
+      sha256 = "14fbmhxw7xyg618g3pv7hq64ppcas997qvkbdnl2z0lqrk2nn3zy";
+    };
+    meta.homepage = "https://github.com/A7Lavinraj/fyler.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
   fzf-checkout-vim = buildVimPlugin {
     pname = "fzf-checkout.vim";
     version = "2023-10-05";
@@ -12009,6 +12022,19 @@ final: prev: {
       sha256 = "0sqzj25sdczxcpbp2ncpm07y631w9x81yv292xji3l0nzx7601pm";
     };
     meta.homepage = "https://github.com/tyru/open-browser.vim/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  opencode-nvim = buildVimPlugin {
+    pname = "opencode.nvim";
+    version = "2025-07-24";
+    src = fetchFromGitHub {
+      owner = "NickvanDyke";
+      repo = "opencode.nvim";
+      rev = "db3aa9ca3b738600c81e29646a3356477dabaa87";
+      sha256 = "1yhspgja3zdnsf8r3ahci14cndk3bzxvq0w9jqggd7ya103nq6kz";
+    };
+    meta.homepage = "https://github.com/NickvanDyke/opencode.nvim/";
     meta.hydraPlatforms = [ ];
   };
 

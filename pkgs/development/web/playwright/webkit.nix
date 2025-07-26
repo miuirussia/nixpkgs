@@ -102,21 +102,24 @@ let
           hash = "sha256-X4fbYTMS+kHfZRbeGzSdBW5jQKw8UN44FEyFRUtw0qo=";
         })
       ];
-      postPatch = "";
+      postPatch = ''
+        # Fix multiple definition errors by using C++17 instead of C++11
+        substituteInPlace CMakeLists.txt \
+          --replace "set(CMAKE_CXX_STANDARD 11)" "set(CMAKE_CXX_STANDARD 17)"
+      '';
       postInstall = "";
 
-      cmakeFlags =
-        [
-          "-DJPEGXL_FORCE_SYSTEM_BROTLI=ON"
-          "-DJPEGXL_FORCE_SYSTEM_HWY=ON"
-          "-DJPEGXL_FORCE_SYSTEM_GTEST=ON"
-        ]
-        ++ lib.optionals stdenv.hostPlatform.isStatic [
-          "-DJPEGXL_STATIC=ON"
-        ]
-        ++ lib.optionals stdenv.hostPlatform.isAarch32 [
-          "-DJPEGXL_FORCE_NEON=ON"
-        ];
+      cmakeFlags = [
+        "-DJPEGXL_FORCE_SYSTEM_BROTLI=ON"
+        "-DJPEGXL_FORCE_SYSTEM_HWY=ON"
+        "-DJPEGXL_FORCE_SYSTEM_GTEST=ON"
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isStatic [
+        "-DJPEGXL_STATIC=ON"
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isAarch32 [
+        "-DJPEGXL_FORCE_NEON=ON"
+      ];
     }
   );
   webkit-linux = stdenv.mkDerivation {

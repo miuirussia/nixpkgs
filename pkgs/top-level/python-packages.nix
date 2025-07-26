@@ -3722,8 +3722,6 @@ self: super: with self; {
 
   dj-static = callPackage ../development/python-modules/dj-static { };
 
-  dj-stripe = callPackage ../development/python-modules/dj-stripe { };
-
   # LTS with mainsteam support
   django = self.django_4;
 
@@ -6296,6 +6294,8 @@ self: super: with self; {
 
   gstools = callPackage ../development/python-modules/gstools { };
 
+  gstools-cython = callPackage ../development/python-modules/gstools-cython { };
+
   gtfs-realtime-bindings = callPackage ../development/python-modules/gtfs-realtime-bindings { };
 
   gto = callPackage ../development/python-modules/gto { };
@@ -7824,6 +7824,8 @@ self: super: with self; {
   langchain-core = callPackage ../development/python-modules/langchain-core { };
 
   langchain-deepseek = callPackage ../development/python-modules/langchain-deepseek { };
+
+  langchain-experimental = callPackage ../development/python-modules/langchain-experimental { };
 
   langchain-fireworks = callPackage ../development/python-modules/langchain-fireworks { };
 
@@ -13945,6 +13947,8 @@ self: super: with self; {
 
   pysol-cards = callPackage ../development/python-modules/pysol-cards { };
 
+  pysolarmanv5 = callPackage ../development/python-modules/pysolarmanv5 { };
+
   pysolcast = callPackage ../development/python-modules/pysolcast { };
 
   pysolr = callPackage ../development/python-modules/pysolr { };
@@ -14779,6 +14783,8 @@ self: super: with self; {
   python-troveclient = callPackage ../development/python-modules/python-troveclient { };
 
   python-trovo = callPackage ../development/python-modules/python-trovo { };
+
+  python-tsp = callPackage ../development/python-modules/python-tsp { };
 
   python-twitch-client = callPackage ../development/python-modules/python-twitch-client { };
 
