@@ -1335,6 +1335,7 @@
   ./services/networking/soju.nix
   ./services/networking/solanum.nix
   ./services/networking/spacecookie.nix
+  ./services/networking/speedify.nix
   ./services/networking/spiped.nix
   ./services/networking/squid.nix
   ./services/networking/ssh/sshd.nix
@@ -1610,6 +1611,7 @@
   ./services/web-apps/lasuite-docs.nix
   ./services/web-apps/lasuite-meet.nix
   ./services/web-apps/lemmy.nix
+  ./services/web-apps/libretranslate.nix
   ./services/web-apps/limesurvey.nix
   ./services/web-apps/mainsail.nix
   ./services/web-apps/mastodon.nix
@@ -1648,6 +1650,7 @@
   ./services/web-apps/part-db.nix
   ./services/web-apps/pds.nix
   ./services/web-apps/peering-manager.nix
+  ./services/web-apps/peertube-runner.nix
   ./services/web-apps/peertube.nix
   ./services/web-apps/pgpkeyserver-lite.nix
   ./services/web-apps/photoprism.nix

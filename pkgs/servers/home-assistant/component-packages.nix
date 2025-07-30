@@ -933,7 +933,8 @@
       ];
     "coinbase" =
       ps: with ps; [
-      ]; # missing inputs: coinbase coinbase-advanced-py
+        coinbase-advanced-py
+      ]; # missing inputs: coinbase
     "color_extractor" =
       ps: with ps; [
         colorthief
@@ -2851,7 +2852,8 @@
       ++ hdate.optional-dependencies.astral;
     "joaoapps_join" =
       ps: with ps; [
-      ]; # missing inputs: python-join-api
+        python-join-api
+      ];
     "juicenet" =
       ps: with ps; [
       ];
@@ -3692,7 +3694,8 @@
       ];
     "monoprice" =
       ps: with ps; [
-      ]; # missing inputs: pymonoprice
+        pymonoprice
+      ];
     "monzo" =
       ps: with ps; [
         monzopy
@@ -4058,7 +4061,8 @@
       ];
     "nzbget" =
       ps: with ps; [
-      ]; # missing inputs: pynzbgetapi
+        pynzbgetapi
+      ];
     "oasa_telematics" =
       ps: with ps; [
         oasatelematics
@@ -5091,7 +5095,8 @@
       ];
     "schluter" =
       ps: with ps; [
-      ]; # missing inputs: py-schluter
+        py-schluter
+      ];
     "scl" =
       ps: with ps; [
       ];
@@ -5657,7 +5662,8 @@
       ];
     "supla" =
       ps: with ps; [
-      ]; # missing inputs: asyncpysupla
+        asyncpysupla
+      ];
     "surepetcare" =
       ps: with ps; [
         surepy
@@ -7315,6 +7321,7 @@
     "modem_callerid"
     "modern_forms"
     "mold_indicator"
+    "monoprice"
     "monzo"
     "moon"
     "mopeka"
@@ -7374,6 +7381,7 @@
     "nws"
     "nx584"
     "nyt_games"
+    "nzbget"
     "obihai"
     "octoprint"
     "ohme"

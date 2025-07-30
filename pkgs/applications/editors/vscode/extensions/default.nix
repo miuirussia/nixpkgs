@@ -1501,8 +1501,8 @@ let
           # semver scheme, contrary to preview versions which are listed on
           # the VSCode Marketplace and use a calver scheme. We should avoid
           # using preview versions, because they expire after two weeks.
-          version = "17.3.1";
-          hash = "sha256-qZBctE3R39WeU3Fc3pajrUSS6ncni7O+/oAOyZK2EnY=";
+          version = "17.3.2";
+          hash = "sha256-z93AKGwgW5ySgb+5iCEXb/N9sWu3S3aS6PqKt8LXZjY=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/eamodio.gitlens/changelog";
@@ -2033,8 +2033,8 @@ let
         mktplcRef = {
           publisher = "github";
           name = "vscode-pull-request-github";
-          version = "0.114.2";
-          hash = "sha256-TLsvewvmqwKEBPsuzrlMhlsjdi3jbA7E1xz9B8aU1LA=";
+          version = "0.114.3";
+          hash = "sha256-ZrutAYL0HphkSDh2BRA4wZUA/s1Uf6IvPWs4dfqfEDk=";
         };
         meta = {
           license = lib.licenses.mit;
@@ -2365,8 +2365,8 @@ let
         mktplcRef = {
           name = "vscode-vibrancy-continued";
           publisher = "illixion";
-          version = "1.1.58";
-          hash = "sha256-oBm2j7fZBYALkstk1WMgC+o1sq2HY7tX+zLfo5PBMiM=";
+          version = "1.1.59";
+          hash = "sha256-ClzUxKdiYZqAlmXJ3W54kJddLRov5XKo0t8PPWA/Qq8=";
         };
         meta = {
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=illixion.vscode-vibrancy-continued";
@@ -2430,8 +2430,8 @@ let
         mktplcRef = {
           name = "Ionide-fsharp";
           publisher = "Ionide";
-          version = "7.26.3";
-          hash = "sha256-xbMPx7FO7MplFO0SDpWhmctEZdHft2UPdlss3J0Bj10=";
+          version = "7.26.5";
+          hash = "sha256-h652UK81MxEhwyJKlWLnueQmhpl2pHByvhPrfH+4WXk=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/Ionide.Ionide-fsharp/changelog";
@@ -2972,8 +2972,8 @@ let
         mktplcRef = {
           name = "marp-vscode";
           publisher = "marp-team";
-          version = "3.2.0";
-          hash = "sha256-SSkmvm9NJnLw38luZWF6K7g5caaivtP+v+39qPR/oyo=";
+          version = "3.2.1";
+          hash = "sha256-c3e4vWmnR/enummRSfwlulPEAjZ9TlncnAU3SJcUEaI=";
         };
         meta = {
           license = lib.licenses.mit;
@@ -3765,6 +3765,8 @@ let
           maintainers = [ lib.maintainers.imgabe ];
         };
       };
+
+      oliver-ni.scheme-fmt = callPackage ./oliver-ni.scheme-fmt { };
 
       oops418.nix-env-picker = callPackage ./oops418.nix-env-picker { };
 
@@ -4576,8 +4578,8 @@ let
         mktplcRef = {
           name = "svelte-vscode";
           publisher = "svelte";
-          version = "109.9.0";
-          hash = "sha256-OgcFFYoJOtFVlOM12gYBG0AkliniawG6GdRtrFsjDIg=";
+          version = "109.10.0";
+          hash = "sha256-Rpzcf0ioM7faDWG1xcEuz6GNzU1lHZsGxGgaKwC8SKk=";
         };
         meta = {
           changelog = "https://github.com/sveltejs/language-tools/releases";
@@ -4849,8 +4851,8 @@ let
         mktplcRef = {
           name = "emacs-mcx";
           publisher = "tuttieee";
-          version = "0.73.0";
-          hash = "sha256-Fs/rGa6F9Jm4pvD+IIzEsG0TwHy88KkNCkD7I56IL4U=";
+          version = "0.74.0";
+          hash = "sha256-kK4+zTe91b54BxefoUiFgKc0SgHBQ74Y44ivSFkk1/A=";
         };
         meta = {
           changelog = "https://github.com/whitphx/vscode-emacs-mcx/blob/main/CHANGELOG.md";
