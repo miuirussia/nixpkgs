@@ -226,6 +226,8 @@ self: super: with self; {
 
   aiocache = callPackage ../development/python-modules/aiocache { };
 
+  aiocmd = callPackage ../development/python-modules/aiocmd { };
+
   aiocoap = callPackage ../development/python-modules/aiocoap { };
 
   aiocomelit = callPackage ../development/python-modules/aiocomelit { };
@@ -970,6 +972,8 @@ self: super: with self; {
   assertpy = callPackage ../development/python-modules/assertpy { };
 
   asserts = callPackage ../development/python-modules/asserts { };
+
+  ast-grep-py = callPackage ../development/python-modules/ast-grep-py { };
 
   asterisk-mbox = callPackage ../development/python-modules/asterisk-mbox { };
 
@@ -4078,8 +4082,6 @@ self: super: with self; {
   django-widget-tweaks = callPackage ../development/python-modules/django-widget-tweaks { };
 
   # LTS in extended support phase
-  django_3 = callPackage ../development/python-modules/django/3.nix { };
-
   django_4 = callPackage ../development/python-modules/django/4.nix { };
 
   django_5 = self.django_5_2;
@@ -7931,6 +7933,8 @@ self: super: with self; {
 
   lazr-uri = callPackage ../development/python-modules/lazr-uri { };
 
+  lazrs = callPackage ../development/python-modules/lazrs { };
+
   lazy = callPackage ../development/python-modules/lazy { };
 
   lazy-imports = callPackage ../development/python-modules/lazy-imports { };
@@ -11355,6 +11359,8 @@ self: super: with self; {
   pdfminer-six = callPackage ../development/python-modules/pdfminer-six { };
 
   pdfplumber = callPackage ../development/python-modules/pdfplumber { };
+
+  pdfquery = callPackage ../development/python-modules/pdfquery { };
 
   pdfrw = callPackage ../development/python-modules/pdfrw { };
 
@@ -15754,6 +15760,8 @@ self: super: with self; {
 
   robomachine = callPackage ../development/python-modules/robomachine { };
 
+  robot-descriptions = callPackage ../development/python-modules/robot-descriptions { };
+
   robot-detection = callPackage ../development/python-modules/robot-detection { };
 
   robotframework = callPackage ../development/python-modules/robotframework { };
@@ -19342,6 +19350,8 @@ self: super: with self; {
 
   virtualenvwrapper = callPackage ../development/python-modules/virtualenvwrapper { };
 
+  viser = callPackage ../development/python-modules/viser { };
+
   visions = callPackage ../development/python-modules/visions { };
 
   visitor = callPackage ../development/python-modules/visitor { };
@@ -19975,6 +19985,8 @@ self: super: with self; {
   yoto-api = callPackage ../development/python-modules/yoto-api { };
 
   youless-api = callPackage ../development/python-modules/youless-api { };
+
+  yourdfpy = callPackage ../development/python-modules/yourdfpy { };
 
   youseedee = callPackage ../development/python-modules/youseedee { };
 
