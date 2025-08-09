@@ -2759,6 +2759,8 @@ self: super: with self; {
 
   colcon-defaults = callPackage ../development/python-modules/colcon-defaults { };
 
+  colcon-library-path = callPackage ../development/python-modules/colcon-library-path { };
+
   colcon-mixin = callPackage ../development/python-modules/colcon-mixin { };
 
   colcon-notification = callPackage ../development/python-modules/colcon-notification { };
@@ -6584,6 +6586,8 @@ self: super: with self; {
 
   hkavr = callPackage ../development/python-modules/hkavr { };
 
+  hko = callPackage ../development/python-modules/hko { };
+
   hledger-utils = callPackage ../development/python-modules/hledger-utils { };
 
   hlk-sw16 = callPackage ../development/python-modules/hlk-sw16 { };
@@ -7890,6 +7894,8 @@ self: super: with self; {
 
   langgraph-prebuilt = callPackage ../development/python-modules/langgraph-prebuilt { };
 
+  langgraph-runtime-inmem = callPackage ../development/python-modules/langgraph-runtime-inmem { };
+
   langgraph-sdk = callPackage ../development/python-modules/langgraph-sdk { };
 
   langid = callPackage ../development/python-modules/langid { };
@@ -8663,6 +8669,8 @@ self: super: with self; {
 
   lomond = callPackage ../development/python-modules/lomond { };
 
+  london-tube-status = callPackage ../development/python-modules/london-tube-status { };
+
   loompy = callPackage ../development/python-modules/loompy { };
 
   loopy = callPackage ../development/python-modules/loopy { };
@@ -8904,8 +8912,6 @@ self: super: with self; {
   materialx = callPackage ../development/python-modules/materialx { };
 
   materialyoucolor = callPackage ../development/python-modules/materialyoucolor { };
-
-  mathlibtools = callPackage ../development/python-modules/mathlibtools { };
 
   mathutils = callPackage ../development/python-modules/mathutils { };
 
@@ -12270,8 +12276,6 @@ self: super: with self; {
 
   py-schluter = callPackage ../development/python-modules/py-schluter { };
 
-  py-scrypt = callPackage ../development/python-modules/py-scrypt { };
-
   py-serializable = callPackage ../development/python-modules/py-serializable { };
 
   py-slvs = callPackage ../development/python-modules/py-slvs { };
@@ -14485,6 +14489,8 @@ self: super: with self; {
 
   python-daemon = callPackage ../development/python-modules/python-daemon { };
 
+  python-dali = callPackage ../development/python-modules/python-dali { };
+
   python-datemath = callPackage ../development/python-modules/python-datemath { };
 
   python-dateutil = callPackage ../development/python-modules/python-dateutil { };
@@ -16268,6 +16274,8 @@ self: super: with self; {
 
   sentence-splitter = callPackage ../development/python-modules/sentence-splitter { };
 
+  sentence-stream = callPackage ../development/python-modules/sentence-stream { };
+
   sentence-transformers = callPackage ../development/python-modules/sentence-transformers { };
 
   sentencepiece = callPackage ../development/python-modules/sentencepiece {
@@ -16385,8 +16393,6 @@ self: super: with self; {
   shimmy = callPackage ../development/python-modules/shimmy { };
 
   shiny = callPackage ../development/python-modules/shiny { };
-
-  shippai = callPackage ../development/python-modules/shippai { };
 
   shippinglabel = callPackage ../development/python-modules/shippinglabel { };
 
@@ -16509,6 +16515,8 @@ self: super: with self; {
   siphash24 = callPackage ../development/python-modules/siphash24 { };
 
   siphashc = callPackage ../development/python-modules/siphashc { };
+
+  sipsimple = callPackage ../development/python-modules/sipsimple { };
 
   sipyco = callPackage ../development/python-modules/sipyco { };
 
@@ -16860,6 +16868,8 @@ self: super: with self; {
   spdx-lookup = callPackage ../development/python-modules/spdx-lookup { };
 
   spdx-tools = callPackage ../development/python-modules/spdx-tools { };
+
+  speak2mary = callPackage ../development/python-modules/speak2mary { };
 
   speaklater = callPackage ../development/python-modules/speaklater { };
 
@@ -18345,6 +18355,8 @@ self: super: with self; {
   };
 
   trie = callPackage ../development/python-modules/trie { };
+
+  triggercmd = callPackage ../development/python-modules/triggercmd { };
 
   trimesh = callPackage ../development/python-modules/trimesh { };
 

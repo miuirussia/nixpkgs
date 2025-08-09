@@ -119,7 +119,7 @@ with pkgs;
     You should not evaluate entire Nixpkgs without measures to handle failing packages.
   '';
 
-  tests = callPackages ../test { };
+  tests = lib.recurseIntoAttrs (callPackages ../test { });
 
   defaultPkgConfigPackages =
     # We don't want nix-env -q to enter this, because all of these are aliases.
@@ -382,8 +382,6 @@ with pkgs;
   enochecker-test = with python3Packages; callPackage ../development/tools/enochecker-test { };
 
   inherit (gridlock) nyarr;
-
-  inspec = callPackage ../tools/misc/inspec { };
 
   lshw-gui = lshw.override { withGUI = true; };
 
@@ -1418,10 +1416,6 @@ with pkgs;
     stdenv = gcc14Stdenv;
   };
 
-  snes9x-gtk = snes9x.override {
-    withGtk = true;
-  };
-
   winetricks = callPackage ../applications/emulators/wine/winetricks.nix { };
 
   zsnes = pkgsi686Linux.callPackage ../applications/emulators/zsnes { };
@@ -1462,10 +1456,6 @@ with pkgs;
   };
 
   ### APPLICATIONS/FILE-MANAGERS
-
-  doublecmd = callPackage ../by-name/do/doublecmd/package.nix {
-    inherit (libsForQt5) libqtpas wrapQtAppsHook;
-  };
 
   vifm-full = vifm.override {
     mediaSupport = true;
@@ -1726,8 +1716,6 @@ with pkgs;
   go2tv-lite = go2tv.override { withGui = false; };
 
   guglielmo = libsForQt5.callPackage ../applications/radio/guglielmo { };
-
-  grc = python3Packages.callPackage ../tools/misc/grc { };
 
   gremlin-console = callPackage ../applications/misc/gremlin-console {
     openjdk = openjdk11;
@@ -3000,8 +2988,6 @@ with pkgs;
     gitlabEnterprise = true;
   };
 
-  gitlab-triage = callPackage ../applications/version-management/gitlab-triage { };
-
   gitlab-workhorse = callPackage ../by-name/gi/gitlab/gitlab-workhorse { };
 
   glogg = libsForQt5.callPackage ../tools/text/glogg { };
@@ -3211,8 +3197,6 @@ with pkgs;
   hdf5-threadsafe = hdf5.override { threadsafe = true; };
 
   heaptrack = libsForQt5.callPackage ../development/tools/profiling/heaptrack { };
-
-  heimdall-gui = heimdall.override { enableGUI = true; };
 
   headscale = callPackage ../servers/headscale { };
 
@@ -6646,10 +6630,6 @@ with pkgs;
 
   h3 = h3_3;
 
-  avrlibc = callPackage ../development/misc/avr/libc {
-    stdenv = stdenvNoLibc;
-  };
-
   sourceFromHead = callPackage ../build-support/source-from-head-fun.nix { };
 
   jruby = callPackage ../development/interpreters/jruby { };
@@ -7502,8 +7482,6 @@ with pkgs;
     protobuf = protobuf_21;
   };
 
-  sqlitebrowser = libsForQt5.callPackage ../development/tools/database/sqlitebrowser { };
-
   sqlite-utils = with python3Packages; toPythonApplication sqlite-utils;
 
   sqlmap = with python3Packages; toPythonApplication sqlmap;
@@ -8005,12 +7983,6 @@ with pkgs;
     withGd = true;
   };
 
-  musl = callPackage ../by-name/mu/musl/package.nix (
-    lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
-      stdenv = stdenvNoLibc;
-    }
-  );
-
   # These are used when building compiler-rt / libgcc, prior to building libc.
   preLibcHeaders =
     let
@@ -8081,10 +8053,6 @@ with pkgs;
         # For win32 or posix set this to null
         package = windows.mcfgthreads;
       };
-
-  wasilibc = callPackage ../development/libraries/wasilibc {
-    stdenv = stdenvNoLibc;
-  };
 
   # Only supported on Linux and only on glibc
   glibcLocales =
@@ -10158,6 +10126,7 @@ with pkgs;
 
   kanidm_1_5 = callPackage ../by-name/ka/kanidm/1_5.nix { kanidm = kanidm_1_5; };
   kanidm_1_6 = callPackage ../by-name/ka/kanidm/1_6.nix { kanidm = kanidm_1_6; };
+  kanidm_1_7 = callPackage ../by-name/ka/kanidm/1_7.nix { kanidm = kanidm_1_7; };
 
   kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_6;
 
@@ -10166,6 +10135,10 @@ with pkgs;
   };
 
   kanidmWithSecretProvisioning_1_6 = callPackage ../by-name/ka/kanidm/1_6.nix {
+    enableSecretProvisioning = true;
+  };
+
+  kanidmWithSecretProvisioning_1_7 = callPackage ../by-name/ka/kanidm/1_7.nix {
     enableSecretProvisioning = true;
   };
 
@@ -10219,14 +10192,6 @@ with pkgs;
   minio_legacy_fs = callPackage ../servers/minio/legacy_fs.nix { };
 
   mkchromecast = libsForQt5.callPackage ../applications/networking/mkchromecast { };
-
-  inherit
-    (callPackages ../servers/mpd {
-    })
-    mpd
-    mpd-small
-    mpdWithFeatures
-    ;
 
   mtprotoproxy = python3.pkgs.callPackage ../servers/mtprotoproxy { };
 
@@ -11984,20 +11949,6 @@ with pkgs;
   };
   gnuradioPackages = lib.recurseIntoAttrs gnuradio.pkgs;
 
-  greetd = recurseIntoAttrs (
-    {
-      greetd = callPackage ../applications/display-managers/greetd { };
-      gtkgreet = callPackage ../applications/display-managers/greetd/gtkgreet.nix { };
-      qtgreet = callPackage ../applications/display-managers/greetd/qtgreet.nix { };
-      regreet = callPackage ../applications/display-managers/greetd/regreet.nix { };
-      tuigreet = callPackage ../applications/display-managers/greetd/tuigreet.nix { };
-      wlgreet = callPackage ../applications/display-managers/greetd/wlgreet.nix { };
-    }
-    // lib.optionalAttrs config.allowAliases {
-      dlm = throw "greetd.dlm has been removed as it is broken and abandoned upstream"; # Added 2024-07-15
-    }
-  );
-
   goldendict = libsForQt5.callPackage ../applications/misc/goldendict { };
   goldendict-ng = qt6Packages.callPackage ../applications/misc/goldendict-ng { };
 
@@ -12351,10 +12302,6 @@ with pkgs;
     ocamlPackages = ocaml-ng.ocamlPackages_4_14;
   };
 
-  meerk40t = callPackage ../applications/misc/meerk40t { };
-
-  meerk40t-camera = callPackage ../applications/misc/meerk40t/camera.nix { };
-
   libmt32emu = callPackage ../applications/audio/munt/libmt32emu.nix { };
 
   mt32emu-qt = libsForQt5.callPackage ../applications/audio/munt/mt32emu-qt.nix { };
@@ -12611,22 +12558,6 @@ with pkgs;
 
   kexi = libsForQt5.callPackage ../applications/office/kexi { };
 
-  kid3-cli = kid3.override {
-    withCLI = true;
-    withKDE = false;
-    withQt = false;
-  };
-  kid3-kde = kid3.override {
-    withCLI = true;
-    withKDE = true;
-    withQt = false;
-  };
-  kid3-qt = kid3.override {
-    withCLI = true;
-    withKDE = false;
-    withQt = true;
-  };
-
   kiwix = libsForQt5.callPackage ../applications/misc/kiwix { };
 
   kiwix-tools = callPackage ../applications/misc/kiwix/tools.nix { };
@@ -12713,8 +12644,6 @@ with pkgs;
   lemonbar-xft = callPackage ../applications/window-managers/lemonbar/xft.nix { };
 
   lenovo-legion = libsForQt5.callPackage ../os-specific/linux/lenovo-legion/app.nix { };
-
-  leo-editor = libsForQt5.callPackage ../applications/editors/leo-editor { };
 
   libkiwix = callPackage ../applications/misc/kiwix/lib.nix { };
 
@@ -13185,6 +13114,7 @@ with pkgs;
   };
 
   palemoon-bin = callPackage ../applications/networking/browsers/palemoon/bin.nix { };
+  palemoon-gtk2-bin = palemoon-bin.override { withGTK3 = false; };
 
   pantalaimon = callPackage ../applications/networking/instant-messengers/pantalaimon { };
 
@@ -13193,8 +13123,6 @@ with pkgs;
   };
 
   parsec-bin = callPackage ../applications/misc/parsec/bin.nix { };
-
-  paraview = libsForQt5.callPackage ../applications/graphics/paraview { };
 
   pekwm = callPackage ../by-name/pe/pekwm/package.nix {
     awk = gawk;
@@ -13617,10 +13545,6 @@ with pkgs;
     bdbSupport = false;
     perlBindings = true;
     pythonBindings = true;
-  };
-
-  surge = callPackage ../applications/audio/surge {
-    git = gitMinimal;
   };
 
   supersonic-wayland = supersonic.override {
@@ -14236,8 +14160,6 @@ with pkgs;
     withGui = false;
     inherit (darwin) autoSignDarwinBinariesHook;
   };
-
-  cryptop = python3.pkgs.callPackage ../applications/blockchains/cryptop { };
 
   elements = libsForQt5.callPackage ../applications/blockchains/elements {
     withGui = true;
@@ -15101,8 +15023,6 @@ with pkgs;
   # standard BLAS and LAPACK.
   openblasCompat = openblas.override { blas64 = false; };
 
-  inherit (callPackage ../development/libraries/science/math/magma { }) magma;
-
   magma-cuda = magma.override {
     cudaSupport = true;
     rocmSupport = false;
@@ -15139,8 +15059,6 @@ with pkgs;
   p4est-sc-dbg = p4est-sc.override { debug = true; };
 
   p4est-dbg = p4est.override { debug = true; };
-
-  sageWithDoc = sage.override { withDoc = true; };
 
   suitesparse_5_3 = callPackage ../development/libraries/science/math/suitesparse {
     inherit (llvmPackages) openmp;
@@ -15340,7 +15258,6 @@ with pkgs;
   isabelle-components = recurseIntoAttrs (callPackage ../by-name/is/isabelle/components { });
 
   lean3 = lean;
-  mathlibtools = with python3Packages; toPythonApplication mathlibtools;
 
   leo2 = callPackage ../applications/science/logic/leo2 {
     inherit (ocaml-ng.ocamlPackages_4_14_unsafe_string) ocaml camlp4;
@@ -15451,8 +15368,6 @@ with pkgs;
   openems = callPackage ../applications/science/electronics/openems {
     qcsxcad = libsForQt5.qcsxcad;
   };
-
-  qucs-s = qt6Packages.callPackage ../applications/science/electronics/qucs-s { };
 
   xyce-parallel = callPackage ../by-name/xy/xyce/package.nix {
     withMPI = true;
@@ -16295,12 +16210,9 @@ with pkgs;
 
   xp-pen-deco-01-v2-driver = libsForQt5.xp-pen-deco-01-v2-driver;
 
-  newlib = callPackage ../development/misc/newlib {
-    stdenv = stdenvNoLibc;
-  };
+  newlib = callPackage ../development/misc/newlib { };
 
   newlib-nano = callPackage ../development/misc/newlib {
-    stdenv = stdenvNoLibc;
     nanoizeNewlib = true;
   };
 

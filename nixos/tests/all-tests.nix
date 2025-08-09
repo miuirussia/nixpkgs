@@ -772,8 +772,18 @@ in
   k3s = handleTest ./k3s { };
   kafka = handleTest ./kafka { };
   kanboard = runTest ./web-apps/kanboard.nix;
-  kanidm = runTest ./kanidm.nix;
-  kanidm-provisioning = runTest ./kanidm-provisioning.nix;
+  kanidm =
+    kanidmVersion:
+    runTest {
+      imports = [ ./kanidm.nix ];
+      _module.args = { inherit kanidmVersion; };
+    };
+  kanidm-provisioning =
+    kanidmVersion:
+    runTest {
+      imports = [ ./kanidm-provisioning.nix ];
+      _module.args = { inherit kanidmVersion; };
+    };
   karma = runTest ./karma.nix;
   kavita = runTest ./kavita.nix;
   kbd-setfont-decompress = runTest ./kbd-setfont-decompress.nix;
@@ -1343,6 +1353,7 @@ in
   snapcast = runTest ./snapcast.nix;
   snapper = runTest ./snapper.nix;
   snipe-it = runTest ./web-apps/snipe-it.nix;
+  snips-sh = runTest ./snips-sh.nix;
   soapui = runTest ./soapui.nix;
   soft-serve = runTest ./soft-serve.nix;
   sogo = runTest ./sogo.nix;
