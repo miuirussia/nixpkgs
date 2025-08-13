@@ -10043,8 +10043,10 @@ with pkgs;
   };
 
   etcd = etcd_3_5;
-  etcd_3_4 = callPackage ../servers/etcd/3.4.nix { };
-  etcd_3_5 = callPackage ../servers/etcd/3.5 { };
+  etcd_3_4 = callPackage ../servers/etcd/3_4 { };
+  etcd_3_5 = callPackage ../servers/etcd/3_5 {
+    buildGoModule = buildGo123Module;
+  };
 
   prosody = callPackage ../servers/xmpp/prosody {
     withExtraLibs = [ ];
@@ -11579,9 +11581,6 @@ with pkgs;
 
   airwave = libsForQt5.callPackage ../applications/audio/airwave { };
 
-  amarok = libsForQt5.callPackage ../applications/audio/amarok { };
-  amarok-kf5 = amarok; # for compatibility
-
   androidStudioPackages = recurseIntoAttrs (callPackage ../applications/editors/android-studio { });
   android-studio = androidStudioPackages.stable;
   android-studio-full = android-studio.full;
@@ -11961,8 +11960,6 @@ with pkgs;
   guitarix = callPackage ../applications/audio/guitarix {
     fftw = fftwSinglePrec;
   };
-
-  puddletag = libsForQt5.callPackage ../applications/audio/puddletag { };
 
   welle-io = qt6Packages.callPackage ../applications/radio/welle-io { };
 
@@ -15800,7 +15797,13 @@ with pkgs;
 
   nix-tree = haskell.lib.compose.justStaticExecutables (haskellPackages.nix-tree);
 
-  nix-serve-ng = haskell.lib.compose.justStaticExecutables haskellPackages.nix-serve-ng;
+  nix-serve-ng =
+    # FIXME: manually eliminate incorrect references on aarch64-darwin,
+    # see https://github.com/NixOS/nixpkgs/issues/318013
+    if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then
+      haskellPackages.nix-serve-ng
+    else
+      haskell.lib.compose.justStaticExecutables haskellPackages.nix-serve-ng;
 
   nix-visualize = python3.pkgs.callPackage ../tools/package-management/nix-visualize { };
 
@@ -16201,12 +16204,6 @@ with pkgs;
   };
 
   sieveshell = with python3.pkgs; toPythonApplication managesieve;
-
-  jami = qt6Packages.callPackage ../applications/networking/instant-messengers/jami {
-    # TODO: remove once `udev` is `systemdMinimal` everywhere.
-    udev = systemdMinimal;
-    jack = libjack2;
-  };
 
   gpio-utils = callPackage ../os-specific/linux/kernel/gpio-utils.nix { };
 
