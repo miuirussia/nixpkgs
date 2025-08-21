@@ -2867,6 +2867,8 @@ self: super: with self; {
 
   compressed-tensors = callPackage ../development/python-modules/compressed-tensors { };
 
+  concord232 = callPackage ../development/python-modules/concord232 { };
+
   concurrent-log-handler = callPackage ../development/python-modules/concurrent-log-handler { };
 
   conda = callPackage ../development/python-modules/conda { };
@@ -7253,7 +7255,7 @@ self: super: with self; {
       enablePython = true;
       enableRtk = false;
       stdenv =
-        if stdenv.cc.isGNU then pkgs.stdenvAdapters.useLibsFrom stdenv pkgs.gcc12Stdenv else stdenv;
+        if stdenv.cc.isGNU then pkgs.stdenvAdapters.useLibsFrom stdenv pkgs.gcc13Stdenv else stdenv;
     }
   );
 
@@ -9079,6 +9081,8 @@ self: super: with self; {
   mechanize = callPackage ../development/python-modules/mechanize { };
 
   medallion = callPackage ../development/python-modules/medallion { };
+
+  medcom-ble = callPackage ../development/python-modules/medcom-ble { };
 
   mediafile = callPackage ../development/python-modules/mediafile { };
 
@@ -11084,6 +11088,8 @@ self: super: with self; {
 
   ortools = (toPythonModule (pkgs.or-tools.override { python3 = self.python; })).python;
 
+  oru = callPackage ../development/python-modules/oru { };
+
   orvibo = callPackage ../development/python-modules/orvibo { };
 
   oryx = callPackage ../development/python-modules/oryx { };
@@ -12823,6 +12829,8 @@ self: super: with self; {
 
   pyepsg = callPackage ../development/python-modules/pyepsg { };
 
+  pyequihash = callPackage ../development/python-modules/pyequihash { };
+
   pyerfa = callPackage ../development/python-modules/pyerfa { };
 
   pyeverlights = callPackage ../development/python-modules/pyeverlights { };
@@ -13957,6 +13965,8 @@ self: super: with self; {
   pyserial-asyncio-fast = callPackage ../development/python-modules/pyserial-asyncio-fast { };
 
   pyseries = callPackage ../development/python-modules/pyseries { };
+
+  pysesame2 = callPackage ../development/python-modules/pysesame2 { };
 
   pyseventeentrack = callPackage ../development/python-modules/pyseventeentrack { };
 
@@ -15357,6 +15367,8 @@ self: super: with self; {
 
   qrcode-terminal = callPackage ../development/python-modules/qrcode-terminal { };
 
+  qrcodegen = callPackage ../development/python-modules/qrcodegen { qrcodegen = pkgs.qrcodegen; };
+
   qreactor = callPackage ../development/python-modules/qreactor { };
 
   qscintilla = self.qscintilla-qt5;
@@ -16496,7 +16508,7 @@ self: super: with self; {
   shellingham = callPackage ../development/python-modules/shellingham { };
 
   shiboken2 = toPythonModule (
-    callPackage ../development/python-modules/shiboken2 { inherit (pkgs) cmake llvmPackages_15 qt5; }
+    callPackage ../development/python-modules/shiboken2 { inherit (pkgs) cmake llvmPackages qt5; }
   );
 
   shiboken6 = toPythonModule (
@@ -18125,6 +18137,8 @@ self: super: with self; {
   tika = callPackage ../development/python-modules/tika { };
 
   tika-client = callPackage ../development/python-modules/tika-client { };
+
+  tikteck = callPackage ../development/python-modules/tikteck { };
 
   tiktoken = callPackage ../development/python-modules/tiktoken { };
 
