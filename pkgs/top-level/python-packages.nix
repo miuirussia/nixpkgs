@@ -1845,6 +1845,8 @@ self: super: with self; {
 
   beziers = callPackage ../development/python-modules/beziers { };
 
+  bgutil-ytdlp-pot-provider = callPackage ../development/python-modules/bgutil-ytdlp-pot-provider { };
+
   bibtexparser = callPackage ../development/python-modules/bibtexparser { };
 
   bibtexparser_2 = callPackage ../development/python-modules/bibtexparser/2.nix { };
@@ -9293,6 +9295,8 @@ self: super: with self; {
   mip = callPackage ../development/python-modules/mip { };
 
   mir-eval = callPackage ../development/python-modules/mir-eval { };
+
+  miraie-ac = callPackage ../development/python-modules/miraie-ac { };
 
   mirakuru = callPackage ../development/python-modules/mirakuru { };
 
