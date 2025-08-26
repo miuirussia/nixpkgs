@@ -320,6 +320,8 @@ with pkgs;
 
   cameractrls-gtk3 = cameractrls.override { withGtk = 3; };
 
+  cgal_5 = callPackage ../by-name/cg/cgal/5.nix { };
+
   checkpointBuildTools = callPackage ../build-support/checkpoint-build.nix { };
 
   celeste-classic-pm = pkgs.celeste-classic.override {
@@ -2226,8 +2228,6 @@ with pkgs;
 
   maliit-keyboard = libsForQt5.callPackage ../applications/misc/maliit-keyboard { };
 
-  mat2 = with python3.pkgs; toPythonApplication mat2;
-
   materialx = with python3Packages; toPythonApplication materialx;
 
   # while building documentation meson may want to run binaries for host
@@ -2613,10 +2613,6 @@ with pkgs;
 
   cask-server = libsForQt5.callPackage ../applications/misc/cask-server { };
 
-  code-browser-qt = libsForQt5.callPackage ../applications/editors/code-browser { withQt = true; };
-  code-browser-gtk2 = callPackage ../applications/editors/code-browser { withGtk2 = true; };
-  code-browser-gtk = callPackage ../applications/editors/code-browser { withGtk3 = true; };
-
   cffconvert = python3Packages.toPythonApplication python3Packages.cffconvert;
 
   ckb-next = libsForQt5.callPackage ../tools/misc/ckb-next { };
@@ -2653,15 +2649,6 @@ with pkgs;
   # Top-level fix-point used in `cudaPackages`' internals
   _cuda = import ../development/cuda-modules/_cuda;
 
-  cudaPackages_11_8 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "11.8"; };
-  cudaPackages_11 = recurseIntoAttrs cudaPackages_11_8;
-
-  cudaPackages_12_0 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.0"; };
-  cudaPackages_12_1 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.1"; };
-  cudaPackages_12_2 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.2"; };
-  cudaPackages_12_3 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.3"; };
-  cudaPackages_12_4 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.4"; };
-  cudaPackages_12_5 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.5"; };
   cudaPackages_12_6 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.6"; };
   cudaPackages_12_8 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.8"; };
   cudaPackages_12_9 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.9"; };
@@ -2671,7 +2658,6 @@ with pkgs;
 
   # TODO: move to alias
   cudatoolkit = cudaPackages.cudatoolkit;
-  cudatoolkit_11 = cudaPackages_11.cudatoolkit;
 
   curlFull = curl.override {
     ldapSupport = true;
@@ -3383,7 +3369,7 @@ with pkgs;
     lua = lua5_2_compat;
   };
 
-  kdbg = libsForQt5.callPackage ../development/tools/misc/kdbg { };
+  kdbg = callPackage ../development/tools/misc/kdbg { };
 
   kristall = libsForQt5.callPackage ../applications/networking/browsers/kristall { };
 
@@ -4546,9 +4532,6 @@ with pkgs;
 
   xdot = with python3Packages; toPythonApplication xdot;
 
-  xflux = callPackage ../tools/misc/xflux { };
-  xflux-gui = python3Packages.callPackage ../tools/misc/xflux/gui.nix { };
-
   libxfs = xfsprogs.dev;
 
   xmlto = callPackage ../tools/typesetting/xmlto {
@@ -4583,10 +4566,6 @@ with pkgs;
 
   # To expose more packages for Yi, override the extraPackages arg.
   yi = callPackage ../applications/editors/yi/wrapper.nix { };
-
-  zbackup = callPackage ../tools/backup/zbackup {
-    protobuf = protobuf_21;
-  };
 
   zbar = libsForQt5.callPackage ../tools/graphics/zbar { };
 
@@ -4880,10 +4859,6 @@ with pkgs;
         extraBuildInputs = lib.optional stdenv.hostPlatform.isDarwin clang.cc;
       };
 
-  gcc9Stdenv = overrideCC gccStdenv buildPackages.gcc9;
-  gcc10Stdenv = overrideCC gccStdenv buildPackages.gcc10;
-  gcc11Stdenv = overrideCC gccStdenv buildPackages.gcc11;
-  gcc12Stdenv = overrideCC gccStdenv buildPackages.gcc12;
   gcc13Stdenv = overrideCC gccStdenv buildPackages.gcc13;
   gcc14Stdenv = overrideCC gccStdenv buildPackages.gcc14;
   gcc15Stdenv = overrideCC gccStdenv buildPackages.gcc15;
@@ -4985,10 +4960,6 @@ with pkgs;
       });
 
   inherit (callPackage ../development/compilers/gcc/all.nix { inherit noSysDirs; })
-    gcc9
-    gcc10
-    gcc11
-    gcc12
     gcc13
     gcc14
     gcc15
@@ -5007,62 +4978,6 @@ with pkgs;
   };
 
   gnat = gnat13; # When changing this, update also gnatPackages
-
-  gnat11 = wrapCC (
-    gcc11.cc.override {
-      name = "gnat";
-      langC = true;
-      langCC = false;
-      langAda = true;
-      profiledCompiler = false;
-      # As per upstream instructions building a cross compiler
-      # should be done with a (native) compiler of the same version.
-      # If we are cross-compiling GNAT, we may as well do the same.
-      gnat-bootstrap =
-        if stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform == stdenv.hostPlatform then
-          buildPackages.gnat-bootstrap11
-        else
-          buildPackages.gnat11;
-      stdenv =
-        if
-          stdenv.hostPlatform == stdenv.targetPlatform
-          && stdenv.buildPlatform == stdenv.hostPlatform
-          && stdenv.buildPlatform.isDarwin
-          && stdenv.buildPlatform.isx86_64
-        then
-          overrideCC stdenv gnat-bootstrap11
-        else
-          stdenv;
-    }
-  );
-
-  gnat12 = wrapCC (
-    gcc12.cc.override {
-      name = "gnat";
-      langC = true;
-      langCC = false;
-      langAda = true;
-      profiledCompiler = false;
-      # As per upstream instructions building a cross compiler
-      # should be done with a (native) compiler of the same version.
-      # If we are cross-compiling GNAT, we may as well do the same.
-      gnat-bootstrap =
-        if stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform == stdenv.hostPlatform then
-          buildPackages.gnat-bootstrap12
-        else
-          buildPackages.gnat12;
-      stdenv =
-        if
-          stdenv.hostPlatform == stdenv.targetPlatform
-          && stdenv.buildPlatform == stdenv.hostPlatform
-          && stdenv.buildPlatform.isDarwin
-          && stdenv.buildPlatform.isx86_64
-        then
-          overrideCC stdenv gnat-bootstrap12
-        else
-          stdenv;
-    }
-  );
 
   gnat13 = wrapCC (
     gcc13.cc.override {
@@ -5148,18 +5063,7 @@ with pkgs;
     }
   );
 
-  gnat-bootstrap = gnat-bootstrap12;
-  gnat-bootstrap11 = wrapCC (
-    callPackage ../development/compilers/gnat-bootstrap { majorVersion = "11"; }
-  );
-  gnat-bootstrap12 = wrapCCWith (
-    {
-      cc = callPackage ../development/compilers/gnat-bootstrap { majorVersion = "12"; };
-    }
-    // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) {
-      bintools = bintoolsDualAs;
-    }
-  );
+  gnat-bootstrap = gnat-bootstrap13;
   gnat-bootstrap13 = wrapCCWith (
     {
       cc = callPackage ../development/compilers/gnat-bootstrap { majorVersion = "13"; };
@@ -5177,7 +5081,6 @@ with pkgs;
     }
   );
 
-  gnat12Packages = recurseIntoAttrs (callPackage ./ada-packages.nix { gnat = buildPackages.gnat12; });
   gnat13Packages = recurseIntoAttrs (callPackage ./ada-packages.nix { gnat = buildPackages.gnat13; });
   gnat14Packages = recurseIntoAttrs (callPackage ./ada-packages.nix { gnat = buildPackages.gnat14; });
   gnat15Packages = recurseIntoAttrs (callPackage ./ada-packages.nix { gnat = buildPackages.gnat15; });
@@ -5190,21 +5093,6 @@ with pkgs;
 
   gccgo = wrapCC (
     gcc.cc.override {
-      name = "gccgo";
-      langCC = true; # required for go.
-      langC = true;
-      langGo = true;
-      langJit = true;
-      profiledCompiler = false;
-    }
-    // {
-      # not supported on darwin: https://github.com/golang/go/issues/463
-      meta.broken = stdenv.hostPlatform.isDarwin;
-    }
-  );
-
-  gccgo12 = wrapCC (
-    gcc12.cc.override {
       name = "gccgo";
       langCC = true; # required for go.
       langC = true;
@@ -5273,19 +5161,6 @@ with pkgs;
   };
 
   gcc-arm-embedded = gcc-arm-embedded-14;
-
-  # It would be better to match the default gcc so that there are no linking errors
-  # when using C/C++ libraries in D packages, but right now versions >= 12 are broken.
-  gdc = gdc11;
-  gdc11 = wrapCC (
-    gcc11.cc.override {
-      name = "gdc";
-      langCC = false;
-      langC = false;
-      langD = true;
-      profiledCompiler = false;
-    }
-  );
 
   # Haskell and GHC
 
@@ -5589,6 +5464,7 @@ with pkgs;
 
   mlir_16 = llvmPackages_16.mlir;
   mlir_17 = llvmPackages_17.mlir;
+  flang = llvmPackages_20.flang;
 
   libclc = llvmPackages.libclc;
   libllvm = llvmPackages.libllvm;
@@ -5626,6 +5502,7 @@ with pkgs;
       lldb_20 = llvmPackages_20.lldb;
       llvm_20 = llvmPackages_20.llvm;
       bolt_20 = llvmPackages_20.bolt;
+      flang_20 = llvmPackages_20.flang;
 
       llvmPackages_21 = llvmPackagesSet."21";
       clang_21 = llvmPackages_21.clang;
@@ -5633,6 +5510,7 @@ with pkgs;
       lldb_21 = llvmPackages_21.lldb;
       llvm_21 = llvmPackages_21.llvm;
       bolt_21 = llvmPackages_21.bolt;
+      flang_21 = llvmPackages_21.flang;
 
       mkLLVMPackages = llvmPackagesSet.mkPackage;
     })
@@ -5659,12 +5537,14 @@ with pkgs;
     lldb_20
     llvm_20
     bolt_20
+    flang_20
     llvmPackages_21
     clang_21
     lld_21
     lldb_21
     llvm_21
     bolt_21
+    flang_21
     mkLLVMPackages
     ;
 
@@ -5720,11 +5600,6 @@ with pkgs;
     enableGui = true;
   };
 
-  obliv-c = callPackage ../development/compilers/obliv-c {
-    stdenv = gcc10Stdenv;
-    ocamlPackages = ocaml-ng.ocamlPackages_4_14;
-  };
-
   ocaml-ng = callPackage ./ocaml-packages.nix { };
   ocaml = ocamlPackages.ocaml;
 
@@ -5775,17 +5650,17 @@ with pkgs;
   wrapRustcWith = { rustc-unwrapped, ... }@args: callPackage ../build-support/rust/rustc-wrapper args;
   wrapRustc = rustc-unwrapped: wrapRustcWith { inherit rustc-unwrapped; };
 
-  rust_1_88 = callPackage ../development/compilers/rust/1_88.nix {
+  rust_1_89 = callPackage ../development/compilers/rust/1_89.nix {
     llvm_20 = llvmPackages_20.libllvm;
   };
-  rust = rust_1_88;
+  rust = rust_1_89;
 
   mrustc = callPackage ../development/compilers/mrustc { };
   mrustc-minicargo = callPackage ../development/compilers/mrustc/minicargo.nix { };
   mrustc-bootstrap = callPackage ../development/compilers/mrustc/bootstrap.nix { };
 
-  rustPackages_1_88 = rust_1_88.packages.stable;
-  rustPackages = rustPackages_1_88;
+  rustPackages_1_89 = rust_1_89.packages.stable;
+  rustPackages = rustPackages_1_89;
 
   inherit (rustPackages)
     cargo
@@ -5793,6 +5668,7 @@ with pkgs;
     cargo-auditable-cargo-wrapper
     clippy
     rustc
+    rustc-unwrapped
     rustPlatform
     ;
 
@@ -5891,10 +5767,6 @@ with pkgs;
     inherit (ocaml-ng.ocamlPackages_4_14) buildDunePackage;
   };
 
-  thrust = callPackage ../development/tools/thrust {
-    gconf = gnome2.GConf;
-  };
-
   urweb = callPackage ../development/compilers/urweb {
     icu = icu67;
   };
@@ -5951,7 +5823,6 @@ with pkgs;
             libcxx
             extraPackages
             nixSupport
-            zlib
             ;
         }
         // extraArgs;
@@ -6509,10 +6380,12 @@ with pkgs;
       spidermonkey_91 = callPackage ../development/interpreters/spidermonkey/91.nix { };
       spidermonkey_115 = callPackage ../development/interpreters/spidermonkey/115.nix { };
       spidermonkey_128 = callPackage ../development/interpreters/spidermonkey/128.nix { };
+      spidermonkey_140 = callPackage ../development/interpreters/spidermonkey/140.nix { };
     })
     spidermonkey_91
     spidermonkey_115
     spidermonkey_128
+    spidermonkey_140
     ;
 
   supercollider = libsForQt5.callPackage ../development/interpreters/supercollider {
@@ -6704,7 +6577,7 @@ with pkgs;
   autoconf269 = callPackage ../development/tools/misc/autoconf/2.69.nix { };
   autoconf271 = callPackage ../development/tools/misc/autoconf/2.71.nix { };
 
-  automake = automake116x;
+  automake = automake118x;
 
   automake116x = callPackage ../development/tools/misc/automake/automake-1.16.x.nix { };
 
@@ -6713,20 +6586,6 @@ with pkgs;
   bandit = with python3Packages; toPythonApplication bandit;
 
   bazel = bazel_6;
-
-  bazel_5 = callPackage ../development/tools/build-managers/bazel/bazel_5 {
-    inherit (darwin) sigtool;
-    buildJdk = jdk11_headless;
-    runJdk = jdk11_headless;
-    stdenv =
-      if stdenv.cc.isClang then
-        llvmPackages_17.stdenv
-      else if stdenv.cc.isGNU then
-        gcc12Stdenv
-      else
-        stdenv;
-    bazel_self = bazel_5;
-  };
 
   bazel_6 = callPackage ../development/tools/build-managers/bazel/bazel_6 {
     inherit (darwin) sigtool;
@@ -7497,7 +7356,6 @@ with pkgs;
   ### DEVELOPMENT / LIBRARIES
 
   abseil-cpp_202103 = callPackage ../development/libraries/abseil-cpp/202103.nix { };
-  abseil-cpp_202301 = callPackage ../development/libraries/abseil-cpp/202301.nix { };
   abseil-cpp_202401 = callPackage ../development/libraries/abseil-cpp/202401.nix { };
   abseil-cpp_202407 = callPackage ../development/libraries/abseil-cpp/202407.nix { };
   abseil-cpp = abseil-cpp_202501;
@@ -7596,12 +7454,6 @@ with pkgs;
 
   ormolu = lib.getBin (haskell.lib.compose.justStaticExecutables haskellPackages.ormolu);
 
-  catboost = callPackage ../by-name/ca/catboost/package.nix {
-    # https://github.com/catboost/catboost/issues/2540
-    cudaPackages = cudaPackages_11;
-    llvmPackagesCuda = llvmPackages_14;
-  };
-
   cctag = callPackage ../development/libraries/cctag {
     stdenv = clangStdenv;
     tbb = tbb_2021;
@@ -7636,7 +7488,6 @@ with pkgs;
   inherit (cosmopolitan) cosmocc;
 
   ctranslate2 = callPackage ../development/libraries/ctranslate2 rec {
-    stdenv = if withCUDA then gcc11Stdenv else pkgs.stdenv;
     withCUDA = pkgs.config.cudaSupport;
     withCuDNN = withCUDA && (cudaPackages ? cudnn);
     cudaPackages = pkgs.cudaPackages;
@@ -8605,13 +8456,11 @@ with pkgs;
   libxcrypt-legacy = libxcrypt.override { enableHashes = "all"; };
 
   libxkbcommon = libxkbcommon_8;
-  libxml2 = callPackage ../development/libraries/libxml2 {
-    python = python3;
-    stdenv =
-      # libxml2 is a dependency of xcbuild. Avoid an infinite recursion by using a bootstrap stdenv
-      # that does not propagate xcrun.
-      if stdenv.hostPlatform.isDarwin then darwin.bootstrapStdenv else stdenv;
-  };
+
+  inherit (callPackage ../development/libraries/libxml2 { })
+    libxml2_13
+    libxml2
+    ;
 
   libxml2Python =
     let
@@ -8967,6 +8816,7 @@ with pkgs;
 
   inherit
     ({
+      protobuf_32 = callPackage ../development/libraries/protobuf/32.nix { };
       protobuf_31 = callPackage ../development/libraries/protobuf/31.nix { };
       protobuf_30 = callPackage ../development/libraries/protobuf/30.nix { };
       protobuf_29 = callPackage ../development/libraries/protobuf/29.nix {
@@ -8979,6 +8829,7 @@ with pkgs;
         abseil-cpp = abseil-cpp_202103;
       };
     })
+    protobuf_32
     protobuf_31
     protobuf_30
     protobuf_29
@@ -10751,22 +10602,6 @@ with pkgs;
   linux-rt = linuxPackages-rt.kernel;
   linux-rt_latest = linuxPackages-rt_latest.kernel;
 
-  # hardened kernels
-  linuxPackages_hardened = linuxKernel.packages.linux_hardened;
-  linux_hardened = linuxPackages_hardened.kernel;
-  linuxPackages_5_4_hardened = linuxKernel.packages.linux_5_4_hardened;
-  linux_5_4_hardened = linuxKernel.kernels.linux_5_4_hardened;
-  linuxPackages_5_10_hardened = linuxKernel.packages.linux_5_10_hardened;
-  linux_5_10_hardened = linuxKernel.kernels.linux_5_10_hardened;
-  linuxPackages_5_15_hardened = linuxKernel.packages.linux_5_15_hardened;
-  linux_5_15_hardened = linuxKernel.kernels.linux_5_15_hardened;
-  linuxPackages_6_1_hardened = linuxKernel.packages.linux_6_1_hardened;
-  linux_6_1_hardened = linuxKernel.kernels.linux_6_1_hardened;
-  linuxPackages_6_6_hardened = linuxKernel.packages.linux_6_6_hardened;
-  linux_6_6_hardened = linuxKernel.kernels.linux_6_6_hardened;
-  linuxPackages_6_12_hardened = linuxKernel.packages.linux_6_12_hardened;
-  linux_6_12_hardened = linuxKernel.kernels.linux_6_12_hardened;
-
   # GNU Linux-libre kernels
   linuxPackages-libre = linuxKernel.packages.linux_libre;
   linux-libre = linuxPackages-libre.kernel;
@@ -10795,9 +10630,6 @@ with pkgs;
 
   librealsenseWithCuda = callPackage ../development/libraries/librealsense {
     cudaSupport = true;
-    # librealsenseWithCuda doesn't build on gcc11. CUDA 11.3 is the last version
-    # to use pre-gcc11, in particular gcc9.
-    stdenv = gcc9Stdenv;
   };
 
   librealsenseWithoutCuda = callPackage ../development/libraries/librealsense {
@@ -11101,9 +10933,10 @@ with pkgs;
     shadowSupport = false;
     systemdSupport = false;
     translateManpages = false;
+    withLastlog = false;
   };
 
-  v4l-utils = qt6.callPackage ../os-specific/linux/v4l-utils { };
+  v4l-utils = callPackage ../os-specific/linux/v4l-utils { };
 
   windows = callPackages ../os-specific/windows { };
 
@@ -11329,7 +11162,7 @@ with pkgs;
   };
 
   scheherazade-new = scheherazade.override {
-    version = "4.300";
+    version = "4.400";
   };
 
   inherit (callPackages ../data/fonts/gdouros { })
@@ -13841,10 +13674,6 @@ with pkgs;
           ;
       };
 
-  gxneur = callPackage ../applications/misc/gxneur {
-    inherit (gnome2) libglade GConf;
-  };
-
   xournalpp = callPackage ../applications/graphics/xournalpp {
     lua = lua5_3;
   };
@@ -15655,16 +15484,6 @@ with pkgs;
       languages = lib.importJSON ../servers/web-apps/wordpress/packages/languages.json;
     }
   );
-
-  xsw = callPackage ../applications/misc/xsw {
-    # Enable the next line to use this in terminal.
-    # Note that it requires sixel capable terminals such as mlterm
-    # or xterm -ti 340
-    SDL = SDL_sixel;
-    SDL_gfx = SDL_gfx.override { SDL = SDL_sixel; };
-    SDL_image = SDL_image.override { SDL = SDL_sixel; };
-    SDL_ttf = SDL_ttf.override { SDL = SDL_sixel; };
-  };
 
   yamale = with python3Packages; toPythonApplication yamale;
 

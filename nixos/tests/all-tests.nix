@@ -1084,6 +1084,7 @@ in
   ntpd-rs = runTest ./ntpd-rs.nix;
   nvidia-container-toolkit = runTest ./nvidia-container-toolkit.nix;
   nvmetcfg = runTest ./nvmetcfg.nix;
+  nyxt = runTest ./nyxt.nix;
   nzbget = runTest ./nzbget.nix;
   nzbhydra2 = runTest ./nzbhydra2.nix;
   ocis = runTest ./ocis.nix;
@@ -1135,6 +1136,7 @@ in
   packagekit = runTest ./packagekit.nix;
   paisa = runTest ./paisa.nix;
   pam-file-contents = runTest ./pam/pam-file-contents.nix;
+  pam-lastlog = runTest ./pam/pam-lastlog.nix;
   pam-oath-login = runTest ./pam/pam-oath-login.nix;
   pam-u2f = runTest ./pam/pam-u2f.nix;
   pam-ussh = runTest ./pam/pam-ussh.nix;
@@ -1187,7 +1189,6 @@ in
   pingvin-share = runTest ./pingvin-share.nix;
   pinnwand = runTest ./pinnwand.nix;
   plantuml-server = runTest ./plantuml-server.nix;
-  plasma-bigscreen = runTest ./plasma-bigscreen.nix;
   plasma6 = runTest ./plasma6.nix;
   plausible = runTest ./plausible.nix;
   playwright-python = runTest ./playwright-python.nix;
