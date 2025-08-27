@@ -18,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
   build-system = [ python3.pkgs.setuptools ];
   dependencies = with python3.pkgs; [
     pygls
-    lsprotocol
+    lsprotocol2023
     language-tool-python
     tree-sitter
     gitpython

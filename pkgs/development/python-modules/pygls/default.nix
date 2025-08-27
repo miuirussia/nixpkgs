@@ -3,13 +3,14 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-  lsprotocol,
+  lsprotocol2023,
   poetry-core,
   pytest-asyncio,
   pytestCheckHook,
   pythonOlder,
   typeguard,
   websockets,
+  nix-update-script,
 }:
 
 buildPythonPackage rec {
@@ -26,17 +27,12 @@ buildPythonPackage rec {
     hash = "sha256-AvrGoQ0Be1xKZhFn9XXYJpt5w+ITbDbj6NFZpaDPKao=";
   };
 
-  pythonRelaxDeps = [
-    # https://github.com/openlawlibrary/pygls/pull/432
-    "lsprotocol"
-  ];
-
   nativeBuildInputs = [
     poetry-core
   ];
 
   propagatedBuildInputs = [
-    lsprotocol
+    lsprotocol2023
     typeguard
   ];
 
@@ -58,6 +54,14 @@ buildPythonPackage rec {
   '';
 
   pythonImportsCheck = [ "pygls" ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      # Skips pre-releases
+      "--version-regex"
+      "^v([0-9.]+)$"
+    ];
+  };
 
   meta = with lib; {
     description = "Pythonic generic implementation of the Language Server Protocol";

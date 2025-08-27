@@ -8729,6 +8729,8 @@ self: super: with self; {
 
   lsprotocol = callPackage ../development/python-modules/lsprotocol { };
 
+  lsprotocol2023 = callPackage ../development/python-modules/lsprotocol/2023.nix { };
+
   ltpycld2 = callPackage ../development/python-modules/ltpycld2 { };
 
   lttng = callPackage ../development/python-modules/lttng { };

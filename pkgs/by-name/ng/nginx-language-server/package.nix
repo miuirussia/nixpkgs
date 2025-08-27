@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
 
   dependencies = with python3Packages; [
     crossplane
-    lsprotocol
+    lsprotocol2023
     pydantic
     pygls
     typing-extensions

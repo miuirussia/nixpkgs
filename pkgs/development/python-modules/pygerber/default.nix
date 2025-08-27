@@ -16,7 +16,7 @@
 
   # optional dependencies
   pygls,
-  lsprotocol,
+  lsprotocol2023,
   drawsvg,
   pygments,
   shapely,
@@ -60,14 +60,14 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     language_server = [
       pygls
-      lsprotocol
+      lsprotocol2023
     ];
     svg = [ drawsvg ];
     pygments = [ pygments ];
     shapely = [ shapely ];
     all = [
       pygls
-      lsprotocol
+      lsprotocol2023
       drawsvg
       pygments
       shapely
