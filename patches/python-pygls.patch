@@ -1,0 +1,322 @@
+From 8a8fd2282b741fa8bbe078154e547fe84c02d0be Mon Sep 17 00:00:00 2001
+From: Kira Bruneau <kira.bruneau@pm.me>
+Date: Tue, 26 Aug 2025 17:37:55 -0400
+Subject: [PATCH 1/8] python3Packages.lsprotocol2023: init at 2023.0.1
+
+This brings back an older version of lsprotocol, needed for pygls
+---
+ .../python-modules/lsprotocol/2023.nix        | 70 +++++++++++++++++++
+ pkgs/top-level/python-packages.nix            |  2 +
+ 2 files changed, 72 insertions(+)
+ create mode 100644 pkgs/development/python-modules/lsprotocol/2023.nix
+
+diff --git a/pkgs/development/python-modules/lsprotocol/2023.nix b/pkgs/development/python-modules/lsprotocol/2023.nix
+new file mode 100644
+index 00000000000000..56d2a3f8aa4e22
+--- /dev/null
++++ b/pkgs/development/python-modules/lsprotocol/2023.nix
+@@ -0,0 +1,70 @@
++{
++  lib,
++  attrs,
++  buildPythonPackage,
++  cattrs,
++  fetchFromGitHub,
++  flit-core,
++  importlib-resources,
++  jsonschema,
++  pyhamcrest,
++  pytestCheckHook,
++  pythonOlder,
++}:
++
++buildPythonPackage rec {
++  pname = "lsprotocol";
++  version = "2023.0.1";
++  pyproject = true;
++
++  disabled = pythonOlder "3.7";
++
++  src = fetchFromGitHub {
++    owner = "microsoft";
++    repo = "lsprotocol";
++    tag = version;
++    hash = "sha256-PHjLKazMaT6W4Lve1xNxm6hEwqE3Lr2m5L7Q03fqb68=";
++  };
++
++  postPatch = ''
++    pushd packages/python
++  '';
++
++  build-system = [
++    flit-core
++  ];
++
++  dependencies = [
++    attrs
++    cattrs
++  ];
++
++  nativeCheckInputs = [ pytestCheckHook ];
++
++  checkInputs = [
++    importlib-resources
++    jsonschema
++    pyhamcrest
++  ];
++
++  disabledTests = [
++    "test_notebook_sync_options"
++  ];
++
++  preCheck = ''
++    popd
++  '';
++
++  pythonImportsCheck = [ "lsprotocol" ];
++
++  meta = with lib; {
++    description = "Python implementation of the Language Server Protocol";
++    homepage = "https://github.com/microsoft/lsprotocol";
++    changelog = "https://github.com/microsoft/lsprotocol/releases/tag/${src.tag}";
++    license = licenses.mit;
++    maintainers = with maintainers; [
++      doronbehar
++      fab
++    ];
++  };
++}
+diff --git a/pkgs/top-level/python-packages.nix b/pkgs/top-level/python-packages.nix
+index 1933dcc869dcbf..ac74c5da3d1945 100644
+--- a/pkgs/top-level/python-packages.nix
++++ b/pkgs/top-level/python-packages.nix
+@@ -8729,6 +8729,8 @@ self: super: with self; {
+ 
+   lsprotocol = callPackage ../development/python-modules/lsprotocol { };
+ 
++  lsprotocol2023 = callPackage ../development/python-modules/lsprotocol/2023.nix { };
++
+   ltpycld2 = callPackage ../development/python-modules/ltpycld2 { };
+ 
+   lttng = callPackage ../development/python-modules/lttng { };
+
+From 3c61fb59bae8e83cecaaf75f85d80fb9dff1f081 Mon Sep 17 00:00:00 2001
+From: Kira Bruneau <kira.bruneau@pm.me>
+Date: Tue, 26 Aug 2025 17:39:24 -0400
+Subject: [PATCH 2/8] python3Packages.pygls: use lsprotocol2023
+
+---
+ pkgs/development/python-modules/pygls/default.nix | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/pkgs/development/python-modules/pygls/default.nix b/pkgs/development/python-modules/pygls/default.nix
+index 1fe85fb172f93a..5b9c2f326a29be 100644
+--- a/pkgs/development/python-modules/pygls/default.nix
++++ b/pkgs/development/python-modules/pygls/default.nix
+@@ -3,7 +3,7 @@
+   stdenv,
+   buildPythonPackage,
+   fetchFromGitHub,
+-  lsprotocol,
++  lsprotocol2023,
+   poetry-core,
+   pytest-asyncio,
+   pytestCheckHook,
+@@ -26,17 +26,12 @@ buildPythonPackage rec {
+     hash = "sha256-AvrGoQ0Be1xKZhFn9XXYJpt5w+ITbDbj6NFZpaDPKao=";
+   };
+ 
+-  pythonRelaxDeps = [
+-    # https://github.com/openlawlibrary/pygls/pull/432
+-    "lsprotocol"
+-  ];
+-
+   nativeBuildInputs = [
+     poetry-core
+   ];
+ 
+   propagatedBuildInputs = [
+-    lsprotocol
++    lsprotocol2023
+     typeguard
+   ];
+ 
+
+From 86175c727367e265b85c4fcd8372cc5bee70b761 Mon Sep 17 00:00:00 2001
+From: Kira Bruneau <kira.bruneau@pm.me>
+Date: Tue, 26 Aug 2025 18:56:14 -0400
+Subject: [PATCH 3/8] python3Packages.pygls: use nix-update-script to ignore
+ pre-releases
+
+---
+ pkgs/development/python-modules/pygls/default.nix | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/pkgs/development/python-modules/pygls/default.nix b/pkgs/development/python-modules/pygls/default.nix
+index 5b9c2f326a29be..160296572b0dae 100644
+--- a/pkgs/development/python-modules/pygls/default.nix
++++ b/pkgs/development/python-modules/pygls/default.nix
+@@ -10,6 +10,7 @@
+   pythonOlder,
+   typeguard,
+   websockets,
++  nix-update-script,
+ }:
+ 
+ buildPythonPackage rec {
+@@ -54,6 +55,14 @@ buildPythonPackage rec {
+ 
+   pythonImportsCheck = [ "pygls" ];
+ 
++  passthru.updateScript = nix-update-script {
++    extraArgs = [
++      # Skips pre-releases
++      "--version-regex"
++      "^v([0-9.]+)$"
++    ];
++  };
++
+   meta = with lib; {
+     description = "Pythonic generic implementation of the Language Server Protocol";
+     homepage = "https://github.com/openlawlibrary/pygls";
+
+From 47ecd4559e26635eb0854f5e4a7a43e7b22b361e Mon Sep 17 00:00:00 2001
+From: Kira Bruneau <kira.bruneau@pm.me>
+Date: Tue, 26 Aug 2025 20:27:00 -0400
+Subject: [PATCH 4/8] python3Packages.jedi-language-server: use lsprotocol2023
+
+---
+ .../python-modules/jedi-language-server/default.nix           | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/development/python-modules/jedi-language-server/default.nix b/pkgs/development/python-modules/jedi-language-server/default.nix
+index 39156bb4aaf42a..51984ba9a5f752 100644
+--- a/pkgs/development/python-modules/jedi-language-server/default.nix
++++ b/pkgs/development/python-modules/jedi-language-server/default.nix
+@@ -11,7 +11,7 @@
+   # dependencies
+   docstring-to-markdown,
+   jedi,
+-  lsprotocol,
++  lsprotocol2023,
+   pydantic,
+   pygls,
+ 
+@@ -42,7 +42,7 @@ buildPythonPackage rec {
+   dependencies = [
+     docstring-to-markdown
+     jedi
+-    lsprotocol
++    lsprotocol2023
+     pydantic
+     pygls
+   ];
+
+From e315392d957b6a0c2b8ff47168e46d4f5746b55a Mon Sep 17 00:00:00 2001
+From: Kira Bruneau <kira.bruneau@pm.me>
+Date: Tue, 26 Aug 2025 20:27:20 -0400
+Subject: [PATCH 5/8] textlsp: use lsprotocol2023
+
+---
+ pkgs/by-name/te/textlsp/package.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/te/textlsp/package.nix b/pkgs/by-name/te/textlsp/package.nix
+index 85fc03856816ef..d65704636aea9c 100644
+--- a/pkgs/by-name/te/textlsp/package.nix
++++ b/pkgs/by-name/te/textlsp/package.nix
+@@ -18,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
+   build-system = [ python3.pkgs.setuptools ];
+   dependencies = with python3.pkgs; [
+     pygls
+-    lsprotocol
++    lsprotocol2023
+     language-tool-python
+     tree-sitter
+     gitpython
+
+From 6ff8181ab939db6c4e27a0c51fbb7007fa8410ba Mon Sep 17 00:00:00 2001
+From: Kira Bruneau <kira.bruneau@pm.me>
+Date: Tue, 26 Aug 2025 20:28:00 -0400
+Subject: [PATCH 6/8] nginx-language-server: use lsprotocol2023
+
+---
+ pkgs/by-name/ng/nginx-language-server/package.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/ng/nginx-language-server/package.nix b/pkgs/by-name/ng/nginx-language-server/package.nix
+index cb7aee0da561b3..dc60a7bd44e873 100644
+--- a/pkgs/by-name/ng/nginx-language-server/package.nix
++++ b/pkgs/by-name/ng/nginx-language-server/package.nix
+@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
+ 
+   dependencies = with python3Packages; [
+     crossplane
+-    lsprotocol
++    lsprotocol2023
+     pydantic
+     pygls
+     typing-extensions
+
+From 0aa585366ae37a5fbdf40cb0b79b5d9d9e7360cc Mon Sep 17 00:00:00 2001
+From: Kira Bruneau <kira.bruneau@pm.me>
+Date: Tue, 26 Aug 2025 20:53:33 -0400
+Subject: [PATCH 7/8] python3Packages.pygerber: use lsprotocol2023
+
+---
+ pkgs/development/python-modules/pygerber/default.nix | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/pkgs/development/python-modules/pygerber/default.nix b/pkgs/development/python-modules/pygerber/default.nix
+index 41484bbede3669..6fea4efc077f40 100644
+--- a/pkgs/development/python-modules/pygerber/default.nix
++++ b/pkgs/development/python-modules/pygerber/default.nix
+@@ -16,7 +16,7 @@
+ 
+   # optional dependencies
+   pygls,
+-  lsprotocol,
++  lsprotocol2023,
+   drawsvg,
+   pygments,
+   shapely,
+@@ -60,14 +60,14 @@ buildPythonPackage rec {
+   passthru.optional-dependencies = {
+     language_server = [
+       pygls
+-      lsprotocol
++      lsprotocol2023
+     ];
+     svg = [ drawsvg ];
+     pygments = [ pygments ];
+     shapely = [ shapely ];
+     all = [
+       pygls
+-      lsprotocol
++      lsprotocol2023
+       drawsvg
+       pygments
+       shapely
+
+From 05ef344c11bb102c58b2b07da24e9b7b1eafea29 Mon Sep 17 00:00:00 2001
+From: Kira Bruneau <kira.bruneau@pm.me>
+Date: Tue, 26 Aug 2025 20:53:50 -0400
+Subject: [PATCH 8/8] vectorcode: use lsprotocol2023
+
+---
+ pkgs/by-name/ve/vectorcode/package.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/ve/vectorcode/package.nix b/pkgs/by-name/ve/vectorcode/package.nix
+index 385a55f6dfa9ca..12d98d8a6a2bc4 100644
+--- a/pkgs/by-name/ve/vectorcode/package.nix
++++ b/pkgs/by-name/ve/vectorcode/package.nix
+@@ -142,7 +142,7 @@ python.pkgs.buildPythonApplication rec {
+       transformers
+     ];
+     lsp = [
+-      lsprotocol
++      lsprotocol2023
+       pygls
+     ];
+     mcp = [
