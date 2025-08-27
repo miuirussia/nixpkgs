@@ -34,12 +34,10 @@ jobs:
           pushd ./nixpkgs-original
           git apply -v ../nixpkgs-final/patches/*.patch
           popd
-          rsync -au --delete ./nixpkgs-original/doc/ ./nixpkgs-final/doc
-          rsync -au --delete ./nixpkgs-original/ci/ ./nixpkgs-final/ci
-          rsync -au --delete ./nixpkgs-original/lib/ ./nixpkgs-final/lib
-          rsync -au --delete ./nixpkgs-original/maintainers/ ./nixpkgs-final/maintainers
-          rsync -au --delete ./nixpkgs-original/nixos/ ./nixpkgs-final/nixos
-          rsync -au --delete ./nixpkgs-original/pkgs/ ./nixpkgs-final/pkgs
+          for item in 'doc' 'ci' 'lib' 'maintainers' 'nixos' 'pkgs' 'modules';
+          do
+            rsync -au --delete ./nixpkgs-original/$item/ ./nixpkgs-final/$item
+          done
           cp -f ./nixpkgs-original/{.editorconfig,.git-blame-ignore-revs,.gitattributes,.gitignore,.version,CONTRIBUTING.md,COPYING,README.md,default.nix,flake.nix} ./nixpkgs-final
 
           (cd ./nixpkgs-final && ./pkgs/applications/editors/vscode/update-vscode.sh)
