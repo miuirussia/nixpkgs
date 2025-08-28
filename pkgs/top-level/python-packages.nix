@@ -10777,6 +10777,8 @@ self: super: with self; {
 
   oocsi = callPackage ../development/python-modules/oocsi { };
 
+  opaque = callPackage ../development/python-modules/opaque { };
+
   opcua-widgets = callPackage ../development/python-modules/opcua-widgets { };
 
   open-clip-torch = callPackage ../development/python-modules/open-clip-torch { };
@@ -10814,6 +10816,8 @@ self: super: with self; {
   };
 
   opencamlib = callPackage ../development/python-modules/opencamlib { };
+
+  opencc = callPackage ../development/python-modules/opencc { };
 
   opencensus = callPackage ../development/python-modules/opencensus { };
 
@@ -14398,6 +14402,8 @@ self: super: with self; {
   pytest-playwright = callPackage ../development/python-modules/pytest-playwright { };
 
   pytest-plt = callPackage ../development/python-modules/pytest-plt { };
+
+  pytest-plus = callPackage ../development/python-modules/pytest-plus { };
 
   pytest-pook = callPackage ../development/python-modules/pytest-pook { };
 
@@ -19266,8 +19272,6 @@ self: super: with self; {
   unidic-lite = callPackage ../development/python-modules/unidic-lite { };
 
   unidiff = callPackage ../development/python-modules/unidiff { };
-
-  unifi = callPackage ../development/python-modules/unifi { };
 
   unifi-ap = callPackage ../development/python-modules/unifi-ap { };
 
