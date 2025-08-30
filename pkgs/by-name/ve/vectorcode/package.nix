@@ -142,7 +142,7 @@ python.pkgs.buildPythonApplication rec {
       transformers
     ];
     lsp = [
-      lsprotocol2023
+      lsprotocol
       pygls
     ];
     mcp = [

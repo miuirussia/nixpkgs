@@ -3,7 +3,7 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-  lsprotocol2023,
+  lsprotocol,
   poetry-core,
   pytest-asyncio,
   pytestCheckHook,
@@ -27,12 +27,17 @@ buildPythonPackage rec {
     hash = "sha256-AvrGoQ0Be1xKZhFn9XXYJpt5w+ITbDbj6NFZpaDPKao=";
   };
 
+  pythonRelaxDeps = [
+    # https://github.com/openlawlibrary/pygls/pull/432
+    "lsprotocol"
+  ];
+
   nativeBuildInputs = [
     poetry-core
   ];
 
   propagatedBuildInputs = [
-    lsprotocol2023
+    lsprotocol
     typeguard
   ];
 

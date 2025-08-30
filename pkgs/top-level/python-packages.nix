@@ -1935,8 +1935,6 @@ self: super: with self; {
 
   bk7231tools = callPackage ../development/python-modules/bk7231tools { };
 
-  bkcharts = callPackage ../development/python-modules/bkcharts { };
-
   black = callPackage ../development/python-modules/black { };
 
   black-macchiato = callPackage ../development/python-modules/black-macchiato { };
@@ -2229,8 +2227,6 @@ self: super: with self; {
   bytesize = toPythonModule (pkgs.libbytesize.override { python3Packages = self; });
 
   bytewax = callPackage ../development/python-modules/bytewax { };
-
-  bz2file = callPackage ../development/python-modules/bz2file { };
 
   cache = callPackage ../development/python-modules/cache { };
 
@@ -2723,6 +2719,8 @@ self: super: with self; {
   cmsis-pack-manager = callPackage ../development/python-modules/cmsis-pack-manager { };
 
   cmsis-svd = callPackage ../development/python-modules/cmsis-svd { };
+
+  cmudict = callPackage ../development/python-modules/cmudict { };
 
   cnvkit = callPackage ../development/python-modules/cnvkit { };
 
@@ -4323,6 +4321,8 @@ self: super: with self; {
   dpkt = callPackage ../development/python-modules/dpkt { };
 
   dploot = callPackage ../development/python-modules/dploot { };
+
+  draccus = callPackage ../development/python-modules/draccus { };
 
   drafthorse = callPackage ../development/python-modules/drafthorse { };
 
@@ -8727,9 +8727,11 @@ self: super: with self; {
 
   lsp-tree-sitter = callPackage ../development/python-modules/lsp-tree-sitter { };
 
-  lsprotocol = callPackage ../development/python-modules/lsprotocol { };
+  lsprotocol = lsprotocol_2023;
 
-  lsprotocol2023 = callPackage ../development/python-modules/lsprotocol/2023.nix { };
+  lsprotocol_2023 = callPackage ../development/python-modules/lsprotocol/2023.nix { };
+
+  lsprotocol_2025 = callPackage ../development/python-modules/lsprotocol/2025.nix { };
 
   ltpycld2 = callPackage ../development/python-modules/ltpycld2 { };
 
@@ -10433,8 +10435,6 @@ self: super: with self; {
 
   nitime = callPackage ../development/python-modules/nitime { };
 
-  nitpick = callPackage ../applications/version-management/nitpick { };
-
   nitransforms = callPackage ../development/python-modules/nitransforms { };
 
   nitrokey = callPackage ../development/python-modules/nitrokey { };
@@ -10460,6 +10460,8 @@ self: super: with self; {
   nltk = callPackage ../development/python-modules/nltk { };
 
   nmapthon2 = callPackage ../development/python-modules/nmapthon2 { };
+
+  nmcli = callPackage ../development/python-modules/nmcli { };
 
   nnpdf = toPythonModule (pkgs.nnpdf.override { python3 = python; });
 
@@ -11664,7 +11666,7 @@ self: super: with self; {
 
   pinecone-client = callPackage ../development/python-modules/pinecone-client { };
 
-  pinecone-plugin-inference = callPackage ../development/python-modules/pinecone-plugin-inference { };
+  pinecone-plugin-assistant = callPackage ../development/python-modules/pinecone-plugin-assistant { };
 
   pinecone-plugin-interface = callPackage ../development/python-modules/pinecone-plugin-interface { };
 
@@ -14909,8 +14911,6 @@ self: super: with self; {
 
   python-secp256k1-cardano = callPackage ../development/python-modules/python-secp256k1-cardano { };
 
-  python-simple-hipchat = callPackage ../development/python-modules/python-simple-hipchat { };
-
   python-slugify = callPackage ../development/python-modules/python-slugify { };
 
   python-smarttub = callPackage ../development/python-modules/python-smarttub { };
@@ -15334,6 +15334,8 @@ self: super: with self; {
   qdrant-client = callPackage ../development/python-modules/qdrant-client { };
 
   qemu = callPackage ../development/python-modules/qemu { qemu = pkgs.qemu; };
+
+  qemu-qmp = callPackage ../development/python-modules/qemu-qmp { };
 
   qgrid = callPackage ../development/python-modules/qgrid { };
 
@@ -16925,6 +16927,8 @@ self: super: with self; {
   soco = callPackage ../development/python-modules/soco { };
 
   softlayer = callPackage ../development/python-modules/softlayer { };
+
+  solaredge-local = callPackage ../development/python-modules/solaredge-local { };
 
   solarlog-cli = callPackage ../development/python-modules/solarlog-cli { };
 
@@ -19336,6 +19340,10 @@ self: super: with self; {
   update-dotdee = callPackage ../development/python-modules/update-dotdee { };
 
   uplc = callPackage ../development/python-modules/uplc { };
+
+  uplink = callPackage ../development/python-modules/uplink { };
+
+  uplink-protobuf = callPackage ../development/python-modules/uplink-protobuf { };
 
   upnpy = callPackage ../development/python-modules/upnpy { };
 

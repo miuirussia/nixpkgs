@@ -11,7 +11,7 @@
   # dependencies
   docstring-to-markdown,
   jedi,
-  lsprotocol2023,
+  lsprotocol,
   pydantic,
   pygls,
 
@@ -42,7 +42,7 @@ buildPythonPackage rec {
   dependencies = [
     docstring-to-markdown
     jedi
-    lsprotocol2023
+    lsprotocol
     pydantic
     pygls
   ];
