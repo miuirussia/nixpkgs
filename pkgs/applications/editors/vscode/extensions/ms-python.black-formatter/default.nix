@@ -22,6 +22,4 @@ vscode-utils.buildVscodeMarketplaceExtension {
       sikmir
     ];
   };
-
-  patches = [ ./black-2spaces.patch ];
 }
