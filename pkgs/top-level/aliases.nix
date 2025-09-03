@@ -498,6 +498,7 @@ mapAliases {
   badtouch = authoscope; # Project was renamed, added 20210626
   badwolf = throw "'badwolf' has been removed due to being unmaintained"; # Added 2025-04-15
   baget = throw "'baget' has been removed due to being unmaintained";
+  bandwidth = throw "'bandwidth' has been removed due to lack of maintenance"; # Added 2025-09-01
   banking = saldo; # added 2025-08-29
   base16-builder = throw "'base16-builder' has been removed due to being unmaintained"; # Added 2025-06-03
   baserow = throw "baserow has been removed, due to lack of maintenance"; # Added 2025-08-02
@@ -1468,6 +1469,7 @@ mapAliases {
   ltwheelconf = throw "'ltwheelconf' has been removed because it is obsolete"; # Added 2025-05-07
   luna-icons = throw "luna-icons has been removed as it was removed upstream"; # Added 2024-10-29
   lucene = throw "lucene has been removed since it was both wildly out of date and was not even built properly for 4 years"; # Added 2025-04-10
+  luci-go = throw "luci-go has been removed since it was unused and failing to build for 5 months"; # Added 2025-08-27
   lumail = throw "'lumail' has been removed since its upstream is unavailable"; # Added 2025-05-07
   lv_img_conv = throw "'lv_img_conv' has been removed from nixpkgs as it is broken"; # Added 2024-06-18
   lxd = lib.warnOnInstantiate "lxd has been renamed to lxd-lts" lxd-lts; # Added 2024-04-01
@@ -2445,6 +2447,7 @@ mapAliases {
   webmetro = throw "'webmetro' has been removed due to lack of upstream maintenance"; # Added 2025-01-25
   wg-bond = throw "'wg-bond' has been removed due to lack of upstream maintenance"; # Added 2025-01-25
   whatsapp-for-linux = wasistlos; # Added 2025-01-30
+  wifi-password = throw "'wifi-password' has been removed as it was unmaintained upstream"; # Added 2025-08-29
   wineWayland = wine-wayland;
   winhelpcgi = throw "'winhelpcgi' has been removed as it was unmaintained upstream and broken with GCC 14"; # Added 2025-06-14
   win-pvdrivers = throw "'win-pvdrivers' has been removed as it was subject to the Xen build machine compromise (XSN-01) and has open security vulnerabilities (XSA-468)"; # Added 2025-08-29

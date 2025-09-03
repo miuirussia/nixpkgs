@@ -3580,9 +3580,6 @@ with pkgs;
     };
   };
   mailnagWithPlugins = mailnag.withPlugins (builtins.attrValues mailnag.availablePlugins);
-  mailpit = callPackage ../servers/mail/mailpit {
-    libtool = if stdenv.hostPlatform.isDarwin then cctools else libtool;
-  };
 
   man = man-db;
 
@@ -5158,10 +5155,10 @@ with pkgs;
 
   # Haskell and GHC
 
-  haskell = callPackage ./haskell-packages.nix { };
+  haskell = recurseIntoAttrs (callPackage ./haskell-packages.nix { });
 
   haskellPackages =
-    dontRecurseIntoAttrs
+    recurseIntoAttrs
       # Prefer native-bignum to avoid linking issues with gmp
       # GHC 9.6 rts can't be built statically with hadrian, so we need to use 9.4
       # until 9.8 is ready
@@ -12169,7 +12166,7 @@ with pkgs;
   klayout = libsForQt5.callPackage ../applications/misc/klayout { };
 
   klee = callPackage ../applications/science/logic/klee {
-    llvmPackages = llvmPackages_13;
+    llvmPackages = llvmPackages_18;
   };
 
   kmplayer = libsForQt5.callPackage ../applications/video/kmplayer { };

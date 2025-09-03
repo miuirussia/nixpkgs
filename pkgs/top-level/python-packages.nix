@@ -3323,6 +3323,8 @@ self: super: with self; {
 
   dask-yarn = callPackage ../development/python-modules/dask-yarn { };
 
+  databackend = callPackage ../development/python-modules/databackend { };
+
   databases = callPackage ../development/python-modules/databases { };
 
   databricks-cli = callPackage ../development/python-modules/databricks-cli { };
@@ -9410,6 +9412,10 @@ self: super: with self; {
 
   mkdocs-swagger-ui-tag = callPackage ../development/python-modules/mkdocs-swagger-ui-tag { };
 
+  mkdocs-table-reader-plugin =
+    callPackage ../development/python-modules/mkdocs-table-reader-plugin
+      { };
+
   mkdocstrings = callPackage ../development/python-modules/mkdocstrings { };
 
   mkdocstrings-python = callPackage ../development/python-modules/mkdocstrings-python { };
@@ -10312,6 +10318,8 @@ self: super: with self; {
   netbox-attachments = callPackage ../development/python-modules/netbox-attachments { };
 
   netbox-bgp = callPackage ../development/python-modules/netbox-bgp { };
+
+  netbox-contextmenus = callPackage ../development/python-modules/netbox-contextmenus { };
 
   netbox-contract = callPackage ../development/python-modules/netbox-contract { };
 
@@ -17060,8 +17068,6 @@ self: super: with self; {
 
   sparse = callPackage ../development/python-modules/sparse { };
 
-  sparsezoo = callPackage ../development/python-modules/sparsezoo { };
-
   spatial-image = callPackage ../development/python-modules/spatial-image { };
 
   spatialmath-python = callPackage ../development/python-modules/spatialmath-python { };
@@ -17187,6 +17193,8 @@ self: super: with self; {
   sphinx-testing = callPackage ../development/python-modules/sphinx-testing { };
 
   sphinx-thebe = callPackage ../development/python-modules/sphinx-thebe { };
+
+  sphinx-tippy = callPackage ../development/python-modules/sphinx-tippy { };
 
   sphinx-togglebutton = callPackage ../development/python-modules/sphinx-togglebutton { };
 
