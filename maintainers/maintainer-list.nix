@@ -3707,6 +3707,12 @@
     githubId = 86652;
     name = "Bram Duvigneau";
   };
+  brancz = {
+    email = "frederic.branczyk@polarsignals.com";
+    name = "Frederic Branczyk";
+    github = "brancz";
+    githubId = 4546722;
+  };
   braydenjw = {
     email = "nixpkgs@willenborg.ca";
     github = "braydenjw";
@@ -11551,6 +11557,12 @@
     githubId = 6789916;
     name = "Jason Odoom";
   };
+  jasonxue1 = {
+    email = "jason@xuechunxi.com";
+    github = "jasonxue1";
+    githubId = 103628493;
+    name = "jasonxue";
+  };
   jaspersurmont = {
     email = "jasper@surmont.dev";
     github = "jaspersurmont";
@@ -16431,6 +16443,12 @@
     github = "merrkry";
     githubId = 124278440;
   };
+  metalmatze = {
+    email = "matthias.loibl@polarsignals.com";
+    name = "Matthias Loibl";
+    github = "metalmatze";
+    githubId = 872251;
+  };
   mevatron = {
     email = "mevatron@gmail.com";
     name = "mevatron";
@@ -21306,6 +21324,13 @@
     github = "raspher";
     githubId = 23345803;
     name = "Szymon Scholz";
+  };
+  ratakor = {
+    name = "Ratakor";
+    github = "ratakor";
+    githubId = 45130910;
+    email = "ratakor@disroot.org";
+    keys = [ { fingerprint = "B60F 8F80 D6CD C5D2 58CF  14C3 241B 1CBE 567B 287E"; } ];
   };
   ratcornu = {
     email = "ratcornu+programmation@skaven.org";
