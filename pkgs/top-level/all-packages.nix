@@ -434,8 +434,6 @@ with pkgs;
 
   nix-prefetch-docker = callPackage ../build-support/docker/nix-prefetch-docker.nix { };
 
-  docker-sync = callPackage ../tools/misc/docker-sync { };
-
   # Dotnet
 
   dotnetCorePackages = recurseIntoAttrs (callPackage ../development/compilers/dotnet { });
@@ -3960,13 +3958,7 @@ with pkgs;
     inherit (darwin) DarwinTools;
   };
 
-  platformioPackages = dontRecurseIntoAttrs (callPackage ../development/embedded/platformio { });
-  platformio =
-    if stdenv.hostPlatform.isLinux then
-      platformioPackages.platformio-chrootenv
-    else
-      platformioPackages.platformio-core;
-  platformio-core = platformioPackages.platformio-core;
+  platformio = if stdenv.hostPlatform.isLinux then platformio-chrootenv else platformio-core;
 
   playbar2 = libsForQt5.callPackage ../applications/audio/playbar2 { };
 
@@ -4038,10 +4030,6 @@ with pkgs;
   };
 
   rocket = libsForQt5.callPackage ../tools/graphics/rocket { };
-
-  rtabmap = callPackage ../by-name/rt/rtabmap/package.nix {
-    pcl = pcl.override { vtk = vtkWithQt5; };
-  };
 
   rtaudio = callPackage ../development/libraries/audio/rtaudio {
     jack = libjack2;
@@ -4333,7 +4321,7 @@ with pkgs;
 
   trytond = with python3Packages; toPythonApplication trytond;
 
-  ttfautohint = libsForQt5.callPackage ../tools/misc/ttfautohint { };
+  ttfautohint = callPackage ../tools/misc/ttfautohint { };
   ttfautohint-nox = ttfautohint.override { enableGUI = false; };
 
   twilight = callPackage ../tools/graphics/twilight {
@@ -4731,6 +4719,8 @@ with pkgs;
     crystal_1_11
     crystal_1_14
     crystal_1_15
+    crystal_1_16
+    crystal_1_17
     crystal
     ;
 
@@ -5164,10 +5154,7 @@ with pkgs;
           haskell.packages.ghc96
         else
           haskell.packages.ghc98
-      )
-    // {
-      __recurseIntoDerivationForReleaseJobs = true;
-    };
+      );
 
   # haskellPackages.ghc is build->host (it exposes the compiler used to build the
   # set, similarly to stdenv.cc), but pkgs.ghc should be host->target to be more
@@ -5238,9 +5225,6 @@ with pkgs;
   coreboot-toolchain = recurseIntoAttrs (
     callPackage ../development/tools/misc/coreboot-toolchain { }
   );
-
-  spicedb = callPackage ../servers/spicedb { };
-  spicedb-zed = callPackage ../servers/spicedb/zed.nix { };
 
   tamarin-prover = (
     callPackage ../applications/science/logic/tamarin-prover {
@@ -7810,7 +7794,7 @@ with pkgs;
 
   #GMP ex-satellite, so better keep it near gmp
   # A GMP fork
-  gns3Packages = dontRecurseIntoAttrs (callPackage ../applications/networking/gns3 { });
+  gns3Packages = recurseIntoAttrs (callPackage ../applications/networking/gns3 { });
   gns3-gui = gns3Packages.guiStable;
   gns3-server = gns3Packages.serverStable;
 
@@ -8691,6 +8675,7 @@ with pkgs;
   magnumclient = with python313Packages; toPythonApplication python-magnumclient;
   manilaclient = with python313Packages; toPythonApplication python-manilaclient;
   mistralclient = with python313Packages; toPythonApplication python-mistralclient;
+  neutronclient = with python313Packages; toPythonApplication python-neutronclient;
   swiftclient = with python313Packages; toPythonApplication python-swiftclient;
   troveclient = with python313Packages; toPythonApplication python-troveclient;
   watcherclient = with python313Packages; toPythonApplication python-watcherclient;
@@ -8848,22 +8833,18 @@ with pkgs;
     }
   );
 
-  libsForQt5 =
-    (recurseIntoAttrs (
-      import ./qt5-packages.nix {
-        inherit
-          lib
-          config
-          __splicedPackages
-          makeScopeWithSplicing'
-          generateSplicesForMkScope
-          pkgsHostTarget
-          ;
-      }
-    ))
-    // {
-      __recurseIntoDerivationForReleaseJobs = true;
-    };
+  libsForQt5 = recurseIntoAttrs (
+    import ./qt5-packages.nix {
+      inherit
+        lib
+        config
+        __splicedPackages
+        makeScopeWithSplicing'
+        generateSplicesForMkScope
+        pkgsHostTarget
+        ;
+    }
+  );
 
   # plasma5Packages maps to the Qt5 packages set that is used to build the plasma5 desktop
   plasma5Packages = libsForQt5;
@@ -9804,17 +9785,16 @@ with pkgs;
 
   jetty = jetty_12;
 
-  kanidm_1_5 = callPackage ../by-name/ka/kanidm/1_5.nix {
+  kanidm_1_5 = callPackage ../servers/kanidm/1_5.nix {
     kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_5;
   };
-  kanidm_1_6 = callPackage ../by-name/ka/kanidm/1_6.nix {
+  kanidm_1_6 = callPackage ../servers/kanidm/1_6.nix {
     kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_6;
   };
-  kanidm_1_7 = callPackage ../by-name/ka/kanidm/1_7.nix {
+  kanidm_1_7 = callPackage ../servers/kanidm/1_7.nix {
     kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_7;
   };
 
-  kanidmWithSecretProvisioning = kanidm.override { enableSecretProvisioning = true; };
   kanidmWithSecretProvisioning_1_5 = kanidm_1_5.override { enableSecretProvisioning = true; };
   kanidmWithSecretProvisioning_1_6 = kanidm_1_6.override { enableSecretProvisioning = true; };
   kanidmWithSecretProvisioning_1_7 = kanidm_1_7.override { enableSecretProvisioning = true; };
@@ -10497,7 +10477,8 @@ with pkgs;
 
   jool-cli = callPackage ../os-specific/linux/jool/cli.nix { };
 
-  libkrun-sev = libkrun.override { sevVariant = true; };
+  libkrun-sev = libkrun.override { variant = "sev"; };
+  libkrun-tdx = libkrun.override { variant = "tdx"; };
 
   linthesia = callPackage ../games/linthesia/default.nix { };
 
@@ -13520,9 +13501,7 @@ with pkgs;
     xwaylandSupport = false;
   };
 
-  whalebird = callPackage ../applications/misc/whalebird {
-    electron = electron_36;
-  };
+  whalebird = callPackage ../applications/misc/whalebird { };
 
   inherit (windowmaker) dockapps;
 
@@ -14439,74 +14418,9 @@ with pkgs;
 
   siesta-mpi = callPackage ../applications/science/chemistry/siesta { useMpi = true; };
 
-  cp2k =
-    # CP2K requires all dependencies from the Grimme ecosystem to be build with
-    # CMake instead of Meson. Unfortunately most other consumers require meson
-    let
-      grimmeCmake = lib.makeScope pkgs.newScope (self: {
-        mctc-lib = pkgs.mctc-lib.override {
-          buildType = "cmake";
-          inherit (self) jonquil toml-f;
-        };
-
-        toml-f = pkgs.toml-f.override {
-          buildType = "cmake";
-          inherit (self) test-drive;
-        };
-
-        dftd4 = pkgs.dftd4.override {
-          buildType = "cmake";
-          inherit (self) mstore mctc-lib multicharge;
-        };
-
-        jonquil = pkgs.jonquil.override {
-          buildType = "cmake";
-          inherit (self) toml-f test-drive;
-        };
-
-        mstore = pkgs.mstore.override {
-          buildType = "cmake";
-          inherit (self) mctc-lib;
-        };
-
-        multicharge = pkgs.multicharge.override {
-          buildType = "cmake";
-          inherit (self) mctc-lib mstore;
-        };
-
-        test-drive = pkgs.test-drive.override { buildType = "cmake"; };
-
-        simple-dftd3 = pkgs.simple-dftd3.override {
-          buildType = "cmake";
-          inherit (self) mctc-lib mstore toml-f;
-        };
-
-        tblite = pkgs.tblite.override {
-          buildType = "cmake";
-          inherit (self)
-            mctc-lib
-            mstore
-            toml-f
-            multicharge
-            dftd4
-            simple-dftd3
-            ;
-        };
-
-        sirius = pkgs.sirius.override {
-          inherit (self)
-            mctc-lib
-            toml-f
-            multicharge
-            dftd4
-            simple-dftd3
-            ;
-        };
-      });
-    in
-    grimmeCmake.callPackage ../applications/science/chemistry/cp2k/default.nix {
-      libxc = pkgs.libxc_7;
-    };
+  cp2k = callPackage ../by-name/cp/cp2k/package.nix {
+    libxc = pkgs.libxc_7;
+  };
 
   ### SCIENCE/GEOMETRY
 
