@@ -14,7 +14,7 @@ buildNpmPackage rec {
     owner = "Microsoft";
     repo = "playwright-mcp";
     tag = "v${version}";
-    hash = "sha256-piFtpeHr1Ukmb34yPJvbFlfong184gtwTbCfbuDQ6lU=";
+    hash = "sha256-tMMejx/8LCgz6BaqpjfcMKuPXbLm24bOLfalL3DsddA=";
   };
 
   npmDepsHash = "sha256-vDxfmEEp+iJfUEpODtC5KdALFKXI5EYTr4nfcTWRE+o=";
