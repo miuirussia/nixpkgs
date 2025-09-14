@@ -114311,6 +114311,7 @@ self: {
       libraryPkgconfigDepends = [ botan ];
       description = "Raw Botan bindings";
       license = lib.licenses.bsd3;
+      maintainers = [ lib.maintainers.mikatammi ];
     }
   ) { botan = null; };
 
@@ -114355,6 +114356,7 @@ self: {
       description = "Low-level Botan bindings";
       license = lib.licenses.bsd3;
       hydraPlatforms = lib.platforms.none;
+      maintainers = [ lib.maintainers.mikatammi ];
     }
   ) { };
 
