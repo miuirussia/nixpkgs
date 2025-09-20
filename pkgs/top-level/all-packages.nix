@@ -1695,8 +1695,6 @@ with pkgs;
 
   glances = python3Packages.callPackage ../applications/system/glances { };
 
-  glaxnimate = libsForQt5.callPackage ../applications/video/glaxnimate { };
-
   go2tv-lite = go2tv.override { withGui = false; };
 
   guglielmo = libsForQt5.callPackage ../applications/radio/guglielmo { };
@@ -1882,8 +1880,6 @@ with pkgs;
           --prefix PATH ":" "${git}/bin:${cabal-install}/bin"
       '';
     });
-
-  candle = libsForQt5.callPackage ../applications/misc/candle { };
 
   capstone = callPackage ../development/libraries/capstone { };
   capstone_4 = callPackage ../development/libraries/capstone/4.nix { };
@@ -2881,13 +2877,7 @@ with pkgs;
 
   inherit (callPackages ../tools/filesystems/garage { })
     garage
-    garage_0_9
-    garage_0_9_4
-
-    garage_1_2_0
     garage_1
-
-    garage_2_0_0
     garage_2
     ;
 
@@ -2981,6 +2971,7 @@ with pkgs;
     godot3-mono-server
     godotPackages_4_3
     godotPackages_4_4
+    godotPackages_4_5
     godotPackages_4
     godotPackages
     godot_4_3
@@ -2989,6 +2980,9 @@ with pkgs;
     godot_4_4
     godot_4_4-mono
     godot_4_4-export-templates-bin
+    godot_4_5
+    godot_4_5-mono
+    godot_4_5-export-templates-bin
     godot_4
     godot_4-mono
     godot_4-export-templates-bin
@@ -4105,6 +4099,13 @@ with pkgs;
   safety-cli = with python3.pkgs; toPythonApplication safety;
 
   sasview = libsForQt5.callPackage ../applications/science/misc/sasview { };
+
+  saunafs = callPackage ../by-name/sa/saunafs/package.nix {
+    fmt = fmt_11;
+    spdlog = spdlog.override {
+      fmt = fmt_11;
+    };
+  };
 
   scfbuild = python3.pkgs.callPackage ../tools/misc/scfbuild { };
 
@@ -5442,9 +5443,7 @@ with pkgs;
     jdk_headless = openjdk8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
-  mitscheme = callPackage ../development/compilers/mit-scheme {
-    texinfo = texinfo6;
-  };
+  mitscheme = callPackage ../development/compilers/mit-scheme { };
 
   mitschemeX11 = mitscheme.override {
     enableX11 = true;
@@ -5746,12 +5745,24 @@ with pkgs;
   yosys-synlig = callPackage ../development/compilers/yosys/plugins/synlig.nix { };
   yosys-symbiflow = callPackage ../development/compilers/yosys/plugins/symbiflow.nix { };
 
-  zulu8 = callPackage ../development/compilers/zulu/8.nix { };
-  zulu11 = callPackage ../development/compilers/zulu/11.nix { };
-  zulu17 = callPackage ../development/compilers/zulu/17.nix { };
-  zulu21 = callPackage ../development/compilers/zulu/21.nix { };
-  zulu23 = callPackage ../development/compilers/zulu/23.nix { };
-  zulu24 = callPackage ../development/compilers/zulu/24.nix { };
+  inherit
+    ({
+      zulu8 = callPackage ../development/compilers/zulu/8.nix { };
+      zulu11 = callPackage ../development/compilers/zulu/11.nix { };
+      zulu17 = callPackage ../development/compilers/zulu/17.nix { };
+      zulu21 = callPackage ../development/compilers/zulu/21.nix { };
+      zulu23 = callPackage ../development/compilers/zulu/23.nix { };
+      zulu24 = callPackage ../development/compilers/zulu/24.nix { };
+      zulu25 = callPackage ../development/compilers/zulu/25.nix { };
+    })
+    zulu8
+    zulu11
+    zulu17
+    zulu21
+    zulu23
+    zulu24
+    zulu25
+    ;
   zulu = zulu21;
 
   ### DEVELOPMENT / INTERPRETERS
@@ -8032,12 +8043,6 @@ with pkgs;
   libdbusmenu-gtk2 = libdbusmenu.override { gtkVersion = "2"; };
   libdbusmenu-gtk3 = libdbusmenu.override { gtkVersion = "3"; };
 
-  libdevil = callPackage ../development/libraries/libdevil { };
-
-  libdevil-nox = callPackage ../development/libraries/libdevil {
-    withXorg = false;
-  };
-
   libdvdnav = callPackage ../development/libraries/libdvdnav { };
   libdvdnav_4_2_1 = callPackage ../development/libraries/libdvdnav/4.2.1.nix {
     libdvdread = libdvdread_4_9_9;
@@ -8459,6 +8464,7 @@ with pkgs;
   };
 
   nss_latest = callPackage ../development/libraries/nss/latest.nix { };
+  nss_3_115 = callPackage ../development/libraries/nss/3_115.nix { };
   nss_3_114 = callPackage ../development/libraries/nss/3_114.nix { };
   nss_esr = callPackage ../development/libraries/nss/esr.nix { };
   nss = nss_esr;
@@ -8492,12 +8498,6 @@ with pkgs;
   ogre = ogre_14;
 
   openal = openalSoft;
-
-  openbabel = openbabel3;
-
-  openbabel2 = callPackage ../development/libraries/openbabel/2.nix { };
-
-  openbabel3 = callPackage ../development/libraries/openbabel { };
 
   opencascade-occt_7_6 = opencascade-occt.overrideAttrs rec {
     pname = "opencascade-occt";
@@ -9046,14 +9046,12 @@ with pkgs;
   vtk = vtk_9_5;
 
   vtk-full = vtk.override {
-    qtVersion = "6";
+    withQt6 = true;
     mpiSupport = true;
     pythonSupport = true;
   };
 
-  vtkWithQt5 = vtk.override { qtVersion = "5"; };
-
-  vtkWithQt6 = vtk.override { qtVersion = "6"; };
+  vtkWithQt6 = vtk.override { withQt6 = true; };
 
   vulkan-caps-viewer = libsForQt5.callPackage ../tools/graphics/vulkan-caps-viewer { };
 
@@ -12188,6 +12186,16 @@ with pkgs;
 
   mercurialFull = mercurial.override { fullBuild = true; };
 
+  meshlab = callPackage ../by-name/me/meshlab/package.nix {
+    stdenv = if stdenv.hostPlatform.isDarwin then llvmPackages_18.stdenv else stdenv;
+    llvmPackages = llvmPackages_18;
+  };
+
+  meshlab-unstable = callPackage ../by-name/me/meshlab-unstable/package.nix {
+    stdenv = if stdenv.hostPlatform.isDarwin then llvmPackages_18.stdenv else stdenv;
+    llvmPackages = llvmPackages_18;
+  };
+
   meshcentral = callPackage ../tools/admin/meshcentral { };
 
   michabo = libsForQt5.callPackage ../applications/misc/michabo { };
@@ -14008,11 +14016,6 @@ with pkgs;
   soi = callPackage ../games/soi {
     lua = lua5_1;
   };
-
-  # You still can override by passing more arguments.
-  spring = callPackage ../games/spring { asciidoc = asciidoc-full; };
-
-  springLobby = callPackage ../games/spring/springlobby.nix { };
 
   steam-run = steam.run;
   steam-run-free = steam.run-free;
