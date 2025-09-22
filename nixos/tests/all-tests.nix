@@ -254,6 +254,7 @@ in
   ayatana-indicators = runTest ./ayatana-indicators.nix;
   babeld = runTest ./babeld.nix;
   bazarr = runTest ./bazarr.nix;
+  bcache = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./bcache.nix;
   bcachefs = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./bcachefs.nix;
   beanstalkd = runTest ./beanstalkd.nix;
   bees = runTest ./bees.nix;
@@ -1388,7 +1389,10 @@ in
   sudo-rs = runTest ./sudo-rs.nix;
   sunshine = runTest ./sunshine.nix;
   suricata = runTest ./suricata.nix;
-  suwayomi-server = handleTest ./suwayomi-server.nix { };
+  suwayomi-server = import ./suwayomi-server.nix {
+    inherit runTest;
+    lib = pkgs.lib;
+  };
   swap-file-btrfs = runTest ./swap-file-btrfs.nix;
   swap-partition = runTest ./swap-partition.nix;
   swap-random-encryption = runTest ./swap-random-encryption.nix;
