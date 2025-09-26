@@ -407,7 +407,6 @@ with lib.maintainers;
     members = [ ];
     githubTeams = [
       "nixpkgs-committers"
-      "release-engineers"
     ];
     scope = "Dummy team for the #everyone else' section during feture freezes, not to be used as package maintainers!";
     shortName = "Everyone else";
@@ -844,8 +843,12 @@ with lib.maintainers;
 
   marketing = {
     members = [
+      djacu
+      flyfloh
+      thilobillerbeck
       tomberek
     ];
+    githubTeams = [ "marketing-team" ];
     scope = "Marketing of Nix/NixOS/nixpkgs.";
     shortName = "Marketing";
     enableFeatureFreezePing = true;

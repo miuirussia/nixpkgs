@@ -568,6 +568,7 @@
   ./services/desktops/gnome/sushi.nix
   ./services/desktops/gnome/tinysparql.nix
   ./services/desktops/gvfs.nix
+  ./services/desktops/linyaps.nix
   ./services/desktops/malcontent.nix
   ./services/desktops/neard.nix
   ./services/desktops/pipewire/pipewire.nix
@@ -1292,6 +1293,7 @@
   ./services/networking/openvpn.nix
   ./services/networking/ostinato.nix
   ./services/networking/owamp.nix
+  ./services/networking/pangolin.nix
   ./services/networking/pdns-recursor.nix
   ./services/networking/pdnsd.nix
   ./services/networking/peroxide.nix
@@ -1801,6 +1803,7 @@
   ./system/activation/activatable-system.nix
   ./system/activation/activation-script.nix
   ./system/activation/bootspec.nix
+  ./system/activation/nixos-init.nix
   ./system/activation/pre-switch-check.nix
   ./system/activation/specialisation.nix
   ./system/activation/switchable-system.nix
