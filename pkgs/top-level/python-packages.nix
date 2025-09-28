@@ -122,6 +122,8 @@ self: super: with self; {
 
   affine = callPackage ../development/python-modules/affine { };
 
+  affine-gaps = callPackage ../development/python-modules/affine-gaps { };
+
   afsapi = callPackage ../development/python-modules/afsapi { };
 
   agate = callPackage ../development/python-modules/agate { };
@@ -1403,6 +1405,8 @@ self: super: with self; {
   azure-mgmt-cosmosdb = callPackage ../development/python-modules/azure-mgmt-cosmosdb { };
 
   azure-mgmt-databoxedge = callPackage ../development/python-modules/azure-mgmt-databoxedge { };
+
+  azure-mgmt-databricks = callPackage ../development/python-modules/azure-mgmt-databricks { };
 
   azure-mgmt-datafactory = callPackage ../development/python-modules/azure-mgmt-datafactory { };
 
@@ -6892,6 +6896,8 @@ self: super: with self; {
 
   i3ipc = callPackage ../development/python-modules/i3ipc { };
 
+  iamdata = callPackage ../development/python-modules/iamdata { };
+
   iammeter = callPackage ../development/python-modules/iammeter { };
 
   iapws = callPackage ../development/python-modules/iapws { };
@@ -11853,6 +11859,8 @@ self: super: with self; {
 
   pixel-ring = callPackage ../development/python-modules/pixel-ring { };
 
+  pixelmatch = callPackage ../development/python-modules/pixelmatch { };
+
   pizzapi = callPackage ../development/python-modules/pizzapi { };
 
   pjsua2 =
@@ -12427,6 +12435,8 @@ self: super: with self; {
   py-evm = callPackage ../development/python-modules/py-evm { };
 
   py-expression-eval = callPackage ../development/python-modules/py-expression-eval { };
+
+  py-iam-expand = callPackage ../development/python-modules/py-iam-expand { };
 
   py-improv-ble-client = callPackage ../development/python-modules/py-improv-ble-client { };
 
@@ -17543,6 +17553,8 @@ self: super: with self; {
 
   ssort = callPackage ../development/python-modules/ssort { };
 
+  sss = callPackage ../development/python-modules/sss { };
+
   st-pages = callPackage ../development/python-modules/st-pages { };
 
   stable-baselines3 = callPackage ../development/python-modules/stable-baselines3 { };
@@ -18374,6 +18386,8 @@ self: super: with self; {
   timing-asgi = callPackage ../development/python-modules/timing-asgi { };
 
   timm = callPackage ../development/python-modules/timm { };
+
+  timple = callPackage ../development/python-modules/timple { };
 
   timy = callPackage ../development/python-modules/timy { };
 
