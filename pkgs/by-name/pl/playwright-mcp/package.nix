@@ -8,16 +8,16 @@
 
 buildNpmPackage rec {
   pname = "playwright-mcp";
-  version = "0.0.40";
+  version = "0.0.41";
 
   src = fetchFromGitHub {
     owner = "Microsoft";
     repo = "playwright-mcp";
     tag = "v${version}";
-    hash = "sha256-XcjUupgdY+nzSQ9wIpapSxSigWZrxhGWPlZ8IZT8NLE=";
+    hash = "sha256-OoTAYd1/hedR0k/3b83YOPaOviLWv1Y3pffNoeSf2g4=";
   };
 
-  npmDepsHash = "sha256-OhdvW8nH8p4S7ARwik0O8ViAHCQfXFEwvWemhSgQO54=";
+  npmDepsHash = "sha256-xgOPlCnlRXJZAZRM4xZ7SYSA5lsPglSewXxY19TbD/A=";
 
   postInstall = ''
     rm -r $out/lib/node_modules/@playwright/mcp/node_modules/playwright
