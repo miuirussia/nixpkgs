@@ -2251,10 +2251,6 @@ with pkgs;
 
   patool = with python3Packages; toPythonApplication patool;
 
-  pocket-casts = callPackage ../by-name/po/pocket-casts/package.nix {
-    electron = electron_35;
-  };
-
   pixcat = with python3Packages; toPythonApplication pixcat;
 
   pyznap = python3Packages.callPackage ../tools/backup/pyznap { };
@@ -2368,7 +2364,7 @@ with pkgs;
   };
 
   beetsPackages = lib.recurseIntoAttrs (callPackage ../tools/audio/beets { });
-  inherit (beetsPackages) beets beets-unstable;
+  inherit (beetsPackages) beets;
 
   binlore = callPackage ../development/tools/analysis/binlore { };
 
@@ -3062,10 +3058,6 @@ with pkgs;
 
   haste-client = callPackage ../tools/misc/haste-client { };
 
-  hal-hardware-analyzer =
-    libsForQt5.callPackage ../applications/science/electronics/hal-hardware-analyzer
-      { };
-
   halide = callPackage ../development/compilers/halide {
     llvmPackages = llvmPackages_19;
   };
@@ -3098,8 +3090,6 @@ with pkgs;
     cppSupport = false;
     threadsafe = true;
   };
-
-  heaptrack = kdePackages.callPackage ../development/tools/profiling/heaptrack { };
 
   headscale = callPackage ../servers/headscale { };
 
@@ -3245,8 +3235,6 @@ with pkgs;
 
   kaffeine = libsForQt5.callPackage ../applications/video/kaffeine { };
 
-  kdiskmark = kdePackages.callPackage ../tools/filesystems/kdiskmark { };
-
   keepkey-agent = with python3Packages; toPythonApplication keepkey-agent;
 
   keybase = callPackage ../tools/security/keybase { };
@@ -3391,8 +3379,6 @@ with pkgs;
   nodePackages = recurseIntoAttrs nodejs.pkgs;
 
   node2nix = nodePackages.node2nix;
-
-  ktailctl = kdePackages.callPackage ../applications/networking/ktailctl { };
 
   ldapdomaindump = with python3Packages; toPythonApplication ldapdomaindump;
 
@@ -3610,11 +3596,9 @@ with pkgs;
   libnma-gtk4 = libnma.override { withGtk4 = true; };
 
   inherit (callPackages ../servers/nextcloud { })
-    nextcloud30
     nextcloud31
     ;
 
-  nextcloud30Packages = callPackage ../servers/nextcloud/packages { ncVersion = "30"; };
   nextcloud31Packages = callPackage ../servers/nextcloud/packages { ncVersion = "31"; };
 
   nextcloud-notify_push = callPackage ../servers/nextcloud/notify_push.nix { };
@@ -3632,7 +3616,7 @@ with pkgs;
     toPythonApplication (
       nvchecker.overridePythonAttrs (oldAttrs: {
         propagatedBuildInputs =
-          oldAttrs.propagatedBuildInputs ++ lib.flatten (builtins.attrValues oldAttrs.optional-dependencies);
+          oldAttrs.dependencies ++ lib.flatten (builtins.attrValues oldAttrs.optional-dependencies);
       })
     );
 
@@ -4556,9 +4540,6 @@ with pkgs;
     inherit (llvmPackages) lld stdenv;
   };
 
-  colmap = libsForQt5.callPackage ../applications/science/misc/colmap {
-    inherit (config) cudaSupport;
-  };
   colmapWithCuda = colmap.override { cudaSupport = true; };
 
   opensplatWithCuda = opensplat.override { cudaSupport = true; };
@@ -4602,7 +4583,7 @@ with pkgs;
     ocamlPackages = ocaml-ng.ocamlPackages_4_14;
   };
 
-  inherit (coqPackages_8_20) compcert;
+  inherit (coqPackages_9_0) compcert;
 
   computecpp = wrapCCWith rec {
     cc = computecpp-unwrapped;
@@ -4811,7 +4792,7 @@ with pkgs;
         isl = if !stdenv.hostPlatform.isDarwin then isl_0_20 else null;
 
         withoutTargetLibc = true;
-        langCC = false;
+        langCC = stdenv.targetPlatform.isCygwin; # can't compile libcygwin1.a without C++
         libcCross = libc1;
         targetPackages.stdenv.cc.bintools = binutilsNoLibc;
         enableShared =
@@ -4820,6 +4801,7 @@ with pkgs;
           # temporarily disabled due to breakage;
           # see https://github.com/NixOS/nixpkgs/pull/243249
           && !stdenv.targetPlatform.isWindows
+          && !stdenv.targetPlatform.isCygwin
           && !(stdenv.targetPlatform.useLLVM or false);
       };
       bintools = binutilsNoLibc;
@@ -5199,6 +5181,7 @@ with pkgs;
   openjfx21 = callPackage ../by-name/op/openjfx/package.nix { featureVersion = "21"; };
   openjfx23 = callPackage ../by-name/op/openjfx/package.nix { featureVersion = "23"; };
   openjfx24 = callPackage ../by-name/op/openjfx/package.nix { featureVersion = "24"; };
+  openjfx25 = callPackage ../by-name/op/openjfx/package.nix { featureVersion = "25"; };
 
   openjdk8-bootstrap = javaPackages.compiler.openjdk8-bootstrap;
   openjdk8 = javaPackages.compiler.openjdk8;
@@ -5235,6 +5218,11 @@ with pkgs;
   jdk24 = openjdk24;
   jdk24_headless = openjdk24_headless;
 
+  openjdk25 = javaPackages.compiler.openjdk25;
+  openjdk25_headless = javaPackages.compiler.openjdk25.headless;
+  jdk25 = openjdk25;
+  jdk25_headless = openjdk25_headless;
+
   # default JDK
   jdk = jdk21;
   jdk_headless = jdk21_headless;
@@ -5249,21 +5237,34 @@ with pkgs;
   jre = jdk;
   jre_headless = jdk_headless;
 
-  jre11_minimal = callPackage ../development/compilers/openjdk/jre.nix {
-    jdk = jdk11;
-    jdkOnBuild = buildPackages.jdk11;
-  };
-  jre17_minimal = callPackage ../development/compilers/openjdk/jre.nix {
-    jdk = jdk17;
-    jdkOnBuild = buildPackages.jdk17;
-  };
-  jre21_minimal = callPackage ../development/compilers/openjdk/jre.nix {
-    jdk = jdk21;
-    jdkOnBuild = buildPackages.jdk21;
-  };
-  jre_minimal = callPackage ../development/compilers/openjdk/jre.nix {
-    jdkOnBuild = buildPackages.jdk;
-  };
+  inherit
+    ({
+      jre11_minimal = callPackage ../development/compilers/openjdk/jre.nix {
+        jdk = jdk11;
+        jdkOnBuild = buildPackages.jdk11;
+      };
+      jre17_minimal = callPackage ../development/compilers/openjdk/jre.nix {
+        jdk = jdk17;
+        jdkOnBuild = buildPackages.jdk17;
+      };
+      jre21_minimal = callPackage ../development/compilers/openjdk/jre.nix {
+        jdk = jdk21;
+        jdkOnBuild = buildPackages.jdk21;
+      };
+      jre25_minimal = callPackage ../development/compilers/openjdk/jre.nix {
+        jdk = jdk25;
+        jdkOnBuild = buildPackages.jdk25;
+      };
+      jre_minimal = callPackage ../development/compilers/openjdk/jre.nix {
+        jdkOnBuild = buildPackages.jdk;
+      };
+    })
+    jre11_minimal
+    jre17_minimal
+    jre21_minimal
+    jre25_minimal
+    jre_minimal
+    ;
 
   openjdk = jdk;
   openjdk_headless = jdk_headless;
@@ -5802,7 +5803,12 @@ with pkgs;
     xeus-cling
     ;
 
-  clojure = callPackage ../development/interpreters/clojure { };
+  clojure = callPackage ../development/interpreters/clojure {
+    # set this to an LTS version of java
+    # Be careful if you remove this, out-of-tree consumers expect to
+    # be able to override `jdk`.
+    jdk = jdk21;
+  };
 
   clooj = callPackage ../development/interpreters/clojure/clooj.nix { };
 
@@ -5850,7 +5856,6 @@ with pkgs;
     ;
 
   inherit (beam.packages.erlang)
-    erlang-ls
     ex_doc
     erlfmt
     elvis-erlang
@@ -6008,16 +6013,6 @@ with pkgs;
   php82Extensions = recurseIntoAttrs php82.extensions;
   php82Packages = recurseIntoAttrs php82.packages;
 
-  # Import PHP81 interpreter, extensions and packages
-  php81 = callPackage ../development/interpreters/php/8.1.nix {
-    stdenv = if stdenv.cc.isClang then llvmPackages.stdenv else stdenv;
-    pcre2 = pcre2.override {
-      withJitSealloc = false; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
-    };
-  };
-  php81Extensions = recurseIntoAttrs php81.extensions;
-  php81Packages = recurseIntoAttrs php81.packages;
-
   polyml = callPackage ../development/compilers/polyml { };
   polyml56 = callPackage ../development/compilers/polyml/5.6.nix { };
   polyml57 = callPackage ../development/compilers/polyml/5.7.nix { };
@@ -6150,6 +6145,7 @@ with pkgs;
     ruby_3_2
     ruby_3_3
     ruby_3_4
+    ruby_3_5
     ;
 
   ruby = ruby_3_3;
@@ -6159,6 +6155,7 @@ with pkgs;
   rubyPackages_3_2 = recurseIntoAttrs ruby_3_2.gems;
   rubyPackages_3_3 = recurseIntoAttrs ruby_3_3.gems;
   rubyPackages_3_4 = recurseIntoAttrs ruby_3_4.gems;
+  rubyPackages_3_5 = recurseIntoAttrs ruby_3_5.gems;
 
   samplebrain = libsForQt5.callPackage ../applications/audio/samplebrain { };
 
@@ -7290,7 +7287,6 @@ with pkgs;
   # Multi-arch "drivers" which we want to build for i686.
   driversi686Linux = recurseIntoAttrs {
     inherit (pkgsi686Linux)
-      amdvlk
       intel-media-driver
       intel-vaapi-driver
       mesa
@@ -7501,6 +7497,8 @@ with pkgs;
       windows.mingw_w64_headers or fallback
     else if libc == "nblibc" then
       netbsd.headers
+    else if libc == "cygwin" then
+      cygwin.newlib-cygwin-headers
     else
       null;
 
@@ -7537,6 +7535,8 @@ with pkgs;
       if stdenv.hostPlatform.isMinGW then windows.mingw_w64 else windows.sdk
     else if libc == "ucrt" then
       if stdenv.hostPlatform.isMinGW then windows.mingw_w64 else windows.sdk
+    else if libc == "cygwin" then
+      cygwin.newlib-cygwin-nobin
     else if libc == "libSystem" then
       if stdenv.hostPlatform.useiOSPrebuilt then darwin.iosSdkPkgs.libraries else darwin.libSystem
     else if libc == "fblibc" then
@@ -8208,7 +8208,7 @@ with pkgs;
         py
       ];
       # Avoid update.nix/tests conflicts with libxml2.
-      passthru = builtins.removeAttrs libxml2.passthru [
+      passthru = removeAttrs libxml2.passthru [
         "updateScript"
         "tests"
       ];
@@ -8677,10 +8677,6 @@ with pkgs;
     nodejs = nodejs_22;
   };
 
-  qradiolink = callPackage ../applications/radio/qradiolink {
-    protobuf = protobuf_21;
-  };
-
   qadwaitadecorations-qt6 = callPackage ../by-name/qa/qadwaitadecorations/package.nix {
     useQt6 = true;
   };
@@ -8692,8 +8688,6 @@ with pkgs;
   };
 
   reposilitePlugins = recurseIntoAttrs (callPackage ../by-name/re/reposilite/plugins.nix { });
-
-  rhino = callPackage ../development/libraries/java/rhino { };
 
   rocksdb_9_10 = rocksdb.overrideAttrs rec {
     pname = "rocksdb";
@@ -9919,7 +9913,6 @@ with pkgs;
     callPackage ../servers/monitoring/prometheus/modemmanager-exporter.nix
       { };
   prometheus-mongodb-exporter = callPackage ../servers/monitoring/prometheus/mongodb-exporter.nix { };
-  prometheus-mysqld-exporter = callPackage ../servers/monitoring/prometheus/mysqld-exporter.nix { };
   prometheus-nats-exporter = callPackage ../servers/monitoring/prometheus/nats-exporter.nix { };
   prometheus-nextcloud-exporter =
     callPackage ../servers/monitoring/prometheus/nextcloud-exporter.nix
@@ -10298,12 +10291,6 @@ with pkgs;
   linux-rt = linuxPackages-rt.kernel;
   linux-rt_latest = linuxPackages-rt_latest.kernel;
 
-  # GNU Linux-libre kernels
-  linuxPackages-libre = linuxKernel.packages.linux_libre;
-  linux-libre = linuxPackages-libre.kernel;
-  linuxPackages_latest-libre = linuxKernel.packages.linux_latest_libre;
-  linux_latest-libre = linuxPackages_latest-libre.kernel;
-
   # zen-kernel
   linuxPackages_zen = linuxKernel.packages.linux_zen;
   linux_zen = linuxPackages_zen.kernel;
@@ -10636,6 +10623,8 @@ with pkgs;
 
   windows = recurseIntoAttrs (callPackages ../os-specific/windows { });
 
+  cygwin = recurseIntoAttrs (callPackages ../os-specific/cygwin { });
+
   wpa_supplicant = callPackage ../os-specific/linux/wpa_supplicant { };
 
   wpa_supplicant_gui = libsForQt5.callPackage ../os-specific/linux/wpa_supplicant/gui.nix { };
@@ -10898,8 +10887,6 @@ with pkgs;
 
   tex-gyre-math = callPackages ../data/fonts/tex-gyre-math { };
 
-  whitesur-kde = kdePackages.callPackage ../data/themes/whitesur-kde { };
-
   xkeyboard_config = xkeyboard-config;
 
   xlsx2csv = with python3Packages; toPythonApplication xlsx2csv;
@@ -10989,8 +10976,6 @@ with pkgs;
   backintime-qt = qt6.callPackage ../applications/networking/sync/backintime/qt.nix { };
 
   backintime = backintime-qt;
-
-  barrier = libsForQt5.callPackage ../applications/misc/barrier { };
 
   bespokesynth-with-vst2 = bespokesynth.override {
     enableVST2 = true;
@@ -11594,8 +11579,6 @@ with pkgs;
 
   huggle = libsForQt5.callPackage ../applications/misc/huggle { };
 
-  hushboard = python3.pkgs.callPackage ../applications/audio/hushboard { };
-
   hyperion-ng = libsForQt5.callPackage ../applications/video/hyperion-ng { };
 
   jackline = callPackage ../applications/networking/instant-messengers/jackline {
@@ -11860,10 +11843,6 @@ with pkgs;
   kubectl-view-allocations =
     callPackage ../applications/networking/cluster/kubectl-view-allocations
       { };
-
-  kubelogin-oidc = callPackage ../by-name/ku/kubelogin-oidc/package.nix {
-    buildGoModule = buildGo124Module;
-  };
 
   kthxbye = callPackage ../servers/monitoring/prometheus/kthxbye.nix { };
 
@@ -12308,8 +12287,6 @@ with pkgs;
   obs-studio-plugins = recurseIntoAttrs (callPackage ../applications/video/obs-studio/plugins { });
   wrapOBS = callPackage ../applications/video/obs-studio/wrapper.nix { };
 
-  omegat = callPackage ../applications/misc/omegat.nix { };
-
   openambit = qt5.callPackage ../applications/misc/openambit { };
 
   openbox-menu = callPackage ../applications/misc/openbox-menu {
@@ -12418,10 +12395,6 @@ with pkgs;
   pokefinder = qt6Packages.callPackage ../tools/games/pokefinder { };
 
   pothos = libsForQt5.callPackage ../applications/radio/pothos { };
-
-  qiv = callPackage ../applications/graphics/qiv {
-    imlib2 = imlib2Full;
-  };
 
   # perhaps there are better apps for this task? It's how I had configured my previous system.
   # And I don't want to rewrite all rules
@@ -12599,6 +12572,8 @@ with pkgs;
 
   rgp = libsForQt5.callPackage ../development/tools/rgp { };
 
+  ringboard-wayland = callPackage ../by-name/ri/ringboard/package.nix { displayServer = "wayland"; };
+
   ripcord =
     if stdenv.hostPlatform.isLinux then
       qt5.callPackage ../applications/networking/instant-messengers/ripcord { }
@@ -12712,8 +12687,6 @@ with pkgs;
   super-slicer-beta = super-slicer.beta;
 
   super-slicer-latest = super-slicer.latest;
-
-  skrooge = kdePackages.callPackage ../applications/office/skrooge { };
 
   soci = callPackage ../development/libraries/soci { };
 
@@ -12856,9 +12829,6 @@ with pkgs;
 
   thunderbird-esr-unwrapped = thunderbirdPackages.thunderbird-esr;
   thunderbird-esr = wrapThunderbird thunderbird-esr-unwrapped { };
-
-  thunderbird-128-unwrapped = thunderbirdPackages.thunderbird-128;
-  thunderbird-128 = wrapThunderbird thunderbirdPackages.thunderbird-128 { };
 
   thunderbird-140-unwrapped = thunderbirdPackages.thunderbird-140;
   thunderbird-140 = wrapThunderbird thunderbirdPackages.thunderbird-140 { };
@@ -13912,18 +13882,6 @@ with pkgs;
 
   warsow = callPackage ../games/warsow { };
 
-  wesnoth = callPackage ../games/wesnoth {
-    boost = boost186;
-    # wesnoth requires lua built with c++, see https://github.com/wesnoth/wesnoth/pull/8234
-    lua = lua5_4.override {
-      postConfigure = ''
-        makeFlagsArray+=("CC=$CXX")
-      '';
-    };
-  };
-
-  wesnoth-dev = wesnoth;
-
   inherit (callPackage ../games/xonotic { })
     xonotic-data
     xonotic
@@ -14658,8 +14616,6 @@ with pkgs;
 
   openlilylib-fonts = callPackage ../misc/lilypond/fonts.nix { };
 
-  meilisearch_1_11 = callPackage ../by-name/me/meilisearch/package.nix { version = "1.11.3"; };
-
   muse = libsForQt5.callPackage ../applications/audio/muse { };
 
   nixDependencies = recurseIntoAttrs (
@@ -15042,30 +14998,12 @@ with pkgs;
 
   httraqt = libsForQt5.callPackage ../tools/backup/httrack/qt.nix { };
 
-  # Overriding does not work when using callPackage on discord using import instead. (https://github.com/NixOS/nixpkgs/pull/179906)
-  discord = import ../applications/networking/instant-messengers/discord {
-    inherit lib stdenv;
-    inherit (pkgs) callPackage fetchurl;
-    branch = "stable";
-  };
-
-  discord-ptb = import ../applications/networking/instant-messengers/discord {
-    inherit lib stdenv;
-    inherit (pkgs) callPackage fetchurl;
-    branch = "ptb";
-  };
-
-  discord-canary = import ../applications/networking/instant-messengers/discord {
-    inherit lib stdenv;
-    inherit (pkgs) callPackage fetchurl;
-    branch = "canary";
-  };
-
-  discord-development = import ../applications/networking/instant-messengers/discord {
-    inherit lib stdenv;
-    inherit (pkgs) callPackage fetchurl;
-    branch = "development";
-  };
+  inherit (callPackage ../applications/networking/instant-messengers/discord { })
+    discord
+    discord-ptb
+    discord-canary
+    discord-development
+    ;
 
   discord-screenaudio =
     qt6Packages.callPackage ../applications/networking/instant-messengers/discord-screenaudio

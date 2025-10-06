@@ -2398,6 +2398,8 @@ self: super: with self; {
     };
   };
 
+  catkin-pkg = callPackage ../development/python-modules/catkin-pkg { };
+
   catppuccin = callPackage ../development/python-modules/catppuccin { };
 
   cattrs = callPackage ../development/python-modules/cattrs { };
@@ -2885,7 +2887,11 @@ self: super: with self; {
 
   colout = callPackage ../development/python-modules/colout { };
 
+  comet-ml = callPackage ../development/python-modules/comet-ml { };
+
   cometblue-lite = callPackage ../development/python-modules/cometblue-lite { };
+
+  cometx = callPackage ../development/python-modules/cometx { };
 
   comicapi = callPackage ../development/python-modules/comicapi { };
 
@@ -4860,6 +4866,8 @@ self: super: with self; {
   eventlet = callPackage ../development/python-modules/eventlet { };
 
   events = callPackage ../development/python-modules/events { };
+
+  everett = callPackage ../development/python-modules/everett { };
 
   evohome-async = callPackage ../development/python-modules/evohome-async { };
 
@@ -7261,6 +7269,8 @@ self: super: with self; {
 
   irisclient = callPackage ../development/python-modules/irisclient { };
 
+  irm-kmi-api = callPackage ../development/python-modules/irm-kmi-api { };
+
   isal = callPackage ../development/python-modules/isal { };
 
   isbnlib = callPackage ../development/python-modules/isbnlib { };
@@ -7812,8 +7822,6 @@ self: super: with self; {
   keyrings-google-artifactregistry-auth =
     callPackage ../development/python-modules/keyrings-google-artifactregistry-auth
       { };
-
-  keyrings-passwordstore = callPackage ../development/python-modules/keyrings-passwordstore { };
 
   keystone-engine = callPackage ../development/python-modules/keystone-engine { };
 
@@ -8890,8 +8898,6 @@ self: super: with self; {
 
   macholib = callPackage ../development/python-modules/macholib { };
 
-  macropy = callPackage ../development/python-modules/macropy { };
-
   maec = callPackage ../development/python-modules/maec { };
 
   maestral = callPackage ../development/python-modules/maestral { };
@@ -9224,8 +9230,6 @@ self: super: with self; {
   merkletools = callPackage ../development/python-modules/merkletools { };
 
   meross-iot = callPackage ../development/python-modules/meross-iot { };
-
-  mesa = callPackage ../development/python-modules/mesa { };
 
   meshcat = callPackage ../development/python-modules/meshcat { };
 
@@ -9588,7 +9592,9 @@ self: super: with self; {
 
   moderngl = callPackage ../development/python-modules/moderngl { };
 
-  moderngl-window = callPackage ../development/python-modules/moderngl-window { };
+  moderngl-window = callPackage ../development/python-modules/moderngl-window {
+    inherit (pkgs) mesa;
+  };
 
   moehlenhoff-alpha2 = callPackage ../development/python-modules/moehlenhoff-alpha2 { };
 
@@ -9601,6 +9607,8 @@ self: super: with self; {
   molecule-plugins = callPackage ../development/python-modules/molecule/plugins.nix { };
 
   momepy = callPackage ../development/python-modules/momepy { };
+
+  momonga = callPackage ../development/python-modules/momonga { };
 
   monai = callPackage ../development/python-modules/monai { };
 
@@ -10760,8 +10768,6 @@ self: super: with self; {
 
   obfsproxy = callPackage ../development/python-modules/obfsproxy { };
 
-  objax = callPackage ../development/python-modules/objax { };
-
   objexplore = callPackage ../development/python-modules/objexplore { };
 
   objgraph = callPackage ../development/python-modules/objgraph {
@@ -11190,8 +11196,6 @@ self: super: with self; {
   ordered-set = callPackage ../development/python-modules/ordered-set { };
 
   orderedmultidict = callPackage ../development/python-modules/orderedmultidict { };
-
-  orderedset = callPackage ../development/python-modules/orderedset { };
 
   orderly-set = callPackage ../development/python-modules/orderly-set { };
 
@@ -11850,10 +11854,7 @@ self: super: with self; {
 
   piqp = callPackage ../development/python-modules/piqp { };
 
-  pivy = callPackage ../development/python-modules/pivy {
-    inherit (pkgs.qt5) qtbase qmake;
-    inherit (pkgs.libsForQt5) soqt;
-  };
+  pivy = callPackage ../development/python-modules/pivy { };
 
   pixcat = callPackage ../development/python-modules/pixcat { };
 
@@ -13670,7 +13671,9 @@ self: super: with self; {
 
   pyopencl = callPackage ../development/python-modules/pyopencl { };
 
-  pyopengl = callPackage ../development/python-modules/pyopengl { };
+  pyopengl = callPackage ../development/python-modules/pyopengl {
+    inherit (pkgs) mesa;
+  };
 
   pyopengl-accelerate = callPackage ../development/python-modules/pyopengl-accelerate { };
 
@@ -13805,6 +13808,8 @@ self: super: with self; {
 
   pyporscheconnectapi = callPackage ../development/python-modules/pyporscheconnectapi { };
 
+  pyportainer = callPackage ../development/python-modules/pyportainer { };
+
   pyppeteer = callPackage ../development/python-modules/pyppeteer { };
 
   pyppmd = callPackage ../development/python-modules/pyppmd { };
@@ -13873,7 +13878,9 @@ self: super: with self; {
 
   pyqt5-multimedia = self.pyqt5.override { withMultimedia = true; };
 
-  pyqt5-sip = callPackage ../development/python-modules/pyqt/sip.nix { };
+  pyqt5-sip = callPackage ../development/python-modules/pyqt/sip.nix {
+    inherit (pkgs) mesa;
+  };
 
   pyqt5-stubs = callPackage ../development/python-modules/pyqt5-stubs { };
 
@@ -13882,13 +13889,21 @@ self: super: with self; {
   # `propagatedBuildInputs` may cause collisions.
   pyqt5-webkit = self.pyqt5.override { withWebKit = true; };
 
-  pyqt6 = callPackage ../development/python-modules/pyqt/6.x.nix { };
+  pyqt6 = callPackage ../development/python-modules/pyqt/6.x.nix {
+    inherit (pkgs) mesa;
+  };
 
-  pyqt6-charts = callPackage ../development/python-modules/pyqt6-charts { };
+  pyqt6-charts = callPackage ../development/python-modules/pyqt6-charts {
+    inherit (pkgs) mesa;
+  };
 
-  pyqt6-sip = callPackage ../development/python-modules/pyqt/pyqt6-sip.nix { };
+  pyqt6-sip = callPackage ../development/python-modules/pyqt/pyqt6-sip.nix {
+    inherit (pkgs) mesa;
+  };
 
-  pyqt6-webengine = callPackage ../development/python-modules/pyqt6-webengine { };
+  pyqt6-webengine = callPackage ../development/python-modules/pyqt6-webengine {
+    inherit (pkgs) mesa;
+  };
 
   pyqtchart = pkgs.libsForQt5.callPackage ../development/python-modules/pyqtchart {
     inherit (self)
@@ -13920,7 +13935,9 @@ self: super: with self; {
 
   pyqtgraph = callPackage ../development/python-modules/pyqtgraph { };
 
-  pyqtwebengine = callPackage ../development/python-modules/pyqtwebengine { };
+  pyqtwebengine = callPackage ../development/python-modules/pyqtwebengine {
+    inherit (pkgs) mesa;
+  };
 
   pyquaternion = callPackage ../development/python-modules/pyquaternion { };
 
@@ -16753,6 +16770,8 @@ self: super: with self; {
 
   sigstore = callPackage ../development/python-modules/sigstore { };
 
+  sigstore-models = callPackage ../development/python-modules/sigstore-models { };
+
   sigstore-protobuf-specs = callPackage ../development/python-modules/sigstore-protobuf-specs { };
 
   sigstore-rekor-types = callPackage ../development/python-modules/sigstore-rekor-types { };
@@ -17017,6 +17036,10 @@ self: super: with self; {
 
   snakemake-interface-report-plugins =
     callPackage ../development/python-modules/snakemake-interface-report-plugins
+      { };
+
+  snakemake-interface-scheduler-plugins =
+    callPackage ../development/python-modules/snakemake-interface-scheduler-plugins
       { };
 
   snakemake-interface-storage-plugins =
@@ -17785,8 +17808,6 @@ self: super: with self; {
   subunit = callPackage ../development/python-modules/subunit {
     inherit (pkgs) subunit cppunit check;
   };
-
-  subunit2sql = callPackage ../development/python-modules/subunit2sql { };
 
   subzerod = callPackage ../development/python-modules/subzerod { };
 
