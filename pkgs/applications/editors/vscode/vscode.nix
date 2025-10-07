@@ -49,7 +49,7 @@ let
   version = "1.104.3";
 
   # This is used for VS Code - Remote SSH test
-  rev = "e3a5acfb517a443235981655413d566533107e92";
+  rev = "385651c938df8a906869babee516bffd0ddb9829";
 in
 callPackage ./generic.nix {
   pname = "vscode" + lib.optionalString isInsiders "-insiders";
@@ -82,7 +82,7 @@ callPackage ./generic.nix {
     src = fetchurl {
       name = "vscode-server-${rev}.tar.gz";
       url = "https://update.code.visualstudio.com/commit:${rev}/server-linux-x64/stable";
-      hash = "sha256-Tz1P8eGokG+8thao9dRllAdTxvllhfOEDKH9lC2QwB0=";
+      hash = "sha256-0tGqGDMmLURqdQwqFWCO10d/RkVha8iC0Uv/JFp9nNQ=";
     };
     stdenv = stdenvNoCC;
   };
