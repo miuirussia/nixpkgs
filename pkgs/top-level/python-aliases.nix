@@ -31,7 +31,7 @@ in
 
 ### Deprecated aliases - for backward compatibility
 
-mapAliases ({
+mapAliases {
   # Prevent incorrect Python packaging attempts.
   # Note: `{ python3, python3Packages, ... }: with python3Packages; [ ... python3 ]` still works, since `with` has lower priority.
   pythonPackages = throw "do not use pythonPackages when building Python packages, specify each used package as a separate argument"; # do not remove
@@ -242,6 +242,7 @@ mapAliases ({
   eebrightbox = throw "eebrightbox is unmaintained upstream and has therefore been removed"; # added 2022-02-03
   EasyProcess = easyprocess; # added 2023-02-19
   email_validator = email-validator; # added 2022-06-22
+  embreex = throw "embreex has been removed, as it required embree2"; # added 2025-09-14
   enhancements = throw "enhancements is unmaintained upstream and has therefore been removed"; # added 2023-10-27
   enum-compat = throw "enum-compat is a virtual package providing enum34, which does not do anything since Python 3.4"; # added 2025-02-15
   enum34 = throw "enum34 is no longer needed since Python 3.4"; # added 2025-03-06
@@ -918,4 +919,4 @@ mapAliases ({
   zope_testing = zope-testing; # added 2023-11-12
   zope_testrunner = zope-testrunner; # added 2024-01-06
   zxing_cpp = zxing-cpp; # added 2023-11-05
-})
+}

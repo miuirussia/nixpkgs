@@ -1138,6 +1138,12 @@ self: super: with self; {
 
   audiotools = callPackage ../development/python-modules/audiotools { };
 
+  audit = toPythonModule (
+    pkgs.audit.override {
+      python3Packages = self;
+    }
+  );
+
   auditok = callPackage ../development/python-modules/auditok { };
 
   auditwheel = callPackage ../development/python-modules/auditwheel {
@@ -3647,6 +3653,10 @@ self: super: with self; {
 
   dfdiskcache = callPackage ../development/python-modules/dfdiskcache { };
 
+  dftd4 = callPackage ../by-name/df/dftd4/python.nix {
+    inherit (pkgs) dftd4;
+  };
+
   diagrams = callPackage ../development/python-modules/diagrams { };
 
   diceware = callPackage ../development/python-modules/diceware { };
@@ -4690,8 +4700,6 @@ self: super: with self; {
   emborg = callPackage ../development/python-modules/emborg { };
 
   embrace = callPackage ../development/python-modules/embrace { };
-
-  embreex = callPackage ../development/python-modules/embreex { };
 
   emcee = callPackage ../development/python-modules/emcee { };
 
@@ -7693,6 +7701,8 @@ self: super: with self; {
 
   jupyterlab-server = callPackage ../development/python-modules/jupyterlab-server { };
 
+  jupyterlab-vim = callPackage ../development/python-modules/jupyterlab-vim { };
+
   jupyterlab-widgets = callPackage ../development/python-modules/jupyterlab-widgets { };
 
   jupytext = callPackage ../development/python-modules/jupytext { };
@@ -8128,6 +8138,8 @@ self: super: with self; {
   leidenalg = callPackage ../development/python-modules/leidenalg { igraph-c = pkgs.igraph; };
 
   lektricowifi = callPackage ../development/python-modules/lektricowifi { };
+
+  lerobot = callPackage ../development/python-modules/lerobot { };
 
   letpot = callPackage ../development/python-modules/letpot { };
 
@@ -8968,9 +8980,7 @@ self: super: with self; {
     callPackage ../development/python-modules/marionette-harness/manifestparser.nix
       { };
 
-  manifold3d = callPackage ../development/python-modules/manifold3d {
-    inherit (pkgs.manifold.passthru) tbb;
-  };
+  manifold3d = callPackage ../development/python-modules/manifold3d { };
 
   manim = callPackage ../development/python-modules/manim { };
 
@@ -11663,6 +11673,8 @@ self: super: with self; {
       pythonSupport = true;
     }
   );
+
+  petsctools = callPackage ../development/python-modules/petsctools { };
 
   pettingzoo = callPackage ../development/python-modules/pettingzoo { };
 
@@ -14472,6 +14484,8 @@ self: super: with self; {
 
   pytest-django = callPackage ../development/python-modules/pytest-django { };
 
+  pytest-docker = callPackage ../development/python-modules/pytest-docker { };
+
   pytest-docker-tools = callPackage ../development/python-modules/pytest-docker-tools { };
 
   pytest-doctestplus = callPackage ../development/python-modules/pytest-doctestplus { };
@@ -14585,6 +14599,8 @@ self: super: with self; {
   pytest-postgresql = callPackage ../development/python-modules/pytest-postgresql { };
 
   pytest-pudb = callPackage ../development/python-modules/pytest-pudb { };
+
+  pytest-pycodestyle = callPackage ../development/python-modules/pytest-pycodestyle { };
 
   pytest-pylint = callPackage ../development/python-modules/pytest-pylint { };
 
@@ -15512,7 +15528,7 @@ self: super: with self; {
 
   qdarkstyle = callPackage ../development/python-modules/qdarkstyle { };
 
-  qdldl = callPackage ../development/python-modules/qdldl { };
+  qdldl = callPackage ../development/python-modules/qdldl { inherit (pkgs) qdldl; };
 
   qdrant-client = callPackage ../development/python-modules/qdrant-client { };
 
@@ -17291,6 +17307,10 @@ self: super: with self; {
   sphinx-jinja = callPackage ../development/python-modules/sphinx-jinja { };
 
   sphinx-jupyterbook-latex = callPackage ../development/python-modules/sphinx-jupyterbook-latex { };
+
+  sphinx-last-updated-by-git =
+    callPackage ../development/python-modules/sphinx-last-updated-by-git
+      { };
 
   sphinx-lv2-theme = callPackage ../development/python-modules/sphinx-lv2-theme { };
 
@@ -20639,6 +20659,8 @@ self: super: with self; {
   zulip = callPackage ../development/python-modules/zulip { };
 
   zulip-emoji-mapping = callPackage ../development/python-modules/zulip-emoji-mapping { };
+
+  zundler = callPackage ../development/python-modules/zundler { };
 
   zwave-js-server-python = callPackage ../development/python-modules/zwave-js-server-python { };
 
