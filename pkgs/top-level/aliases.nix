@@ -665,6 +665,7 @@ mapAliases {
   code-browser-gtk = throw "'code-browser-gtk' has been removed, as it was broken since 22.11"; # Added 2025-08-22
   code-browser-gtk2 = throw "'code-browser-gtk2' has been removed, as it was broken since 22.11"; # Added 2025-08-22
   code-browser-qt = throw "'code-browser-qt' has been removed, as it was broken since 22.11"; # Added 2025-08-22
+  cog = throw "'cog' has been removed as it depends on unmaintained libraries"; # Added 2025-10-08
   collada2gltf = throw "collada2gltf has been removed from Nixpkgs, as it has been unmaintained upstream for 5 years and does not build with supported GCC versions"; # Addd 2025-08-08
   colloid-kde = throw "'colloid-kde' has been removed, as it is only compatible with Plasma 5, which is EOL"; # Added 2025-08-20
   colorpicker = throw "'colorpicker' has been removed due to lack of maintenance upstream. Consider using 'xcolor', 'gcolor3', 'eyedropper' or 'gpick' instead"; # Added 2024-10-19
@@ -1443,6 +1444,7 @@ mapAliases {
   Literate = literate; # Added 2024-06-12
   littlenavmap = throw "littlenavmap has been removed as it depends on KDE Gear 5, which has reached EOL"; # Added 2025-08-20
   llama = walk; # Added 2023-01-23
+  lincity_ng = lib.warnOnInstantiate "lincity_ng has been renamed to lincity-ng" lincity-ng; # Added 2025-10-09
 
   # Linux kernels
   linux-rt_5_10 = linuxKernel.kernels.linux_rt_5_10;
@@ -1733,6 +1735,7 @@ mapAliases {
   memorymappingHook = throw "memorymapping has been removed, as it was only useful on old macOS versions that are no longer supported"; # Added 2024-10-05
   memstream = throw "memstream has been removed, as it was only useful on old macOS versions that are no longer supported"; # Added 2024-10-05
   memstreamHook = throw "memstream has been removed, as it was only useful on old macOS versions that are no longer supported"; # Added 2024-10-05
+  meteo = throw "'meteo' has been removed as it was unmaintained and depends on deprecated webkitgtk_4_0"; # Added 2025-10-09
   mhwaveedit = throw "'mkwaveedit' has been removed due to lack of maintenance upstream. Consider using 'audacity' or 'tenacity' instead"; # Added 2024-09-15
   microcodeAmd = microcode-amd; # Added 2024-09-08
   microcodeIntel = microcode-intel; # Added 2024-09-08
@@ -1806,6 +1809,7 @@ mapAliases {
   n98-magerun = throw "n98-magerun doesn't support new PHP newer than 8.1"; # Added 2025-10-03
   namazu = throw "namazu has been removed, as it was broken"; # Added 2025-08-25
   nanoblogger = throw "nanoblogger has been removed as upstream stopped developement in 2013"; # Added 2025-09-10
+  nasc = throw "'nasc' has been removed as it was unmaintained and depends on deprecated webkitgtk_4_0"; # Added 2025-10-09
   ncdu_2 = ncdu; # Added 2022-07-22
   neardal = throw "neardal has been removed because it has been marked as broken since at least November 2024."; # Added 2025-09-29
   neocities-cli = neocities; # Added 2024-07-31
@@ -1833,6 +1837,7 @@ mapAliases {
   };
   nettools = net-tools; # Added 2025-06-11
   newt-go = fosrl-newt; # Added 2025-06-24
+  notes-up = throw "'notes-up' has been removed as it was unmaintained and depends on deprecated webkitgtk_4_0"; # Added 2025-10-09
   notify-sharp = throw "'notify-sharp' has been removed as it was unmaintained and depends on deprecated dbus-sharp versions"; # Added 2025-08-25
   nextcloud30 = throw ''
     Nextcloud v30 has been removed from `nixpkgs` as the support for is dropped
@@ -2210,6 +2215,7 @@ mapAliases {
   pocket-updater-utility = pupdate; # Added 2024-01-25
   polipo = throw "'polipo' has been removed as it is unmaintained upstream"; # Added 2025-05-18
   poppler_utils = poppler-utils; # Added 2025-02-27
+  pot = throw "'pot' has been removed as it requires libsoup 2.4 which is EOL"; # Added 2025-10-09
   powerline-rs = throw "'powerline-rs' has been removed due to lack of upstream maintenance"; # Added 2025-01-26
   prboom-plus = throw "'prboom-plus' has been removed since it is unmaintained upstream."; # Added 2025-09-14
   premake3 = throw "'premake3' has been removed since it is unmaintained. Consider using 'premake' instead"; # Added 2025-05-10
@@ -2345,6 +2351,7 @@ mapAliases {
   rote = throw "rote has been removed due to lack of upstream maintenance"; # Added 2025-09-10
   rnix-hashes = throw "'rnix-hashes' has been removed due to lack of upstream maintenance"; # Added 2025-01-25
   rpiboot-unstable = throw "'rpiboot-unstable' has been renamed to/replaced by 'rpiboot'"; # Converted to throw 2024-10-17
+  rquickshare-legacy = throw "The legacy version depends on insecure package libsoup2, please use the main version"; # Added 2025-10-09
   rr-unstable = rr; # Added 2022-09-17
   rtx = mise; # Added 2024-01-05
   ruby-zoom = throw "'ruby-zoom' has been removed due to lack of maintaince and had not been updated since 2020"; # Added 2025-08-24
