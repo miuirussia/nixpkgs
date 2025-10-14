@@ -2225,8 +2225,6 @@ with pkgs;
 
   psrecord = python3Packages.callPackage ../tools/misc/psrecord { };
 
-  rare = python3Packages.callPackage ../games/rare { };
-
   renpy = callPackage ../by-name/re/renpy/package.nix { python3 = python312; };
 
   rmview = libsForQt5.callPackage ../applications/misc/remarkable/rmview { };
@@ -2703,9 +2701,7 @@ with pkgs;
 
   emborg = python3Packages.callPackage ../development/python-modules/emborg { };
 
-  encfs = callPackage ../tools/filesystems/encfs {
-    tinyxml2 = tinyxml-2;
-  };
+  encfs = callPackage ../tools/filesystems/encfs { };
 
   ethercalc = callPackage ../servers/web-apps/ethercalc { };
 
@@ -5865,8 +5861,6 @@ with pkgs;
 
   ### End of CuboCore
 
-  obb = callPackage ../development/interpreters/clojure/obb.nix { };
-
   octave = callPackage ../development/interpreters/octave { };
 
   octaveFull = octave.override {
@@ -6042,8 +6036,6 @@ with pkgs;
     })
     mkRubyVersion
     mkRuby
-    ruby_3_1
-    ruby_3_2
     ruby_3_3
     ruby_3_4
     ruby_3_5
@@ -6052,8 +6044,6 @@ with pkgs;
   ruby = ruby_3_3;
   rubyPackages = rubyPackages_3_3;
 
-  rubyPackages_3_1 = recurseIntoAttrs ruby_3_1.gems;
-  rubyPackages_3_2 = recurseIntoAttrs ruby_3_2.gems;
   rubyPackages_3_3 = recurseIntoAttrs ruby_3_3.gems;
   rubyPackages_3_4 = recurseIntoAttrs ruby_3_4.gems;
   rubyPackages_3_5 = recurseIntoAttrs ruby_3_5.gems;
@@ -6814,6 +6804,8 @@ with pkgs;
 
   premake = premake4;
 
+  pycobertura = with python3Packages; toPythonApplication pycobertura;
+
   pycritty = with python3Packages; toPythonApplication pycritty;
 
   qtcreator = qt6Packages.callPackage ../development/tools/qtcreator {
@@ -6900,8 +6892,6 @@ with pkgs;
   slurm = callPackage ../by-name/sl/slurm/package.nix {
     nvml = cudaPackages.cuda_nvml_dev;
   };
-
-  snowman = qt5.callPackage ../development/tools/analysis/snowman { };
 
   speedtest-cli = with python3Packages; toPythonApplication speedtest-cli;
 
@@ -8737,8 +8727,6 @@ with pkgs;
 
   structuresynth = libsForQt5.callPackage ../development/libraries/structuresynth { };
 
-  svxlink = libsForQt5.callPackage ../applications/radio/svxlink { };
-
   szurubooru = callPackage ../servers/web-apps/szurubooru { };
 
   tclap = tclap_1_2;
@@ -8747,9 +8735,7 @@ with pkgs;
 
   tclap_1_4 = callPackage ../development/libraries/tclap/1.4.nix { };
 
-  tinyxml = tinyxml2;
-
-  tinyxml2 = callPackage ../development/libraries/tinyxml/2.6.2.nix { };
+  tinyxml = callPackage ../development/libraries/tinyxml/2.6.2.nix { };
 
   tk = tk-8_6;
 
@@ -11418,8 +11404,6 @@ with pkgs;
 
   hpack = haskell.lib.compose.justStaticExecutables haskellPackages.hpack;
 
-  hpmyroom = libsForQt5.callPackage ../applications/networking/hpmyroom { };
-
   hugin = callPackage ../applications/graphics/hugin {
     wxGTK = wxGTK32;
   };
@@ -12222,8 +12206,6 @@ with pkgs;
 
   pineapple-pictures = qt6Packages.callPackage ../applications/graphics/pineapple-pictures { };
 
-  plexamp = callPackage ../applications/audio/plexamp { };
-
   plex-mpv-shim = python3Packages.callPackage ../applications/video/plex-mpv-shim { };
 
   plover = recurseIntoAttrs (libsForQt5.callPackage ../applications/misc/plover { });
@@ -12456,8 +12438,6 @@ with pkgs;
   sfxr-qt = libsForQt5.callPackage ../applications/audio/sfxr-qt { };
 
   spotify-qt = qt6Packages.callPackage ../applications/audio/spotify-qt { };
-
-  sonic-pi = libsForQt5.callPackage ../applications/audio/sonic-pi { };
 
   stag = callPackage ../applications/misc/stag {
     curses = ncurses;
@@ -13292,9 +13272,6 @@ with pkgs;
 
   qgo = libsForQt5.callPackage ../games/qgo { };
 
-  amoeba = callPackage ../games/amoeba { };
-  amoeba-data = callPackage ../games/amoeba/data.nix { };
-
   anki = callPackage ../games/anki {
     protobuf = protobuf_31;
   };
@@ -13302,10 +13279,6 @@ with pkgs;
   ankiAddons = recurseIntoAttrs (callPackage ../games/anki/addons { });
   anki-bin = callPackage ../games/anki/bin.nix { };
   anki-sync-server = callPackage ../games/anki/sync-server.nix { };
-
-  armagetronad = callPackage ../games/armagetronad { };
-
-  armagetronad-dedicated = callPackage ../games/armagetronad { dedicatedServer = true; };
 
   art = callPackage ../by-name/ar/art/package.nix {
     fftw = fftwSinglePrec;
@@ -13516,15 +13489,6 @@ with pkgs;
 
   blightmud-tts = callPackage ../games/blightmud { withTTS = true; };
 
-  nethack = callPackage ../games/nethack { };
-
-  nethack-qt = callPackage ../games/nethack {
-    qtMode = true;
-    stdenv = gccStdenv;
-  };
-
-  nethack-x11 = callPackage ../games/nethack { x11Mode = true; };
-
   npush = callPackage ../games/npush { };
   run-npush = callPackage ../games/npush/run.nix { };
 
@@ -13613,9 +13577,7 @@ with pkgs;
     lure-of-the-temptress
     ;
 
-  sgt-puzzles = callPackage ../games/sgt-puzzles { };
-
-  sgt-puzzles-mobile = callPackage ../games/sgt-puzzles {
+  sgt-puzzles-mobile = callPackage ../by-name/sg/sgt-puzzles/package.nix {
     isMobile = true;
   };
 
@@ -14917,10 +14879,6 @@ with pkgs;
 
   libkazv = callPackage ../by-name/li/libkazv/package.nix {
     libcpr = libcpr_1_10_5;
-  };
-
-  tree-from-tags = callPackage ../by-name/tr/tree-from-tags/package.nix {
-    ruby = ruby_3_1;
   };
 
   biblioteca = callPackage ../by-name/bi/biblioteca/package.nix {
