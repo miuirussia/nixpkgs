@@ -11718,6 +11718,8 @@ self: super: with self; {
 
   pgvector = callPackage ../development/python-modules/pgvector { };
 
+  phart = callPackage ../development/python-modules/phart { };
+
   phe = callPackage ../development/python-modules/phe { };
 
   phik = callPackage ../development/python-modules/phik { };
@@ -13695,6 +13697,8 @@ self: super: with self; {
 
   pyomo = callPackage ../development/python-modules/pyomo { };
 
+  pyopen-wakeword = callPackage ../development/python-modules/pyopen-wakeword/default.nix { };
+
   pyopencl = callPackage ../development/python-modules/pyopencl { };
 
   pyopengl = callPackage ../development/python-modules/pyopengl {
@@ -14445,16 +14449,6 @@ self: super: with self; {
       { };
 
   pytest-asyncio_0 = callPackage ../development/python-modules/pytest-asyncio/0.nix { };
-
-  pytest-asyncio_0_21 = pytest-asyncio.overridePythonAttrs (old: rec {
-    version = "0.21.2";
-    src = pkgs.fetchFromGitHub {
-      owner = "pytest-dev";
-      repo = "pytest-asyncio";
-      rev = "refs/tags/v${version}";
-      hash = "sha256-AVVvdo/CDF9IU6l779sLc7wKz5h3kzMttdDNTPLYxtQ=";
-    };
-  });
 
   pytest-base-url = callPackage ../development/python-modules/pytest-base-url { };
 
@@ -15705,8 +15699,6 @@ self: super: with self; {
   raincloudy = callPackage ../development/python-modules/raincloudy { };
 
   ramlfications = callPackage ../development/python-modules/ramlfications { };
-
-  random-user-agent = callPackage ../development/python-modules/random-user-agent { };
 
   random2 = callPackage ../development/python-modules/random2 { };
 
