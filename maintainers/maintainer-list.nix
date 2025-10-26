@@ -3834,6 +3834,11 @@
     githubId = 40476330;
     name = "brokenpip3";
   };
+  BronzeDeer = {
+    github = "BronzeDeer";
+    githubId = 74385045;
+    name = "Joël Pepper";
+  };
   brpaz = {
     email = "oss@brunopaz.dev";
     github = "brpaz";
@@ -7111,6 +7116,12 @@
     github = "dxwil";
     githubId = 90563298;
     name = "Dovydas Kersys";
+  };
+  dyegoaurelio = {
+    name = "Dyego Aurelio";
+    email = "d@dyego.email";
+    github = "dyegoaurelio";
+    githubId = 42411160;
   };
   dylan-gonzalez = {
     email = "dylcg10@gmail.com";
@@ -10956,6 +10967,12 @@
     githubId = 993484;
     name = "Greg Hale";
   };
+  imatpot = {
+    email = "nixpkgs@brnk.vc";
+    github = "imatpot";
+    githubId = 39416660;
+    name = "Mladen Branković";
+  };
   imgabe = {
     email = "gabrielpmonte@hotmail.com";
     github = "ImGabe";
@@ -14734,6 +14751,13 @@
     githubId = 54189319;
     name = "Lilly Cham";
   };
+  lilyball = {
+    email = "lily@ballards.net";
+    github = "lilyball";
+    githubId = 714;
+    matrix = "@esperlily:matrix.org";
+    name = "Lily Ballard";
+  };
   limeytexan = {
     email = "limeytexan@gmail.com";
     github = "limeytexan";
@@ -14791,6 +14815,12 @@
     github = "linuxissuper";
     githubId = 74221543;
     name = "Moritz Goltdammer";
+  };
+  linuxmobile = {
+    email = "bdiez19@gmail.com";
+    github = "linuxmobile";
+    githubId = 10554636;
+    name = "Braian A. Diez";
   };
   linuxwhata = {
     email = "linuxwhata@qq.com";
@@ -22020,12 +22050,6 @@
     githubId = 1810487;
     name = "Rika";
   };
-  rileyinman = {
-    email = "rileyminman@gmail.com";
-    github = "rileyinman";
-    githubId = 37246692;
-    name = "Riley Inman";
-  };
   rinx = {
     email = "rintaro.okamura@gmail.com";
     github = "rinx";
@@ -23077,6 +23101,11 @@
     github = "savedra1";
     githubId = 99875823;
     name = "Michael Savedra";
+  };
+  savtrip = {
+    github = "savtrip";
+    githubId = 42227195;
+    name = "Sav Tripodi";
   };
   savyajha = {
     email = "savya.jha@hawkradius.com";
@@ -25757,6 +25786,11 @@
     matrix = "@thefossguy:matrix.org";
     github = "thefossguy";
     githubId = 44400303;
+  };
+  thegu5 = {
+    name = "Gus";
+    github = "thegu5";
+    githubId = 58223632;
   };
   thehans255 = {
     name = "Hans Jorgensen";

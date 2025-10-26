@@ -6884,6 +6884,8 @@ self: super: with self; {
 
   hyperframe = callPackage ../development/python-modules/hyperframe { };
 
+  hyperglot = callPackage ../development/python-modules/hyperglot { };
+
   hyperion-py = callPackage ../development/python-modules/hyperion-py { };
 
   hyperlink = callPackage ../development/python-modules/hyperlink { };
@@ -13126,6 +13128,8 @@ self: super: with self; {
 
   pyglm = callPackage ../development/python-modules/pyglm { };
 
+  pyglossary = callPackage ../development/python-modules/pyglossary { };
+
   pygls = callPackage ../development/python-modules/pygls { };
 
   pygltflib = callPackage ../development/python-modules/pygltflib { };
@@ -15878,6 +15882,8 @@ self: super: with self; {
   renault-api = callPackage ../development/python-modules/renault-api { };
 
   rencode = callPackage ../development/python-modules/rencode { };
+
+  rendercanvas = callPackage ../development/python-modules/rendercanvas { };
 
   rendercv-fonts = callPackage ../development/python-modules/rendercv-fonts { };
 
