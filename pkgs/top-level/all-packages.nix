@@ -2539,10 +2539,24 @@ with pkgs;
   # Top-level fix-point used in `cudaPackages`' internals
   _cuda = import ../development/cuda-modules/_cuda;
 
-  cudaPackages_12_6 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.6"; };
-  cudaPackages_12_8 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.8"; };
-  cudaPackages_12_9 = callPackage ./cuda-packages.nix { cudaMajorMinorVersion = "12.9"; };
-  cudaPackages_12 = cudaPackages_12_8; # Latest supported by cudnn
+  inherit
+    (import ./cuda-packages.nix {
+      inherit
+        _cuda
+        callPackage
+        config
+        lib
+        ;
+    })
+    cudaPackages_12_6
+    cudaPackages_12_8
+    cudaPackages_12_9
+    cudaPackages_13_0
+    ;
+
+  cudaPackages_12 = cudaPackages_12_8;
+
+  cudaPackages_13 = cudaPackages_13_0;
 
   cudaPackages = recurseIntoAttrs cudaPackages_12;
 
@@ -3611,6 +3625,10 @@ with pkgs;
   opensshPackages = dontRecurseIntoAttrs (callPackage ../tools/networking/openssh { });
 
   openssh = opensshPackages.openssh.override {
+    etcDir = "/etc/ssh";
+  };
+
+  openssh_10_2 = opensshPackages.openssh_10_2.override {
     etcDir = "/etc/ssh";
   };
 
@@ -6832,10 +6850,6 @@ with pkgs;
 
   sloc = nodePackages.sloc;
 
-  slurm = callPackage ../by-name/sl/slurm/package.nix {
-    nvml = cudaPackages.cuda_nvml_dev;
-  };
-
   speedtest-cli = with python3Packages; toPythonApplication speedtest-cli;
 
   splint = callPackage ../development/tools/analysis/splint {
@@ -8342,7 +8356,10 @@ with pkgs;
         # More recent versions of abseil seem to be missing absl::if_constexpr
         abseil-cpp = abseil-cpp_202407;
       };
-      protobuf_27 = callPackage ../development/libraries/protobuf/27.nix { };
+      protobuf_27 = callPackage ../development/libraries/protobuf/27.nix {
+        # More recent versions of abseil seem to be missing absl::if_constexpr
+        abseil-cpp = abseil-cpp_202407;
+      };
       protobuf_25 = callPackage ../development/libraries/protobuf/25.nix { };
       protobuf_21 = callPackage ../development/libraries/protobuf/21.nix {
         abseil-cpp = abseil-cpp_202103;
@@ -9240,9 +9257,6 @@ with pkgs;
   diod = callPackage ../servers/diod { lua = lua5_1; };
 
   dodgy = with python3Packages; toPythonApplication dodgy;
-
-  etcd = etcd_3_5;
-  etcd_3_5 = callPackage ../servers/etcd/3_5 { };
 
   prosody = callPackage ../servers/xmpp/prosody {
     withExtraLibs = [ ];
@@ -11914,9 +11928,7 @@ with pkgs;
     lua = lua5;
   };
 
-  pdfsam-basic = callPackage ../applications/misc/pdfsam-basic {
-    jdk21 = openjdk21.override { enableJavaFX = true; };
-  };
+  pdfsam-basic = callPackage ../applications/misc/pdfsam-basic { };
 
   mupdf-headless = mupdf.override {
     enableX11 = false;
@@ -12064,9 +12076,6 @@ with pkgs;
     }
     // (config.profanity or { })
   );
-
-  protonvpn-cli = python3Packages.callPackage ../applications/networking/protonvpn-cli { };
-  protonvpn-cli_2 = python3Packages.callPackage ../applications/networking/protonvpn-cli/2.nix { };
 
   protonvpn-gui = python3Packages.callPackage ../applications/networking/protonvpn-gui { };
 
@@ -13038,8 +13047,6 @@ with pkgs;
   cri-o = callPackage ../applications/virtualization/cri-o/wrapper.nix { };
   cri-o-unwrapped = callPackage ../applications/virtualization/cri-o { };
 
-  phonemizer = with python3Packages; toPythonApplication phonemizer;
-
   ### GAMES
 
   inherit (callPackages ../games/fteqw { })
@@ -13067,8 +13074,6 @@ with pkgs;
   };
 
   fmodex = callPackage ../games/doom-ports/zandronum/fmod.nix { };
-
-  pro-office-calculator = libsForQt5.callPackage ../games/pro-office-calculator { };
 
   qgo = libsForQt5.callPackage ../games/qgo { };
 
@@ -14037,8 +14042,6 @@ with pkgs;
   };
 
   spyder = with python3.pkgs; toPythonApplication spyder;
-
-  stellarium = qt6Packages.callPackage ../applications/science/astronomy/stellarium { };
 
   tulip = libsForQt5.callPackage ../applications/science/misc/tulip {
     python3 = python312; # fails to build otherwise
