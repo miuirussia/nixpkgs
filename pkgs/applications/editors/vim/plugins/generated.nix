@@ -8055,6 +8055,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  maple-nvim = buildVimPlugin {
+    pname = "maple.nvim";
+    version = "2025-08-02";
+    src = fetchFromGitHub {
+      owner = "forest-nvim";
+      repo = "maple.nvim";
+      rev = "c9525e84852197784de0d0203e73b8cb433297ff";
+      sha256 = "1idid6gv116yd8lrjzkyvhgw4lhd23gpaj326436mqndz7nwbaf9";
+    };
+    meta.homepage = "https://github.com/forest-nvim/maple.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
   mark-radar-nvim = buildVimPlugin {
     pname = "mark-radar.nvim";
     version = "2024-06-04";
@@ -17001,6 +17014,19 @@ final: prev: {
       sha256 = "1jfwzizkfljkz6cqjzx3sn5wnn3kl2kvwinl5bbp9vjc6ssnz2df";
     };
     meta.homepage = "https://github.com/qpkorr/vim-bufkill/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  vim-buftabline = buildVimPlugin {
+    pname = "vim-buftabline";
+    version = "2020-12-13";
+    src = fetchFromGitHub {
+      owner = "ap";
+      repo = "vim-buftabline";
+      rev = "73b9ef5dcb6cdf6488bc88adb382f20bc3e3262a";
+      sha256 = "1vs4km7fb3di02p0771x42y2bsn1hi4q6iwlbrj0imacd9affv5y";
+    };
+    meta.homepage = "https://github.com/ap/vim-buftabline/";
     meta.hydraPlatforms = [ ];
   };
 
