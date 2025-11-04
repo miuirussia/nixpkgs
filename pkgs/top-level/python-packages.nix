@@ -9786,6 +9786,8 @@ self: super: with self; {
 
   mpris-server = callPackage ../development/python-modules/mpris-server { };
 
+  mprisify = callPackage ../development/python-modules/mprisify { };
+
   mpv = callPackage ../development/python-modules/mpv { inherit (pkgs) mpv; };
 
   mpyq = callPackage ../development/python-modules/mpyq { };
@@ -10775,6 +10777,8 @@ self: super: with self; {
   numpy-groupies = callPackage ../development/python-modules/numpy-groupies { };
 
   numpy-stl = callPackage ../development/python-modules/numpy-stl { };
+
+  numpy-typing-compat = callPackage ../development/python-modules/numpy-typing-compat { };
 
   numpy_1 = callPackage ../development/python-modules/numpy/1.nix { };
 
@@ -14987,6 +14991,8 @@ self: super: with self; {
 
   python-json-logger = callPackage ../development/python-modules/python-json-logger { };
 
+  python-jsonpath = callPackage ../development/python-modules/python-jsonpath { };
+
   python-jsonrpc-server = callPackage ../development/python-modules/python-jsonrpc-server { };
 
   python-juicenet = callPackage ../development/python-modules/python-juicenet { };
@@ -15911,6 +15917,8 @@ self: super: with self; {
   reflex-hosting-cli = callPackage ../development/python-modules/reflex-hosting-cli { };
 
   reflink = callPackage ../development/python-modules/reflink { };
+
+  reflink-copy = callPackage ../development/python-modules/reflink-copy { };
 
   refoss-ha = callPackage ../development/python-modules/refoss-ha { };
 
@@ -20373,6 +20381,8 @@ self: super: with self; {
   xdxf2html = callPackage ../development/python-modules/xdxf2html { };
 
   xeddsa = toPythonModule (callPackage ../development/python-modules/xeddsa { });
+
+  xeger = callPackage ../development/python-modules/xeger { };
 
   xen = toPythonModule (pkgs.xen.override { python3Packages = self; });
 
