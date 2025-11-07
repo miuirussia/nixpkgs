@@ -1315,8 +1315,6 @@ with pkgs;
 
   gcdemu = callPackage ../applications/emulators/cdemu/gui.nix { };
 
-  gensgs = pkgsi686Linux.callPackage ../applications/emulators/gens-gs { };
-
   goldberg-emu = callPackage ../applications/emulators/goldberg-emu {
     protobuf = protobuf_21;
   };
@@ -3102,8 +3100,6 @@ with pkgs;
 
   jkqtplotter = libsForQt5.callPackage ../development/libraries/jkqtplotter { };
 
-  joplin = nodePackages.joplin;
-
   jpylyzer = with python3Packages; toPythonApplication jpylyzer;
 
   jsbeautifier = with python3Packages; toPythonApplication jsbeautifier;
@@ -4475,6 +4471,7 @@ with pkgs;
   );
   flutterPackages = flutterPackages-bin;
   flutter = flutterPackages.stable;
+  flutter338 = flutterPackages.v3_38;
   flutter335 = flutterPackages.v3_35;
   flutter332 = flutterPackages.v3_32;
   flutter329 = flutterPackages.v3_29;
@@ -5335,6 +5332,7 @@ with pkgs;
     cargo-pgrx_0_12_0_alpha_1
     cargo-pgrx_0_12_6
     cargo-pgrx_0_16_0
+    cargo-pgrx_0_16_1
     cargo-pgrx
     ;
 
