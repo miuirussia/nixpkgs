@@ -1069,6 +1069,13 @@
       }
     ];
   };
+  alch-emi = {
+    email = "emi@alchemi.dev";
+    github = "Alch-Emi";
+    githubId = 38897201;
+    name = "Emi";
+    matrix = "@emi:the-apothecary.club";
+  };
   aldenparker = {
     github = "aldenparker";
     githubId = 32986873;
@@ -7749,6 +7756,13 @@
     githubId = 3422442;
     name = "Ruben Maher";
   };
+  er0k = {
+    email = "er0k@er0k.net";
+    github = "er0k";
+    githubId = 916239;
+    name = "er0k";
+    keys = [ { fingerprint = "60DE 4570 2E31 81A2 AF87  F075 B005 BA3C 8EE8 108D"; } ];
+  };
   eraserhd = {
     email = "jason.m.felice@gmail.com";
     github = "eraserhd";
@@ -13979,6 +13993,14 @@
     githubId = 4032;
     name = "Kristoffer Thømt Ravneberg";
   };
+  krishnans2006 = {
+    email = "krishnans2006@gmail.com";
+    matrix = "@krishnans2006:matrix.org";
+    github = "krishnans2006";
+    githubId = 62958782;
+    name = "Krishnan Shankar";
+    keys = [ { fingerprint = "A30C 1843 F470 4843 5D54  3D68 29CB 06A8 40D0 E14A"; } ];
+  };
   kristian-brucaj = {
     email = "kbrucaj@gmail.com";
     github = "Flameslice";
@@ -14300,6 +14322,17 @@
     github = "laikq";
     githubId = 55911173;
     name = "Gwendolyn Quasebarth";
+  };
+  lajp = {
+    email = "lajp@iki.fi";
+    github = "lajp";
+    githubId = 31856315;
+    name = "Luukas Pörtfors";
+    keys = [
+      {
+        fingerprint = "24E8 E4CC 0295 F4ED B9E0  B4A6 C913 9B8D EA65 BD82";
+      }
+    ];
   };
   lamarios = {
     matrix = "@lamarios:matrix.org";
@@ -21754,12 +21787,6 @@
       # compare with https://keybase.io/reckenrode
       { fingerprint = "01D7 5486 3A6D 64EA AC77 0D26 FBF1 9A98 2CCE 0048"; }
     ];
-  };
-  redbaron = {
-    email = "ivanov.maxim@gmail.com";
-    github = "redbaron";
-    githubId = 16624;
-    name = "Maxim Ivanov";
   };
   redfish64 = {
     email = "engler@gmail.com";

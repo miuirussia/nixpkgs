@@ -3511,8 +3511,8 @@ let
         mktplcRef = {
           publisher = "mvllow";
           name = "rose-pine";
-          version = "2.14.0";
-          hash = "sha256-bjYumipeZM5tNl/cTHLcm/EyX4FU1AzQU3W53e0cGfc=";
+          version = "2.15.0";
+          hash = "sha256-4l4KzxrLU34dIHI7ycypyN0yi2jzRs8voAD5HE4fgII=";
         };
         meta = {
           license = lib.licenses.mit;
@@ -3846,8 +3846,8 @@ let
         mktplcRef = {
           publisher = "redhat";
           name = "java";
-          version = "1.46.0";
-          hash = "sha256-i7Nac47aJVdxxRgM8KCCI8zmwTCGxxy0PrejgjOCYXE=";
+          version = "1.47.0";
+          hash = "sha256-zxhNZJWi4mjENzHsO74FjOrztl5uZbVU3aMPO5DwGRo=";
         };
         buildInputs = [ jdk ];
         meta = {
@@ -5020,8 +5020,8 @@ let
         mktplcRef = {
           name = "vscode-gradle";
           publisher = "vscjava";
-          version = "3.17.0";
-          hash = "sha256-SZRSSgi4/8cEHGvhoGf9J8hrSIQWn1sFTh4NSsJcMDg=";
+          version = "3.17.1";
+          hash = "sha256-3AGa1S6WN7zVaKxjHVba+CjXhEq8PjTD5HU5WY9pF4c=";
         };
 
         meta = {
@@ -5050,8 +5050,8 @@ let
         mktplcRef = {
           publisher = "vscjava";
           name = "vscode-java-dependency";
-          version = "0.26.2";
-          hash = "sha256-msRaLNS1a5BXY3GN1MmOi9jBbNj6aqJDbZkFc1pLG3I=";
+          version = "0.26.3";
+          hash = "sha256-o7FWpesuG6qS1UFVaSQ97X3sWc/6vOOZPy/iid3nNJs=";
         };
         meta = {
           license = lib.licenses.mit;
