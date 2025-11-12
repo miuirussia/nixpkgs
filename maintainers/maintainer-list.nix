@@ -5563,7 +5563,7 @@
   };
   da157 = {
     email = "da157@voidq.com";
-    matrix = "@awwpotato:envs.net";
+    matrix = "@da157:catgirl.cloud";
     github = "0xda157";
     githubId = 153149335;
     name = "0xda157";
@@ -9109,6 +9109,12 @@
     githubId = 7047019;
     name = "Florent Becker";
   };
+  galabovaa = {
+    name = "Ivet Galabova";
+    email = "galabovaa@gmail.com";
+    github = "galabovaa";
+    githubId = 4016566;
+  };
   galagora = {
     email = "lightningstrikeiv@gmail.com";
     github = "Galagora";
@@ -11743,6 +11749,12 @@
     github = "JayRovacsek";
     githubId = 29395089;
     name = "Jay Rovacsek";
+  };
+  jaysa68 = {
+    email = "gh@jaysa.net";
+    github = "jaysa68";
+    githubId = 114126812;
+    name = "Jaysa Maria Garcia";
   };
   jb55 = {
     email = "jb55@jb55.com";
@@ -19604,6 +19616,12 @@
     githubId = 52569953;
     name = "Oskar Manhart";
   };
+  oskarwires = {
+    email = "me@usbcable.io";
+    github = "oskarwires";
+    githubId = 115482671;
+    name = "Oskar";
+  };
   osnyx = {
     email = "os@flyingcircus.io";
     github = "osnyx";
@@ -25982,6 +26000,11 @@
     github = "TheRobot2105";
     githubId = 91203390;
     name = "Felix Kimmel";
+  };
+  thesn = {
+    github = "thesn10";
+    githubId = 38666407;
+    name = "TheSN";
   };
   thesola10 = {
     email = "me@thesola.io";
