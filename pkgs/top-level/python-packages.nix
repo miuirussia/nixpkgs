@@ -1409,6 +1409,8 @@ self: super: with self; {
 
   azure-mgmt-cosmosdb = callPackage ../development/python-modules/azure-mgmt-cosmosdb { };
 
+  azure-mgmt-dashboard = callPackage ../development/python-modules/azure-mgmt-dashboard { };
+
   azure-mgmt-databoxedge = callPackage ../development/python-modules/azure-mgmt-databoxedge { };
 
   azure-mgmt-databricks = callPackage ../development/python-modules/azure-mgmt-databricks { };
@@ -1448,6 +1450,8 @@ self: super: with self; {
   azure-mgmt-hanaonazure = callPackage ../development/python-modules/azure-mgmt-hanaonazure { };
 
   azure-mgmt-hdinsight = callPackage ../development/python-modules/azure-mgmt-hdinsight { };
+
+  azure-mgmt-hybridcompute = callPackage ../development/python-modules/azure-mgmt-hybridcompute { };
 
   azure-mgmt-imagebuilder = callPackage ../development/python-modules/azure-mgmt-imagebuilder { };
 
@@ -4733,6 +4737,8 @@ self: super: with self; {
 
   eiswarnung = callPackage ../development/python-modules/eiswarnung { };
 
+  ekey-bionyxpy = callPackage ../development/python-modules/ekey-bionyxpy { };
+
   elastic-apm = callPackage ../development/python-modules/elastic-apm { };
 
   elastic-transport = callPackage ../development/python-modules/elastic-transport { };
@@ -4832,6 +4838,8 @@ self: super: with self; {
   entrypoint2 = callPackage ../development/python-modules/entrypoint2 { };
 
   entrypoints = callPackage ../development/python-modules/entrypoints { };
+
+  entsoe-apy = callPackage ../development/python-modules/entsoe-apy { };
 
   enturclient = callPackage ../development/python-modules/enturclient { };
 
@@ -5213,6 +5221,8 @@ self: super: with self; {
   faust-cchardet = callPackage ../development/python-modules/faust-cchardet { };
 
   fava = callPackage ../development/python-modules/fava { };
+
+  fava-dashboards = callPackage ../development/python-modules/fava-dashboards { };
 
   favicon = callPackage ../development/python-modules/favicon { };
 
@@ -9577,6 +9587,10 @@ self: super: with self; {
   mkdocs-glightbox = callPackage ../development/python-modules/mkdocs-glightbox { };
 
   mkdocs-graphviz = callPackage ../development/python-modules/mkdocs-graphviz { };
+
+  mkdocs-include-markdown-plugin =
+    callPackage ../development/python-modules/mkdocs-include-markdown-plugin
+      { };
 
   mkdocs-jupyter = callPackage ../development/python-modules/mkdocs-jupyter { };
 
@@ -20582,6 +20596,8 @@ self: super: with self; {
   xs1-api-client = callPackage ../development/python-modules/xs1-api-client { };
 
   xsdata = callPackage ../development/python-modules/xsdata { };
+
+  xsdata-pydantic = callPackage ../development/python-modules/xsdata-pydantic { };
 
   xstatic = callPackage ../development/python-modules/xstatic { };
 
