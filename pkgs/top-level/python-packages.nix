@@ -348,6 +348,8 @@ self: super: with self; {
 
   aiohwenergy = callPackage ../development/python-modules/aiohwenergy { };
 
+  aioice = callPackage ../development/python-modules/aioice { };
+
   aioimaplib = callPackage ../development/python-modules/aioimaplib { };
 
   aioimmich = callPackage ../development/python-modules/aioimmich { };
@@ -457,6 +459,8 @@ self: super: with self; {
   aiormq = callPackage ../development/python-modules/aiormq { };
 
   aiorpcx = callPackage ../development/python-modules/aiorpcx { };
+
+  aiortc = callPackage ../development/python-modules/aiortc { };
 
   aiortm = callPackage ../development/python-modules/aiortm { };
 
@@ -2209,7 +2213,9 @@ self: super: with self; {
 
   brother-ql = callPackage ../development/python-modules/brother-ql { };
 
-  brotli = callPackage ../development/python-modules/brotli { };
+  brotli = callPackage ../development/python-modules/brotli {
+    inherit (pkgs) brotli;
+  };
 
   brotli-asgi = callPackage ../development/python-modules/brotli-asgi { };
 
@@ -2861,6 +2867,8 @@ self: super: with self; {
   colcon-argcomplete = callPackage ../development/python-modules/colcon-argcomplete { };
 
   colcon-cargo = callPackage ../development/python-modules/colcon-cargo { };
+
+  colcon-cd = callPackage ../development/python-modules/colcon-cd { };
 
   colcon-defaults = callPackage ../development/python-modules/colcon-defaults { };
 
@@ -3514,6 +3522,8 @@ self: super: with self; {
   datrie = callPackage ../development/python-modules/datrie { };
 
   dawg-python = callPackage ../development/python-modules/dawg-python { };
+
+  dawg2-python = callPackage ../development/python-modules/dawg2-python { };
 
   dazl = callPackage ../development/python-modules/dazl { };
 
@@ -5223,6 +5233,8 @@ self: super: with self; {
   fava = callPackage ../development/python-modules/fava { };
 
   fava-dashboards = callPackage ../development/python-modules/fava-dashboards { };
+
+  fava-investor = callPackage ../development/python-modules/fava-investor { };
 
   favicon = callPackage ../development/python-modules/favicon { };
 
@@ -8989,6 +9001,8 @@ self: super: with self; {
   luftdaten = callPackage ../development/python-modules/luftdaten { };
 
   luhn = callPackage ../development/python-modules/luhn { };
+
+  luma-core = callPackage ../development/python-modules/luma-core { };
 
   luna-soc = callPackage ../development/python-modules/luna-soc { };
 
@@ -13582,6 +13596,8 @@ self: super: with self; {
 
   pylibrespot-java = callPackage ../development/python-modules/pylibrespot-java { };
 
+  pylibsrtp = callPackage ../development/python-modules/pylibsrtp { };
+
   pylink-square = callPackage ../development/python-modules/pylink-square { };
 
   pylint = callPackage ../development/python-modules/pylint { };
@@ -13744,13 +13760,13 @@ self: super: with self; {
 
   pymorphy2 = callPackage ../development/python-modules/pymorphy2 { };
 
-  pymorphy2-dicts-ru = callPackage ../development/python-modules/pymorphy2/dicts-ru.nix { };
+  pymorphy2-dicts-ru = callPackage ../development/python-modules/pymorphy2-dicts-ru { };
 
   pymorphy3 = callPackage ../development/python-modules/pymorphy3 { };
 
-  pymorphy3-dicts-ru = callPackage ../development/python-modules/pymorphy3/dicts-ru.nix { };
+  pymorphy3-dicts-ru = callPackage ../development/python-modules/pymorphy3-dicts-ru { };
 
-  pymorphy3-dicts-uk = callPackage ../development/python-modules/pymorphy3/dicts-uk.nix { };
+  pymorphy3-dicts-uk = callPackage ../development/python-modules/pymorphy3-dicts-uk { };
 
   pympler = callPackage ../development/python-modules/pympler { };
 
@@ -18160,11 +18176,11 @@ self: super: with self; {
 
   swh-objstorage = callPackage ../development/python-modules/swh-objstorage { };
 
-  swh-perfecthash = callPackage ../development/python-modules/swh-perfecthash { };
-
   swh-scanner = callPackage ../development/python-modules/swh-scanner { };
 
   swh-scheduler = callPackage ../development/python-modules/swh-scheduler { };
+
+  swh-shard = callPackage ../development/python-modules/swh-shard { };
 
   swh-storage = callPackage ../development/python-modules/swh-storage { };
 
