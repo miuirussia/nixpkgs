@@ -3149,8 +3149,6 @@ with pkgs;
 
   logstash-contrib = callPackage ../tools/misc/logstash/contrib.nix { };
 
-  lolcat = callPackage ../tools/misc/lolcat { };
-
   lsyncd = callPackage ../applications/networking/sync/lsyncd {
     lua = lua5_2_compat;
   };
@@ -4769,7 +4767,7 @@ with pkgs;
 
   ghdl-llvm = callPackage ../by-name/gh/ghdl/package.nix {
     backend = "llvm";
-    inherit (llvmPackages) llvm;
+    inherit (llvmPackages_20) llvm;
   };
 
   gcc-arm-embedded = gcc-arm-embedded-14;
@@ -5193,9 +5191,16 @@ with pkgs;
   opam-installer = callPackage ../development/tools/ocaml/opam/installer.nix { };
 
   wrapWatcom = callPackage ../development/compilers/open-watcom/wrapper.nix { };
+
   open-watcom-v2-unwrapped = callPackage ../development/compilers/open-watcom/v2.nix { };
-  open-watcom-v2 = wrapWatcom open-watcom-v2-unwrapped { };
+  open-watcom-v2-full-unwrapped = open-watcom-v2-unwrapped.override {
+    withDocs = true;
+    withGUI = true;
+  };
   open-watcom-bin-unwrapped = callPackage ../development/compilers/open-watcom/bin.nix { };
+
+  open-watcom-v2 = wrapWatcom open-watcom-v2-unwrapped { };
+  open-watcom-v2-full = wrapWatcom open-watcom-v2-full-unwrapped { };
   open-watcom-bin = wrapWatcom open-watcom-bin-unwrapped { };
 
   rml = callPackage ../development/compilers/rml {
@@ -13857,8 +13862,6 @@ with pkgs;
   hplipWithPlugin = hplip.override { withPlugin = true; };
 
   hjson = with python3Packages; toPythonApplication hjson;
-
-  image_optim = callPackage ../applications/graphics/image_optim { };
 
   libjack2 = jack2.override { prefix = "lib"; };
 
