@@ -402,6 +402,7 @@ mapAliases {
   check_zfs = throw "'check_zfs' has been renamed to/replaced by 'nagiosPlugins.check_zfs'"; # Converted to throw 2025-10-27
   checkSSLCert = throw "'checkSSLCert' has been renamed to/replaced by 'nagiosPlugins.check_ssl_cert'"; # Converted to throw 2025-10-27
   chiaki4deck = throw "'chiaki4deck' has been renamed to/replaced by 'chiaki-ng'"; # Converted to throw 2025-10-27
+  chit = throw "'chit' has been removed from nixpkgs because it was unmaintained upstream and used insecure dependencies"; # Added 2025-11-28
   chkrootkit = throw "chkrootkit has been removed as it is unmaintained and archived upstream and didn't even work on NixOS"; # Added 2025-09-12
   chocolateDoom = throw "'chocolateDoom' has been renamed to/replaced by 'chocolate-doom'"; # Converted to throw 2025-10-27
   ChowCentaur = throw "'ChowCentaur' has been renamed to/replaced by 'chow-centaur'"; # Converted to throw 2025-10-27
@@ -451,6 +452,7 @@ mapAliases {
   copilot-language-server-fhs = warnAlias "The package set `copilot-language-server-fhs` has been renamed to `copilot-language-server`." copilot-language-server; # Added 2025-09-07
   copper = throw "'copper' has been removed, as it was broken since 22.11"; # Added 2025-08-22
   cordless = throw "'cordless' has been removed due to being archived upstream. Consider using 'discordo' instead."; # Added 2025-06-07
+  corepack_latest = throw "'corepack_latest' has been removed, use 'corepack.override { nodejs = pkgs.nodejs_latest; }' instead"; # Added 2025-10-25
   cosmic-tasks = throw "'cosmic-tasks' has been renamed to/replaced by 'tasks'"; # Converted to throw 2025-10-27
   cotton = throw "'cotton' has been removed since it is vulnerable to CVE-2025-62518 and upstream is unmaintained"; # Added 2025-10-26
   cpp-ipfs-api = throw "'cpp-ipfs-api' has been renamed to/replaced by 'cpp-ipfs-http-client'"; # Converted to throw 2025-10-27
