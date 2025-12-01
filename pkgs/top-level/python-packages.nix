@@ -1830,6 +1830,8 @@ self: super: with self; {
 
   beancount-parser = callPackage ../development/python-modules/beancount-parser { };
 
+  beancount-periodic = callPackage ../development/python-modules/beancount-periodic { };
+
   beancount-plugin-utils = callPackage ../development/python-modules/beancount-plugin-utils { };
 
   beancount_2 = callPackage ../development/python-modules/beancount/2.nix { };
@@ -13119,6 +13121,8 @@ self: super: with self; {
 
   pydispatcher = callPackage ../development/python-modules/pydispatcher { };
 
+  pydle = callPackage ../development/python-modules/pydle { };
+
   pydmd = callPackage ../development/python-modules/pydmd { };
 
   pydo = callPackage ../development/python-modules/pydo { };
@@ -13653,8 +13657,6 @@ self: super: with self; {
   pylint-venv = callPackage ../development/python-modules/pylint-venv { };
 
   pylion = callPackage ../development/python-modules/pylion { };
-
-  pylit = callPackage ../development/python-modules/pylit { };
 
   pylitejet = callPackage ../development/python-modules/pylitejet { };
 
