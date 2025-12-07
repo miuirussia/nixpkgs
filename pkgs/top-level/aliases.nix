@@ -309,6 +309,7 @@ mapAliases {
   artichoke = throw "artichoke has been removed due to being archived upstream."; # Added 2025-11-04
   artim-dark = aritim-dark; # Added 2025-07-27
   aseprite-unfree = throw "'aseprite-unfree' has been renamed to/replaced by 'aseprite'"; # Converted to throw 2025-10-27
+  asio_1_10 = throw "'asio_1_10' has been removed as it is outdated and unused. Use 'asio' instead"; # Added 2025-12-03
   asitop = throw "'asitop' has been renamed to/replaced by 'macpm'"; # Converted to throw 2025-10-27
   asterisk_18 = throw "asterisk_18: Asterisk 18 is end of life and has been removed"; # Added 2025-10-19
   atlassian-cli = appfire-cli; # Added 2025-09-29
@@ -1201,6 +1202,7 @@ mapAliases {
   opencl-clang = throw "opencl-clang has been integrated into intel-graphics-compiler"; # Added 2025-09-10
   openconnect_gnutls = throw "'openconnect_gnutls' has been renamed to/replaced by 'openconnect'"; # Converted to throw 2025-10-27
   openexr_3 = throw "'openexr_3' has been renamed to/replaced by 'openexr'"; # Converted to throw 2025-10-27
+  openhmd = throw "'openhmd' has been removed due to being unmaintained upstream"; # Added 2025-11-05
   openimageio2 = throw "'openimageio2' has been renamed to/replaced by 'openimageio'"; # Converted to throw 2025-10-27
   openjdk23 = throw "OpenJDK 23 was removed as it has reached its end of life"; # Added 2025-11-04
   openjdk23_headless = throw "OpenJDK 23 was removed as it has reached its end of life"; # Added 2025-11-04
@@ -1435,6 +1437,7 @@ mapAliases {
   sierra-breeze-enhanced = throw "'sierra-breeze-enhanced' has been removed, as it is only compatible with Plasma 5, which is EOL"; # Added 2025-08-20
   signal-desktop-source = throw "'signal-desktop-source' has been renamed to/replaced by 'signal-desktop'"; # Converted to throw 2025-10-27
   simplesamlphp = throw "'simplesamlphp' was removed because it was unmaintained in nixpkgs"; # Added 2025-10-17
+  sioclient = throw "'sioclient' has been removed as it is no longer used by freedv, and doesn't build with newer asio"; # Added 2025-12-03
   siproxd = throw "'siproxd' has been removed as it was unmaintained and incompatible with newer libosip versions"; # Added 2025-05-18
   sipwitch = throw "'sipwitch' has been removed because it has been marked as broken since at least November 2024."; # Added 2025-10-01
   sisco.lv2 = throw "'sisco.lv2' has been removed as it was unmaintained and broken"; # Added 2025-08-26
