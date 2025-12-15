@@ -103,6 +103,8 @@
   impl,
   reftools,
   revive,
+  tree-sitter-grammars,
+  neovimUtils,
   # hurl dependencies
   hurl,
   # must be lua51Packages
@@ -1480,6 +1482,7 @@ assertNoAdditions {
     dependencies = with self; [
       nui-nvim
       nvim-treesitter
+      nvim-treesitter-parsers.hurl
       plenary-nvim
     ];
 
@@ -1790,6 +1793,10 @@ assertNoAdditions {
     };
   });
 
+  lsp-format-modifications-nvim = super.lsp-format-modifications-nvim.overrideAttrs {
+    dependencies = [ self.plenary-nvim ];
+  };
+
   lspcontainers-nvim = super.lspcontainers-nvim.overrideAttrs {
     dependencies = [ self.nvim-lspconfig ];
   };
@@ -2063,6 +2070,13 @@ assertNoAdditions {
       "neorepl.bufs"
       "neorepl.map"
       "neorepl.repl"
+    ];
+  };
+
+  neorg = super.neorg.overrideAttrs {
+    dependencies = [
+      (neovimUtils.grammarToPlugin tree-sitter-grammars.tree-sitter-norg)
+      (neovimUtils.grammarToPlugin tree-sitter-grammars.tree-sitter-norg-meta)
     ];
   };
 
@@ -4207,7 +4221,6 @@ assertNoAdditions {
       license = lib.licenses.gpl3;
       maintainers = with lib.maintainers; [
         marcweber
-        jagajaga
         mel
       ];
       platforms = lib.platforms.unix;

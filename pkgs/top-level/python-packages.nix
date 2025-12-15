@@ -656,7 +656,7 @@ self: super: with self; {
 
   amarna = callPackage ../development/python-modules/amarna { };
 
-  amazon-ion = callPackage ../development/python-modules/amazon-ion { };
+  amazon-ion = callPackage ../development/python-modules/amazon-ion { inherit (pkgs) cmake; };
 
   amberelectric = callPackage ../development/python-modules/amberelectric { };
 
@@ -5051,6 +5051,8 @@ self: super: with self; {
 
   executor = callPackage ../development/python-modules/executor { };
 
+  executorch = callPackage ../development/python-modules/executorch { };
+
   exif = callPackage ../development/python-modules/exif { };
 
   exifread = callPackage ../development/python-modules/exifread { };
@@ -5687,6 +5689,8 @@ self: super: with self; {
 
   forecast-solar = callPackage ../development/python-modules/forecast-solar { };
 
+  formatron = callPackage ../development/python-modules/formatron { };
+
   formbox = callPackage ../development/python-modules/formbox { };
 
   formencode = callPackage ../development/python-modules/formencode { };
@@ -5744,8 +5748,6 @@ self: super: with self; {
   frilouz = callPackage ../development/python-modules/frilouz { };
 
   fritzconnection = callPackage ../development/python-modules/fritzconnection { };
-
-  froide = toPythonModule (pkgs.froide.override { python3Packages = self; });
 
   frozendict = callPackage ../development/python-modules/frozendict { };
 
@@ -5887,6 +5889,8 @@ self: super: with self; {
 
   gdsfactory = callPackage ../development/python-modules/gdsfactory { };
 
+  gdstk = callPackage ../development/python-modules/gdstk { };
+
   ge25519 = callPackage ../development/python-modules/ge25519 { };
 
   geant4 = toPythonModule (
@@ -5914,6 +5918,8 @@ self: super: with self; {
   );
 
   genanki = callPackage ../development/python-modules/genanki { };
+
+  general-sam = callPackage ../development/python-modules/general-sam { };
 
   generic = callPackage ../development/python-modules/generic { };
 
@@ -7101,6 +7107,8 @@ self: super: with self; {
 
   icalendar-compatibility = callPackage ../development/python-modules/icalendar-compatibility { };
 
+  icalendar-searcher = callPackage ../development/python-modules/icalendar-searcher { };
+
   icalevents = callPackage ../development/python-modules/icalevents { };
 
   icdiff = callPackage ../development/python-modules/icdiff { };
@@ -7957,6 +7965,8 @@ self: super: with self; {
   kazoo = callPackage ../development/python-modules/kazoo { };
 
   kbcstorage = callPackage ../development/python-modules/kbcstorage { };
+
+  kbnf = callPackage ../development/python-modules/kbnf { };
 
   kconfiglib = callPackage ../development/python-modules/kconfiglib { };
 
@@ -11428,6 +11438,8 @@ self: super: with self; {
 
   optimum = callPackage ../development/python-modules/optimum { };
 
+  optimum-onnx = callPackage ../development/python-modules/optimum-onnx { };
+
   optree = callPackage ../development/python-modules/optree { };
 
   optuna = callPackage ../development/python-modules/optuna { };
@@ -13820,6 +13832,8 @@ self: super: with self; {
 
   pymongo-inmemory = callPackage ../development/python-modules/pymongo-inmemory { };
 
+  pymongo-search-utils = callPackage ../development/python-modules/pymongo-search-utils { };
+
   pymonoprice = callPackage ../development/python-modules/pymonoprice { };
 
   pymoo = callPackage ../development/python-modules/pymoo { };
@@ -15168,6 +15182,8 @@ self: super: with self; {
   python-google-drive-api = callPackage ../development/python-modules/python-google-drive-api { };
 
   python-google-nest = callPackage ../development/python-modules/python-google-nest { };
+
+  python-google-weather-api = callPackage ../development/python-modules/python-google-weather-api { };
 
   python-gvm = callPackage ../development/python-modules/python-gvm { };
 
@@ -16672,6 +16688,8 @@ self: super: with self; {
   salib = callPackage ../development/python-modules/salib { };
 
   salmon-mail = callPackage ../development/python-modules/salmon-mail { };
+
+  sam2 = callPackage ../development/python-modules/sam2 { };
 
   samarium = callPackage ../development/python-modules/samarium { };
 
@@ -20029,6 +20047,8 @@ self: super: with self; {
 
   utitools = callPackage ../development/python-modules/utitools { };
 
+  uuid-utils = callPackage ../development/python-modules/uuid-utils { };
+
   uuid6 = callPackage ../development/python-modules/uuid6 { };
 
   uv = callPackage ../development/python-modules/uv { inherit (pkgs) uv; };
@@ -20243,8 +20263,6 @@ self: super: with self; {
   vultr = callPackage ../development/python-modules/vultr { };
 
   vulture = callPackage ../development/python-modules/vulture { };
-
-  vxi11 = callPackage ../development/python-modules/vxi11 { };
 
   vyper = callPackage ../development/compilers/vyper { };
 

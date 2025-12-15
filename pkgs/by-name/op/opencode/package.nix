@@ -13,12 +13,12 @@
 }:
 let
   pname = "opencode";
-  version = "1.0.133";
+  version = "1.0.150";
   src = fetchFromGitHub {
     owner = "sst";
     repo = "opencode";
     tag = "v${version}";
-    hash = "sha256-aWzNnu7ZZovgIYQ59ErC/fKpenoFq/wcoizeQ5Ilnq8=";
+    hash = "sha256-8mFmFFk378g93MbFRwMOJkjuXqq3PVPdCuGVLPn6D44=";
   };
 
   node_modules = stdenvNoCC.mkDerivation {
@@ -70,7 +70,7 @@ let
     # NOTE: Required else we get errors that our fixed-output derivation references store paths
     dontFixup = true;
 
-    outputHash = "sha256-sZNJOkMDw2/rO95oVKrMKfV86Of8qFzb6elFLppSRsI=";
+    outputHash = "sha256-3swARfDhEfLoaucjiUfse3px40ZBfQsEE8DPgUk/5K0=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
