@@ -8,21 +8,24 @@
   clang_20,
   libsecret,
   ripgrep,
+  nodejs_22,
   nix-update-script,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "gemini-cli";
-  version = "0.20.0";
+  version = "0.22.5";
 
   src = fetchFromGitHub {
     owner = "google-gemini";
     repo = "gemini-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-6+fT9/npYrngAPeAP7pA6DYNuCVWm1lKpSVP4Ux4ddw=";
+    hash = "sha256-3d9Lq3IulIgp4QGNtSvkwz10kfygX6vsmVdlU3lE6Gw=";
   };
 
-  npmDepsHash = "sha256-wbr/9IitwQxBVFskCyGZfWy6FmIGZAVYLbF/sMJ2X+s=";
+  nodejs = nodejs_22;
+
+  npmDepsHash = "sha256-6NqpkUgez7CqQAMDQW3Zdi86sF5qXseKXMw1Vw/5zWU=";
 
   nativeBuildInputs = [
     jq
@@ -59,14 +62,18 @@ buildNpmPackage (finalAttrs: {
       --replace-fail "settings.merged.general?.disableUpdateNag" "(settings.merged.general?.disableUpdateNag ?? true)"
   '';
 
-  # Prevent npmDeps from getting into the closure
-  disallowedReferences = [ finalAttrs.npmDeps ];
+  # Prevent npmDeps and python from getting into the closure
+  disallowedReferences = [
+    finalAttrs.npmDeps
+    nodejs_22.python
+  ];
 
   installPhase = ''
     runHook preInstall
     mkdir -p $out/{bin,share/gemini-cli}
 
     npm prune --omit=dev
+    rm node_modules/shell-quote/print.py # remove python demo to prevent python from getting into the closure
     cp -r node_modules $out/share/gemini-cli/
 
     rm -f $out/share/gemini-cli/node_modules/@google/gemini-cli
@@ -92,6 +99,7 @@ buildNpmPackage (finalAttrs: {
     license = lib.licenses.asl20;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     maintainers = with lib.maintainers; [
+      brantes
       xiaoxiangmoe
       FlameFlag
       taranarmo

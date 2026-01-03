@@ -7,35 +7,39 @@
 }:
 buildGo125Module (finalAttrs: {
   pname = "terragrunt";
-  version = "0.94.0";
+  version = "0.96.0";
 
   src = fetchFromGitHub {
     owner = "gruntwork-io";
     repo = "terragrunt";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-agc7tciz9ciz2gFjGsmafc46MgenOAQDyByJN9X4Wm4=";
+    hash = "sha256-KIfhgzPQwN3AieWexjiWOMrVNTyK0/kuubP2LQk10QE=";
   };
 
   nativeBuildInputs = [
-    versionCheckHook
     mockgen
   ];
+
+  proxyVendor = true;
 
   preBuild = ''
     make generate-mocks
   '';
 
-  vendorHash = "sha256-DkFqj52mdkJvjG5yceRH5GEKWHU73rOE6dJno/6N2k8=";
+  vendorHash = "sha256-cjbVE8b8CKSl7cRkMuHMKcRb/Yj26oLKU3rAdRCBbk0=";
 
   doCheck = false;
 
   ldflags = [
     "-s"
-    "-w"
     "-X github.com/gruntwork-io/go-commons/version.Version=v${finalAttrs.version}"
     "-extldflags '-static'"
   ];
 
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
+  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   meta = {

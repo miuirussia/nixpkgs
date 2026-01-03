@@ -8,14 +8,14 @@
 
 buildPythonPackage rec {
   pname = "iamdata";
-  version = "0.1.202512161";
+  version = "0.1.202601011";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "cloud-copilot";
     repo = "iam-data-python";
     tag = "v${version}";
-    hash = "sha256-i8eNsCX56h0PrJm3Qd4TzSPAVoK5Un0W5AH2eMOXH68=";
+    hash = "sha256-tDGY7d8rmD4vKyoFmDAYppuF56aHcb5Ry3nMxOv6PRs=";
   };
 
   __darwinAllowLocalNetworking = true;

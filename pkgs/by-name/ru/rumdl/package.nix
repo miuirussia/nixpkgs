@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rumdl";
-  version = "0.0.194";
+  version = "0.0.203";
 
   src = fetchFromGitHub {
     owner = "rvben";
     repo = "rumdl";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-4+JeAFS9ELfAq43fH/HYhjCZoNmlZ+fPf1RVJnWRRnQ=";
+    hash = "sha256-co+DlgUUxHR77wXCapzCSScImL3NPzFXM5d1YFPZxgk=";
   };
 
-  cargoHash = "sha256-fUpwSFT/Sg+akzBLq07YFxqCaGwEH0b2LD3c/Eojwpw=";
+  cargoHash = "sha256-gZw1DsKsIh4xeovJYj3lgQ+2cqqy8GfkEhtDfgq7LWs=";
 
   cargoBuildFlags = [
     "--bin=rumdl"
@@ -44,7 +44,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
-  versionCheckProgramArg = "--version";
 
   passthru = {
     updateScript = nix-update-script { };

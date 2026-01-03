@@ -13,19 +13,18 @@
   srcOnly,
   removeReferencesTo,
   pnpm_9,
+  fetchPnpmDeps,
+  pnpmConfigHook,
 }:
-let
-  pnpm = pnpm_9;
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "karakeep";
-  version = "0.29.1";
+  version = "0.29.3";
 
   src = fetchFromGitHub {
     owner = "karakeep-app";
     repo = "karakeep";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mOIX9pNVESRPD2Jjdr014NyYO/3rSvYpr4RP34RKE8c=";
+    hash = "sha256-MmurmQ/z8ME7Y6lpEWGaf7sFRSYhwd8flM4f0GBbUIM=";
   };
 
   patches = [
@@ -44,15 +43,17 @@ stdenv.mkDerivation (finalAttrs: {
     python3
     nodejs
     node-gyp
-    pnpm.configHook
+    pnpmConfigHook
+    pnpm_9
   ];
 
   buildInputs = [
     gnutar
   ];
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version;
+    pnpm = pnpm_9;
 
     # We need to pass the patched source code, so pnpm sees the patched version
     src = stdenv.mkDerivation {
@@ -63,8 +64,8 @@ stdenv.mkDerivation (finalAttrs: {
       '';
     };
 
-    fetcherVersion = 1;
-    hash = "sha256-rFMLmqPEvP6Vn7VNmE2tGsnv9YPMaL1aktwTsnjv5+M=";
+    fetcherVersion = 3;
+    hash = "sha256-LEdI9chVuOli4XiA0VRV9h8L3ho0IRbPsXtAyQM6Du8=";
   };
   buildPhase = ''
     runHook preBuild
@@ -120,9 +121,9 @@ stdenv.mkDerivation (finalAttrs: {
       HELPER_SCRIPT_NAME="$(basename "$HELPER_SCRIPT")"
       cp "$HELPER_SCRIPT" "$KARAKEEP_LIB_PATH/"
       substituteInPlace "$KARAKEEP_LIB_PATH/$HELPER_SCRIPT_NAME" \
-        --replace-warn "KARAKEEP_LIB_PATH=" "KARAKEEP_LIB_PATH=$KARAKEEP_LIB_PATH" \
-        --replace-warn "RELEASE=" "RELEASE=${finalAttrs.version}" \
-        --replace-warn "NODEJS=" "NODEJS=${nodejs}"
+        --subst-var-by KARAKEEP_LIB_PATH "$KARAKEEP_LIB_PATH" \
+        --subst-var-by VERSION "${finalAttrs.version}" \
+        --subst-var-by NODEJS "${nodejs}"
       chmod +x "$KARAKEEP_LIB_PATH/$HELPER_SCRIPT_NAME"
       patchShebangs "$KARAKEEP_LIB_PATH/$HELPER_SCRIPT_NAME"
     done

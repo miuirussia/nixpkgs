@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation rec {
   pname = "dbcsr";
-  version = "2.8.0";
+  version = "2.9.1";
 
   src = fetchFromGitHub {
     owner = "cp2k";
     repo = "dbcsr";
     rev = "v${version}";
-    hash = "sha256-YXySNw3+DiY7E57W1ypeWLyawwcWVGlmTM4Kgj7Nnmo=";
+    hash = "sha256-F6EvpsPAJJvmEZQKJDW2Mk4Yo8VsQCD4CE2IqxpjyN8=";
   };
 
   postPatch = ''
