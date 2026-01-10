@@ -160,7 +160,6 @@
   ./misc/wordlist.nix
   ./programs/_1password-gui.nix
   ./programs/_1password.nix
-  ./programs/adb.nix
   ./programs/alvr.nix
   ./programs/amnezia-vpn.nix
   ./programs/appgate-sdp.nix
@@ -257,6 +256,7 @@
   ./programs/less.nix
   ./programs/liboping.nix
   ./programs/light.nix
+  ./programs/lix.nix
   ./programs/localsend.nix
   ./programs/mdevctl.nix
   ./programs/mepo.nix

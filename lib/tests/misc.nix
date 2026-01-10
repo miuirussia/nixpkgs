@@ -865,6 +865,21 @@ runTests {
     expected = "'á'";
   };
 
+  testEscapeNixIdentifierNoQuote = {
+    expr = strings.escapeNixIdentifier "foo";
+    expected = ''foo'';
+  };
+
+  testEscapeNixIdentifierNumber = {
+    expr = strings.escapeNixIdentifier "1foo";
+    expected = ''"1foo"'';
+  };
+
+  testEscapeNixIdentifierKeyword = {
+    expr = strings.escapeNixIdentifier "assert";
+    expected = ''"assert"'';
+  };
+
   testSplitStringsDerivation = {
     expr = lib.dropEnd 1 (strings.splitString "/" dummyDerivation);
     expected = strings.splitString "/" builtins.storeDir;
@@ -2814,6 +2829,7 @@ runTests {
         ];
         emptylist = [ ];
         attrs = {
+          "assert" = false;
           foo = null;
           "foo b/ar" = "baz";
         };
@@ -2833,7 +2849,7 @@ runTests {
         functionArgs = "<function, args: {arg?, foo}>";
         list = "[ 3 4 ${function} [ false ] ]";
         emptylist = "[ ]";
-        attrs = "{ foo = null; \"foo b/ar\" = \"baz\"; }";
+        attrs = "{ \"assert\" = false; foo = null; \"foo b/ar\" = \"baz\"; }";
         emptyattrs = "{ }";
         drv = "<derivation ${deriv.name}>";
       };
