@@ -442,12 +442,14 @@ print OUT <<EOF;
   transset,
   util-macros,
   viewres,
+  wrapWithXFileSearchPathHook,
   x11perf,
   xauth,
   xbacklight,
   xbitmaps,
   xcalc,
   xcb-proto,
+  xclock,
   xcmsdb,
   xcompmgr,
   xconsole,
@@ -458,14 +460,23 @@ print OUT <<EOF;
   xdriinfo,
   xev,
   xeyes,
+  xf86-input-mouse,
+  xf86-input-synaptics,
+  xf86-input-vmmouse,
+  xf86-input-void,
+  xfd,
   xfontsel,
+  xfs,
   xfsinfo,
   xgamma,
   xgc,
   xhost,
+  xkbevd,
+  xkbprint,
   xkbutils,
   xkeyboard-config,
   xkill,
+  xload,
   xlsatoms,
   xlsclients,
   xlsfonts,
@@ -478,6 +489,7 @@ print OUT <<EOF;
   xorgproto,
   xorg-server,
   xorg-sgml-doctools,
+  xpr,
   xprop,
   xrandr,
   xrdb,
@@ -524,11 +536,13 @@ self: with self; {
     smproxy
     transset
     viewres
+    wrapWithXFileSearchPathHook
     x11perf
     xauth
     xbacklight
     xbitmaps
     xcalc
+    xclock
     xcmsdb
     xcompmgr
     xconsole
@@ -538,13 +552,18 @@ self: with self; {
     xdriinfo
     xev
     xeyes
+    xfd
     xfontsel
+    xfs
     xfsinfo
     xgamma
     xgc
     xhost
+    xkbevd
+    xkbprint
     xkbutils
     xkill
+    xload
     xlsatoms
     xlsclients
     xlsfonts
@@ -553,6 +572,7 @@ self: with self; {
     xmodmap
     xmore
     xorgproto
+    xpr
     xprop
     xrandr
     xrdb
@@ -649,8 +669,12 @@ self: with self; {
   xcbutil = libxcb-util;
   xcbutilrenderutil = libxcb-render-util;
   xcbutilwm = libxcb-wm;
-  xkeyboardconfig = xkeyboard-config;
   xcursorthemes = xcursor-themes;
+  xf86inputmouse = xf86-input-mouse;
+  xf86inputsynaptics = xf86-input-synaptics;
+  xf86inputvmmouse = xf86-input-vmmouse;
+  xf86inputvoid = xf86-input-void;
+  xkeyboardconfig = xkeyboard-config;
   xorgcffiles = xorg-cf-files;
   xorgdocs = xorg-docs;
   xorgserver = xorg-server;
