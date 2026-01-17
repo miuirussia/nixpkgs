@@ -466,6 +466,8 @@ mapAliases {
   clima = throw "'clima' has been removed, as it has been unmaintained upstream since December 2024, use glow instead"; # Added 2026-01-01
   clipbuzz = throw "clipbuzz has been removed, as it does not build with supported Zig versions"; # Added 2025-08-09
   cloudlogoffline = throw "cloudlogoffline has been removed"; # Added 2025-05-18
+  clucene_core = warnAlias "'clucene_core' has been renamed to 'clucene-core'" clucene-core; # Added 2026-01-12
+  clucene_core_2 = warnAlias "'clucene_core_2' has been renamed to 'clucene-core_2'" clucene-core_2; # Added 2026-01-12
   cockroachdb-bin = throw "'cockroachdb-bin' has been renamed to/replaced by 'cockroachdb'"; # Converted to throw 2025-10-27
   code-browser-gtk2 = throw "'code-browser-gtk2' has been removed, as it was broken since 22.11"; # Added 2025-08-22
   code-browser-gtk = throw "'code-browser-gtk' has been removed, as it was broken since 22.11"; # Added 2025-08-22
@@ -566,6 +568,7 @@ mapAliases {
   easyloggingpp = throw "easyloggingpp has been removed, as it is deprecated upstream and does not build with CMake 4"; # Added 2025-09-17
   EBTKS = throw "'EBTKS' has been renamed to/replaced by 'ebtks'"; # Converted to throw 2025-10-27
   ec2-utils = throw "'ec2-utils' has been renamed to/replaced by 'amazon-ec2-utils'"; # Converted to throw 2025-10-27
+  ecryptfs = throw "'ecryptfs' has been removed due to lack of maintenance. Consider using 'fscrypt', 'gocryptfs' or 'cryfs' instead."; # Added 2026-01-14
   edid-decode = v4l-utils; # Added 2025-06-20
   eidolon = throw "eidolon was removed as it is unmaintained upstream."; # Added 2025-05-28
   eintopf = throw "'eintopf' has been renamed to/replaced by 'lauti'"; # Converted to throw 2025-10-27
@@ -584,6 +587,7 @@ mapAliases {
   EmptyEpsilon = throw "'EmptyEpsilon' has been renamed to/replaced by 'empty-epsilon'"; # Converted to throw 2025-10-27
   emulationstation = throw "emulationstation was removed due to numerous vulnerabilities in freeimage"; # Added 2025-10-23
   emulationstation-de = throw "emulationstation-de was removed due to numerous vulnerabilities in freeimage"; # Added 2025-10-23
+  enchant2 = warnAlias "'enchant2' has been renamed to 'enchant_2'" enchant_2; # Added 2026-01-14
   enyo-doom = throw "'enyo-doom' has been renamed to/replaced by 'enyo-launcher'"; # Converted to throw 2025-10-27
   epapirus-icon-theme = throw "'epapirus-icon-theme' has been removed because 'papirus-icon-theme' no longer supports building with elementaryOS icon support"; # Added 2025-06-15
   eris-go = throw "'eris-go' has been removed due to a hostile upstream moving tags and breaking src FODs"; # Added 2025-09-01
@@ -626,6 +630,10 @@ mapAliases {
   floorp = throw "floorp has been replaced with floorp-bin, as building from upstream sources has become unfeasible starting with version 12.x"; # Added 2025-09-06
   floorp-unwrapped = throw "floorp-unwrapped has been replaced with floorp-bin-unwrapped, as building from upstream sources has become unfeasible starting with version 12.x"; # Added 2025-09-06
   flow-editor = throw "'flow-editor' has been renamed to/replaced by 'flow-control'"; # Converted to throw 2025-10-27
+  fltk13 = warnAlias "'fltk13' has been renamed to 'fltk_1_3'" fltk_1_3; # Added 2026-01-14
+  fltk13-minimal = warnAlias "'fltk13-minimal' has been renamed to 'fltk_1_3-minimal'" fltk_1_3-minimal; # Added 2026-01-14
+  fltk14 = warnAlias "'fltk14' has been renamed to 'fltk_1_4'" fltk_1_4; # Added 2026-01-14
+  fltk14-minimal = warnAlias "'fltk14-minimal' has been renamed to 'fltk_1_4-minimal'" fltk_1_4-minimal; # Added 2026-01-14
   flut-renamer = throw "flut-renamer is unmaintained and has been removed"; # Added 2025-08-26
   flutter324 = throw "flutter324 has been removed because it isn't updated anymore, and no packages in nixpkgs use it. If you still need it, use flutter.mkFlutter to get a custom version"; # Added 2025-10-28
   flutter326 = throw "flutter326 has been removed because it isn't updated anymore, and no packages in nixpkgs use it. If you still need it, use flutter.mkFlutter to get a custom version"; # Added 2025-06-08
@@ -691,6 +699,7 @@ mapAliases {
   gjay = throw "'gjay' has been removed as it is unmaintained upstream"; # Added 2025-05-25
   glabels = throw "'glabels' has been removed because it is no longer maintained. Consider using 'glabels-qt', which is an active fork."; # Added 2025-09-16
   glaxnimate = kdePackages.glaxnimate; # Added 2025-09-17
+  glew110 = warnAlias "'glew110' has been renamed to 'glew_1_10'" glew_1_10; # Added 2026-01-14
   glew-egl = throw "'glew-egl' has been renamed to/replaced by 'glew'"; # Converted to throw 2025-10-27
   glfw-wayland = throw "'glfw-wayland' has been renamed to/replaced by 'glfw'"; # Converted to throw 2025-10-27
   glfw-wayland-minecraft = throw "'glfw-wayland-minecraft' has been renamed to/replaced by 'glfw3-minecraft'"; # Converted to throw 2025-10-27
@@ -1418,6 +1427,7 @@ mapAliases {
   python313Full = throw "python313Full has been removed. Bluetooth support is now enabled by default. The tkinter package is available within the package set."; # Added 2025-08-30
   python314Full = throw "python314Full has been removed. Bluetooth support is now enabled by default. The tkinter package is available within the package set."; # Added 2025-08-30
   python = throw "`python` previously pointed to Python 2; use `python3` or `python2` if necessary"; # Converted to throw 2025-10-27
+  python-qt = throw "python-qt has been removed, because hard to maintain and not required by anything"; # Added 2025-01-14
   pythonFull = throw "'pythonFull' previously pointed to Python 2; use `python3` or `python2Full` if necessary"; # Converted to throw 2025-10-27
   pythonPackages = throw "`pythonPackages` previously pointed to Python 2; use `python3Packages` or `python2.pkgs` if necessary"; # Converted to throw 2025-10-27
   q2pro = throw "'q2pro' has been removed as upstream repository was deleted and no direct active forks were available."; # Added 2025-12-27

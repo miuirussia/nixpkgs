@@ -2231,6 +2231,8 @@ self: super: with self; {
 
   branca = callPackage ../development/python-modules/branca { };
 
+  braq = callPackage ../development/python-modules/braq { };
+
   bravado-core = callPackage ../development/python-modules/bravado-core { };
 
   bravia-tv = callPackage ../development/python-modules/bravia-tv { };
@@ -4773,7 +4775,7 @@ self: super: with self; {
   eccodes = toPythonModule (
     pkgs.eccodes.override {
       enablePython = true;
-      pythonPackages = self;
+      python3Packages = self;
     }
   );
 
@@ -6110,6 +6112,8 @@ self: super: with self; {
   gfsubsets = callPackage ../development/python-modules/gfsubsets { };
 
   gftools = callPackage ../development/python-modules/gftools { };
+
+  ggml-python = callPackage ../development/python-modules/ggml-python { };
 
   gguf = callPackage ../development/python-modules/gguf { };
 
@@ -8192,6 +8196,8 @@ self: super: with self; {
   kurbopy = callPackage ../development/python-modules/kurbopy { };
 
   kuzu = callPackage ../development/python-modules/kuzu { };
+
+  kvf = callPackage ../development/python-modules/kvf { };
 
   l18n = callPackage ../development/python-modules/l18n { };
 
@@ -11790,6 +11796,8 @@ self: super: with self; {
 
   para = callPackage ../development/python-modules/para { };
 
+  paradict = callPackage ../development/python-modules/paradict { };
+
   paragraphs = callPackage ../development/python-modules/paragraphs { };
 
   parallel-ssh = callPackage ../development/python-modules/parallel-ssh { };
@@ -12548,6 +12556,8 @@ self: super: with self; {
   prisma = callPackage ../development/python-modules/prisma { };
 
   prison = callPackage ../development/python-modules/prison { };
+
+  probed = callPackage ../development/python-modules/probed { };
 
   process-tests = callPackage ../development/python-modules/process-tests { };
 
@@ -13367,7 +13377,7 @@ self: super: with self; {
 
   pyemvue = callPackage ../development/python-modules/pyemvue { };
 
-  pyenchant = callPackage ../development/python-modules/pyenchant { inherit (pkgs) enchant2; };
+  pyenchant = callPackage ../development/python-modules/pyenchant { inherit (pkgs) enchant_2; };
 
   pyenphase = callPackage ../development/python-modules/pyenphase { };
 
@@ -15527,8 +15537,6 @@ self: super: with self; {
 
   python-ptrace = callPackage ../development/python-modules/python-ptrace { };
 
-  python-qt = toPythonModule (pkgs.python-qt.override { python3 = self.python; });
-
   python-rabbitair = callPackage ../development/python-modules/python-rabbitair { };
 
   python-rapidjson = callPackage ../development/python-modules/python-rapidjson { };
@@ -17192,6 +17200,8 @@ self: super: with self; {
   shapely = callPackage ../development/python-modules/shapely { };
 
   shaperglot = callPackage ../development/python-modules/shaperglot { };
+
+  shared = callPackage ../development/python-modules/shared { };
 
   sharedmem = callPackage ../development/python-modules/sharedmem { };
 

@@ -1350,6 +1350,12 @@
     githubId = 8614547;
     name = "Ali Caglayan";
   };
+  aljazerzen = {
+    email = "aljaz@erzen.si";
+    github = "aljazerzen";
+    githubId = 11072061;
+    name = "Aljaž Mur Eržen";
+  };
   alkasm = {
     email = "alexreynolds00@gmail.com";
     github = "alkasm";
@@ -9351,12 +9357,6 @@
     githubId = 16470252;
     name = "Gemini Lasswell";
   };
-  gbpdt = {
-    email = "nix@pdtpartners.com";
-    github = "gbpdt";
-    githubId = 25106405;
-    name = "Graham Bennett";
-  };
   gbtb = {
     email = "goodbetterthebeast3@gmail.com";
     github = "gbtb";
@@ -11276,12 +11276,6 @@
     githubId = 20525370;
     name = "Silvan Mosberger";
     keys = [ { fingerprint = "6C2B 55D4 4E04 8266 6B7D  DA1A 422E 9EDA E015 7170"; } ];
-  };
-  ingenieroariel = {
-    email = "ariel@nunez.co";
-    github = "ingenieroariel";
-    githubId = 54999;
-    name = "Ariel Nunez";
   };
   insipx = {
     email = "github@andrewplaza.dev";
@@ -14476,7 +14470,6 @@
   };
   l3af = {
     email = "L3afMeAlon3@gmail.com";
-    matrix = "@L3afMe:matrix.org";
     github = "L3afMe";
     githubId = 72546287;
     name = "L3af";
@@ -16020,6 +16013,12 @@
     github = "malyn";
     githubId = 346094;
     name = "Michael Alyn Miller";
+  };
+  mana-byte = {
+    email = "manaikilaut@gmail.com";
+    github = "mana-byte";
+    githubId = 93316844;
+    name = "Manaiki Laut";
   };
   mandos = {
     email = "marek.maksimczyk@mandos.net.pl";
@@ -18957,6 +18956,11 @@
     name = "nitsky";
     github = "nitsky";
     githubId = 492793;
+  };
+  nivalux = {
+    name = "Nivalux";
+    github = "Nivalux";
+    githubId = 88719017;
   };
   nix-julia = {
     name = "nix-julia";
@@ -24710,7 +24714,7 @@
   };
   snaki = {
     email = "ek@kyouma.net";
-    matrix = "@snaki:kescher.at";
+    matrix = "@emily:woof.rip";
     name = "emily";
     github = "snaakey";
     githubId = 38018554;
