@@ -2303,8 +2303,6 @@ with pkgs;
 
   cffconvert = python3Packages.toPythonApplication python3Packages.cffconvert;
 
-  ckb-next = libsForQt5.callPackage ../tools/misc/ckb-next { };
-
   clickhouse-lts = callPackage ../by-name/cl/clickhouse/lts.nix { };
 
   cmdpack = callPackages ../tools/misc/cmdpack { };
@@ -7912,6 +7910,7 @@ with pkgs;
         generateSplicesForMkScope
         lib
         stdenv
+        gcc14Stdenv
         fetchurl
         fetchpatch
         fetchgit
@@ -10187,10 +10186,6 @@ with pkgs;
   };
 
   bitwig-studio = bitwig-studio5;
-
-  blackbox = callPackage ../applications/version-management/blackbox {
-    pinentry = pinentry-curses;
-  };
 
   blucontrol = callPackage ../applications/misc/blucontrol/wrapper.nix {
     inherit (haskellPackages) ghcWithPackages;
@@ -13246,8 +13241,6 @@ with pkgs;
   ### MISC
 
   antimicrox = libsForQt5.callPackage ../tools/misc/antimicrox { };
-
-  autotiling = python3Packages.callPackage ../misc/autotiling { };
 
   brgenml1lpr = pkgsi686Linux.callPackage ../misc/cups/drivers/brgenml1lpr { };
 
