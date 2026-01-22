@@ -11535,6 +11535,7 @@ with pkgs;
     rke2_1_32
     rke2_1_33
     rke2_1_34
+    rke2_1_35
     rke2_stable
     rke2_latest
     ;
@@ -13444,7 +13445,7 @@ with pkgs;
     );
 
   nix-eval-jobs = callPackage ../tools/package-management/nix-eval-jobs {
-    nixComponents = nixVersions.nixComponents_2_32;
+    nixComponents = nixVersions.nixComponents_2_33;
   };
 
   nix-delegate = haskell.lib.compose.justStaticExecutables haskellPackages.nix-delegate;
