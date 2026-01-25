@@ -4584,6 +4584,12 @@
     githubId = 52875777;
     name = "Channing He";
   };
+  chansuke = {
+    email = "chansuke0@gmail.com";
+    github = "chansuke";
+    githubId = 501052;
+    name = "chansuke";
+  };
   chaoflow = {
     email = "flo@chaoflow.net";
     github = "chaoflow";
@@ -4923,6 +4929,11 @@
     github = "Ciznia";
     githubId = 114656678;
     name = "Gabriel Hosquet";
+  };
+  cizordj = {
+    github = "cizordj";
+    githubId = 32869222;
+    name = "Cézar Augusto";
   };
   cizra = {
     email = "todurov+nix@gmail.com";
@@ -18138,6 +18149,13 @@
     githubId = 9636071;
     name = "Myrl Hex";
   };
+  MysteryBlokHed = {
+    name = "Adam Thompson-Sharpe";
+    email = "hi@adamts.me";
+    github = "MysteryBlokHed";
+    githubId = 13910387;
+    keys = [ { fingerprint = "086E EF20 D54E D348 E5BA  6263 16E9 43E6 596F FB4E"; } ];
+  };
   myypo = {
     email = "nikirsmcgl@gmail.com";
     github = "myypo";
@@ -18189,6 +18207,14 @@
     github = "n3tshift";
     githubId = 254145391;
     name = "n3tshift";
+  };
+  N4CH723HR3R = {
+    email = "n4ch7@n3831.net";
+    github = "N4CH723HR3R";
+    githubId = 221765713;
+    keys = [ { fingerprint = "C5A6 76E5 DFDD 076B 9B59  ABEC D783 89DC 24B6 4620"; } ];
+    matrix = "@n4ch7:n3831.net";
+    name = "N4CH723HR3R";
   };
   n8henrie = {
     name = "Nathan Henrie";

@@ -611,6 +611,7 @@
   ./services/display-managers/default.nix
   ./services/display-managers/dms-greeter.nix
   ./services/display-managers/gdm.nix
+  ./services/display-managers/generic.nix
   ./services/display-managers/greetd.nix
   ./services/display-managers/lemurs.nix
   ./services/display-managers/ly.nix
@@ -878,6 +879,7 @@
   ./services/misc/languagetool.nix
   ./services/misc/leaps.nix
   ./services/misc/lifecycled.nix
+  ./services/misc/linux-enable-ir-emitter.nix
   ./services/misc/litellm.nix
   ./services/misc/llama-cpp.nix
   ./services/misc/local-content-share.nix
@@ -1489,6 +1491,7 @@
   ./services/security/hockeypuck.nix
   ./services/security/hologram-agent.nix
   ./services/security/hologram-server.nix
+  ./services/security/howdy
   ./services/security/infnoise.nix
   ./services/security/intune.nix
   ./services/security/jitterentropy-rngd.nix
@@ -1929,7 +1932,6 @@
   ./tasks/filesystems/nfs.nix
   ./tasks/filesystems/ntfs.nix
   ./tasks/filesystems/overlayfs.nix
-  ./tasks/filesystems/reiserfs.nix
   ./tasks/filesystems/squashfs.nix
   ./tasks/filesystems/sshfs.nix
   ./tasks/filesystems/unionfs-fuse.nix
