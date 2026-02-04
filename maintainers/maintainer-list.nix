@@ -1903,6 +1903,12 @@
     matrix = "@schuelermine:matrix.org";
     keys = [ { fingerprint = "CDBF ECA8 36FE E340 1CEB  58FF BA34 EE1A BA3A 0955"; } ];
   }; # currently on hiatus, please do not ping until this notice is removed (or if it’s been like two years)
+  anstylian = {
+    email = "agathangelos.stylianidis@gmail.com";
+    github = "anstylian";
+    githubId = 11269403;
+    name = "Angelos Stylinidis";
+  };
   anthonyroussel = {
     email = "anthony@roussel.dev";
     github = "anthonyroussel";
@@ -6146,6 +6152,11 @@
     github = "dbeckwith";
     githubId = 1279939;
     name = "Daniel Beckwith";
+  };
+  dbeley = {
+    github = "dbeley";
+    githubId = 6568955;
+    name = "David Beley";
   };
   dbirks = {
     email = "david@birks.dev";
@@ -10810,7 +10821,7 @@
   };
   husjon = {
     name = "Jon Erling Hustadnes";
-    email = "jonerling.hustadnes+nixpkgs@gmail.com";
+    email = "jonerling.hustadnes+nixpkgs@proton.me";
     github = "husjon";
     githubId = 554229;
   };
@@ -11041,6 +11052,11 @@
     github = "ik-nz";
     githubId = 207392575;
     name = "Isaac Kabel";
+  };
+  ikci = {
+    github = "ikcii";
+    githubId = 48479629;
+    name = "ikci";
   };
   ikervagyok = {
     email = "ikervagyok@gmail.com";
@@ -12065,6 +12081,11 @@
     github = "jefdaj";
     githubId = 1198065;
     name = "Jeffrey David Johnson";
+  };
+  jeffcshelton = {
+    github = "jeffcshelton";
+    githubId = 77426854;
+    name = "Jeff Shelton";
   };
   jefferyoo = {
     email = "oojefferywm@proton.me";
@@ -14518,6 +14539,12 @@
     email = "lactose@allthingslinux.com";
     github = "juuyokka";
     githubId = 15185244;
+  };
+  Ladas552 = {
+    email = "l.tokshalov@gmail.com";
+    github = "Ladas552";
+    githubId = 94762349;
+    name = "Ladas552";
   };
   lafrenierejm = {
     email = "joseph@lafreniere.xyz";
@@ -21546,6 +21573,12 @@
     githubId = 12017109;
     name = "Rabindra Dhakal";
   };
+  qb114514 = {
+    name = "qb114514";
+    email = "GNUqb114514@outlook.com";
+    github = "GNUqb114514";
+    githubId = 110373832;
+  };
   qbisi = {
     name = "qbisicwate";
     email = "qbisicwate@gmail.com";
@@ -24499,6 +24532,12 @@
     email = "dawkins.chris.dev@gmail.com";
     github = "siph";
     githubId = 6619112;
+  };
+  siphc = {
+    name = "siphc";
+    github = "siphc";
+    githubId = 42943030;
+    email = "ayfpan@ucla.edu";
   };
   sir4ur0n = {
     github = "sir4ur0n";
