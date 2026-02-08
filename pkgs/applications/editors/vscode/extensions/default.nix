@@ -1186,8 +1186,8 @@ let
         mktplcRef = {
           name = "dart-code";
           publisher = "dart-code";
-          version = "3.126.0";
-          hash = "sha256-qkdLF6SIZjNJBQMhG/IDEaMpSVWWnd7DJmDgIT1gjVY=";
+          version = "3.128.0";
+          hash = "sha256-wOK+oQf/GovH9+0rHt67jTtiMPGdmaBxazr1JUnDTD0=";
         };
 
         meta.license = lib.licenses.mit;
@@ -1711,8 +1711,8 @@ let
         mktplcRef = {
           name = "vscode-jest-runner";
           publisher = "firsttris";
-          version = "0.4.112";
-          hash = "sha256-NKnAGGgckVsIn3O842BPWJ3cXM1Ap0yK9Rsrdjfmf5M=";
+          version = "0.4.123";
+          hash = "sha256-QQX201DtAnzML9HeMMtXgm2IJ1K8BNDXcZd3iPFg2pw=";
         };
         meta = {
           description = "Simple way to run or debug a single (or multiple) tests from context-menu";
@@ -1851,8 +1851,8 @@ let
         mktplcRef = {
           name = "godot-tools";
           publisher = "geequlim";
-          version = "2.6.0";
-          hash = "sha256-b6aH4LAqXjwRp2dFa7+hhQL3ac9K7Zmat5ncaRLooD0=";
+          version = "2.6.1";
+          hash = "sha256-x+u5t4HB+uM2CbhSw0h/zoYPgBPTZNFaMuzL+KB9mAM=";
         };
         meta = {
           description = "VS Code extension for game development with Godot Engine and GDScript";
@@ -3856,8 +3856,8 @@ let
         mktplcRef = {
           publisher = "redhat";
           name = "java";
-          version = "1.51.0";
-          hash = "sha256-uOTvQjLDkMjzTfc98cq+WlvKwRQfPpTrlXKbWG7Gy+c=";
+          version = "1.52.0";
+          hash = "sha256-V+ufW8RgYplxFRa+BILp1lmitktDucrN0FhsBY1zAmY=";
         };
         buildInputs = [ jdk ];
         meta = {
@@ -4784,8 +4784,8 @@ let
         mktplcRef = {
           name = "emacs-mcx";
           publisher = "tuttieee";
-          version = "0.106.0";
-          hash = "sha256-Rlm6GP5y5cs+qPEgd7oMHJ7W74HmBW5VM5YC29MjntE=";
+          version = "0.107.1";
+          hash = "sha256-x2WoDoYE4at2G8yuefc5evHRpCiJXh5WTTkNzW454N0=";
         };
         meta = {
           changelog = "https://github.com/whitphx/vscode-emacs-mcx/blob/main/CHANGELOG.md";
@@ -5343,8 +5343,8 @@ let
         mktplcRef = {
           name = "php-debug";
           publisher = "xdebug";
-          version = "1.39.1";
-          hash = "sha256-9hjmU5/jkRu6fdoCb3H7tM8m6itZ0YCBbBrJ8HnNOv0=";
+          version = "1.40.0";
+          hash = "sha256-B8x954/nltRZcuX9y1NYu5JrDGiYxuPINSs1bgtCnWA=";
         };
         meta = {
           description = "PHP Debug Adapter";

@@ -29,6 +29,8 @@ self: super: with self; {
 
   # by_regex ensures inherit statements are sorted after the (first) attribute name that is inherited.
   # keep-sorted start block=yes newline_separated=yes by_regex=["(?:inherit\\s+\\([^)]+\\)\\n?\\s*)?(.+)"]
+  a2a-sdk = callPackage ../development/python-modules/a2a-sdk { };
+
   a2wsgi = callPackage ../development/python-modules/a2wsgi { };
 
   aafigure = callPackage ../development/python-modules/aafigure { };
@@ -815,6 +817,10 @@ self: super: with self; {
   apeye-core = callPackage ../development/python-modules/apeye-core { };
 
   apiflask = callPackage ../development/python-modules/apiflask { };
+
+  apify-fingerprint-datapoints =
+    callPackage ../development/python-modules/apify-fingerprint-datapoints
+      { };
 
   apipkg = callPackage ../development/python-modules/apipkg { };
 
@@ -12970,6 +12976,8 @@ self: super: with self; {
   py3buddy = callPackage ../development/python-modules/py3buddy { };
 
   py3dns = callPackage ../development/python-modules/py3dns { };
+
+  py3dtiles = callPackage ../development/python-modules/py3dtiles { };
 
   py3exiv2 = callPackage ../development/python-modules/py3exiv2 { inherit (pkgs) exiv2; };
 

@@ -2267,11 +2267,6 @@
     name = "Artemis Tosini";
     keys = [ { fingerprint = "3D2B B230 F9FA F0C5 1832  46DD 4FDC 96F1 61E7 BA8A"; } ];
   };
-  arthsmn = {
-    name = "Arthur Cerqueira";
-    github = "arthsmn";
-    githubId = 150680976;
-  };
   arthur = {
     email = "me@arthur.li";
     github = "arthurl";
@@ -6099,6 +6094,12 @@
     name = "David Wood";
     keys = [ { fingerprint = "5B08 313C 6853 E5BF FA91  A817 0176 0B4F 9F53 F154"; } ];
   };
+  davidweisse = {
+    name = "David Weiße";
+    github = "davidweisse";
+    githubId = 98460960;
+    email = "david.weisse@gmx.net";
+  };
   davisrichard437 = {
     email = "davisrichard437@gmail.com";
     github = "davisrichard437";
@@ -9555,6 +9556,12 @@
     githubId = 127353;
     name = "Geoffrey Huntley";
   };
+  gibbert = {
+    email = "gbjgms@gmail.com";
+    github = "zgibberish";
+    githubId = 67570424;
+    name = "gibbert";
+  };
   gigahawk = {
     email = "Jasper Chan";
     name = "jasperchan515@gmail.com";
@@ -11778,6 +11785,12 @@
     github = "JamieMagee";
     githubId = 1358764;
     name = "Jamie Magee";
+  };
+  janhencic = {
+    name = "Jan Hencic";
+    email = "jan@hencic.com";
+    github = "janhencic";
+    githubId = 61284133;
   };
   jankaifer = {
     name = "Jan Kaifer";
@@ -18091,6 +18104,12 @@
     githubId = 220262;
     name = "Ion Mudreac";
   };
+  mulatta = {
+    email = "seungwon@mulatta.io";
+    github = "mulatta";
+    githubId = 67085791;
+    name = "Seungwon Lee";
+  };
   MulliganSecurity = {
     email = "mulligansecurity@riseup.net";
     github = "MulliganSecurity";
@@ -19265,6 +19284,12 @@
     github = "NOTtheMessiah";
     githubId = 2946283;
     name = "Brian Cohen";
+  };
+  nouritsu = {
+    name = "Aneesh Bhave";
+    email = "aneesh1701@gmail.com";
+    github = "nouritsu";
+    githubId = 113834791;
   };
   nova-madeline = {
     matrix = "@nova:tchncs.de";
@@ -22270,6 +22295,13 @@
     email = "smol.ivan97@gmail.com";
     github = "renesat";
     githubId = 11363539;
+  };
+  Renna42 = {
+    name = "Renna Z.";
+    email = "is@renna.dev";
+    github = "Renna42";
+    githubId = 47046832;
+    keys = [ { fingerprint = "7E33 7F70 6F89 4D13 D8E6  B718 9676 3FAE 10AC 74FC"; } ];
   };
   rennsax = {
     name = "Bojun Ren";
@@ -26600,6 +26632,12 @@
     githubId = 633969;
     name = "Miroslav Vadkerti";
   };
+  ths-on = {
+    email = "thore.sommer@tum.de";
+    github = "THS-on";
+    githubId = 10854414;
+    name = "Thore Sommer";
+  };
   thtrf = {
     email = "thtrf@proton.me";
     github = "thtrf";
@@ -28431,6 +28469,12 @@
     github = "willcohen";
     githubId = 5185341;
     name = "Will Cohen";
+  };
+  willfish = {
+    email = "willfish@pescado.mozmail.com";
+    github = "willfish";
+    githubId = 8156884;
+    name = "William Fish";
   };
   willibutz = {
     email = "willibutz@posteo.de";
