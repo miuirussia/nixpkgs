@@ -7818,6 +7818,8 @@ self: super: with self; {
 
   json-schema-for-humans = callPackage ../development/python-modules/json-schema-for-humans { };
 
+  json-schema-to-pydantic = callPackage ../development/python-modules/json-schema-to-pydantic { };
+
   json-stream = callPackage ../development/python-modules/json-stream { };
 
   json-stream-rs-tokenizer = callPackage ../development/python-modules/json-stream-rs-tokenizer { };
@@ -18921,6 +18923,8 @@ self: super: with self; {
   textual-fastdatatable = callPackage ../development/python-modules/textual-fastdatatable { };
 
   textual-image = callPackage ../development/python-modules/textual-image { };
+
+  textual-plotext = callPackage ../development/python-modules/textual-plotext { };
 
   textual-serve = callPackage ../development/python-modules/textual-serve { };
 

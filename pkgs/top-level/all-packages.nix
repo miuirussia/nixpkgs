@@ -1519,10 +1519,6 @@ with pkgs;
     stdenv = clangStdenv;
   };
 
-  plausible = callPackage ../by-name/pl/plausible/package.nix {
-    beamPackages = beam27Packages.extend (self: super: { elixir = elixir_1_18; });
-  };
-
   reattach-to-user-namespace = callPackage ../os-specific/darwin/reattach-to-user-namespace { };
 
   xcodeenv = callPackage ../development/mobile/xcodeenv { };
@@ -1625,15 +1621,6 @@ with pkgs;
           --prefix PATH ":" "${git}/bin:${cabal-install}/bin"
       '';
     });
-
-  cedille = callPackage ../applications/science/logic/cedille {
-    inherit (haskellPackages)
-      alex
-      happy
-      Agda
-      ghcWithPackages
-      ;
-  };
 
   clevercsv = with python3Packages; toPythonApplication clevercsv;
 
@@ -2599,10 +2586,6 @@ with pkgs;
 
   grub2_pvgrub_image = grub2_pvhgrub_image.override {
     grubPlatform = "xen";
-  };
-
-  grub4dos = callPackage ../tools/misc/grub4dos {
-    stdenv = stdenv_32bit;
   };
 
   gruut = with python3.pkgs; toPythonApplication gruut;
@@ -6172,10 +6155,6 @@ with pkgs;
 
   sqlmap = with python3Packages; toPythonApplication sqlmap;
 
-  c0 = callPackage ../development/compilers/c0 {
-    stdenv = if stdenv.hostPlatform.isDarwin then gccStdenv else stdenv;
-  };
-
   teensyduino = arduino-core.override {
     withGui = true;
     withTeensyduino = true;
@@ -6734,8 +6713,6 @@ with pkgs;
   herqq = libsForQt5.callPackage ../development/libraries/herqq { };
 
   highfive-mpi = highfive.override { hdf5 = hdf5-mpi; };
-
-  hspellDicts = callPackage ../development/libraries/hspell/dicts.nix { };
 
   hunspellDicts = recurseIntoAttrs (callPackages ../by-name/hu/hunspell/dictionaries.nix { });
 
@@ -12779,8 +12756,6 @@ with pkgs;
     waylandSupport = true;
   };
 
-  qmake2cmake = python3Packages.callPackage ../tools/misc/qmake2cmake { };
-
   sail-riscv = callPackage ../applications/virtualization/sail-riscv {
     inherit (ocamlPackages) sail;
   };
@@ -12812,8 +12787,6 @@ with pkgs;
   sourceAndTags = callPackage ../misc/source-and-tags {
     hasktags = haskellPackages.hasktags;
   };
-
-  tellico = kdePackages.callPackage ../applications/misc/tellico { };
 
   termpdfpy = python3Packages.callPackage ../applications/misc/termpdf.py { };
 
@@ -12882,17 +12855,9 @@ with pkgs;
   wine = winePackages.full;
   wine64 = wine64Packages.full;
 
-  wine-staging = lowPrio (
-    winePackages.full.override {
-      wineRelease = "staging";
-    }
-  );
+  wine-staging = lowPrio winePackages.stagingFull;
 
-  wine-wayland = lowPrio (
-    winePackages.full.override {
-      x11Support = false;
-    }
-  );
+  wine-wayland = lowPrio winePackages.waylandFull;
 
   inherit (callPackage ../servers/web-apps/wordpress { })
     wordpress
