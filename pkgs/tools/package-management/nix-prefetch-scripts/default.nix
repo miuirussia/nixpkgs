@@ -26,7 +26,8 @@ let
   mkPrefetchScript =
     tool: src: deps:
     stdenv.mkDerivation {
-      name = "nix-prefetch-${tool}";
+      inherit (lib.trivial) version;
+      pname = "nix-prefetch-${tool}";
 
       strictDeps = true;
       nativeBuildInputs = [ makeWrapper ];
@@ -35,8 +36,8 @@ let
       dontUnpack = true;
 
       installPhase = ''
-        install -vD ${src} $out/bin/$name;
-        wrapProgram $out/bin/$name \
+        install -vD ${src} $out/bin/$pname;
+        wrapProgram $out/bin/$pname \
           --prefix PATH : ${lib.makeBinPath (deps ++ [ coreutils ])} \
           --set HOME /homeless-shelter
       '';
