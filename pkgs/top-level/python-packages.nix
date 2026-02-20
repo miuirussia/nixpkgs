@@ -2942,6 +2942,10 @@ self: super: with self; {
 
   colcon-devtools = callPackage ../development/python-modules/colcon-devtools { };
 
+  colcon-hardware-acceleration =
+    callPackage ../development/python-modules/colcon-hardware-acceleration
+      { };
+
   colcon-installed-package-information =
     callPackage ../development/python-modules/colcon-installed-package-information
       { };
@@ -16335,6 +16339,8 @@ self: super: with self; {
   readme-renderer = callPackage ../development/python-modules/readme-renderer { };
 
   readthedocs-sphinx-ext = callPackage ../development/python-modules/readthedocs-sphinx-ext { };
+
+  real-ladybug = callPackage ../development/python-modules/real-ladybug { };
 
   realtime = callPackage ../development/python-modules/realtime { };
 
