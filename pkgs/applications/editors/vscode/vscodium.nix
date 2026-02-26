@@ -55,7 +55,7 @@ buildVscode rec {
     inherit hash;
   };
 
-  tests = nixosTests.vscodium;
+  tests = nixosTests.vscodium.xorg;
 
   updateScript = ./update-vscodium.sh;
 
