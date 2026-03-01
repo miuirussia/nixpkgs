@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "volt";
-  version = "1.5.0";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "hqnna";
     repo = "volt";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-o/wMeZca7ttTwRSqp5l6XmurDT1oClq7nvfv6WgnSj8=";
+    hash = "sha256-P14jLoONO3eFJ6DzHigAkZXZ++gcBHpJuK7+sVcBARM=";
   };
 
-  cargoHash = "sha256-HIae9ZpFsa/XCkoesAaiWaotNloYCz+Km9cICM6r4qE=";
+  cargoHash = "sha256-3E4fZRxB+kF4fW7WCl+sLkDaQt0Z0tgGfzixvSNZP1c=";
 
   meta = {
     description = "Ergonomic terminal settings editor for the Amp coding agent";

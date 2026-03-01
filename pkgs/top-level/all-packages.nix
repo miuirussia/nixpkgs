@@ -990,13 +990,8 @@ with pkgs;
     akkuPackages
     ;
 
-  alice-tools = callPackage ../tools/games/alice-tools {
-    withGUI = false;
-  };
-
-  alice-tools-qt5 = libsForQt5.callPackage ../tools/games/alice-tools { };
-
-  alice-tools-qt6 = qt6Packages.callPackage ../tools/games/alice-tools { };
+  alice-tools-qt5 = alice-tools.override { withQt5 = true; };
+  alice-tools-qt6 = alice-tools.override { withQt6 = true; };
 
   auditwheel = with python3Packages; toPythonApplication auditwheel;
 
@@ -1619,10 +1614,6 @@ with pkgs;
 
   czkawka-full = czkawka.wrapper.override {
     extraPackages = [ ffmpeg ];
-  };
-
-  compactor = callPackage ../applications/networking/compactor {
-    protobuf = protobuf_21;
   };
 
   inherit (callPackages ../tools/misc/coreboot-utils { })
@@ -3170,6 +3161,12 @@ with pkgs;
 
   update-systemd-resolved = callPackage ../tools/networking/openvpn/update-systemd-resolved.nix { };
 
+  openshadinglanguage = callPackage ../by-name/op/openshadinglanguage/package.nix {
+    libclang = llvmPackages_19.libclang;
+    clang = clang_19;
+    llvm = llvm_19;
+  };
+
   opentelemetry-collector = opentelemetry-collector-releases.otelcol;
   opentelemetry-collector-builder = callPackage ../tools/misc/opentelemetry-collector/builder.nix { };
   opentelemetry-collector-contrib = opentelemetry-collector-releases.otelcol-contrib;
@@ -3185,12 +3182,6 @@ with pkgs;
 
   opl3bankeditor = libsForQt5.callPackage ../tools/audio/opl3bankeditor { };
   opn2bankeditor = libsForQt5.callPackage ../tools/audio/opl3bankeditor/opn2bankeditor.nix { };
-
-  osl = libsForQt5.callPackage ../development/compilers/osl {
-    libclang = llvmPackages_19.libclang;
-    clang = clang_19;
-    llvm = llvm_19;
-  };
 
   p4c = callPackage ../development/compilers/p4c {
     protobuf = protobuf_21;
@@ -8183,16 +8174,22 @@ with pkgs;
 
   buildHomeAssistantComponent = callPackage ../servers/home-assistant/build-custom-component { };
   home-assistant-custom-components = recurseIntoAttrs (
-    lib.packagesFromDirectoryRecursive {
-      inherit (home-assistant.python.pkgs) callPackage;
-      directory = ../servers/home-assistant/custom-components;
-    }
+    lib.makeExtensible (
+      self:
+      lib.packagesFromDirectoryRecursive {
+        inherit (home-assistant.python.pkgs) callPackage;
+        directory = ../servers/home-assistant/custom-components;
+      }
+    )
   );
   home-assistant-custom-lovelace-modules = recurseIntoAttrs (
-    lib.packagesFromDirectoryRecursive {
-      inherit callPackage;
-      directory = ../servers/home-assistant/custom-lovelace-modules;
-    }
+    lib.makeExtensible (
+      self:
+      lib.packagesFromDirectoryRecursive {
+        inherit callPackage;
+        directory = ../servers/home-assistant/custom-lovelace-modules;
+      }
+    )
   );
 
   home-assistant-cli = callPackage ../servers/home-assistant/cli.nix { };
