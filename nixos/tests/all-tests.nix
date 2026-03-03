@@ -1218,6 +1218,7 @@ in
   owi = runTest ./owi.nix;
   owncast = runTest ./owncast.nix;
   oxidized = handleTest ./oxidized.nix { };
+  oxwm = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./oxwm.nix;
   pacemaker = runTest ./pacemaker.nix;
   packagekit = runTest ./packagekit.nix;
   pairdrop = runTest ./web-apps/pairdrop.nix;
@@ -1386,8 +1387,10 @@ in
   rasdaemon = runTest ./rasdaemon.nix;
   rathole = runTest ./rathole.nix;
   rauc = runTest ./rauc.nix;
-  reaction = runTest ./reaction.nix;
-  reaction-firewall = runTest ./reaction-firewall.nix;
+  reaction = import ./reaction {
+    inherit (pkgs) lib;
+    inherit runTest;
+  };
   readarr = runTest ./readarr.nix;
   readeck = runTest ./readeck.nix;
   realm = runTest ./realm.nix;
@@ -1398,6 +1401,7 @@ in
   refind = runTest ./refind.nix;
   remark42 = runTest ./remark42.nix;
   renovate = runTest ./renovate.nix;
+  repath-studio = runTest ./repath-studio.nix;
   replace-dependencies = handleTest ./replace-dependencies { };
   reposilite = runTest ./reposilite.nix;
   restartByActivationScript = runTest ./restart-by-activation-script.nix;
@@ -1489,6 +1493,7 @@ in
   spacecookie = runTest ./spacecookie.nix;
   spark = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./spark { };
   spiped = runTest ./spiped.nix;
+  spire = runTest ./spire.nix;
   sqlite3-to-mysql = runTest ./sqlite3-to-mysql.nix;
   squid = runTest ./squid.nix;
   ssh-agent-auth = runTest ./ssh-agent-auth.nix;
