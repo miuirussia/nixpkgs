@@ -14139,6 +14139,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  screensaver-nvim = buildVimPlugin {
+    pname = "screensaver.nvim";
+    version = "0-unstable-2026-03-02";
+    src = fetchFromGitHub {
+      owner = "Root-lee";
+      repo = "screensaver.nvim";
+      rev = "38cf0b8a96b5f4a5e765ce32d43a416441462179";
+      hash = "sha256-4eiGIhy/J7wZm++wMx4zAKp5qeDQCApwPSVm8P5w5O0=";
+    };
+    meta.homepage = "https://github.com/Root-lee/screensaver.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
   scretch-nvim = buildVimPlugin {
     pname = "scretch.nvim";
     version = "1.2.3-unstable-2025-09-11";
@@ -16513,6 +16526,19 @@ final: prev: {
       hash = "sha256-JHSLP9RNpxFqRSIW+jONDoCW464SXpF84JiILf+bt6Q=";
     };
     meta.homepage = "https://github.com/SirVer/ultisnips/";
+    meta.hydraPlatforms = [ ];
+  };
+
+  unclash-nvim = buildVimPlugin {
+    pname = "unclash.nvim";
+    version = "0-unstable-2026-01-28";
+    src = fetchFromGitHub {
+      owner = "madmaxieee";
+      repo = "unclash.nvim";
+      rev = "04f6aba5e2eea8b665cba88f21082e33a7cb6e59";
+      hash = "sha256-Rd+U0WtVCV2D0rsL8Sm5B4NRK2t4W5M7n/CH1I0w6s4=";
+    };
+    meta.homepage = "https://github.com/madmaxieee/unclash.nvim/";
     meta.hydraPlatforms = [ ];
   };
 
