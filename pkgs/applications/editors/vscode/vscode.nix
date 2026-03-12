@@ -17,7 +17,6 @@
   commandLineArgs ? "",
   useVSCodeRipgrep ? stdenv.hostPlatform.isDarwin,
 }:
-
 let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
@@ -48,6 +47,11 @@ let
   # This is important for the extension ecosystem.
   version = "1.111.0";
 
+  # The update server (update.code.visualstudio.com) expects the version path
+  # segment in X.Y.Z form, so we normalize X.Y to X.Y.0 (e.g. "1.110" → "1.110.0").
+  # Upstream GitHub release tags may use X.Y, which is why this normalization is needed.
+  downloadVersion = lib.versions.pad 3 version;
+
   # This is used for VS Code - Remote SSH test
   rev = "ce099c1ed25d9eb3076c11e4a280f3eb52b4fbeb";
 in
@@ -66,8 +70,8 @@ buildVscode {
     ;
 
   src = fetchurl {
-    name = "VSCode_${version}_${plat}.${archive_fmt}";
-    url = "https://update.code.visualstudio.com/${version}/${plat}/stable";
+    name = "VSCode_${downloadVersion}_${plat}.${archive_fmt}";
+    url = "https://update.code.visualstudio.com/${downloadVersion}/${plat}/stable";
     inherit hash;
   };
 
@@ -117,6 +121,7 @@ buildVscode {
       johnrtitor
       jefflabonte
       wetrustinprize
+      oenu
     ];
     platforms = [
       "x86_64-linux"
