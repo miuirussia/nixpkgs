@@ -288,7 +288,7 @@ with pkgs;
     name = "update-autotools-gnu-config-scripts-hook";
     substitutions = {
       gnu_config = gnu-config.override {
-        runtimeShell = targetPackages.stdenv.shell;
+        runtimeShell = if stdenv.buildPlatform == stdenv.hostPlatform then stdenv.shell else runtimeShell;
       };
     };
   } ../build-support/setup-hooks/update-autotools-gnu-config-scripts.sh;
@@ -4687,6 +4687,7 @@ with pkgs;
     cargo-pgrx_0_12_6
     cargo-pgrx_0_16_0
     cargo-pgrx_0_16_1
+    cargo-pgrx_0_17_0
     cargo-pgrx
     ;
 
@@ -5994,8 +5995,6 @@ with pkgs;
 
   reno = with python312Packages; toPythonApplication reno;
 
-  replace-secret = callPackage ../build-support/replace-secret/replace-secret.nix { };
-
   inherit (callPackage ../development/tools/replay-io { })
     replay-io
     replay-node-cli
@@ -6338,6 +6337,8 @@ with pkgs;
     fmt_11
     fmt_12
     ;
+
+  firefox_decrypt = callPackage ../by-name/fi/firefox_decrypt/package.nix { nss = nss_latest; };
 
   fmt = fmt_12;
 
@@ -8667,8 +8668,6 @@ with pkgs;
   # zen-kernel
   linuxPackages_zen = linuxKernel.packages.linux_zen;
   linux_zen = linuxPackages_zen.kernel;
-  linuxPackages_lqx = linuxKernel.packages.linux_lqx;
-  linux_lqx = linuxPackages_lqx.kernel;
 
   # XanMod kernel
   linuxPackages_xanmod = linuxKernel.packages.linux_xanmod;
@@ -9881,7 +9880,7 @@ with pkgs;
     k3s_1_34
     k3s_1_35
     ;
-  k3s = k3s_1_34;
+  k3s = k3s_1_35;
 
   okteta = libsForQt5.callPackage ../applications/editors/okteta { };
 
