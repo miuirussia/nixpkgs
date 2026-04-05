@@ -1,7 +1,7 @@
-diff --git a/pkgs/development/python-modules/playwright/update.sh b/pkgs/development/python-modules/playwright/update.sh
+diff --git a/pkgs/development/web/playwright/update.sh b/pkgs/development/web/playwright/update.sh
 index db0086b6ed..8b01bb5225 100755
---- a/pkgs/development/python-modules/playwright/update.sh
-+++ b/pkgs/development/python-modules/playwright/update.sh
+--- a/pkgs/development/web/playwright/update.sh
++++ b/pkgs/development/web/playwright/update.sh
 @@ -1,6 +1,6 @@
  #!/usr/bin/env nix-shell
  #!nix-shell -i bash -p curl gnused common-updater-scripts jq prefetch-npm-deps unzip nix-prefetch
