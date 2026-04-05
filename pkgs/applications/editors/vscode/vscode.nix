@@ -35,17 +35,17 @@ let
 
   hash =
     {
-      x86_64-linux = "sha256-VyjqPTyLn8eGh/XS3nn0PMqiAsrL91vDZD6Z9L2oh24=";
-      x86_64-darwin = "sha256-3ACtYUblaJs8I1BHHFOSFuAODP0dziXFvd0qdJ/izZ8=";
-      aarch64-linux = "sha256-wyiOvHNMuE6SbInYK9vlYVkbdxAlf9/xHa2nKWh8ecc=";
-      aarch64-darwin = "sha256-0sOKWswv7M3VCralFt1BAA45JrQyAX4Fr/5imNmcaHA=";
-      armv7l-linux = "sha256-hAAuYK7ZQGpAQLE9o8/GF+qHHj0OfT15IXY9cvaKBC0=";
+      x86_64-linux = "sha256-D+2JWjC0kutfkEF5QKOKwh9Z8+jWgMgMN2b8pKwYays=";
+      x86_64-darwin = "sha256-dgOKMYRKfGRipLMsQcVmlOEHbG9l4ryJZv5J8znSxwA=";
+      aarch64-linux = "sha256-NRaxhWEdYDNIK1AbimKwzw4zGd3ljwBIYJ+BaTz2/gk=";
+      aarch64-darwin = "sha256-nWkNoryvsD2SPkc5veQ12+DWPXgWPJjfWwUcC7PjbC4=";
+      armv7l-linux = "sha256-Ae5sKYiyvIF9KZzKi7BK3/SLgKjuQCLjNKi9dXIqGbo=";
     }
     .${system} or throwSystem;
 
   # Please backport all compatible updates to the stable release.
   # This is important for the extension ecosystem.
-  version = "1.112.0";
+  version = "1.114.0";
 
   # The update server (update.code.visualstudio.com) expects the version path
   # segment in X.Y.Z form, so we normalize X.Y to X.Y.0 (e.g. "1.110" → "1.110.0").
@@ -53,7 +53,7 @@ let
   downloadVersion = lib.versions.pad 3 version;
 
   # This is used for VS Code - Remote SSH test
-  rev = "07ff9d6178ede9a1bd12ad3399074d726ebe6e43";
+  rev = "e7fb5e96c0730b9deb70b33781f98e2f35975036";
 in
 buildVscode {
   pname = "vscode" + lib.optionalString isInsiders "-insiders";
@@ -86,7 +86,7 @@ buildVscode {
     src = fetchurl {
       name = "vscode-server-${rev}.tar.gz";
       url = "https://update.code.visualstudio.com/commit:${rev}/server-linux-x64/stable";
-      hash = "sha256-je83XIJD2Ayc4/j05BCUi/0dblVGlLQdDf+u7wfHZgA=";
+      hash = "sha256-Sx9XXo3qB+7hwi9vzAncX49usOSMVgKilgBa2UrG6pQ=";
     };
     stdenv = stdenvNoCC;
   };
@@ -116,7 +116,6 @@ buildVscode {
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [
       eadwu
-      synthetica
       bobby285271
       johnrtitor
       jefflabonte

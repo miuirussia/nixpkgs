@@ -452,6 +452,10 @@ in
     (mkRemovedOptionModule [ "services" "gateone" ] ''
       The gateone module was removed since the package was removed alongside much other obsolete python 2.
     '')
+    (mkRemovedOptionModule [ "services" "opengfw" ] ''
+      The opengfw package and services.opengfw module have been removed since the upstream
+      GitHub repository and website have been shut down.
+    '')
     (mkRemovedOptionModule [ "virtualisation" "lxd" ] ''
       LXD has been removed from NixOS due to lack of Nixpkgs maintenance.
       Consider migrating or switching to Incus, or remove from your configuration.
@@ -481,6 +485,9 @@ in
     '')
     (mkRemovedOptionModule [ "programs" "spacefm" ] ''
       spacefm has been removed since it was unmaintained upstream.
+    '')
+    (mkRemovedOptionModule [ "services" "pyload" ] ''
+      services.pyload has been removed since the pyload-ng package had vulnerabilities and was unmaintained in nixpkgs.
     '')
     # Do NOT add any option renames here, see top of the file
   ];

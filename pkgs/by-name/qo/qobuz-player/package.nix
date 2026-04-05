@@ -10,16 +10,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "qobuz-player";
-  version = "0.7.2";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "SofusA";
     repo = "qobuz-player";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PQhuMGUKKquxZn/Tru8rYapzcoWiZR2Q7q6R+XT2z1s=";
+    hash = "sha256-qAGaosIsS7IodzIJL/7kd5MNC/CW2fY7iYD6CrYSdmw=";
   };
 
-  cargoHash = "sha256-H2dZJgNTMqLvQ4PMF0JRngTBK4hFF8a/Z/8jAhL7NDM=";
+  cargoHash = "sha256-428sWFx+DYyf8RrsY6hzytGmtmO7lmIJIoS2TfnGoh4=";
 
   nativeBuildInputs = [
     pkg-config

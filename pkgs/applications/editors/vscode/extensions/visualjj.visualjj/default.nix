@@ -11,26 +11,26 @@ vscode-utils.buildVscodeMarketplaceExtension {
       sources = {
         "x86_64-linux" = {
           arch = "linux-x64";
-          hash = "sha256-fZFWZiPuKtHWmzqJX/Mtb37lKTnU/TRISbS1qewcZzs=";
+          hash = "sha256-4w/A3C9WWfKbZF3LnaLR9aZ78hvU+lrEXS8nnMbgzeA=";
         };
         "x86_64-darwin" = {
           arch = "darwin-x64";
-          hash = "sha256-ZePZFmz3S6DCuIPqaL4xaLaWypNxre9xe7tRfk8JdQM=";
+          hash = "sha256-+2+geG0UcCf7L+SbgKGjMkmctH+3q7nLsZFsb/BrhF0=";
         };
         "aarch64-linux" = {
           arch = "linux-arm64";
-          hash = "sha256-2gYrpUtzP1XTtkgEypoZLfMwDzBGMriqD935D1r1Onc=";
+          hash = "sha256-QUopKDFQxWinvtkCkmRSCG2TpopGRRD8dXyfC3iww6Y=";
         };
         "aarch64-darwin" = {
           arch = "darwin-arm64";
-          hash = "sha256-skvZ2wtYlXAYRscbUti6uBEEyM9ocJ9D/EuTMPQXB0Y=";
+          hash = "sha256-7ZglgfAbjdCS8R9MhX8qB7P4aCVDy76qFmQ7klzGbjg=";
         };
       };
     in
     {
       name = "visualjj";
       publisher = "visualjj";
-      version = "0.24.3";
+      version = "0.27.0";
     }
     // sources.${stdenvNoCC.hostPlatform.system}
       or (throw "Unsupported system ${stdenvNoCC.hostPlatform.system}");

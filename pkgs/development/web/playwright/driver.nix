@@ -11,21 +11,13 @@
   callPackage,
   makeFontsConf,
   makeWrapper,
-  runCommand,
   cacert,
 }:
 let
   inherit (stdenv.hostPlatform) system;
 
   throwSystem = throw "Unsupported system: ${system}";
-  suffix =
-    {
-      x86_64-linux = "linux";
-      aarch64-linux = "linux-arm64";
-      x86_64-darwin = "mac";
-      aarch64-darwin = "mac-arm64";
-    }
-    .${system} or throwSystem;
+  browsersJSON = (lib.importJSON ./browsers.json).browsers;
 
   version = "1.58.2";
 
@@ -164,7 +156,7 @@ let
     '';
 
     passthru = {
-      browsersJSON = (lib.importJSON ./browsers.json).browsers;
+      inherit browsersJSON;
       selectBrowsers = browsers;
       browsers = browsers { };
       browsers-chromium = browsers {
@@ -172,7 +164,11 @@ let
         withWebkit = false;
         withChromiumHeadlessShell = false;
       };
+      tests.browser-downloads = callPackage ./browser-downloads-test.nix {
+        playwright-core = finalAttrs.finalPackage;
+      };
       inherit components;
+      updateScript = ./update.sh;
     };
   });
 
@@ -203,27 +199,27 @@ let
 
   components = {
     chromium = callPackage ./chromium.nix {
-      inherit suffix system throwSystem;
-      inherit (playwright-core.passthru.browsersJSON.chromium) revision;
+      inherit system throwSystem;
+      inherit (browsersJSON.chromium) revision browserVersion;
       fontconfig_file = makeFontsConf {
         fontDirectories = [ ];
       };
     };
     chromium-headless-shell = callPackage ./chromium-headless-shell.nix {
-      inherit suffix system throwSystem;
-      inherit (playwright-core.passthru.browsersJSON.chromium) revision;
+      inherit system throwSystem;
+      inherit (browsersJSON."chromium-headless-shell") revision browserVersion;
     };
     firefox = callPackage ./firefox.nix {
-      inherit suffix system throwSystem;
-      inherit (playwright-core.passthru.browsersJSON.firefox) revision;
+      inherit system throwSystem;
+      inherit (browsersJSON.firefox) revision;
     };
     webkit = callPackage ./webkit.nix {
-      inherit suffix system throwSystem;
-      inherit (playwright-core.passthru.browsersJSON.webkit) revision;
+      inherit system throwSystem;
+      inherit (browsersJSON.webkit) revision;
     };
     ffmpeg = callPackage ./ffmpeg.nix {
-      inherit suffix system throwSystem;
-      inherit (playwright-core.passthru.browsersJSON.ffmpeg) revision;
+      inherit system throwSystem;
+      inherit (browsersJSON.ffmpeg) revision;
     };
   };
 
@@ -251,8 +247,7 @@ let
         map (
           name:
           let
-            revName = if name == "chromium-headless-shell" then "chromium" else name;
-            value = playwright-core.passthru.browsersJSON.${revName};
+            value = browsersJSON.${name};
           in
           lib.nameValuePair
             # TODO check platform for revisionOverrides
