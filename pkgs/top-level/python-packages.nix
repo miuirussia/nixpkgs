@@ -1110,8 +1110,6 @@ self: super: with self; {
 
   async-cache = callPackage ../development/python-modules/async-cache { };
 
-  async-dns = callPackage ../development/python-modules/async-dns { };
-
   async-generator = callPackage ../development/python-modules/async-generator { };
 
   async-interrupt = callPackage ../development/python-modules/async-interrupt { };
@@ -2034,8 +2032,6 @@ self: super: with self; {
 
   billiard = callPackage ../development/python-modules/billiard { };
 
-  bimmer-connected = callPackage ../development/python-modules/bimmer-connected { };
-
   binance-connector = callPackage ../development/python-modules/binance-connector { };
 
   binary = callPackage ../development/python-modules/binary { };
@@ -2197,8 +2193,6 @@ self: super: with self; {
   bnunicodenormalizer = callPackage ../development/python-modules/bnunicodenormalizer { };
 
   boa-api = callPackage ../development/python-modules/boa-api { };
-
-  boiboite-opener-framework = callPackage ../development/python-modules/boiboite-opener-framework { };
 
   boilerpy3 = callPackage ../development/python-modules/boilerpy3 { };
 
@@ -4384,6 +4378,8 @@ self: super: with self; {
 
   django-statici18n = callPackage ../development/python-modules/django-statici18n { };
 
+  django-stdimage = callPackage ../development/python-modules/django-stdimage { };
+
   django-storages = callPackage ../development/python-modules/django-storages { };
 
   django-structlog = callPackage ../development/python-modules/django-structlog { };
@@ -4429,6 +4425,8 @@ self: super: with self; {
       { };
 
   django-vite = callPackage ../development/python-modules/django-vite { };
+
+  django-waffle = callPackage ../development/python-modules/django-waffle { };
 
   django-weasyprint = callPackage ../development/python-modules/django-weasyprint { };
 
@@ -4821,8 +4819,6 @@ self: super: with self; {
 
   dynalite-panel = callPackage ../development/python-modules/dynalite-panel { };
 
-  dynd = callPackage ../development/python-modules/dynd { };
-
   e2b = callPackage ../development/python-modules/e2b { };
 
   e2b-code-interpreter = callPackage ../development/python-modules/e2b-code-interpreter { };
@@ -5012,7 +5008,7 @@ self: super: with self; {
 
   enlighten = callPackage ../development/python-modules/enlighten { };
 
-  enocean = callPackage ../development/python-modules/enocean { };
+  enocean-async = callPackage ../development/python-modules/enocean-async { };
 
   enochecker-core = callPackage ../development/python-modules/enochecker-core { };
 
@@ -5594,8 +5590,6 @@ self: super: with self; {
   flake8-deprecated = callPackage ../development/python-modules/flake8-deprecated { };
 
   flake8-docstrings = callPackage ../development/python-modules/flake8-docstrings { };
-
-  flake8-future-import = callPackage ../development/python-modules/flake8-future-import { };
 
   flake8-import-order = callPackage ../development/python-modules/flake8-import-order { };
 
@@ -7090,8 +7084,6 @@ self: super: with self; {
 
   holidays = callPackage ../development/python-modules/holidays { };
 
-  hologram = callPackage ../development/python-modules/hologram { };
-
   holoviews = callPackage ../development/python-modules/holoviews { };
 
   home-assistant-bluetooth = callPackage ../development/python-modules/home-assistant-bluetooth { };
@@ -7526,6 +7518,8 @@ self: super: with self; {
   influxdb3-python = callPackage ../development/python-modules/influxdb3-python { };
 
   inform = callPackage ../development/python-modules/inform { };
+
+  infrared-protocols = callPackage ../development/python-modules/infrared-protocols { };
 
   ingredient-parser-nlp = callPackage ../development/python-modules/ingredient-parser-nlp { };
 
@@ -9118,8 +9112,6 @@ self: super: with self; {
   llama-index-workflows = callPackage ../development/python-modules/llama-index-workflows { };
 
   llama-stack-client = callPackage ../development/python-modules/llama-stack-client { };
-
-  llamaindex-py-client = callPackage ../development/python-modules/llamaindex-py-client { };
 
   llfuse = callPackage ../development/python-modules/llfuse { inherit (pkgs) fuse; };
 
@@ -16305,6 +16297,8 @@ self: super: with self; {
 
   pyzmq = callPackage ../development/python-modules/pyzmq { };
 
+  pyzotero = callPackage ../development/python-modules/pyzotero { };
+
   pyzstd = callPackage ../development/python-modules/pyzstd { zstd-c = pkgs.zstd; };
 
   pyzx = callPackage ../development/python-modules/pyzx { };
@@ -18993,6 +18987,8 @@ self: super: with self; {
   tellcore-py = callPackage ../development/python-modules/tellcore-py { };
 
   tellduslive = callPackage ../development/python-modules/tellduslive { };
+
+  telnetlib3 = callPackage ../development/python-modules/telnetlib3 { };
 
   teltasync = callPackage ../development/python-modules/teltasync { };
 

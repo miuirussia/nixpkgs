@@ -1227,8 +1227,8 @@ let
         mktplcRef = {
           name = "vscode-markdownlint";
           publisher = "DavidAnson";
-          version = "0.61.1";
-          hash = "sha256-3O4ii6RUuw35pv95zJwJhgnI/8ryAnSKfnHC01l3FDw=";
+          version = "0.61.2";
+          hash = "sha256-RGWgY6pyq7j509UjLD3SSyOOA7cXGFFk95H1hoeKPjA=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/DavidAnson.vscode-markdownlint/changelog";
@@ -1270,8 +1270,8 @@ let
         mktplcRef = {
           publisher = "denoland";
           name = "vscode-deno";
-          version = "3.51.0";
-          hash = "sha256-iEwguP0qL8WHIMuJDPPPUp5ka9S4g7XHOl0i2++jgi8=";
+          version = "3.52.0";
+          hash = "sha256-0Qkruo7Eh86JRm58G7XhyceUpCJDmhoYaPjUKJQjFiU=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/denoland.vscode-deno/changelog";
@@ -1967,8 +1967,8 @@ let
         mktplcRef = {
           name = "gitlab-workflow";
           publisher = "gitlab";
-          version = "6.71.9";
-          hash = "sha256-8+5Njd4s3iSrZwwdEVvr/R+uv8i16wDdsbiv3xPISWc=";
+          version = "6.72.0";
+          hash = "sha256-QqoGCxGJ0l69Q6P+L/AsEIN99xP9ReYzRC2AJVpk/gU=";
         };
         meta = {
           description = "GitLab extension for Visual Studio Code";
@@ -3552,8 +3552,8 @@ let
         mktplcRef = {
           name = "vscode-just-syntax";
           publisher = "nefrob";
-          version = "0.10.0";
-          hash = "sha256-dBNftT+yhyfXutDtRvihwl1WrgFENR61eFh9ONqjjq0=";
+          version = "0.10.1";
+          hash = "sha256-s/JxIALrYb/dew1CdvvM1UmnewyRcJPB/ETJ/Ai2QJA=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/nefrob.vscode-just-syntax/changelog";
@@ -4207,8 +4207,8 @@ let
         mktplcRef = {
           publisher = "shopify";
           name = "ruby-lsp";
-          version = "0.10.1";
-          hash = "sha256-IBOYuldJO1FjpFtpDMxo5n7XjXmN21qqrZcYy9+Ddso=";
+          version = "0.10.2";
+          hash = "sha256-FWvRGMB19uHVe97TvwI0EDjjnUqHpJNVTI0ZwfpBDKY=";
         };
         meta = {
           description = "VS Code plugin for connecting with the Ruby LSP";
@@ -4497,8 +4497,8 @@ let
         mktplcRef = {
           name = "svelte-vscode";
           publisher = "svelte";
-          version = "109.14.2";
-          hash = "sha256-yY1iVbTz4Yq6ZgNVaSpukxnKLlg2XccEPWzuGoGMkmM=";
+          version = "109.15.0";
+          hash = "sha256-/1we+6X3l7MCx96ELz7wg6oDDAcYCJBt7XJ4X0ihwx0=";
         };
         meta = {
           changelog = "https://github.com/sveltejs/language-tools/releases";
@@ -5362,8 +5362,8 @@ let
         mktplcRef = {
           name = "pretty-ts-errors";
           publisher = "yoavbls";
-          version = "0.8.6";
-          hash = "sha256-fogib4cYjuogiSfpY935zgm/vfpwGY3vwnknQeQK5Is=";
+          version = "0.8.7";
+          hash = "sha256-ofh19dkK+b1+eqr5g4opoLg3a06C/qqC0HVws28jI/A=";
         };
         meta = {
           description = "Make TypeScript errors prettier and human-readable in VSCode";
