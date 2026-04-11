@@ -1192,6 +1192,20 @@
     githubId = 49609151;
     name = "Popa Ioan Alexandru";
   };
+  AlexandreTunstall = {
+    name = "Alex Tunstall";
+    email = "alex@tunstall.xyz";
+    matrix = "@alex:tunstall.xyz";
+    github = "AlexandreTunstall";
+    githubId = 32900877;
+    keys = [
+      {
+        # Fetch with WKD (e.g. gpg --locate-external-keys alex@tunstall.xyz)
+        # The fetched key should have this fingerprint (please let me know if not)
+        fingerprint = "51A5 8478 068E B19D FD35  D542 F6CA 1AD5 54DC A5E4";
+      }
+    ];
+  };
   alexandru0-dev = {
     email = "alexandru.italia32+nixpkgs@gmail.com";
     github = "alexandru0-dev";
@@ -9889,6 +9903,12 @@
     githubId = 50576978;
     name = "Adrian Groh";
     keys = [ { fingerprint = "62BD BF30 83E9 7076 9665 B60B 3AA3 153E 98B0 D771"; } ];
+  };
+  god464 = {
+    github = "god464";
+    githubId = 36400459;
+    name = "god464";
+    keys = [ { fingerprint = "089E 1560 7145 FE93 2C00  2942 D7A7 2706 FC8D E569"; } ];
   };
   goertzenator = {
     email = "daniel.goertzen@gmail.com";
