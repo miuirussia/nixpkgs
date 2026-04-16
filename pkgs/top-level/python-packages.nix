@@ -2609,6 +2609,8 @@ self: super: with self; {
 
   certifi = callPackage ../development/python-modules/certifi { };
 
+  certihound = callPackage ../development/python-modules/certihound { };
+
   certipy = callPackage ../development/python-modules/certipy { };
 
   certipy-ad = callPackage ../development/python-modules/certipy-ad { };
@@ -3159,6 +3161,8 @@ self: super: with self; {
   conjure-python-client = callPackage ../development/python-modules/conjure-python-client { };
 
   connect-box = callPackage ../development/python-modules/connect-box { };
+
+  connect-box3 = callPackage ../development/python-modules/connect-box3 { };
 
   connected-components-3d = callPackage ../development/python-modules/connected-components-3d { };
 
@@ -4532,6 +4536,8 @@ self: super: with self; {
   dnfile = callPackage ../development/python-modules/dnfile { };
 
   dns-lexicon = callPackage ../development/python-modules/dns-lexicon { };
+
+  dnsight = callPackage ../development/python-modules/dnsight { };
 
   dnslib = callPackage ../development/python-modules/dnslib { };
 
@@ -6908,6 +6914,8 @@ self: super: with self; {
 
   hatch = callPackage ../development/python-modules/hatch/default.nix { };
 
+  hatch-argparse-manpage = callPackage ../development/python-modules/hatch-argparse-manpage { };
+
   hatch-autorun = callPackage ../development/python-modules/hatch-autorun { };
 
   hatch-babel = callPackage ../development/python-modules/hatch-babel { };
@@ -6921,6 +6929,8 @@ self: super: with self; {
       { };
 
   hatch-fancy-pypi-readme = callPackage ../development/python-modules/hatch-fancy-pypi-readme { };
+
+  hatch-gettext = callPackage ../development/python-modules/hatch-gettext { };
 
   hatch-jupyter-builder = callPackage ../development/python-modules/hatch-jupyter-builder { };
 
@@ -7105,6 +7115,8 @@ self: super: with self; {
   home-assistant-chip-wheels = toPythonModule (
     callPackage ../development/python-modules/home-assistant-chip-wheels { }
   );
+
+  home-assistant-datasets = callPackage ../development/python-modules/home-assistant-datasets { };
 
   home-connect-async = callPackage ../development/python-modules/home-connect-async { };
 
@@ -18904,6 +18916,8 @@ self: super: with self; {
 
   synology-srm = callPackage ../development/python-modules/synology-srm { };
 
+  synthetic-home = callPackage ../development/python-modules/synthetic-home { };
+
   syrupy = callPackage ../development/python-modules/syrupy { };
 
   syslog-rfc5424-formatter = callPackage ../development/python-modules/syslog-rfc5424-formatter { };
@@ -20504,6 +20518,8 @@ self: super: with self; {
   umodbus = callPackage ../development/python-modules/umodbus { };
 
   unasync = callPackage ../development/python-modules/unasync { };
+
+  uncalled-for = callPackage ../development/python-modules/uncalled-for { };
 
   uncertainties = callPackage ../development/python-modules/uncertainties { };
 

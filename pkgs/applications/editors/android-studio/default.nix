@@ -21,14 +21,14 @@ let
     url = "https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.3.6/android-studio-panda3-linux.tar.gz";
   };
   betaVersion = {
-    version = "2025.3.3.5"; # "Android Studio Panda 3 | 2025.3.3 RC 1"
-    sha256Hash = "sha256-lKpFKw2Oq7OlDrPjFJhMH3aQsJO7TeOKy7HGUCE0B1U=";
-    url = "https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.3.5/android-studio-panda3-rc1-linux.tar.gz";
+    version = "2025.3.4.5"; # "Android Studio Panda 4 | 2025.3.4 RC 1"
+    sha256Hash = "sha256-NiNq1j+rzPU4KsLKYymfi5/Vx2Bn3hK8I3OVIUFloX0=";
+    url = "https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.4.5/android-studio-panda4-rc1-linux.tar.gz";
   };
   latestVersion = {
-    version = "2025.3.4.3"; # "Android Studio Panda 4 | 2025.3.4 Canary 3"
-    sha256Hash = "sha256-8fqHdU6IPuRmcJeCZQOqUPgfild9k98sLnN77dl2Hs8=";
-    url = "https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.4.3/android-studio-panda4-canary3-linux.tar.gz";
+    version = "2025.3.4.4"; # "Android Studio Panda 4 | 2025.3.4 Canary 4"
+    sha256Hash = "sha256-sPGJuOm5T7EZV5hhOJsZc7P8CTXyv9A6k82hM1GZGpY=";
+    url = "https://edgedl.me.gvt1.com/android/studio/ide-zips/2025.3.4.4/android-studio-panda4-canary4-linux.tar.gz";
   };
 in
 {
