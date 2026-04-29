@@ -692,6 +692,7 @@
   ./services/hardware/nvidia-optimus.nix
   ./services/hardware/openrgb.nix
   ./services/hardware/pcscd.nix
+  ./services/hardware/pdudaemon.nix
   ./services/hardware/pid-fan-controller.nix
   ./services/hardware/pommed.nix
   ./services/hardware/power-profiles-daemon.nix
@@ -727,6 +728,7 @@
   ./services/home-automation/esphome.nix
   ./services/home-automation/evcc.nix
   ./services/home-automation/govee2mqtt.nix
+  ./services/home-automation/home-assistant-matter-hub.nix
   ./services/home-automation/home-assistant.nix
   ./services/home-automation/homebridge.nix
   ./services/home-automation/matter-server.nix
@@ -1211,7 +1213,6 @@
   ./services/networking/geph.nix
   ./services/networking/ghostunnel.nix
   ./services/networking/git-daemon.nix
-  ./services/networking/globalprotect-vpn.nix
   ./services/networking/gns3-server.nix
   ./services/networking/gnunet.nix
   ./services/networking/go-autoconfig.nix
