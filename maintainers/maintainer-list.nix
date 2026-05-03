@@ -12419,6 +12419,13 @@
     githubId = 9425955;
     name = "Jean-François Labonté";
   };
+  jelni = {
+    email = "nixpkgs@jel.gay";
+    github = "jelni";
+    githubId = 25802745;
+    matrix = "@me:jel.gay";
+    name = "jel";
+  };
   jemand771 = {
     email = "willy@jemand771.net";
     github = "jemand771";
@@ -18055,7 +18062,7 @@
     keys = [ { fingerprint = "C3E7 F8C4 9CBC 9320 D360  B117 8516 D0FA 7D8F 58FC"; } ];
   };
   Misaka13514 = {
-    name = "Misaka13514";
+    name = "Rine Amakawa";
     email = "Misaka13514@gmail.com";
     matrix = "@misaka13514:matrix.org";
     github = "Misaka13514";
@@ -18500,6 +18507,11 @@
     github = "mrkkrp";
     githubId = 8165792;
     name = "Mark Karpov";
+  };
+  mrmaxmeier = {
+    github = "mrmaxmeier";
+    githubId = 3913977;
+    name = "Mrmaxmeier";
   };
   mrmebelman = {
     email = "burzakovskij@protonmail.com";
@@ -23373,12 +23385,6 @@
     github = "rmcgibbo";
     githubId = 641278;
     name = "Robert T. McGibbon";
-  };
-  rmgpinto = {
-    email = "hessian_loom_0u@icloud.com";
-    github = "rmgpinto";
-    githubId = 24584;
-    name = "Ricardo Gândara Pinto";
   };
   rnhmjoj = {
     email = "rnhmjoj@inventati.org";

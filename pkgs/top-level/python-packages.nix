@@ -7252,6 +7252,8 @@ self: super: with self; {
 
   httpx-oauth = callPackage ../development/python-modules/httpx-oauth { };
 
+  httpx-retries = callPackage ../development/python-modules/httpx-retries { };
+
   httpx-socks = callPackage ../development/python-modules/httpx-socks { };
 
   httpx-sse = callPackage ../development/python-modules/httpx-sse { };
@@ -13233,6 +13235,8 @@ self: super: with self; {
 
   py-pdf-parser = callPackage ../development/python-modules/py-pdf-parser { };
 
+  py-radix = callPackage ../development/python-modules/py-radix { };
+
   py-radix-sr = callPackage ../development/python-modules/py-radix-sr { };
 
   py-rust-stemmers = callPackage ../development/python-modules/py-rust-stemmers { };
@@ -16900,6 +16904,8 @@ self: super: with self; {
   reuse = callPackage ../development/python-modules/reuse { };
 
   reverse-geocode = callPackage ../development/python-modules/reverse-geocode { };
+
+  rf-protocols = callPackage ../development/python-modules/rf-protocols { };
 
   rfc3161-client = callPackage ../development/python-modules/rfc3161-client { };
 
