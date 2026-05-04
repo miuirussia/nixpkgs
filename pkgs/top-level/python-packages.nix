@@ -3650,6 +3650,8 @@ self: super: with self; {
 
   datasketch = callPackage ../development/python-modules/datasketch { };
 
+  datastar-py = callPackage ../development/python-modules/datastar-py { };
+
   datauri = callPackage ../development/python-modules/datauri { };
 
   datefinder = callPackage ../development/python-modules/datefinder { };
@@ -4993,6 +4995,8 @@ self: super: with self; {
   emborg = callPackage ../development/python-modules/emborg { };
 
   embrace = callPackage ../development/python-modules/embrace { };
+
+  embreex = callPackage ../development/python-modules/embreex { };
 
   emcee = callPackage ../development/python-modules/emcee { };
 
@@ -15271,6 +15275,8 @@ self: super: with self; {
 
   pytest-arraydiff = callPackage ../development/python-modules/pytest-arraydiff { };
 
+  pytest-assume = callPackage ../development/python-modules/pytest-assume { };
+
   pytest-astropy = callPackage ../development/python-modules/pytest-astropy { };
 
   pytest-astropy-header = callPackage ../development/python-modules/pytest-astropy-header { };
@@ -16711,7 +16717,7 @@ self: super: with self; {
 
   reflex-chakra = callPackage ../development/python-modules/reflex-chakra { };
 
-  reflex-hosting-cli = callPackage ../development/python-modules/reflex-hosting-cli { };
+  inherit (reflex.subPkgs) reflex-hosting-cli;
 
   reflink = callPackage ../development/python-modules/reflink { };
 
@@ -17205,6 +17211,8 @@ self: super: with self; {
   ruff = callPackage ../development/python-modules/ruff { inherit (pkgs) ruff; };
 
   ruff-api = callPackage ../development/python-modules/ruff-api { };
+
+  ruff-format = callPackage ../development/python-modules/ruff-format { };
 
   rules = callPackage ../development/python-modules/rules { };
 

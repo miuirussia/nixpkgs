@@ -3675,6 +3675,20 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  colortils-nvim = buildVimPlugin {
+    pname = "colortils.nvim";
+    version = "1.2.0";
+    src = fetchFromGitHub {
+      owner = "max397574";
+      repo = "colortils.nvim";
+      tag = "v1.2.0";
+      hash = "sha256-GaAgkNmzKTJaKBlLY/fP2Z1ZyBhfyGRkPiwjUj8Rkg4=";
+    };
+    meta.homepage = "https://github.com/max397574/colortils.nvim/";
+    meta.license = lib.meta.getLicenseFromSpdxId "GPL-2.0-only";
+    meta.hydraPlatforms = [ ];
+  };
+
   com-cloudedmountain-ide-neovim = buildVimPlugin {
     pname = "com.cloudedmountain.ide.neovim";
     version = "0.0.1-unstable-2023-09-25";
@@ -15521,6 +15535,19 @@ final: prev: {
       hash = "sha256-f9VEXT3bG4ESYpGGwUDONgL/Lsq4IToZEwaZyC2vG+4=";
     };
     meta.homepage = "https://github.com/ccarpita/rtorrent-syntax-file/";
+    meta.license = lib.licenses.unfree;
+    meta.hydraPlatforms = [ ];
+  };
+
+  run-nvim = buildVimPlugin {
+    pname = "run.nvim";
+    version = "2.0.0";
+    src = fetchgit {
+      url = "https://codeberg.org/ssnoer/run.nvim";
+      tag = "v2.0.0";
+      hash = "sha256-MTxhhcD6lHLJCfwaivKF9reeUrMog/8I2kJarNWz5Kk=";
+    };
+    meta.homepage = "https://codeberg.org/ssnoer/run.nvim";
     meta.license = lib.licenses.unfree;
     meta.hydraPlatforms = [ ];
   };
