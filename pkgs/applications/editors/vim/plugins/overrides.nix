@@ -2416,13 +2416,6 @@ assertNoAdditions {
     };
   });
 
-  mind-nvim = super.mind-nvim.overrideAttrs (old: {
-    dependencies = [ self.plenary-nvim ];
-    meta = old.meta // {
-      license = lib.licenses.bsd3;
-    };
-  });
-
   mini-nvim = super.mini-nvim.overrideAttrs {
     # reduce closure size
     postInstall = ''
@@ -3905,7 +3898,7 @@ assertNoAdditions {
     ];
 
     checkInputs = [
-      # Transitive depedency of telescope.nvim
+      # Transitive dependency of telescope.nvim
       # Issue: https://github.com/NixOS/nixpkgs/issues/394939
       self.plenary-nvim
     ];
@@ -5728,6 +5721,12 @@ assertNoAdditions {
       "randombones_dark"
     ];
   };
+
+  zig-vim = super.zig-vim.overrideAttrs (old: {
+    meta = old.meta // {
+      license = lib.licenses.mit;
+    };
+  });
 
   zk-nvim = super.zk-nvim.overrideAttrs {
     checkInputs = with self; [

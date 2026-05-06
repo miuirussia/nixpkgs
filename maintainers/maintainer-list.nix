@@ -132,12 +132,6 @@
     githubId = 56617252;
     matrix = "@oxc45:matrix.org";
   };
-  _0xd61 = {
-    email = "dgl@degit.co";
-    name = "Daniel Glinka";
-    github = "0xd61";
-    githubId = 8351869;
-  };
   _0xErwin1 = {
     email = "ignacio@feuer.me";
     name = "Ignacio Perez";
@@ -922,6 +916,12 @@
     github = "aither64";
     githubId = 4717906;
     name = "Jakub Skokan";
+  };
+  aiwao = {
+    email = "aiwao@140.lol";
+    github = "aiwao";
+    githubId = 233898056;
+    name = "aiwao";
   };
   aiyion = {
     email = "git@aiyionpri.me";
@@ -2906,6 +2906,12 @@
     github = "backuitist";
     githubId = 1017537;
     name = "Bruno Bieth";
+  };
+  bad3r = {
+    name = "Bad3r";
+    email = "github@unsigned.sh";
+    github = "Bad3r";
+    githubId = 25513724;
   };
   badele = {
     name = "Bruno Adelé";
@@ -10448,13 +10454,6 @@
     github = "hansjoergschurr";
     githubId = 9850776;
     name = "Hans-Jörg Schurr";
-  };
-  HaoZeke = {
-    email = "r95g10@gmail.com";
-    github = "HaoZeke";
-    githubId = 4336207;
-    name = "Rohit Goswami";
-    keys = [ { fingerprint = "74B1 F67D 8E43 A94A 7554  0768 9CCC E364 02CB 49A6"; } ];
   };
   happy-river = {
     email = "happyriver93@runbox.com";
@@ -24424,12 +24423,6 @@
     github = "sboosali";
     githubId = 2320433;
     name = "Sam Boosalis";
-  };
-  sbruder = {
-    email = "nixos@sbruder.de";
-    github = "sbruder";
-    githubId = 15986681;
-    name = "Simon Bruder";
   };
   scandiravian = {
     email = "nixos@scandiravian.com";
