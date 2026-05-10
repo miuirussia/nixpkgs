@@ -858,6 +858,8 @@ self: super: with self; {
 
   apcaccess = callPackage ../development/python-modules/apcaccess { };
 
+  apex = callPackage ../development/python-modules/apex { };
+
   apeye = callPackage ../development/python-modules/apeye { };
 
   apeye-core = callPackage ../development/python-modules/apeye-core { };
@@ -1301,6 +1303,8 @@ self: super: with self; {
   autopep8 = callPackage ../development/python-modules/autopep8 { };
 
   autopxd2 = callPackage ../development/python-modules/autopxd2 { };
+
+  autoskope-client = callPackage ../development/python-modules/autoskope-client { };
 
   autoslot = callPackage ../development/python-modules/autoslot { };
 
@@ -12528,8 +12532,6 @@ self: super: with self; {
 
   pikepdf = callPackage ../development/python-modules/pikepdf { };
 
-  pilight = callPackage ../development/python-modules/pilight { };
-
   pilkit = callPackage ../development/python-modules/pilkit { };
 
   pillow = callPackage ../development/python-modules/pillow {
@@ -12924,6 +12926,8 @@ self: super: with self; {
   prettytable = callPackage ../development/python-modules/prettytable { };
 
   price-parser = callPackage ../development/python-modules/price-parser { };
+
+  pricehist = callPackage ../development/python-modules/pricehist { };
 
   primecountpy = callPackage ../development/python-modules/primecountpy { };
 
@@ -13517,6 +13521,8 @@ self: super: with self; {
   pycarwings2 = callPackage ../development/python-modules/pycarwings2 { };
 
   pycasbin = callPackage ../development/python-modules/pycasbin { };
+
+  pycasperglow = callPackage ../development/python-modules/pycasperglow { };
 
   pycatch22 = callPackage ../development/python-modules/pycatch22 { };
 
@@ -15886,8 +15892,6 @@ self: super: with self; {
   python-markdown-math = callPackage ../development/python-modules/python-markdown-math { };
 
   python-matter-server = callPackage ../development/python-modules/python-matter-server { };
-
-  python-mbedtls = callPackage ../development/python-modules/python-mbedtls { };
 
   python-melcloud = callPackage ../development/python-modules/python-melcloud { };
 

@@ -290,6 +290,12 @@
     githubId = 92977828;
     name = "Mori Zen";
   };
+  _7591yj = {
+    email = "yeongjin.kim@proton.me";
+    github = "7591yj";
+    githubId = 77034308;
+    name = "Yeongjin Kim";
+  };
   _7karni = {
     email = "7karni@proton.me";
     name = "7karni";
@@ -4591,6 +4597,12 @@
     githubId = 9086315;
     name = "Connor Brewster";
   };
+  cbrxyz = {
+    email = "me@cbrxyz.com";
+    github = "cbrxyz";
+    githubId = 52760912;
+    name = "Cameron Brown";
+  };
   ccellado = {
     email = "annplague@gmail.com";
     github = "ccellado";
@@ -7964,12 +7976,6 @@
     name = "Emanuel";
     github = "EmanuelM153";
     githubId = 134736553;
-  };
-  emattiza = {
-    email = "nix@mattiza.dev";
-    github = "emattiza";
-    githubId = 11719476;
-    name = "Evan Mattiza";
   };
   embr = {
     email = "hi@liclac.eu";
@@ -14022,13 +14028,6 @@
     email = "markooo.keller@gmail.com";
     github = "keller00";
     githubId = 8452750;
-  };
-  kennyballou = {
-    email = "kb@devnulllabs.io";
-    github = "kennyballou";
-    githubId = 2186188;
-    name = "Kenny Ballou";
-    keys = [ { fingerprint = "932F 3E8E 1C0F 4A98 95D7  B8B8 B0CA A28A 0295 8308"; } ];
   };
   kenran = {
     email = "johannes.maier@mailbox.org";
@@ -20119,9 +20118,6 @@
     github = "nukdokplex";
     githubId = 25458915;
     name = "Viktor Titov";
-    keys = [
-      { fingerprint = "7CE2 4C42 942D 58EA 99F6  F00A A47E 7374 3EF6 FCC4"; }
-    ];
   };
   nullcube = {
     email = "nullcub3@gmail.com";
@@ -30035,6 +30031,12 @@
     github = "yajo";
     githubId = 973709;
     name = "Jairo Llopis";
+  };
+  yamadashy = {
+    email = "koukun0120@gmail.com";
+    github = "yamadashy";
+    githubId = 5019072;
+    name = "Kazuki Yamada";
   };
   yamashitax = {
     email = "hello@yamashit.ax";
