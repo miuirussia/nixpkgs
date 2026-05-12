@@ -5538,10 +5538,6 @@ with pkgs;
 
   credstash = with python3Packages; toPythonApplication credstash;
 
-  creduce = callPackage ../development/tools/misc/creduce {
-    inherit (llvmPackages_18) llvm libclang;
-  };
-
   css-html-js-minify = with python3Packages; toPythonApplication css-html-js-minify;
 
   cvise = python3Packages.callPackage ../development/tools/misc/cvise {
@@ -7929,6 +7925,13 @@ with pkgs;
         directory = ../servers/home-assistant/custom-lovelace-modules;
       }
     )
+  );
+
+  home-assistant-themes = lib.recurseIntoAttrs (
+    lib.packagesFromDirectoryRecursive {
+      inherit callPackage;
+      directory = ../servers/home-assistant/themes;
+    }
   );
 
   home-assistant-cli = callPackage ../servers/home-assistant/cli.nix { };
@@ -11021,10 +11024,6 @@ with pkgs;
     quake3demo-hires
     quake3hires
     ;
-
-  rott-shareware = callPackage ../by-name/ro/rott/package.nix {
-    buildShareware = true;
-  };
 
   inherit (callPackage ../by-name/sc/scummvm/games.nix { })
     beneath-a-steel-sky

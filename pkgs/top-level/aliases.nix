@@ -1844,6 +1844,8 @@ mapAliases {
   rofi-wayland-unwrapped = throw "'rofi-wayland-unwrapped' has been merged into 'rofi-unwrapped'"; # Added 2025-09-06
   root5 = throw "root5 has been removed from nixpkgs because it's a legacy version"; # Added 2025-07-17
   rote = throw "rote has been removed due to lack of upstream maintenance"; # Added 2025-09-10
+  rott = throw "'rott' has been dropped in favor of its maintained fork 'taradino'"; # Added 2026-01-25
+  rott-shareware = throw "'rott-shareware' has been dropped in favor of its maintained fork 'taradino-shareware'"; # Added 2026-01-25
   rpPPPoE = warnAlias "'rpPPPoE' has been renamed to 'rp-pppoe'" rp-pppoe; # Added 2026-02-12
   rquickshare-legacy = throw "The legacy version depends on insecure package libsoup2, please use the main version"; # Added 2025-10-09
   rr-unstable = throw "'rr-unstable' has been renamed to/replaced by 'rr'"; # Converted to throw 2025-10-27
@@ -1995,6 +1997,7 @@ mapAliases {
   superTuxKart = warnAlias "'superTuxKart' has been renamed to 'supertuxkart'" supertuxkart; # Added 2026-02-12
   surge-XT = warnAlias "'surge-XT' has been renamed to 'surge-xt'" surge-xt; # Added 2026-02-12
   svt-av1-psy = warnAlias "'svt-av1-psy' has been replaced by 'svt-av1-psyex'" svt-av1-psyex; # Added 2026-01-10
+  swagger-cli = throw "'swagger-cli' has been removed as it is broken and unmaintained. Upstream suggests using 'redocly' instead"; # Added 2026-04-23
   swig4 = throw "'swig4' has been renamed to/replaced by 'swig'"; # Converted to throw 2025-10-27
   swiProlog = throw "'swiProlog' has been renamed to/replaced by 'swi-prolog'"; # Converted to throw 2025-10-27
   swiPrologWithGui = throw "'swiPrologWithGui' has been renamed to/replaced by 'swi-prolog-gui'"; # Converted to throw 2025-10-27
