@@ -3476,6 +3476,8 @@ self: super: with self; {
 
   cwlformat = callPackage ../development/python-modules/cwlformat { };
 
+  cwsandbox = callPackage ../development/python-modules/cwsandbox { };
+
   cx-freeze = callPackage ../development/python-modules/cx-freeze { };
 
   cx-logging = callPackage ../development/python-modules/cx-logging { };
@@ -17870,6 +17872,8 @@ self: super: with self; {
   simple-di = callPackage ../development/python-modules/simple-di { };
 
   simple-parsing = callPackage ../development/python-modules/simple-parsing { };
+
+  simple-pid = callPackage ../development/python-modules/simple-pid { };
 
   simple-rest-client = callPackage ../development/python-modules/simple-rest-client { };
 
