@@ -7,16 +7,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "pocketbase";
-  version = "0.37.5";
+  version = "0.39.0";
 
   src = fetchFromGitHub {
     owner = "pocketbase";
     repo = "pocketbase";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-z5brZQEblcPkNNg6kNDw9C/3CwUCdMF/TPcOIFaPoKI=";
+    hash = "sha256-4myp2MleKb6mAwDKhN39uyc5PZJhB3lvm2x/KDR9u0g=";
   };
 
-  vendorHash = "sha256-8YtDQLeStdUb6HXX/KEifDHiX//9cH7XCBu2LtHrCQM=";
+  vendorHash = "sha256-VBsClxCOA9Mp/kCHQKuBPd2Nt5sfXkVRx/8mGk5Gkcg=";
 
   # This is the released subpackage from upstream repo
   subPackages = [ "examples/base" ];
@@ -41,7 +41,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/pocketbase/pocketbase";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
-      dit7ya
       thilobillerbeck
     ];
     mainProgram = "pocketbase";

@@ -125,6 +125,9 @@ in
     (mkRemovedOptionModule [ "programs" "yabar" ]
       "programs.yabar has been removed from NixOS. This is because the yabar repository has been archived upstream."
     )
+    (mkRemovedOptionModule [ "security" "dhparams" ] ''
+      The security.dhparams module has been removed as RFC 7919 has shown that generating your own params is problematic.
+    '')
     (mkRemovedOptionModule [ "security" "hideProcessInformation" ] ''
       The hidepid module was removed, since the underlying machinery
       is broken when using cgroups-v2.
@@ -390,6 +393,10 @@ in
       as the underlying package isn't being maintained. Working alternatives are
       libinput and synaptics.
     '')
+    (mkRemovedOptionModule [ "services" "xserver" "windowManager" "ragnarwm" ] ''
+      The services.xserver.windowManager.ragnarwm module has been removed
+      because the corresponding package was removed from nixpkgs.
+    '')
     (mkRemovedOptionModule [
       "services"
       "xmr-stak"
@@ -513,6 +520,9 @@ in
     '')
     (mkRemovedOptionModule [ "services" "xtreemfs" ] ''
       services.xtreemfs has been removed as it was broken and unmaintained upstream
+    '')
+    (mkRemovedOptionModule [ "services" "xserver" "cmt" ] ''
+      services.xserver.cmt has been removed as it was broken and unmaintained upstream
     '')
     # Do NOT add any option renames here, see top of the file
   ];
