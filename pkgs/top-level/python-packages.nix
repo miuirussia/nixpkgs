@@ -13742,6 +13742,8 @@ self: super: with self; {
 
   pychromecast = callPackage ../development/python-modules/pychromecast { };
 
+  pycifrw = callPackage ../development/python-modules/pycifrw { };
+
   pycketcasts = callPackage ../development/python-modules/pycketcasts { };
 
   pyclibrary = callPackage ../development/python-modules/pyclibrary { };
@@ -17807,6 +17809,8 @@ self: super: with self; {
   selenium = callPackage ../development/python-modules/selenium { };
 
   selenium-wire = callPackage ../development/python-modules/selenium-wire { };
+
+  selenium-wire-roadtx = callPackage ../development/python-modules/selenium-wire-roadtx { };
 
   semantic-version = callPackage ../development/python-modules/semantic-version { };
 
