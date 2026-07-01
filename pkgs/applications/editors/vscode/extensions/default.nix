@@ -1226,8 +1226,8 @@ let
         mktplcRef = {
           name = "databricks";
           publisher = "databricks";
-          version = "2.11.1";
-          hash = "sha256-QegVk1SJM/RegAVj7isgFcHwAJyQj9YDuP90u/7weSo=";
+          version = "2.12.0";
+          hash = "sha256-dDkJI9j79pFnZlEH9dokUoEYqjMmDyiU00IGGxzno1A=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/databricks.databricks/changelog";
@@ -4811,6 +4811,22 @@ let
         };
       };
 
+      tomblind.local-lua-debugger-vscode = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "local-lua-debugger-vscode";
+          publisher = "tomblind";
+          version = "0.3.3";
+          hash = "sha256-7uZHbhOa/GT9F7+xikaxuQXIGzre1q1uWTWaTJhi2UA=";
+        };
+        meta = {
+          changelog = "https://github.com/tomblind/local-lua-debugger-vscode/blob/master/CHANGELOG.md";
+          description = "Simple Lua debugger for Visual Studio Code which requires no additional dependencies";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode";
+          homepage = "https://github.com/tomblind/local-lua-debugger-vscode";
+          license = lib.licenses.mit;
+        };
+      };
+
       tsandall.opa = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "opa";
@@ -5282,8 +5298,8 @@ let
         mktplcRef = {
           name = "gitblame";
           publisher = "waderyan";
-          version = "13.0.1";
-          sha256 = "sha256-N0UgWdwGj3NW4x0Ea+jKL5Jvp0YE+HfK5tkUjmynPuY=";
+          version = "13.1.0";
+          sha256 = "sha256-32ohvlIV7ogX+hGgcrCyHrv2hKWSpi+YuRMv0SGDYYA=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/waderyan.gitblame/changelog";
