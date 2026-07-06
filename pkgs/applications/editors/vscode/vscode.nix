@@ -35,17 +35,17 @@ let
 
   hash =
     {
-      x86_64-linux = "sha256-fj2MxTByiFHl2r5rXN/J1mqG69uRNIvDZDujBG5cIxw=";
-      x86_64-darwin = "sha256-WnWXuu+FIvOQt4pxRQbwAFYoR4toevmE0Fk1S2esztQ=";
-      aarch64-linux = "sha256-/Qj9sMbrvTxBGRnWgDSE6FI6M1/mwP1jAQrpWflaDYk=";
-      aarch64-darwin = "sha256-7j4u1OuHopC1ih/PGWPaEiS35/xFRZTA6uEB/LXq0ew=";
-      armv7l-linux = "sha256-RuRr6FeEqgJUDGHCKNg9nQ6vzlp7fvZC7AE99m9UB40=";
+      x86_64-linux = "sha256-4G+zZ5HJuvdJXUt9wPWqqCVOfRpgpe5D5sfevAXJYrU=";
+      x86_64-darwin = "sha256-+o+UZwmJMeGyf2n1VZcm0zl4dzuC/0UBV5jyUANKsEQ=";
+      aarch64-linux = "sha256-UEkpGlTV/KZ8Qcw/OBOCNDQHblD7gHHloSzM62FvDnw=";
+      aarch64-darwin = "sha256-IHu9EwW9/oS2FTr/mB7ugMss5Pku3IyslqFYr4riZyk=";
+      armv7l-linux = "sha256-Rfp2H6L7bXXhdxf2yphW9YXDGW1+Ea0nKdyTFS8Y/tU=";
     }
     .${system} or throwSystem;
 
   # Please backport all compatible updates to the stable release.
   # This is important for the extension ecosystem.
-  version = "1.126.0";
+  version = "1.127.0";
 
   # The update server (update.code.visualstudio.com) expects the version path
   # segment in X.Y.Z form, so we normalize X.Y to X.Y.0 (e.g. "1.110" → "1.110.0").
@@ -53,7 +53,7 @@ let
   downloadVersion = lib.versions.pad 3 version;
 
   # This is used for VS Code - Remote SSH test
-  rev = "7e7950df89d055b5a378379db9ee14290772148a";
+  rev = "4fe60c8b1cdac1c4c174f2fb180d0d758272d713";
 in
 buildVscode {
   pname = "vscode" + lib.optionalString isInsiders "-insiders";
@@ -86,7 +86,7 @@ buildVscode {
     src = fetchurl {
       name = "vscode-server-${rev}.tar.gz";
       url = "https://update.code.visualstudio.com/commit:${rev}/server-linux-x64/stable";
-      hash = "sha256-/WJIxuZy+7t2fOnEm3cg9zPqVFLCppyk5O9qO/1yZ0M=";
+      hash = "sha256-JpcbzKdVlfRRKCzG/aDoWEGG7Yg0BcjuqCcg/Nez/9U=";
     };
     stdenv = stdenvNoCC;
   };

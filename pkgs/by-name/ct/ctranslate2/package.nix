@@ -28,14 +28,14 @@ let
 in
 stdenv'.mkDerivation (finalAttrs: {
   pname = "ctranslate2";
-  version = "4.8.0";
+  version = "4.8.1";
 
   src = fetchFromGitHub {
     owner = "OpenNMT";
     repo = "CTranslate2";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-Z7Gq+kXIfMdZs48WeptRGXhXnLfehegAwTtQpTbPM4U=";
+    hash = "sha256-+82u+w08wGX0oh1wBaH/epI2IH7lxbvMThJEoGt0Kvk=";
   };
 
   # Fix CMake 4 compatibility
@@ -51,13 +51,6 @@ stdenv'.mkDerivation (finalAttrs: {
         'CMAKE_MINIMUM_REQUIRED(VERSION 3.10 FATAL_ERROR)'
 
     sed -e '1i #include <cstdint>' -i third_party/cxxopts/include/cxxopts.hpp
-
-    # Prevent setting the default nvcc arch flags, which can be
-    # ones that don't work with the current CUDA version
-    substituteInPlace CMakeLists.txt \
-      --replace-fail \
-        'list(APPEND CUDA_NVCC_FLAGS ''${ARCH_FLAGS})' \
-        ""
   '';
 
   nativeBuildInputs = [
