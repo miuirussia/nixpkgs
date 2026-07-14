@@ -268,6 +268,7 @@
   ./programs/mininet.nix
   ./programs/minipro.nix
   ./programs/miriway.nix
+  ./programs/moonlight-qt.nix
   ./programs/mosh.nix
   ./programs/mouse-actions.nix
   ./programs/msmtp.nix
@@ -295,6 +296,7 @@
   ./programs/opengamepadui.nix
   ./programs/openvpn3.nix
   ./programs/partition-manager.nix
+  ./programs/passless.nix
   ./programs/pay-respects.nix
   ./programs/plotinus.nix
   ./programs/pmount.nix
@@ -329,6 +331,7 @@
   ./programs/sysdig.nix
   ./programs/system-config-printer.nix
   ./programs/systemtap.nix
+  ./programs/tack.nix
   ./programs/tcpdump.nix
   ./programs/television.nix
   ./programs/throne.nix
@@ -592,6 +595,7 @@
   ./services/desktops/linyaps.nix
   ./services/desktops/malcontent.nix
   ./services/desktops/neard.nix
+  ./services/desktops/oo7.nix
   ./services/desktops/pipewire/pipewire.nix
   ./services/desktops/pipewire/wireplumber.nix
   ./services/desktops/playerctld.nix
@@ -727,6 +731,7 @@
   ./services/hardware/usbmuxd.nix
   ./services/hardware/usbrelayd.nix
   ./services/hardware/vdr.nix
+  ./services/hardware/watt.nix
   ./services/home-automation/deye-dummycloud.nix
   ./services/home-automation/ebusd.nix
   ./services/home-automation/esphome.nix
@@ -800,7 +805,6 @@
   ./services/mail/sympa.nix
   ./services/mail/tlsrpt.nix
   ./services/mail/zeyple.nix
-  ./services/matrix/appservice-discord.nix
   ./services/matrix/appservice-irc.nix
   ./services/matrix/conduit.nix
   ./services/matrix/continuwuity.nix
@@ -819,6 +823,7 @@
   ./services/matrix/mautrix-whatsapp.nix
   ./services/matrix/mjolnir.nix
   ./services/matrix/pantalaimon.nix
+  ./services/matrix/rust-federation-tester.nix
   ./services/matrix/synapse-auto-compressor.nix
   ./services/matrix/synapse.nix
   ./services/matrix/tuwunel.nix
@@ -981,6 +986,7 @@
   ./services/misc/spice-webdavd.nix
   ./services/misc/spoolman.nix
   ./services/misc/sssd.nix
+  ./services/misc/stash-clipboard.nix
   ./services/misc/subsonic.nix
   ./services/misc/sundtek.nix
   ./services/misc/svnserve.nix
