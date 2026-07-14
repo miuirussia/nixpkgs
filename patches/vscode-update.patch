@@ -1,0 +1,64 @@
+diff --git a/pkgs/applications/editors/vscode/update-vscodium.sh b/pkgs/applications/editors/vscode/update-vscodium.sh
+index 6420ff0ee1..49a92b9fb3 100755
+--- a/pkgs/applications/editors/vscode/update-vscodium.sh
++++ b/pkgs/applications/editors/vscode/update-vscodium.sh
+@@ -19,10 +19,8 @@ fi
+ for i in \
+     "x86_64-linux linux-x64 tar.gz" \
+     "aarch64-linux linux-arm64 tar.gz" \
+-    "armv7l-linux linux-armhf tar.gz" \
+     "loongarch64-linux linux-loong64 tar.gz" \
+-    "aarch64-darwin darwin-arm64 zip" \
+-    "x86_64-darwin darwin-x64 zip"; do
++    "aarch64-darwin darwin-arm64 zip"; do
+     set -- $i
+     hash=$(nix --extra-experimental-features nix-command hash convert --hash-algo sha256 --to sri $(nix-prefetch-url "https://github.com/VSCodium/vscodium/releases/download/$latestVersion/VSCodium-$2-$latestVersion.$3"))
+     update-source-version vscodium $latestVersion $hash --system=$1 --ignore-same-version
+diff --git a/pkgs/applications/editors/vscode/vscode.nix b/pkgs/applications/editors/vscode/vscode.nix
+index 89ed737e0c..480d02b1b2 100644
+--- a/pkgs/applications/editors/vscode/vscode.nix
++++ b/pkgs/applications/editors/vscode/vscode.nix
+@@ -24,7 +24,6 @@ let
+   plat =
+     {
+       x86_64-linux = "linux-x64";
+-      x86_64-darwin = "darwin";
+       aarch64-linux = "linux-arm64";
+       aarch64-darwin = "darwin-arm64";
+       armv7l-linux = "linux-armhf";
+@@ -36,7 +35,6 @@ let
+   hash =
+     {
+       x86_64-linux = "sha256-4G+zZ5HJuvdJXUt9wPWqqCVOfRpgpe5D5sfevAXJYrU=";
+-      x86_64-darwin = "sha256-+o+UZwmJMeGyf2n1VZcm0zl4dzuC/0UBV5jyUANKsEQ=";
+       aarch64-linux = "sha256-UEkpGlTV/KZ8Qcw/OBOCNDQHblD7gHHloSzM62FvDnw=";
+       aarch64-darwin = "sha256-IHu9EwW9/oS2FTr/mB7ugMss5Pku3IyslqFYr4riZyk=";
+       armv7l-linux = "sha256-Rfp2H6L7bXXhdxf2yphW9YXDGW1+Ea0nKdyTFS8Y/tU=";
+@@ -128,7 +126,6 @@ buildVscode {
+     ];
+     platforms = [
+       "x86_64-linux"
+-      "x86_64-darwin"
+       "aarch64-darwin"
+       "aarch64-linux"
+       "armv7l-linux"
+diff --git a/pkgs/applications/editors/vscode/vscodium.nix b/pkgs/applications/editors/vscode/vscodium.nix
+index af9fa5cc4e..d2b333f49e 100644
+--- a/pkgs/applications/editors/vscode/vscodium.nix
++++ b/pkgs/applications/editors/vscode/vscodium.nix
+@@ -15,7 +15,6 @@ let
+   plat =
+     {
+       x86_64-linux = "linux-x64";
+-      x86_64-darwin = "darwin-x64";
+       aarch64-linux = "linux-arm64";
+       aarch64-darwin = "darwin-arm64";
+       armv7l-linux = "linux-armhf";
+@@ -28,7 +27,6 @@ let
+   hash =
+     {
+       x86_64-linux = "sha256-LJsGc11MH6zlcJNfSWjTWPn2Jp9dkjeBPQuCXH1woUM=";
+-      x86_64-darwin = "sha256-bC7AfH2eKmmsWIOHifNGKD/kVQCYyuMfU3SUil0DXkM=";
+       aarch64-linux = "sha256-mT5dvw8GOZ0GnZaKRS/TAzQDEEYDOgcj6w6lNLy5kQ0=";
+       aarch64-darwin = "sha256-c8K17XKpRG1ji2mUfoyg2+cRF+qc1KVMYVkaQoUIz7Y=";
+       armv7l-linux = "sha256-91ZHhEUDVoDiRBLwMHVLhzKmb9gWcPBUsVRZVLhCA4M=";
