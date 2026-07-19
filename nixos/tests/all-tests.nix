@@ -63,7 +63,7 @@ let
       - `config.node.pkgs.<name>` or `config.nodes.foo.nixpkgs.pkgs.<name>` to refer
         to the Nixpkgs used on the VM guest(s).
       - `hostPkgs.<name>` when invoking commands on the VM host (e.g. in Python
-        `os.system("foo")`)
+        `subprocess.run(["foo"])`)
     - Since the runTest argument is a module instead of a function, arguments
       must be passed as option definitions.
       You may declare explicit `options` for the test parameter(s), or use the
@@ -1205,6 +1205,7 @@ in
   nominatim = runTest ./nominatim.nix;
   non-default-filesystems = handleTest ./non-default-filesystems.nix { };
   non-switchable-system = runTest ./non-switchable-system.nix;
+  nordvpn = runTest ./nordvpn.nix;
   noto-fonts = runTest ./noto-fonts.nix;
   noto-fonts-cjk-qt-default-weight = runTest ./noto-fonts-cjk-qt-default-weight.nix;
   novacomd = handleTestOn [ "x86_64-linux" ] ./novacomd.nix { };
@@ -1511,6 +1512,7 @@ in
   rtkit = runTest ./rtkit.nix;
   rtorrent = runTest ./rtorrent.nix;
   rush = runTest ./rush.nix;
+  rustfs = runTest ./rustfs.nix;
   rustical = runTest ./web-apps/rustical.nix;
   rustls-libssl = runTest ./rustls-libssl.nix;
   rxe = runTest ./rxe.nix;
@@ -1538,7 +1540,7 @@ in
   sftpgo = runTest ./sftpgo.nix;
   sfxr-qt = runTest ./sfxr-qt.nix;
   sgt-puzzles = runTest ./sgt-puzzles.nix;
-  shadow = runTest ./shadow.nix;
+  shadow = import ./shadow { inherit runTest; };
   shadowsocks = handleTest ./shadowsocks { };
   shadps4 = runTest ./shadps4.nix;
   sharkey = runTest ./web-apps/sharkey.nix;
@@ -1584,6 +1586,8 @@ in
   sssd-ldap = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./sssd-ldap.nix { };
   sssd-legacy-config = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./sssd-legacy-config.nix { };
   stalwart = runTest ./stalwart/stalwart.nix;
+  stardust-xr-atmosphere = runTest ./stardust-xr/atmosphere.nix;
+  stardust-xr-flatland = runTest ./stardust-xr/flatland.nix;
   stargazer = runTest ./web-servers/stargazer.nix;
   starship = runTest ./starship.nix;
   startx = import ./startx.nix { inherit pkgs runTest; };
@@ -1683,6 +1687,7 @@ in
   systemd-journal = runTest ./systemd-journal.nix;
   systemd-journal-gateway = runTest ./systemd-journal-gateway.nix;
   systemd-journal-upload = runTest ./systemd-journal-upload.nix;
+  systemd-localed = runTest ./systemd-localed.nix;
   systemd-lock-handler = runTestOn [ "aarch64-linux" "x86_64-linux" ] ./systemd-lock-handler.nix;
   systemd-machinectl = runTest ./systemd-machinectl.nix;
   systemd-misc = runTest ./systemd-misc.nix;
@@ -1841,6 +1846,7 @@ in
   };
   virtualbox = handleTestOn [ "x86_64-linux" ] ./virtualbox.nix { };
   vm-variant = handleTest ./vm-variant.nix { };
+  vnstat = runTest ./vnstat.nix;
   vscode-remote-ssh = handleTestOn [ "x86_64-linux" ] ./vscode-remote-ssh.nix { };
   vscodium = import ./vscodium.nix { inherit runTest; };
   vsftpd = runTest ./vsftpd.nix;

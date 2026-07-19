@@ -4,6 +4,7 @@
   rustPlatform,
   fetchFromGitHub,
   installShellFiles,
+  llvmPackages,
   nix-update-script,
 }:
 
@@ -20,13 +21,21 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-ZwF5nNI2ESwgaH129MhcJPlhtmxqwhhQ9W49u9bilRk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [
+    installShellFiles
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    # TODO: Remove once #536365 reaches this branch
+    llvmPackages.lld
+  ];
 
   env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {
     NIX_LDFLAGS = toString [
       "-framework"
       "AppKit"
     ];
+    # TODO: Remove once #536365 reaches this branch
+    NIX_CFLAGS_LINK = "-fuse-ld=lld";
   };
 
   checkFlags = [
@@ -56,7 +65,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Executes commands in response to file modifications";
     homepage = "https://watchexec.github.io/";
-    license = with lib.licenses; [ asl20 ];
+    license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [
       michalrus
       prince213

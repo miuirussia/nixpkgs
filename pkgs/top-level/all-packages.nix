@@ -505,13 +505,7 @@ with pkgs;
     mysql-shell_9
     ;
 
-  mysql-shell-innovation = callPackage ../development/tools/mysql-shell/innovation.nix {
-    antlr = antlr4_10;
-    icu = icu77;
-    protobuf = protobuf_25.override {
-      abseil-cpp = abseil-cpp_202407;
-    };
-  };
+  mysql-shell-innovation = mysql-shell_9;
 
   # this is used by most `fetch*` functions
   repoRevToNameMaybe = lib.repoRevToName config.fetchedSourceNameDefault;
@@ -2089,10 +2083,6 @@ with pkgs;
 
   gnucap-full = gnucap.withPlugins (p: [ p.verilog ]);
 
-  gnugrep = callPackage ../tools/text/gnugrep { };
-
-  gnupatch = callPackage ../tools/text/gnupatch { };
-
   gnupg1compat = callPackage ../tools/security/gnupg/1compat.nix { };
   gnupg1 = gnupg1compat; # use config.packageOverrides if you prefer original gnupg1
 
@@ -2321,6 +2311,7 @@ with pkgs;
       clojure = clojupyter.definition;
       octave = octave-kernel.definition;
       r = r-ark-kernel.definition;
+      ruby = iruby.definition;
       # wolfram = wolfram-for-jupyter-kernel.definition; # unfree
     };
   };
@@ -3256,11 +3247,7 @@ with pkgs;
   };
   fasm-bin = callPackage ../development/compilers/fasm/bin.nix { };
 
-  fbc =
-    if stdenv.hostPlatform.isDarwin then
-      callPackage ../development/compilers/fbc/mac-bin.nix { }
-    else
-      callPackage ../development/compilers/fbc { };
+  fbc = callPackage ../development/compilers/fbc { };
 
   filecheck = with python3Packages; toPythonApplication filecheck;
 
@@ -4685,11 +4672,9 @@ with pkgs;
 
   inherit
     ({
-      spidermonkey_115 = callPackage ../development/interpreters/spidermonkey/115.nix { };
       spidermonkey_128 = callPackage ../development/interpreters/spidermonkey/128.nix { };
       spidermonkey_140 = callPackage ../development/interpreters/spidermonkey/140.nix { };
     })
-    spidermonkey_115
     spidermonkey_128
     spidermonkey_140
     ;
@@ -4831,6 +4816,7 @@ with pkgs;
     electron_40-bin
     electron_41-bin
     electron_42-bin
+    electron_43-bin
     ;
 
   inherit (callPackages ../development/tools/electron/chromedriver { })
@@ -4838,6 +4824,7 @@ with pkgs;
     electron-chromedriver_40
     electron-chromedriver_41
     electron-chromedriver_42
+    electron-chromedriver_43
     ;
 
   inherit
@@ -4858,10 +4845,7 @@ with pkgs;
       in
       {
         electron_39 = electron_39-bin;
-        electron_40 = getElectronPkg {
-          src = electron-source.electron_40;
-          bin = electron_40-bin;
-        };
+        electron_40 = electron_40-bin;
         electron_41 = getElectronPkg {
           src = electron-source.electron_41;
           bin = electron_41-bin;
@@ -4870,12 +4854,17 @@ with pkgs;
           src = electron-source.electron_42;
           bin = electron_42-bin;
         };
+        electron_43 = getElectronPkg {
+          src = electron-source.electron_43;
+          bin = electron_43-bin;
+        };
       }
     )
     electron_39
     electron_40
     electron_41
     electron_42
+    electron_43
     ;
   electron = electron_41;
   electron-bin = electron_41-bin;
@@ -6716,7 +6705,6 @@ with pkgs;
     s6-portable-utils-man-pages
     s6-rc
     s6-rc-man-pages
-    sdnotify-wrapper
     skalibs
     skalibs_2_10
     tipidee
@@ -6819,10 +6807,6 @@ with pkgs;
 
   vid-stab = callPackage ../development/libraries/vid-stab {
     inherit (llvmPackages) openmp;
-  };
-
-  vigra = callPackage ../development/libraries/vigra {
-    hdf5 = hdf5.override { apiVersion = "v110"; };
   };
 
   vte-gtk4 = vte.override {
@@ -8190,6 +8174,12 @@ with pkgs;
     ubootWandboard
     ;
 
+  # Upstream Barebox:
+  inherit (callPackage ../misc/barebox { })
+    buildBarebox
+    bareboxTools
+    ;
+
   usbrelay = callPackage ../os-specific/linux/usbrelay { };
   usbrelayd = callPackage ../os-specific/linux/usbrelay/daemon.nix { };
 
@@ -8539,9 +8529,6 @@ with pkgs;
   docker-client = docker.override { clientOnly = true; };
 
   docker-gc = callPackage ../applications/virtualization/docker/gc.nix { };
-  docker-machine-hyperkit =
-    callPackage ../applications/networking/cluster/docker-machine/hyperkit.nix
-      { };
   docker-buildx = callPackage ../applications/virtualization/docker/buildx.nix { };
   docker-compose = callPackage ../applications/virtualization/docker/compose.nix { };
   docker-sbom = callPackage ../applications/virtualization/docker/sbom.nix { };
@@ -8693,7 +8680,6 @@ with pkgs;
     import ../applications/networking/browsers/firefox/packages/firefox-esr-140.nix
       {
         inherit
-          stdenv
           lib
           callPackage
           fetchurl
@@ -9095,10 +9081,6 @@ with pkgs;
     mopidy-ytmusic
     ;
 
-  mpg123 = callPackage ../applications/audio/mpg123 {
-    jack = libjack2;
-  };
-
   libmpg123 = mpg123.override {
     libOnly = true;
     withConplay = false;
@@ -9255,7 +9237,6 @@ with pkgs;
   qemu-python-utils = python3Packages.toPythonApplication (
     python3Packages.qemu.override {
       fuseSupport = true;
-      tuiSupport = true;
     }
   );
 
@@ -9325,11 +9306,7 @@ with pkgs;
 
   ringboard-wayland = callPackage ../by-name/ri/ringboard/package.nix { displayServer = "wayland"; };
 
-  ripcord =
-    if stdenv.hostPlatform.isLinux then
-      qt5.callPackage ../applications/networking/instant-messengers/ripcord { }
-    else
-      callPackage ../applications/networking/instant-messengers/ripcord/darwin.nix { };
+  ripcord = qt5.callPackage ../applications/networking/instant-messengers/ripcord { };
 
   inherit (callPackage ../applications/networking/cluster/rke2 { })
     rke2_1_33
@@ -9358,6 +9335,11 @@ with pkgs;
   rtl-sdr = rtl-sdr-blog;
 
   rusty-psn-gui = rusty-psn.override { withGui = true; };
+
+  sable = callPackage ../by-name/ci/cinny/package.nix {
+    pname = "sable";
+    cinny-unwrapped = sable-unwrapped;
+  };
 
   sweethome3d = recurseIntoAttrs (
     (callPackage ../applications/misc/sweethome3d { })
@@ -10055,9 +10037,7 @@ with pkgs;
 
   openra_2019 = openraPackages_2019.engines.release;
 
-  openraPackages = recurseIntoAttrs (callPackage ../games/openra { });
-
-  openra = openraPackages.engines.release;
+  openraPackages = recurseIntoAttrs (callPackage ../by-name/op/openra/engines { });
 
   papermcServers = callPackages ../games/papermc { };
 
@@ -10272,12 +10252,6 @@ with pkgs;
   libxc_7 = pkgs.libxc.override { version = "7.0.0"; };
 
   molbar = with python3Packages; toPythonApplication molbar;
-
-  nwchem = callPackage ../applications/science/chemistry/nwchem {
-    blas = blas-ilp64;
-    lapack = lapack-ilp64;
-    scalapack = scalapack-ilp64;
-  };
 
   pdb2pqr = with python3Packages; toPythonApplication pdb2pqr;
 
@@ -10593,10 +10567,6 @@ with pkgs;
   ### SCIENCE / MISC
 
   boinc-headless = boinc.override { headless = true; };
-
-  celestia = callPackage ../applications/science/astronomy/celestia {
-    inherit (gnome2) gtkglext;
-  };
 
   faissWithCuda = faiss.override {
     cudaSupport = true;
