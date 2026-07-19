@@ -1,0 +1,31 @@
+From f382dbba9c009e28e5eff1dd16a105ac96a64f10 Mon Sep 17 00:00:00 2001
+From: Bobby Rong <rjl931189261@126.com>
+Date: Sun, 19 Jul 2026 17:40:00 +0800
+Subject: [PATCH] vscodium: Drop armv7l-linux and x86_64-darwin from update
+ script
+
+armv7l-linux was disabled upstream:
+https://github.com/VSCodium/vscodium/compare/1.121.03429...1.126.04524
+
+x86_64-darwin was dropped downstream:
+fdb820602ba46f2f
+---
+ pkgs/applications/editors/vscode/update-vscodium.sh | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/pkgs/applications/editors/vscode/update-vscodium.sh b/pkgs/applications/editors/vscode/update-vscodium.sh
+index 6420ff0ee1f2a..49a92b9fb35ad 100755
+--- a/pkgs/applications/editors/vscode/update-vscodium.sh
++++ b/pkgs/applications/editors/vscode/update-vscodium.sh
+@@ -19,10 +19,8 @@ fi
+ for i in \
+     "x86_64-linux linux-x64 tar.gz" \
+     "aarch64-linux linux-arm64 tar.gz" \
+-    "armv7l-linux linux-armhf tar.gz" \
+     "loongarch64-linux linux-loong64 tar.gz" \
+-    "aarch64-darwin darwin-arm64 zip" \
+-    "x86_64-darwin darwin-x64 zip"; do
++    "aarch64-darwin darwin-arm64 zip"; do
+     set -- $i
+     hash=$(nix --extra-experimental-features nix-command hash convert --hash-algo sha256 --to sri $(nix-prefetch-url "https://github.com/VSCodium/vscodium/releases/download/$latestVersion/VSCodium-$2-$latestVersion.$3"))
+     update-source-version vscodium $latestVersion $hash --system=$1 --ignore-same-version
