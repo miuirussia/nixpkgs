@@ -350,6 +350,7 @@
   ./programs/tsm-client.nix
   ./programs/turbovnc.nix
   ./programs/udevil.nix
+  ./programs/upki.nix
   ./programs/usbtop.nix
   ./programs/vim.nix
   ./programs/virt-manager.nix
@@ -1715,6 +1716,7 @@
   ./services/web-apps/haven.nix
   ./services/web-apps/healthchecks.nix
   ./services/web-apps/hedgedoc.nix
+  ./services/web-apps/hister.nix
   ./services/web-apps/hledger-web.nix
   ./services/web-apps/homebox.nix
   ./services/web-apps/homer.nix
