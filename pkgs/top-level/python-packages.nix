@@ -3593,6 +3593,8 @@ self: super: with self; {
 
   connection-pool = callPackage ../development/python-modules/connection-pool { };
 
+  connectrpc = callPackage ../development/python-modules/connectrpc { };
+
   connexion = callPackage ../development/python-modules/connexion { };
 
   connio = callPackage ../development/python-modules/connio { };
@@ -12978,6 +12980,8 @@ self: super: with self; {
 
   ovoenergy = callPackage ../development/python-modules/ovoenergy { };
 
+  owlrl = callPackage ../development/python-modules/owlrl { };
+
   owslib = callPackage ../development/python-modules/owslib { };
 
   oyaml = callPackage ../development/python-modules/oyaml { };
@@ -13970,6 +13974,10 @@ self: super: with self; {
   # If a protobuf upgrade causes many Python packages to fail, please pin it here to the previous version.
   protobuf = protobuf7;
 
+  protobuf-py = callPackage ../development/python-modules/protobuf-py { };
+
+  protobuf-py-ext = callPackage ../development/python-modules/protobuf-py-ext { };
+
   protobuf3-to-dict = callPackage ../development/python-modules/protobuf3-to-dict { };
 
   # Protobuf 4.x
@@ -14747,6 +14755,8 @@ self: super: with self; {
   pydub = callPackage ../development/python-modules/pydub { };
 
   pyduke-energy = callPackage ../development/python-modules/pyduke-energy { };
+
+  pyduktape2 = callPackage ../development/python-modules/pyduktape2 { };
 
   pyduotecno = callPackage ../development/python-modules/pyduotecno { };
 
@@ -15870,6 +15880,8 @@ self: super: with self; {
 
   pyqvrpro = callPackage ../development/python-modules/pyqvrpro { };
 
+  pyqwest = callPackage ../development/python-modules/pyqwest { };
+
   pyqwikswitch = callPackage ../development/python-modules/pyqwikswitch { };
 
   pyrabbit2 = callPackage ../development/python-modules/pyrabbit2 { };
@@ -16079,6 +16091,8 @@ self: super: with self; {
   pysfcgal = callPackage ../development/python-modules/pysfcgal { };
 
   pysftp = callPackage ../development/python-modules/pysftp { };
+
+  pyshacl = callPackage ../development/python-modules/pyshacl { };
 
   pyshark = callPackage ../development/python-modules/pyshark { };
 
@@ -18424,6 +18438,8 @@ self: super: with self; {
 
   sanic-auth = callPackage ../development/python-modules/sanic-auth { };
 
+  sanic-cors = callPackage ../development/python-modules/sanic-cors { };
+
   sanic-ext = callPackage ../development/python-modules/sanic-ext { };
 
   sanic-routing = callPackage ../development/python-modules/sanic-routing { };
@@ -18789,6 +18805,8 @@ self: super: with self; {
   sgp4 = callPackage ../development/python-modules/sgp4 { };
 
   sh = callPackage ../development/python-modules/sh { };
+
+  shacl2code = callPackage ../development/python-modules/shacl2code { };
 
   shamir-mnemonic = callPackage ../development/python-modules/shamir-mnemonic { };
 
@@ -19358,6 +19376,8 @@ self: super: with self; {
   spdx = callPackage ../development/python-modules/spdx { };
 
   spdx-license-list = callPackage ../development/python-modules/spdx-license-list { };
+
+  spdx-python-model = callPackage ../development/python-modules/spdx-python-model { };
 
   spdx-tools = callPackage ../development/python-modules/spdx-tools { };
 
@@ -21626,6 +21646,8 @@ self: super: with self; {
   types-ipaddress = callPackage ../development/python-modules/types-ipaddress { };
 
   types-jinja2 = callPackage ../development/python-modules/types-jinja2 { };
+
+  types-jsonschema = callPackage ../development/python-modules/types-jsonschema { };
 
   types-lxml = callPackage ../development/python-modules/types-lxml { };
 
