@@ -34,16 +34,16 @@ let
 
   hash =
     {
-      x86_64-linux = "sha256-K/GpDS8AivAJ6zxKe9CEm5JHoFiM05pASgseaRvmgWE=";
-      aarch64-linux = "sha256-1u5D2VoiULvHrs1GdWJGXlCvzHXwvrQGltla0IyqfXo=";
-      aarch64-darwin = "sha256-KxP/IfZArzsb6c8sJn/V8BdfZwBOxuEmNTVgDzgr9C0=";
-      armv7l-linux = "sha256-6zU1vbMscFPojetijtmvZigIVpJYL89FkFW4jIYHUaI=";
+      x86_64-linux = "sha256-kzYXAHn1J/HKYtrTmUewINsGvT6Mrn4eYJe+pZTzdzM=";
+      aarch64-linux = "sha256-pVgSIP7fnHNBFK9kssi1SeCuXoLXHPXJUeO01CUQS5k=";
+      aarch64-darwin = "sha256-bfGBZGWI8BMjOdGfW9+yC9DW2wXlgBBh8S4NyTyF+nA=";
+      armv7l-linux = "sha256-Wz9sdCjACeiUfSCCWUDvQEJFmQs4wc7hiJPDG2VnkrM=";
     }
     .${system} or throwSystem;
 
   # Please backport all compatible updates to the stable release.
   # This is important for the extension ecosystem.
-  version = "1.133.0";
+  version = "1.134.0";
 
   # The update server (update.code.visualstudio.com) expects the version path
   # segment in X.Y.Z form, so we normalize X.Y to X.Y.0 (e.g. "1.110" → "1.110.0").
