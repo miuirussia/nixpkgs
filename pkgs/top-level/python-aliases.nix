@@ -185,6 +185,8 @@ mapAliases {
   debian = throw "'debian' has been renamed to/replaced by 'python-debian'"; # Converted to throw 2025-10-29
   dedupe-pylbfgs = pylbfgs; # added 2026-06-28
   deepsearch-glm = throw "'deepsearch-glm' has been removed due to lack of upstream maintenance"; # Added 2025-03-04
+  derpconf = throw "'derpconf' has been removed because it is unmaintained upstream"; # Added 2026-09-05
+  detectron2 = throw "'detectron2' has been removed because it is unmaintained upstream"; # Added 2026-09-06
   dictionaries = throw "'dictionaries' has been removed as it was archived upstream"; # Added 2026-07-20
   dictpath = throw "'dictpath' has been renamed to/replaced by 'pathable'"; # Converted to throw 2025-10-29
   diff_cover = throw "'diff_cover' has been renamed to/replaced by 'diff-cover'"; # Converted to throw 2025-10-29
@@ -460,6 +462,7 @@ mapAliases {
   openai-triton-cuda = throw "'openai-triton-cuda' has been renamed to/replaced by 'triton-cuda'"; # Converted to throw 2025-10-29
   openai-triton-no-cuda = throw "'openai-triton-no-cuda' has been renamed to/replaced by 'triton-no-cuda'"; # Converted to throw 2025-10-29
   openbabel-bindings = openbabel; # added 2025-09-17
+  openccu-loom-types = throw "'openccu-loom-types' was removed because its content now ships inside 'openccu-loom-client'"; # added 2026-09-06
   opsdroid_get_image_size = throw "'opsdroid_get_image_size' has been renamed to/replaced by 'opsdroid-get-image-size'"; # Converted to throw 2025-10-29
   orange3 = throw "'orange3' has been removed as it was unmaintained and depended on qt5 webengine"; # Added 2026-02-10
   orange-canvas-core = throw "'orange-canvas-core' has been removed as it was unmaintained and unused outside orange3"; # Added 2026-02-10
@@ -727,6 +730,8 @@ mapAliases {
   systembridge = throw "systembridge has been removed because it is unmaintained upstream"; # Added 2025-11-23
   systemd = throw "systemd was removed because it was misnamed; use systemd-python instead"; # added 2025-11-09
   sysv_ipc = throw "'sysv_ipc' has been renamed to/replaced by 'sysv-ipc'"; # Converted to throw 2025-10-29
+  tago = throw "'tago' has been removed because it was deprecated for tagoio-sdk"; # Added 2026-08-06
+  tahoma-api = throw "'tahoma-api' has been removed due to lack of upstream maintenance"; # Added 2026-08-06
   tbats = throw "'tbats' has been removed due to lack of upstream maintenance"; # Added 2026-05-11
   tbm-utils = throw "'tbm-utils' has been removed as it is unmaintained since 2020"; # Added 2026-03-12
   tensorflow-bin_2 = throw "'tensorflow-bin_2' has been renamed to/replaced by 'tensorflow-bin'"; # Converted to throw 2025-10-29
