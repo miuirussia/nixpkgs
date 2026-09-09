@@ -4077,10 +4077,6 @@ with pkgs;
   rust-bindgen-unwrapped = callPackage ../development/tools/rust/bindgen/unwrapped.nix { };
   rust-bindgen = callPackage ../development/tools/rust/bindgen { };
   rustup = callPackage ../development/tools/rust/rustup { };
-  rustup-toolchain-install-master =
-    callPackage ../development/tools/rust/rustup-toolchain-install-master
-      {
-      };
   scala_2_12 = callPackage ../development/compilers/scala/2.x.nix { majorVersion = "2.12"; };
   scala_2_13 = callPackage ../development/compilers/scala/2.x.nix { majorVersion = "2.13"; };
   scala_3 = callPackage ../development/compilers/scala { };
@@ -4616,7 +4612,7 @@ with pkgs;
     spidermonkey_140
     ;
 
-  supercollider = libsForQt5.callPackage ../development/interpreters/supercollider {
+  supercollider = callPackage ../development/interpreters/supercollider {
     fftw = fftwSinglePrec;
   };
 
@@ -6215,8 +6211,6 @@ with pkgs;
 
   mygpoclient = with python3.pkgs; toPythonApplication mygpoclient;
 
-  nemo-qml-plugin-dbus = libsForQt5.callPackage ../development/libraries/nemo-qml-plugin-dbus { };
-
   ncurses5 = ncurses.override {
     abiVersion = "5";
   };
@@ -6233,6 +6227,7 @@ with pkgs;
       };
 
   nettle = import ../development/libraries/nettle { inherit callPackage fetchurl; };
+  nettle_4 = import ../development/libraries/nettle/4.nix { inherit callPackage fetchurl; };
 
   libnghttp2 = nghttp2.lib;
 
@@ -6653,8 +6648,6 @@ with pkgs;
   sqlite-interactive = (sqlite.override { interactive = true; }).bin;
 
   stlink-gui = callPackage ../by-name/st/stlink/package.nix { withGUI = true; };
-
-  streamlink-twitch-gui-bin = callPackage ../applications/video/streamlink-twitch-gui/bin.nix { };
 
   szurubooru = callPackage ../servers/web-apps/szurubooru { };
 
