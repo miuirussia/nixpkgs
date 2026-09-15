@@ -563,7 +563,7 @@ with pkgs;
       buildPackages.fetchurl # No need to do special overrides twice,
     else
       makeOverridable (import ../build-support/fetchurl) {
-        inherit lib stdenvNoCC buildPackages;
+        inherit lib stdenvNoCC;
         inherit cacert;
         inherit (config) hashedMirrors rewriteURL;
         curl = buildPackages.curlMinimal.override (old: rec {
@@ -1884,6 +1884,7 @@ with pkgs;
     cudaPackages_13_1
     cudaPackages_13_2
     cudaPackages_13_3
+    cudaPackages_13_4
     ;
 
   cudaPackages_12 = cudaPackages_12_9;
@@ -2733,6 +2734,7 @@ with pkgs;
     pnpm_10_34_0
     pnpm_10
     pnpm_11
+    pnpm_12
     ;
   pnpm = pnpm_11;
 
@@ -2955,8 +2957,6 @@ with pkgs;
   woodpecker-server =
     callPackage ../development/tools/continuous-integration/woodpecker/server.nix
       { };
-
-  testdisk = libsForQt5.callPackage ../tools/system/testdisk { };
 
   testdisk-qt = testdisk.override { enableQt = true; };
 
@@ -4008,15 +4008,15 @@ with pkgs;
   wrapRustcWith = { rustc-unwrapped, ... }@args: callPackage ../build-support/rust/rustc-wrapper args;
   wrapRustc = rustc-unwrapped: wrapRustcWith { inherit rustc-unwrapped; };
 
-  rust_1_97 = callPackage ../development/compilers/rust/1_97.nix { };
-  rust = rust_1_97;
+  rust_1_98 = callPackage ../development/compilers/rust/1_98.nix { };
+  rust = rust_1_98;
 
   mrustc = callPackage ../development/compilers/mrustc { };
   mrustc-minicargo = callPackage ../development/compilers/mrustc/minicargo.nix { };
   mrustc-bootstrap = callPackage ../development/compilers/mrustc/bootstrap.nix { };
 
-  rustPackages_1_97 = rust_1_97.packages.stable;
-  rustPackages = rustPackages_1_97;
+  rustPackages_1_98 = rust_1_98.packages.stable;
+  rustPackages = rustPackages_1_98;
 
   inherit (rustPackages)
     cargo
@@ -4749,6 +4749,7 @@ with pkgs;
     electron_41-bin
     electron_42-bin
     electron_43-bin
+    electron_44-bin
     ;
 
   inherit (callPackages ../development/tools/electron/chromedriver { })
@@ -4757,6 +4758,7 @@ with pkgs;
     electron-chromedriver_41
     electron-chromedriver_42
     electron-chromedriver_43
+    electron-chromedriver_44
     ;
 
   inherit
@@ -4778,10 +4780,7 @@ with pkgs;
       {
         electron_39 = electron_39-bin;
         electron_40 = electron_40-bin;
-        electron_41 = getElectronPkg {
-          src = electron-source.electron_41;
-          bin = electron_41-bin;
-        };
+        electron_41 = electron_41-bin;
         electron_42 = getElectronPkg {
           src = electron-source.electron_42;
           bin = electron_42-bin;
@@ -4790,6 +4789,10 @@ with pkgs;
           src = electron-source.electron_43;
           bin = electron_43-bin;
         };
+        electron_44 = getElectronPkg {
+          src = electron-source.electron_44;
+          bin = electron_44-bin;
+        };
       }
     )
     electron_39
@@ -4797,6 +4800,7 @@ with pkgs;
     electron_41
     electron_42
     electron_43
+    electron_44
     ;
   electron = electron_43;
   electron-bin = electron_43-bin;
@@ -5421,7 +5425,7 @@ with pkgs;
     boost191
     ;
 
-  boost = boost189;
+  boost = boost191;
 
   botanEsdm = botan3.override { withEsdm = true; };
 
@@ -5764,11 +5768,7 @@ with pkgs;
   # Not moved to aliases while we decide if we should split the package again.
   atk = at-spi2-core;
 
-  pangomm = callPackage ../development/libraries/pangomm { };
-
-  pangomm_2_48 = callPackage ../development/libraries/pangomm/2.48.nix { };
-
-  pangomm_2_42 = callPackage ../development/libraries/pangomm/2.42.nix { };
+  pangomm_1_4 = callPackage ../by-name/pa/pangomm_2_48/1.4.nix { };
 
   gtk2-x11 = gtk2.override {
     cairo = cairo.override { x11Support = true; };
@@ -5794,8 +5794,6 @@ with pkgs;
   };
 
   gtk-mac-integration-gtk3 = gtk-mac-integration;
-
-  gtksourceview = gtksourceview3;
 
   gtksourceview3 = callPackage ../development/libraries/gtksourceview/3.x.nix { };
 
@@ -5990,10 +5988,15 @@ with pkgs;
       inherit (libc) pname version;
       libcDev = lib.getDev libc;
     in
-    runCommand "${pname}-iconv-${version}" { strictDeps = true; } ''
-      mkdir -p $out/include
-      ln -sv ${libcDev}/include/iconv.h $out/include
-    '';
+    runCommand "${pname}-iconv-${version}"
+      {
+        strictDeps = true;
+        __structuredAttrs = true;
+      }
+      ''
+        mkdir -p $out/include
+        ln -sv ${libcDev}/include/iconv.h $out/include
+      '';
 
   libiconvReal = callPackage ../development/libraries/libiconv { };
 
@@ -6391,7 +6394,7 @@ with pkgs;
 
   # this version should align with the static protobuf version linked into python3.pkgs.tensorflow
   # $ nix-shell -I nixpkgs=$(git rev-parse --show-toplevel) -p python3.pkgs.tensorflow --run "python3 -c 'import google.protobuf; print(google.protobuf.__version__)'"
-  protobuf = protobuf_35;
+  protobuf = protobuf_36;
 
   inherit
     ({
@@ -6935,14 +6938,6 @@ with pkgs;
     ];
   };
 
-  sbcl_2_6_6 = wrapLisp {
-    pkg = callPackage ../development/compilers/sbcl { version = "2.6.6"; };
-    faslExt = "fasl";
-    flags = [
-      "--dynamic-space-size"
-      "3000"
-    ];
-  };
   sbcl_2_6_7 = wrapLisp {
     pkg = callPackage ../development/compilers/sbcl { version = "2.6.7"; };
     faslExt = "fasl";
@@ -6951,7 +6946,15 @@ with pkgs;
       "3000"
     ];
   };
-  sbcl = sbcl_2_6_7;
+  sbcl_2_6_8 = wrapLisp {
+    pkg = callPackage ../development/compilers/sbcl { version = "2.6.8"; };
+    faslExt = "fasl";
+    flags = [
+      "--dynamic-space-size"
+      "3000"
+    ];
+  };
+  sbcl = sbcl_2_6_8;
 
   sbclPackages = recurseIntoAttrs sbcl.pkgs;
 
@@ -7671,6 +7674,10 @@ with pkgs;
     ipuVersion = "ipu6epmtl";
   };
 
+  ipu75xa-camera-hal = ipu7x-camera-hal.override {
+    ipuVersion = "ipu75xa";
+  };
+
   iputils = hiPrio (callPackage ../os-specific/linux/iputils { });
   # hiPrio for collisions with inetutils (ping)
 
@@ -8369,11 +8376,6 @@ with pkgs;
   docker = docker_29;
   docker-client = docker.override { clientOnly = true; };
 
-  docker-gc = callPackage ../applications/virtualization/docker/gc.nix { };
-  docker-buildx = callPackage ../applications/virtualization/docker/buildx.nix { };
-  docker-compose = callPackage ../applications/virtualization/docker/compose.nix { };
-  docker-sbom = callPackage ../applications/virtualization/docker/sbom.nix { };
-
   drawpile-server-headless = drawpile.override {
     buildClient = false;
     buildServerGui = false;
@@ -9052,7 +9054,7 @@ with pkgs;
   };
 
   quodlibet-full = quodlibet.override {
-    inherit gtksourceview;
+    inherit gtksourceview3;
     kakasi = kakasi;
     keybinder3 = keybinder3;
     libappindicator = libappindicator;
@@ -10279,12 +10281,6 @@ with pkgs;
     trilinos = trilinos-mpi;
   };
 
-  ### SCIENCE / MATH
-
-  gap-minimal = lowPrio (gap.override { packageSet = "minimal"; });
-
-  gap-full = lowPrio (gap.override { packageSet = "full"; });
-
   ### SCIENCE / MISC
 
   boinc-headless = boinc.override { headless = true; };
@@ -10647,9 +10643,9 @@ with pkgs;
 
   inherit (callPackage ../servers/web-apps/wordpress { })
     wordpress
-    wordpress_6_8
     wordpress_6_9
     wordpress_7_0
+    wordpress_7_1
     ;
 
   wordpressPackages = recurseIntoAttrs (

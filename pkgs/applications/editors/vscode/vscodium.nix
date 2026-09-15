@@ -25,9 +25,9 @@ let
 
   hash =
     {
-      x86_64-linux = "sha256-rfNUjfBV0Y5HbN7oh0iLp0hrh5rZmjGlRsa1xf8pbCQ=";
-      aarch64-linux = "sha256-c9h9RtTcII/hLASX3GB6qwpuK/My9UoLaCajoaoyvDQ=";
-      aarch64-darwin = "sha256-8h7lJinrXjnAVdrqcBGLemBVxjmuzz2tBeGZeprYOsA=";
+      x86_64-linux = "sha256-wJ2KyN1/UrCe4VnuJLRAVB39j5N6D2+IzEKMeOSO4fI=";
+      aarch64-linux = "sha256-l2XOpPcH/33IOkC+QIpzGKWau2mWs1ljFjnZqrL0ipA=";
+      aarch64-darwin = "sha256-Yf+evDrFVjxjoKnhtHmCJkfn8sMwOwYp8V/v6eKR98w=";
       loongarch64-linux = "sha256-p8hwOg5BbVvJGeQoBrgtd4gHsYmwEhsF/I+bk8gzIo4=";
     }
     .${system} or throwSystem;
@@ -39,8 +39,8 @@ buildVscode rec {
 
   # Please backport all compatible updates to the stable release.
   # This is important for the extension ecosystem.
-  version = "1.126.04524";
-  vscodeVersion = "1.126.0";
+  version = "1.135.06055";
+  vscodeVersion = "1.135.0";
   pname = "vscodium";
 
   executableName = "codium";

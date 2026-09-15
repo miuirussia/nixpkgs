@@ -16,13 +16,29 @@ if [[ "$latestVersion" == "$currentVersion" ]]; then
     exit 0
 fi
 
+# Function to check if a release exists
+check_release_exists() {
+    local url=$1
+    local http_code=$(curl -sL -o /dev/null -w "%{http_code}" "$url")
+    [[ "$http_code" == "200" ]]
+}
+
+
 for i in \
     "x86_64-linux linux-x64 tar.gz" \
     "aarch64-linux linux-arm64 tar.gz" \
     "loongarch64-linux linux-loong64 tar.gz" \
     "aarch64-darwin darwin-arm64 zip"; do
     set -- $i
-    hash=$(nix --extra-experimental-features nix-command hash convert --hash-algo sha256 --to sri $(nix-prefetch-url "https://github.com/VSCodium/vscodium/releases/download/$latestVersion/VSCodium-$2-$latestVersion.$3"))
+
+    release_url="https://github.com/VSCodium/vscodium/releases/download/$latestVersion/VSCodium-$2-$latestVersion.$3"
+
+    if ! check_release_exists "$release_url"; then
+        echo "Warning: Release not available for $1 ($2), skipping..."
+        continue
+    fi
+
+    hash=$(nix --extra-experimental-features nix-command hash convert --hash-algo sha256 --to sri $(nix-prefetch-url "$release_url"))
     update-source-version vscodium $latestVersion $hash --system=$1 --ignore-same-version
 done
 
