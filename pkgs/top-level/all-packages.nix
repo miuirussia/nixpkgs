@@ -1891,9 +1891,6 @@ with pkgs;
 
   cudaPackages = recurseIntoAttrs cudaPackages_12;
 
-  # TODO: move to alias
-  cudatoolkit = cudaPackages.cudatoolkit;
-
   dconf2nix = callPackage ../development/tools/haskell/dconf2nix { };
 
   inherit (callPackages ../applications/networking/p2p/deluge { })
@@ -8134,6 +8131,28 @@ with pkgs;
       This package provides the Noto Fonts, but only for latin, greek
       and cyrillic scripts, as well as some extra fonts.
     '';
+  };
+
+  notonoto-35 = notonoto.override {
+    width35 = true;
+  };
+
+  notonoto-console = notonoto.override {
+    console = true;
+  };
+
+  notonoto-hs = notonoto.override {
+    hideZenkakuSpace = true;
+  };
+
+  notonoto-hs-35 = notonoto.override {
+    width35 = true;
+    hideZenkakuSpace = true;
+  };
+
+  notonoto-hs-console = notonoto.override {
+    console = true;
+    hideZenkakuSpace = true;
   };
 
   openmoji-color = callPackage ../data/fonts/openmoji { fontFormats = [ "glyf_colr_0" ]; };
