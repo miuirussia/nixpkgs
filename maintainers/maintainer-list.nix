@@ -15999,6 +15999,12 @@
     githubId = 55911173;
     name = "Gwendolyn Quasebarth";
   };
+  lajdre = {
+    name = "Lajdre";
+    email = "lajdre.dev@tuta.com";
+    github = "lajdre";
+    githubId = 110416923;
+  };
   lajp = {
     email = "lajp@iki.fi";
     github = "lajp";
@@ -26942,6 +26948,12 @@
     matrix = "@sinan:sinanmohd.com";
     github = "sinanmohd";
     githubId = 69694713;
+  };
+  sinavir = {
+    name = "Sinavir";
+    email = "sinavir@sinavir.fr";
+    github = "sinavir";
+    githubId = 36380103;
   };
   sinics = {
     name = "Zhifan";
