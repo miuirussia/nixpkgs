@@ -9212,6 +9212,10 @@ self: super: with self; {
 
   khanaa = callPackage ../development/python-modules/khanaa { };
 
+  kiauto = callPackage ../development/python-modules/kiauto {
+    kicadPkg = pkgs.kicad;
+  };
+
   kicad = toPythonModule (pkgs.kicad.override { python3 = python; }).src;
 
   kicad-python = callPackage ../development/python-modules/kicad-python { };
@@ -10536,6 +10540,8 @@ self: super: with self; {
   marklas = callPackage ../development/python-modules/marklas { };
 
   marko = callPackage ../development/python-modules/marko { };
+
+  markovify = callPackage ../development/python-modules/markovify { };
 
   markuppy = callPackage ../development/python-modules/markuppy { };
 
@@ -15768,8 +15774,6 @@ self: super: with self; {
 
   pyosoenergyapi = callPackage ../development/python-modules/pyosoenergyapi { };
 
-  pyosohotwaterapi = callPackage ../development/python-modules/pyosohotwaterapi { };
-
   pyotb = callPackage ../development/python-modules/pyotb { };
 
   pyotgw = callPackage ../development/python-modules/pyotgw { };
@@ -20039,7 +20043,7 @@ self: super: with self; {
 
   steampy = callPackage ../development/python-modules/steampy { };
 
-  steamworkspy = callPackage ../development/python-modules/steamworkspy { };
+  steamworks = callPackage ../development/python-modules/steamworks { };
 
   stem = callPackage ../development/python-modules/stem { };
 
@@ -23114,6 +23118,8 @@ self: super: with self; {
   zenlog = callPackage ../development/python-modules/zenlog { };
 
   zenoh = callPackage ../development/python-modules/zenoh { };
+
+  zensical = callPackage ../development/python-modules/zensical { };
 
   zephyr-python-api = callPackage ../development/python-modules/zephyr-python-api { };
 
