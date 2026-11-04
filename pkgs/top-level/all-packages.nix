@@ -6431,10 +6431,6 @@ with pkgs;
     tk-9_1
     ;
 
-  tpm2-tss = callPackage ../development/libraries/tpm2-tss {
-    autoreconfHook = buildPackages.autoreconfHook269;
-  };
-
   unixodbcDrivers = recurseIntoAttrs (callPackages ../development/libraries/unixODBCDrivers { });
 
   valeStyles = recurseIntoAttrs (callPackages ../by-name/va/vale/styles.nix { });
@@ -7364,10 +7360,6 @@ with pkgs;
   # not `callPackages` so the per-package callPackages don't have their
   # `.override` clobbered. C.F. `llvmPackages` which does the same.
   darwin = callPackage ./darwin-packages.nix { };
-
-  displaylink = callPackage ../os-specific/linux/displaylink {
-    inherit (linuxPackages) evdi;
-  };
 
   dmraid = callPackage ../os-specific/linux/dmraid { lvm2 = lvm2_dmeventd; };
 
