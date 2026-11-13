@@ -22,7 +22,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rufin";
-  version = "0.16.6";
+  version = "0.17.1";
 
   __structuredAttrs = true;
 
@@ -30,12 +30,12 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "screwys";
     repo = "Rufin";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Anm5iV/cd9Qw/xolZUQD3RpOfjaU9GOPwJY4zmoJ+bA=";
+    hash = "sha256-ew0KiMZDLQJ+A7+dZFuAT6kS4tSSs2TPVkR8hKk++xs=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-s+wUcvssyjL1nHTqAmqTgYe2ECxAqJyhZeD4PQg0Lu0=";
+    hash = "sha256-LmJd70im2kZyAi8SUicqx2PfSHaZJyXYPrH7kXrLOos=";
   };
 
   strictDeps = true;
@@ -94,7 +94,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/screwys/Rufin";
     changelog = "https://github.com/screwys/Rufin/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ screwys ];
+    maintainers = with lib.maintainers; [
+      screwys
+      Superredstone
+    ];
     mainProgram = "rufin";
     platforms = lib.platforms.linux;
   };
