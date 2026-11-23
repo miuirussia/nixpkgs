@@ -22,23 +22,18 @@ fi
 echo "target   version: $latestVersion"
 echo "current version: $currentVersion"
 
-minVersion=$(printf '%s\n' "$currentVersion" "$latestVersion" | sort -V | head -n1)
-if [[ "$minVersion" == "$latestVersion" ]] && [[ "$latestVersion" != "$currentVersion" ]]; then
-  echo "Error: target version '$latestVersion' is less than current version '$currentVersion'"
-  exit 1
-fi
-
-if [[ "$latestVersion" == "$currentVersion" ]]; then
+# The download service treats a missing patch version as zero.
+if [[ "$latestVersion" == "$currentVersion" ||
+  "$latestVersion" == "$currentVersion.0" ||
+  "$currentVersion" == "$latestVersion.0" ]]; then
   echo "package is up-to-date"
   exit 0
 fi
 
-rev=$(curl --fail --silent https://api.github.com/repos/Microsoft/vscode/git/ref/tags/$latestVersion | jq --raw-output .object.sha)
-vscodeServerUrl="https://update.code.visualstudio.com/commit:$rev/server-linux-x64/stable"
-if vscodeServerHash=$(nix-prefetch-url "$vscodeServerUrl"); then
-  vscodeServerHash=$(nix --extra-experimental-features nix-command hash convert --to sri --hash-algo sha256 "$vscodeServerHash")
-else
-  echo "Warning: VS Code Server for version '$latestVersion' (commit $rev) is not available yet; keeping the current server" >&2
+minVersion=$(printf '%s\n' "$currentVersion" "$latestVersion" | sort -V | head -n1)
+if [[ "$minVersion" == "$latestVersion" ]]; then
+  echo "Error: target version '$latestVersion' is less than current version '$currentVersion'"
+  exit 1
 fi
 
 update-source-version vscode $latestVersion
@@ -49,9 +44,15 @@ for system in $systems; do
   update-source-version vscode $latestVersion $hash --system=$system --ignore-same-version --ignore-same-hash
 done
 
-if [[ -n "${vscodeServerHash:-}" ]]; then
-  update-source-version vscode $rev $vscodeServerHash --version-key=rev --source-key=vscodeServer.src --ignore-same-version --ignore-same-hash
-fi
+# GitHub release tags can differ from the commit embedded in the published binaries.
+# Use the same normalized release version as the desktop download.
+downloadVersion=$(nix eval --raw -f . vscode.version --apply '(import ./lib).versions.pad 3')
+rev=$(curl --fail --silent --show-error \
+  "https://update.code.visualstudio.com/api/versions/$downloadVersion/linux-x64/stable" \
+  | jq --exit-status --raw-output --arg version "$downloadVersion" \
+    'select(.productVersion == $version) | .version | select(type == "string" and test("^[0-9a-f]{40}$"))')
+vscodeServerHash=$(nix --extra-experimental-features nix-command hash convert --to sri --hash-algo sha256 $(nix-prefetch-url https://update.code.visualstudio.com/commit:$rev/server-linux-x64/stable))
+update-source-version vscode $rev $vscodeServerHash --version-key=rev --source-key=vscodeServer.src --ignore-same-version --ignore-same-hash
 
 echo ""
 echo "Update complete! To test the changes:"
