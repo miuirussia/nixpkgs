@@ -348,6 +348,8 @@ self: super: with self; {
 
   aiohortos = callPackage ../development/python-modules/aiohortos { };
 
+  aiohpprinter = callPackage ../development/python-modules/aiohpprinter { };
+
   aiohttp = callPackage ../development/python-modules/aiohttp { };
 
   aiohttp-apispec = callPackage ../development/python-modules/aiohttp-apispec { };
@@ -2604,6 +2606,8 @@ self: super: with self; {
   bluetooth-sensor-state-data =
     callPackage ../development/python-modules/bluetooth-sensor-state-data
       { };
+
+  bluetti-modbus = callPackage ../development/python-modules/bluetti-modbus { };
 
   bluezero = callPackage ../development/python-modules/bluezero { };
 
@@ -17495,6 +17499,8 @@ self: super: with self; {
 
   python-sat = callPackage ../development/python-modules/python-sat { };
 
+  python-sbom = callPackage ../development/python-modules/python-sbom { inherit (pkgs) cmake; };
+
   python-secp256k1-cardano = callPackage ../development/python-modules/python-secp256k1-cardano { };
 
   python-slugify = callPackage ../development/python-modules/python-slugify { };
@@ -21650,8 +21656,6 @@ self: super: with self; {
 
   tuya-iot-py-sdk = callPackage ../development/python-modules/tuya-iot-py-sdk { };
 
-  tuyaha = callPackage ../development/python-modules/tuyaha { };
-
   tvdb-api = callPackage ../development/python-modules/tvdb-api { };
 
   tweepy = callPackage ../development/python-modules/tweepy { };
@@ -23500,6 +23504,8 @@ self: super: with self; {
   zipfile2 = callPackage ../development/python-modules/zipfile2 { };
 
   zipp = callPackage ../development/python-modules/zipp { };
+
+  zipremove = callPackage ../development/python-modules/zipremove { };
 
   zipstream-ng = callPackage ../development/python-modules/zipstream-ng { };
 
